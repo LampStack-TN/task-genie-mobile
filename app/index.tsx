@@ -11,6 +11,10 @@ const App = () => {
         {" "}
         go to profile{" "}
       </Link>
+      <Link style={styles.link} href="/Step1">
+        {" "}
+        Step 1{" "}
+      </Link>
     </View>
   );
 };

@@ -13,6 +13,10 @@ const App = () => {
       <Link style={styles.link} href="/components/auth/register">
         register
       </Link>
+      <Link style={styles.link} href="/Step1">
+        {" "}
+        Step 1{" "}
+      </Link>
     </View>
   );
 };

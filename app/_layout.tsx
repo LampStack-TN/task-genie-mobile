@@ -14,15 +14,7 @@ const routes = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="components/tasks/steps/Step1"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="components/tasks/steps/Step2"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="components/tasks/steps/Step3"
+        name="components/tasks/steps/index"
         options={{ headerShown: false }}
       />
     </Stack>

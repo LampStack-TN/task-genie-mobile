@@ -1,12 +1,14 @@
-import * as React from "react";
+import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-import { useRouter } from "expo-router";
+import { Context } from "./Context";
 
 export default function Step1({ navigation }) {
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [location, setLocation] = React.useState("");
-  const router = useRouter();
+  const [context, setContext] = useState(Context);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
@@ -25,6 +27,7 @@ export default function Step1({ navigation }) {
           value={title}
           style={styles.input}
         />
+
         <TextInput
           placeholder="Description"
           onChangeText={(text) => setDescription(text)}
@@ -33,6 +36,7 @@ export default function Step1({ navigation }) {
           multiline={true}
           numberOfLines={4}
         />
+
         <TextInput
           placeholder="Location"
           onChangeText={(text) => setLocation(text)}
@@ -40,11 +44,13 @@ export default function Step1({ navigation }) {
           style={styles.input}
         />
       </View>
+
       <View style={styles.button1}>
-        <Pressable onPress={() => router.push({ pathname: "components/tasks/steps/Step2" })}>
+        <Pressable onPress={null}>
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>
+
       <View
         style={{
           position: "absolute",
@@ -56,7 +62,8 @@ export default function Step1({ navigation }) {
       >
         <Pressable
           onPress={() => {
-            router.push({ pathname: "/" });
+            setContext({ ...context, ...{ title, description, location } });
+            navigation.navigate("Step2");
           }}
         >
           <Text style={styles.textt}>Back</Text>

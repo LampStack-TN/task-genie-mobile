@@ -30,7 +30,7 @@ const Register = () => {
           passwordRules=""
           secureTextEntry={true}
           placeholder="Password"
-          value={email}
+          value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
         />

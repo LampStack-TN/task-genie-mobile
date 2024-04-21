@@ -4,10 +4,10 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 interface Props {
   label: string;
   style?: "outline" | "fill";
-  callback?: Function;
+  callback?: () => any;
 }
 
-const Button = ({ label, style }: Props) => {
+const Button = ({ label, style, callback }: Props) => {
   const styles = StyleSheet.create({
     button: {
       marginTop: 20,
@@ -41,7 +41,7 @@ const Button = ({ label, style }: Props) => {
 
   return (
     <View style={[styles.button, styles[style]]}>
-      <Pressable onPress={() => console.log("pressed", label)}>
+      <Pressable onPress={callback}>
         <Text style={styles.text}>{label}</Text>
       </Pressable>
     </View>

@@ -25,7 +25,7 @@ export default App;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#75a5a6",
+    backgroundColor: "#fff",
     display: "flex",
     flex: 1,
     gap: 4,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 50,
     fontWeight: "bold",
-    color: "#ad6997",
+    color: "#F58D61",
     flexDirection: "row",
   },
 });

@@ -6,6 +6,7 @@ const routes = () => {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="profile" options={{ headerShown: false }} />
+      <Stack.Screen name="components/auth/register" options={{ headerShown: false }} />
     </Stack>
   );
 };

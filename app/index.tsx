@@ -8,8 +8,10 @@ const App = () => {
       <Text style={styles.text}>Home</Text>
       <StatusBar style="auto" />
       <Link style={styles.link} href="/profile">
-        {" "}
-        go to profile{" "}
+        go to profile
+      </Link>
+      <Link style={styles.link} href="/components/auth/register">
+        register
       </Link>
     </View>
   );
@@ -22,12 +24,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#75a5a6",
     display: "flex",
     flex: 1,
+    gap: 4,
     alignItems: "center",
     justifyContent: "center",
   },
   link: {
     fontWeight: "bold",
-    color: "#4749b1",
+    color: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    elevation: 3,
+    backgroundColor: "#0C3178",
+    overflow: "hidden",
+    padding: 15,
   },
   text: {
     fontSize: 50,

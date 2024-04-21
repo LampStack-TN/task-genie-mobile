@@ -46,7 +46,7 @@ export default function Step1({ navigation }) {
       </View>
 
       <View style={styles.button1}>
-        <Pressable onPress={null}>
+        <Pressable  onPress={()=>navigation.navigate("Step2")}>
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>
@@ -63,7 +63,7 @@ export default function Step1({ navigation }) {
         <Pressable
           onPress={() => {
             setContext({ ...context, ...{ title, description, location } });
-            navigation.navigate("Step2");
+            navigation.navigate("Home");
           }}
         >
           <Text style={styles.textt}>Back</Text>

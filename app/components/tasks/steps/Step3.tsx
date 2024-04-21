@@ -1,11 +1,9 @@
 import * as React from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-import { DateInput } from "react-native-date-input";
-import dayjs from "dayjs";
-import { useRouter } from "expo-router";
-export default function Step3() {
-  let dateInput = null;
-  const router = useRouter();
+
+
+export default function Step3({navigation}) {
+
   const [Date, setDate] = React.useState("");
   const [Between, setBetween] = React.useState("");
   const [And, setAnd] = React.useState("");
@@ -41,7 +39,7 @@ export default function Step3() {
         />
       </View>
       <View style={styles.button2}>
-        <Pressable onPress={() => router.push({ pathname: "/" })}>
+        <Pressable onPress={()=>navigation.navigate("Home")}>
           <Text style={[styles.text, { color: "white" }]}>Finish</Text>
         </Pressable>
       </View>
@@ -54,7 +52,7 @@ export default function Step3() {
           justifyContent: "center",
         }}
       >
-        <Pressable onPress={() => router.push({ pathname: "components/tasks/steps/Step2" })}>
+        <Pressable  onPress={()=>navigation.navigate("Step2")}>
           <Text style={styles.textt}>Back</Text>
         </Pressable>
       </View>

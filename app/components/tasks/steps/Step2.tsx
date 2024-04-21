@@ -1,12 +1,12 @@
-import * as React from "react";
+import {useState} from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { MultiSelect } from 'react-native-element-dropdown';
-import { useRouter } from "expo-router";
 
-export default function Step2() {
-  const router = useRouter();
-  const [Expertise, setExpertise] = React.useState("");
-  const [Skill, setSkill] = React.useState([]);
+
+export default function Step2({navigation}) {
+ 
+  const [Expertise, setExpertise] =useState("");
+  const [Skill, setSkill] =useState([]);
 
   const data = [
     { label: 'Item 1', value: '1' },
@@ -52,13 +52,13 @@ export default function Step2() {
       </View>
       
       <View style={styles.button}>
-        <Pressable onPress={() => {router.push({ pathname: "components/tasks/steps/Step3" })}}>
+        <Pressable onPress={()=>navigation.navigate("Step3") }>
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>
       
       <View style={{ position: "absolute", bottom: 40, left: 20 }}>
-        <Pressable onPress={() => router.push({ pathname: "components/tasks/steps/Step1" })}>
+        <Pressable  onPress={()=>navigation.navigate("Step1")}>
           <Text style={styles.textt}>Back</Text>
         </Pressable>
       </View>

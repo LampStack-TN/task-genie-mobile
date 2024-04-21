@@ -1,8 +1,12 @@
 import { View, Text, StyleSheet, StatusBar, TextInput } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Button from "../UI/Button";
 
 const Register = () => {
+  const [fullName, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -10,15 +14,31 @@ const Register = () => {
         <Text style={styles.title}>Register</Text>
       </View>
       <View style={styles.section}>
-        <TextInput placeholder="Fullname" style={styles.input} />
-        <TextInput placeholder="Email" style={styles.input} />
+        <TextInput
+          placeholder="Fullname"
+          value={fullName}
+          onChangeText={(text) => setName(text)}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          style={styles.input}
+        />
         <TextInput
           passwordRules=""
           secureTextEntry={true}
           placeholder="Password"
+          value={email}
+          onChangeText={(text) => setPassword(text)}
           style={styles.input}
         />
-        <Button label="Register" style="fill" />
+        <Button
+          label="Register"
+          style="fill"
+          callback={() => console.log(email)}
+        />
       </View>
     </View>
   );

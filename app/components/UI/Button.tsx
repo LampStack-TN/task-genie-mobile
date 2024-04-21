@@ -16,7 +16,7 @@ const Button = ({ label, style }: Props) => {
       borderRadius: 50,
       elevation: 2,
       overflow: "hidden",
-      height: 50,
+      height: 60,
     },
     outline: {
       borderColor: "#0C3178",

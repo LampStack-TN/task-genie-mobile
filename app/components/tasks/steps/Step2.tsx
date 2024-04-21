@@ -52,13 +52,13 @@ export default function Step2() {
       </View>
       
       <View style={styles.button}>
-        <Pressable onPress={() => {router.push({ pathname: "/Step3" })}}>
+        <Pressable onPress={() => {router.push({ pathname: "components/tasks/steps/Step3" })}}>
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>
       
       <View style={{ position: "absolute", bottom: 40, left: 20 }}>
-        <Pressable onPress={() => router.push({ pathname: "/Step1" })}>
+        <Pressable onPress={() => router.push({ pathname: "components/tasks/steps/Step1" })}>
           <Text style={styles.textt}>Back</Text>
         </Pressable>
       </View>

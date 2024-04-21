@@ -54,7 +54,7 @@ export default function Step3() {
           justifyContent: "center",
         }}
       >
-        <Pressable onPress={() => router.push({ pathname: "/Step2" })}>
+        <Pressable onPress={() => router.push({ pathname: "components/tasks/steps/Step2" })}>
           <Text style={styles.textt}>Back</Text>
         </Pressable>
       </View>

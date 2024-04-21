@@ -7,13 +7,13 @@ const App = () => {
     <View style={styles.container}>
       <Text style={styles.text}>Home</Text>
       <StatusBar style="auto" />
-      <Link style={styles.link} href="/profile">
+      <Link style={styles.link} href="components/profile/profile">
         go to profile
       </Link>
       <Link style={styles.link} href="/components/auth/register">
         register
       </Link>
-      <Link style={styles.link} href="/Step1">
+      <Link style={styles.link} href="components/tasks/steps/Step1">
         {" "}
         Step 1{" "}
       </Link>

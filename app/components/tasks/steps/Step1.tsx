@@ -41,7 +41,7 @@ export default function Step1({ navigation }) {
         />
       </View>
       <View style={styles.button1}>
-        <Pressable onPress={() => router.push({ pathname: "/Step2" })}>
+        <Pressable onPress={() => router.push({ pathname: "components/tasks/steps/Step2" })}>
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>

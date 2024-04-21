@@ -18,7 +18,7 @@ const Register = () => {
           placeholder="Password"
           style={styles.input}
         />
-        <Button label="Register" />
+        <Button label="Register" style="fill" />
       </View>
     </View>
   );
@@ -28,15 +28,15 @@ export default Register;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#c5c5c5",
+    backgroundColor: "#fff",
     display: "flex",
     flex: 1,
-    gap: 1,
     margin: 10,
     marginTop: StatusBar.currentHeight || 0,
   },
   header: {
-    flexDirection: "row",
+    justifyContent: "center",
+    flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 10,
     paddingVertical: 25,
@@ -53,29 +53,27 @@ const styles = StyleSheet.create({
   section: {
     backgroundColor: "#fff",
     flex: 3,
-    justifyContent: "center",
     gap: 15,
     height: 50,
+    marginTop: 30,
+    paddingHorizontal: 11,
   },
   back: {
     position: "absolute",
     flex: 0,
-    top: 25,
-    left: 12,
+    top: 32,
+    left: 16,
     fontSize: 18,
   },
   title: {
-    flex: 1,
     textAlign: "center",
-    fontSize: 32,
+    fontSize: 36,
     fontWeight: "bold",
     color: "#0C3178",
-    flexDirection: "row",
   },
   input: {
     backgroundColor: "#fff",
     height: 60,
-    marginHorizontal: 11,
     paddingHorizontal: 22,
     borderRadius: 30,
     borderColor: "#e5e5e5",

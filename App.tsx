@@ -45,7 +45,7 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("BasicInfos")}
       />
       <Button
-        title="Task Details"
+        title="TaskDetails"
         onPress={() => navigation.navigate("TaskDetails")}
       />
       <Button
@@ -75,7 +75,7 @@ function App() {
           <Stack.Screen name="Step3" component={Step3} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="BasicInfos" component={BasicInfos} />
-          <Stack.Screen name="Task" component={TaskDetails} />
+          <Stack.Screen name="TaskDetails" component={TaskDetails} />
           <Stack.Screen name="TaskList" component={TaskList} />
           <Stack.Screen name="EditTask" component={EditTask} />
         </Stack.Navigator>

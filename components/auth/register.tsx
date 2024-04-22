@@ -1,46 +1,63 @@
-import { View, Text, StyleSheet, StatusBar, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  TextInput,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState } from "react";
 import Button from "../UI/Button";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const [fullName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.back}>Back</Text>
-        <Text style={styles.title}>Register</Text>
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.back}>Back</Text>
+          <Text style={styles.title}>Register</Text>
+        </View>
+        <View style={styles.section}>
+          <TextInput
+            placeholder="Fullname"
+            value={fullName}
+            onChangeText={(text) => setName(text)}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+          />
+          <TextInput
+            passwordRules=""
+            secureTextEntry={true}
+            placeholder="Password"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+          />
+          <Button
+            label="Register"
+            style="fill"
+            callback={() => console.log(email)}
+          />
+        </View>
       </View>
-      <View style={styles.section}>
-        <TextInput
-          placeholder="Fullname"
-          value={fullName}
-          onChangeText={(text) => setName(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          style={styles.input}
-        />
-        <TextInput
-          passwordRules=""
-          secureTextEntry={true}
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          style={styles.input}
-        />
-        <Button
-          label="Register"
-          style="fill"
-          callback={() => console.log(email)}
-        />
-      </View>
-    </View>
+      {loading ? (
+        <View style={styles.spinner}>
+          <ActivityIndicator size="large" color="#0C3178" />
+        </View>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
@@ -100,5 +117,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 14,
     elevation: 3,
+  },
+  spinner: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
   },
 });

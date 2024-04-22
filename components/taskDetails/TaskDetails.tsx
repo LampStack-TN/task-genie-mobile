@@ -70,7 +70,13 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Image
-          source={{uri: task.client?.avatar,}}
+          source={{
+
+            uri: task.client?.avatar,
+
+         
+
+          }}
           style={styles.avatar}
         />
         <Text style={styles.headerText}>Urgency : {task.urgency}</Text>

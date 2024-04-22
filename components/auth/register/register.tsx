@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-import Button from "../UI/Button";
+import Button from "../../UI/Button";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);

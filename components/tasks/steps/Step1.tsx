@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
     backgroundColor: "#fff",
   },
   stepContainer: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 350,
     paddingHorizontal: 22,
-    borderRadius: 20,
+    borderRadius: 30,
     borderWidth: 1,
     borderColor: "#e5e5e5",
     marginBottom: 20,

@@ -33,8 +33,7 @@ export default function Step2({navigation}) {
         <MultiSelect
           style={styles.input}
           placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
+         
           data={data}
           labelField="label"
           valueField="value"
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 350,
     paddingHorizontal: 22,
-    borderRadius: 20,
+    borderRadius: 30,
     borderWidth: 1,
     borderColor: "#e5e5e5",
     marginBottom: 20,
@@ -136,17 +135,20 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    backgroundColor: "#fff",
+    
   },
-  selectedTextStyle: {
-    fontSize: 14,
-  },
+  // selectedTextStyle: {
+  //   fontSize: 14,
+  //   borderRadius:30,
+  // },
 
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
+  // inputSearchStyle: {
+  //   height: 40,
+  //   fontSize: 16,
+  // },
 
   selectedStyle: {
-    borderRadius: 20,
+    borderRadius:30,
   },
 });

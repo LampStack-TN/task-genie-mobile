@@ -7,9 +7,10 @@ import config from "../../config";
 const TaskDetails: React.FC = () => {
   const [task, setTask] = useState<Task>({});
   console.log("task : ", task);
+  console.log("task.client : ", task.client);
   const fetchOne = async () => {
     try {
-      const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/2`);
+      const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/8`);
       setTask(data);
     } catch (err) {
       console.log(err);
@@ -44,12 +45,15 @@ const TaskDetails: React.FC = () => {
     }
   };
 
+  const avatar=  task.client?.avatar 
+console.log(typeof avatar) // typeof : String
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Image
           source={{
-            uri: "https://img.freepik.com/vecteurs-libre/homme-mafieux-mysterieux-fumant-cigarette_52683-34828.jpg?w=740&t=st=1713738573~exp=1713739173~hmac=670b28133d03856472c1ac7d4c8764191d49d86c3868879b500b366391a52ec1",
+            uri: avatar,
           }}
           style={styles.avatar}
         />

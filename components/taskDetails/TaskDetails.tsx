@@ -11,13 +11,14 @@ import { TaskProps } from "../tasks/list/TaskItem";
 const TaskDetails: React.FC = ({route,navigation}:any) => {
   console.log()
   const [task, setTask] = useState<Task>({});
+
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const taskId = route.params.taskId;
   console.log("task : ", taskId);
   const fetchOne = async () => {
     try {
       const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/${taskId}`);
-    setTask(data);
+      setTask(data);
     } catch (err) {
       console.log(err);
     }
@@ -73,7 +74,7 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
 
             uri: task.client?.avatar,
 
-      
+         
 
           }}
           style={styles.avatar}

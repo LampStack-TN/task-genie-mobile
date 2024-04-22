@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import axios from "axios";
 import Task from "./TaskInterface";
+import config from "../../config";
 
-const Details: React.FC = () => {
+const TaskDetails: React.FC = () => {
   const [task, setTask] = useState<Task>({});
   console.log("task : ", task);
   const fetchOne = async () => {
     try {
-      const { data } = await axios.get<Task>(
-        "http://localhost:3000/api/task/getOne/2"
-      );
+      const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/2`);
       setTask(data);
     } catch (err) {
       console.log(err);
@@ -24,7 +23,7 @@ const Details: React.FC = () => {
   const handleDelete = async () => {
     try {
       if (task.id) {
-        await axios.delete(`http://localhost:3000/api/task/delete/${task.id}`);
+        await axios.delete(`${config.apiUrl}/task/delete/${task.id}`);
       }
     } catch (err) {
       console.log("handleDelete failed:", err);
@@ -184,4 +183,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Details;
+export default TaskDetails;

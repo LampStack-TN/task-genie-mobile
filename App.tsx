@@ -7,6 +7,7 @@ import Step1 from './components/tasks/steps/Step1';
 import Step2 from './components/tasks/steps/Step2';
 import Step3 from './components/tasks/steps/Step3';
 import Register from './components/auth/register';
+import TaskDetails from './components/taskDetails/TaskDetails';
 
 function HomeScreen({navigation}) {
   return (
@@ -19,6 +20,10 @@ function HomeScreen({navigation}) {
        <Button
         title="Go to Register"
         onPress={() => navigation.navigate('Register')}
+      />
+       <Button
+        title="Task Details"
+        onPress={() => navigation.navigate('Task')}
       />
     </View>
   );
@@ -35,6 +40,7 @@ function App() {
         <Stack.Screen name="Step2" component={Step2} />
         <Stack.Screen name="Step3" component={Step3} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Task" component={TaskDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

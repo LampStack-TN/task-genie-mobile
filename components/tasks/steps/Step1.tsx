@@ -1,10 +1,15 @@
-import { useState} from "react";
+import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import { useSelector } from "react-redux";
 
-export default function Step1({ navigation }) {
+export default function Step1({ navigation }: any) {
+  const task = useSelector((state: any) => state.task);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+
+  console.log(task, 123);
 
   return (
     <View style={styles.container}>

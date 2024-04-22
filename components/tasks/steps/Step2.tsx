@@ -31,13 +31,9 @@ export default function Step2({navigation}) {
         />
         
         <MultiSelect
-          style={[styles.input,{ height: 50,
-            backgroundColor: 'transparent',
-            borderBottomColor: 'gray',
-            borderBottomWidth: 0.5,}]} 
+          style={styles.input}
           placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
+         
           data={data}
           labelField="label"
           valueField="value"
@@ -72,11 +68,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
+    backgroundColor: "#fff",
   },
   stepContainer: {
     alignSelf: "flex-start",
     marginBottom: 20,
-    paddingTop: 10,
+    paddingTop: 1,
   },
   heading: {
     paddingTop: 60,
@@ -87,20 +84,23 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "100%",
     alignItems: "center",
-    flex: 1,
+    flex: 3,
+    gap:15,
     justifyContent: "center",
-    paddingHorizontal: 10,
+    paddingHorizontal:10,
     marginBottom: 300,
   },
   input: {
-    height: 50,
+    backgroundColor: "#fff",
+    height: 60,
     width: 350,
-    margin: 12,
-    padding: 10,
-    borderRadius: 20,
+    paddingHorizontal: 22,
+    borderRadius: 30,
     borderWidth: 1,
-    borderColor: "#000",
-    paddingEnd: 50,
+    borderColor: "#e5e5e5",
+    marginBottom: 20,
+    fontSize: 14,
+    elevation: 3,
   },
   text: {
     paddingVertical: 4 * 2,
@@ -135,17 +135,20 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    backgroundColor: "#fff",
+    
   },
-  selectedTextStyle: {
-    fontSize: 14,
-  },
+  // selectedTextStyle: {
+  //   fontSize: 14,
+  //   borderRadius:30,
+  // },
 
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
+  // inputSearchStyle: {
+  //   height: 40,
+  //   fontSize: 16,
+  // },
 
   selectedStyle: {
-    borderRadius: 12,
+    borderRadius:30,
   },
 });

@@ -1,10 +1,7 @@
-import { useState } from "react";
+import { useState} from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-// import { Context } from "./Context";
 
 export default function Step1({ navigation }) {
-  // const [context, setContext] = useState(Context);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -46,7 +43,7 @@ export default function Step1({ navigation }) {
       </View>
 
       <View style={styles.button1}>
-        <Pressable  onPress={()=>navigation.navigate("Step2")}>
+        <Pressable onPress={() => navigation.navigate("Step2")}>
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>
@@ -62,7 +59,6 @@ export default function Step1({ navigation }) {
       >
         <Pressable
           onPress={() => {
-            // setContext({ ...context, ...{ title, description, location } });
             navigation.navigate("Home");
           }}
         >
@@ -78,12 +74,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
+    backgroundColor: "#fff",
   },
   stepContainer: {
     alignSelf: "flex-start",
     marginBottom: 20,
-    paddingTop: 10,
+    paddingTop: 1,
   },
   heading: {
     paddingTop: 60,
@@ -94,20 +91,23 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "100%",
     alignItems: "center",
-    flex: 1,
+    flex: 3,
+    gap: 15,
     justifyContent: "center",
-    paddingHorizontal: 10,
+    paddingHorizontal: 11,
     marginBottom: 300,
   },
   input: {
-    height: 50,
+    backgroundColor: "#fff",
+    height: 60,
     width: 350,
-    margin: 12,
-    padding: 10,
-    borderRadius: 20,
+    paddingHorizontal: 22,
+    borderRadius: 30,
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: "#e5e5e5",
     marginBottom: 20,
+    fontSize: 14,
+    elevation: 3,
   },
   largeInput: {
     height: 120,

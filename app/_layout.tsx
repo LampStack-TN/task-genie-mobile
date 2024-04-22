@@ -6,7 +6,7 @@ const routes = () => {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen
-        name="components/profile/profile"
+        name="components/tasks/steps/taskDetails/details"
         options={{ headerShown: false }}
       />
       <Stack.Screen

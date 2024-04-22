@@ -7,7 +7,7 @@ const App = () => {
     <View style={styles.container}>
       <Text style={styles.text}>Home</Text>
       <StatusBar style="auto" />
-      <Link style={styles.link} href="components/profile/profile">
+      <Link style={styles.link} href="components/tasks/steps/taskDetails/details">
         go to profile
       </Link>
       <Link style={styles.link} href="/components/auth/register">

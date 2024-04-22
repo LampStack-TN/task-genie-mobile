@@ -10,21 +10,21 @@ import Register from './components/auth/register';
 import TaskDetails from './components/taskDetails/TaskDetails';
 import TaskList from './components/tasks/list/TaskList';
 
-function HomeScreen({navigation}) {
+function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Home Screen</Text>
       <Button
         title="Go to Step1"
-        onPress={() => navigation.navigate('Step1')}
+        onPress={() => navigation.navigate("Step1")}
       />
-       <Button
+      <Button
         title="Go to Register"
-        onPress={() => navigation.navigate('Register')}
+        onPress={() => navigation.navigate("Register")}
       />
-       <Button
+      <Button
         title="Task Details"
-        onPress={() => navigation.navigate('Task')}
+        onPress={() => navigation.navigate("Task")}
       />
       <Button
       title='TaskList'
@@ -38,8 +38,13 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer >
-      <Stack.Navigator initialRouteName="Home">
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName="Home"
+      >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Step1" component={Step1} />
         <Stack.Screen name="Step2" component={Step2} />

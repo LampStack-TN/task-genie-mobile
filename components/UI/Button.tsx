@@ -3,10 +3,15 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 //define Props Interface
 interface Props {
   label: string;
-  style?: "outline" | "fill";
+  style?: "outline" | "fill" | "bare";
   callback?: () => any;
 }
 
+const colors = {
+  outline: "#0C3178",
+  fill: "#fff",
+  bare: "#2e2e2e",
+};
 const Button = ({ label, style, callback }: Props) => {
   const styles = StyleSheet.create({
     button: {
@@ -14,9 +19,10 @@ const Button = ({ label, style, callback }: Props) => {
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 50,
-      elevation: 2,
+      elevation: style == "bare" ? 0 : 1,
       overflow: "hidden",
       height: 60,
+      minWidth: 100,
     },
     outline: {
       borderColor: "#0C3178",
@@ -30,8 +36,12 @@ const Button = ({ label, style, callback }: Props) => {
       overflow: "hidden",
       color: "#fff",
     },
+    bare: {
+      borderWidth: 0,
+      color: "#2e2e2e",
+    },
     text: {
-      color: style === "fill" ? "#fff" : "#0C3178",
+      color: colors[style],
       fontSize: 20,
       lineHeight: 21,
       fontWeight: "500",

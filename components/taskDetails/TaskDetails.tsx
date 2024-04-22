@@ -11,21 +11,13 @@ import { TaskProps } from "../tasks/list/TaskItem";
 const TaskDetails: React.FC = ({route,navigation}:any) => {
   console.log()
   const [task, setTask] = useState<Task>({});
-<<<<<<< HEAD
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const taskId = route.params.taskId;
   console.log("task : ", taskId);
   const fetchOne = async () => {
     try {
       const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/${taskId}`);
-=======
-  console.log("task : ", task);
-  console.log("task.client : ", task.client);
-  const fetchOne = async () => {
-    try {
-      const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/8`);
->>>>>>> taskDetail-view
-      setTask(data);
+    setTask(data);
     } catch (err) {
       console.log(err);
     }
@@ -73,19 +65,16 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
     }
   };
 
-  const avatar=  task.client?.avatar 
-console.log(typeof avatar) // typeof : String
-
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Image
           source={{
-<<<<<<< HEAD
+
             uri: task.client?.avatar,
-=======
-            uri: avatar,
->>>>>>> taskDetail-view
+
+      
+
           }}
           style={styles.avatar}
         />

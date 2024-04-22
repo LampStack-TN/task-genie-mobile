@@ -1,10 +1,7 @@
-import { useState } from "react";
+import { useState} from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-// import { Context } from "./Context";
 
 export default function Step1({ navigation }) {
-  // const [context, setContext] = useState(Context);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -46,7 +43,7 @@ export default function Step1({ navigation }) {
       </View>
 
       <View style={styles.button1}>
-        <Pressable  onPress={()=>navigation.navigate("Step2")}>
+        <Pressable onPress={() => navigation.navigate("Step2")}>
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>
@@ -62,7 +59,6 @@ export default function Step1({ navigation }) {
       >
         <Pressable
           onPress={() => {
-            // setContext({ ...context, ...{ title, description, location } });
             navigation.navigate("Home");
           }}
         >
@@ -96,11 +92,10 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     flex: 3,
-    gap:15,
+    gap: 15,
     justifyContent: "center",
     paddingHorizontal: 11,
     marginBottom: 300,
-  
   },
   input: {
     backgroundColor: "#fff",

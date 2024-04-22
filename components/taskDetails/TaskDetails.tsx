@@ -99,17 +99,18 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   editText: {
-    color: "#0000FF",
+    color: "#0C3178",
     fontWeight: "bold",
   },
   deleteText: {
-    fontWeight: "600",
-    color: "#4F4F4F",
+    fontWeight: "bold",
+    color: "#0C3178",
+    
   },
   editButton: {
     marginLeft: 10,
     borderWidth: 1,
-    borderColor: "#0000FF",
+    borderColor: "#0C3178",
     borderRadius: 25,
     paddingHorizontal: 15,
     paddingVertical: 5,

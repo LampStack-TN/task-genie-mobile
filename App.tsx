@@ -66,6 +66,7 @@ function App() {
           <Stack.Screen name="Step2" component={Step2} />
           <Stack.Screen name="Step3" component={Step3} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="BasicInfos" component={BasicInfos} />
           <Stack.Screen name="Task" component={TaskDetails} />
           <Stack.Screen name="TaskList" component={TaskList} />
         </Stack.Navigator>

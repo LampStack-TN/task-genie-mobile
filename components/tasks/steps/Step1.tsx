@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useSelector } from "react-redux";
 
-export default function Step1({ navigation }: any) {
+export default function Step1({ navigation }) {
   const task = useSelector((state: any) => state.task);
 
   const [title, setTitle] = useState("");

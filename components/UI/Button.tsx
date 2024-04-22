@@ -8,9 +8,9 @@ interface Props {
 }
 
 const colors = {
-  outline: '#0C3178',
-  fill: '#fff',
-  bare: '#2e2e2e',
+  outline: "#0C3178",
+  fill: "#fff",
+  bare: "#2e2e2e",
 };
 const Button = ({ label, style, callback }: Props) => {
   const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const Button = ({ label, style, callback }: Props) => {
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 50,
-      elevation: 2,
+      elevation: style == "bare" ? 0 : 1,
       overflow: "hidden",
       height: 60,
       minWidth: 100,

@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addTask } from "./TaskSlice";
 
 export default function Step1({ navigation }) {
+  
+  // Select task state from Redux store
   const task = useSelector((state: any) => state.task);
+  const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
 
-  console.log(task, 123);
+  //method dispatch action to update task state
+  const UpdateTask = (field, value) => {
+    dispatch(addTask({ [field]: value }));
+  };
 
+  // console.log(task, 123);
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
@@ -25,14 +33,20 @@ export default function Step1({ navigation }) {
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Title"
-          onChangeText={(text) => setTitle(text)}
+          onChangeText={(text) => {
+            setTitle(text);
+            UpdateTask("title", text);
+          }}
           value={title}
           style={styles.input}
         />
 
         <TextInput
           placeholder="Description"
-          onChangeText={(text) => setDescription(text)}
+          onChangeText={(text) => {
+            setDescription(text);
+            UpdateTask("description", text);
+          }}
           value={description}
           style={[styles.input, styles.largeInput]}
           multiline={true}

@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-
 export type TaskProps = {
   id?: number;
   client?: string;
@@ -14,14 +13,17 @@ export type TaskProps = {
   location?: string;
   minPrice?: number;
   maxPrice?: number;
+
   description?: string;
+  handleDelete?: (taskId: number) => void;
   //   urgency?: 'Urgent' | 'Soon' | 'Low';
 };
 
-const TaskItem: React.FC<{ task: TaskProps }> = ({ task }) => {
+const TaskItem: React.FC<{task: TaskProps;handleDelete: (taskId: number) => void;}> = ({ task, handleDelete }) => {
   if (!task) {
     return null;
   }
+
   //   const urgencyColor = task.urgency === 'Urgent' ? '#FF4136' : task.urgency === 'Soon' ? '#FF851B' : '#AAAAAA';
   //   const urgencyText = task.urgency ? task.urgency : 'Low'; // Default to 'Low' if not specified
   //work in the urgency color depend the urgency of time
@@ -48,7 +50,10 @@ const TaskItem: React.FC<{ task: TaskProps }> = ({ task }) => {
         <TouchableOpacity style={styles.editButton}>
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.deleteButton}>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => task.id && handleDelete(task.id)}
+        >
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
       </View>

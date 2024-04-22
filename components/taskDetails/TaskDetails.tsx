@@ -6,10 +6,8 @@ import config from "../../config";
 
 import { TaskProps } from "../tasks/list/TaskItem";
 
-
-
-const TaskDetails: React.FC = ({route,navigation}:any) => {
-  console.log()
+const TaskDetails: React.FC = ({ route, navigation }: any) => {
+  console.log();
   const [task, setTask] = useState<Task>({});
 
   const [tasks, setTasks] = useState<TaskProps[]>([]);
@@ -17,7 +15,9 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
   console.log("task : ", taskId);
   const fetchOne = async () => {
     try {
-      const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/${taskId}`);
+      const { data } = await axios.get<Task>(
+        `${config.apiUrl}/task/getOne/${taskId}`
+      );
       setTask(data);
     } catch (err) {
       console.log(err);
@@ -29,7 +29,7 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
       const response = await fetch(`${config.apiUrl}/task/getAll`);
       const data = await response.json();
       setTasks(data);
-       console.log(data);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -37,16 +37,14 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
 
   useEffect(() => {
     fetchOne();
-    fetchTasks()
+    fetchTasks();
   }, []);
 
   const handleDelete = async () => {
     try {
-      
-        await axios.delete(`${config.apiUrl}/task/delete/${taskId}`);
-        fetchTasks()
-        navigation.navigate("TaskList")
-     
+      await axios.delete(`${config.apiUrl}/task/delete/${taskId}`);
+      fetchTasks();
+      navigation.navigate("TaskList");
     } catch (err) {
       console.log("handleDelete failed:", err);
     }
@@ -54,13 +52,11 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
 
   const handleEdit = async () => {
     try {
-      
-        const { data } = await axios.put<Task>(
-          `http://localhost:3000/api/task/update/${taskId}`,
-          task
-        );
-        setTask(data);
-      
+      const { data } = await axios.put<Task>(
+        `http://localhost:3000/api/task/update/${taskId}`,
+        task
+      );
+      setTask(data);
     } catch (err) {
       console.log(err);
     }
@@ -68,38 +64,49 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Image
-          source={{
-
-            uri: task.client?.avatar,
-
-         
-
-          }}
-          style={styles.avatar}
-        />
-        <Text style={styles.headerText}>Urgency : {task.urgency}</Text>
-      </View>
-      <View style={styles.subHeaderContainer}>
-        <Text style={styles.subHeaderText}>{task.title}</Text>
-        <Text style={styles.timeText}>{task.updatedAt}</Text>
-      </View>
-      <View style={styles.locationContainer}>
-        <Text style={styles.locationText}>{task.location}</Text>
-        <Text style={styles.priceText}>
-          {task.minPrice} - {task.maxPrice}
-        </Text>
-      </View>
-      <View style={styles.descriptionContainer}>
-        <Text style={styles.descriptionText}>{task.description}</Text>
+      <View style={{ flex: 2 }}>
+        <View style={styles.headerContainer}>
+          <Image
+            source={{
+              uri: task.client?.avatar,
+            }}
+            style={styles.avatar}
+          />
+          <Text style={styles.headerText}>Urgency : {task.urgency}</Text>
+        </View>
+        <View style={styles.subHeaderContainer}>
+          <Text style={styles.subHeaderText}>{task.title}</Text>
+          <Text style={styles.timeText}>{task.updatedAt}</Text>
+        </View>
+        <View style={styles.locationContainer}>
+          <Text style={styles.locationText}>{task.location}</Text>
+          <Text style={styles.priceText}>
+            {task.minPrice} - {task.maxPrice}
+          </Text>
+        </View>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionText}>{task.description}</Text>
+        </View>
       </View>
       <View style={styles.footerContainer}>
         <TouchableOpacity onPress={handleDelete}>
           <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editButton} onPress={()=>{}}>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => {
+            navigation.navigate("EditTask");
+          }}
+        >
           <Text style={styles.editText}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => {
+            navigation.navigate("TaskList");
+          }}
+        >
+          <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -108,9 +115,10 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: 'linear-gradient(rgba(196, 194, 61, 0.7), rgba(255, 255, 255, 0.8))',
     borderRadius: 12,
     padding: 20,
+    flex: 1,
     marginHorizontal: 10,
     marginTop: 10,
     shadowColor: "#000",
@@ -131,7 +139,6 @@ const styles = StyleSheet.create({
   deleteText: {
     fontWeight: "bold",
     color: "#0C3178",
-    
   },
   editButton: {
     marginLeft: 10,
@@ -142,6 +149,21 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  backButton: {
+    marginLeft: 10,
+    borderWidth: 1,
+    borderColor: "#0C3178",
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  backText: {
+    color: "#0C3178",
+    fontWeight: "bold",
   },
   avatar: {
     height: 50,
@@ -199,6 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end", // Aligns the buttons to the right
     alignItems: "center",
+    flex: 1,
   },
   footerButton: {
     marginLeft: 10, // This adds spacing between the buttons

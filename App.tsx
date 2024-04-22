@@ -9,7 +9,7 @@ import Step3 from './components/tasks/steps/Step3';
 import Register from './components/auth/register';
 import TaskDetails from './components/taskDetails/TaskDetails';
 import TaskList from './components/tasks/list/TaskList';
-
+import EditTask from './components/editTask/editTask'
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -52,6 +52,7 @@ function App() {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="TaskDetails" component={TaskDetails} />
         <Stack.Screen name='TaskList' component={TaskList}/>
+        <Stack.Screen name='EditTask' component={EditTask}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

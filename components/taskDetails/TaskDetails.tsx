@@ -4,27 +4,48 @@ import axios from "axios";
 import Task from "./TaskInterface";
 import config from "../../config";
 
-const TaskDetails: React.FC = () => {
+import { TaskProps } from "../tasks/list/TaskItem";
+
+
+
+const TaskDetails: React.FC = ({route,navigation}:any) => {
+  console.log()
   const [task, setTask] = useState<Task>({});
-  console.log("task : ", task);
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const taskId = route.params.taskId;
+  console.log("task : ", taskId);
   const fetchOne = async () => {
     try {
-      const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/2`);
+      const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/${taskId}`);
       setTask(data);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch(`${config.apiUrl}/task/getAll`);
+      const data = await response.json();
+      setTasks(data);
+       console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchOne();
+    fetchTasks()
   }, []);
 
   const handleDelete = async () => {
     try {
-      if (task.id) {
-        await axios.delete(`${config.apiUrl}/task/delete/${task.id}`);
-      }
+      
+        await axios.delete(`${config.apiUrl}/task/delete/${taskId}`);
+        fetchTasks()
+        navigation.navigate("TaskList")
+     
     } catch (err) {
       console.log("handleDelete failed:", err);
     }
@@ -32,13 +53,13 @@ const TaskDetails: React.FC = () => {
 
   const handleEdit = async () => {
     try {
-      if (task.id) {
+      
         const { data } = await axios.put<Task>(
-          `http://localhost:3000/api/task/update/${task.id}`,
+          `http://localhost:3000/api/task/update/${taskId}`,
           task
         );
         setTask(data);
-      }
+      
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +70,7 @@ const TaskDetails: React.FC = () => {
       <View style={styles.headerContainer}>
         <Image
           source={{
-            uri: "https://img.freepik.com/vecteurs-libre/homme-mafieux-mysterieux-fumant-cigarette_52683-34828.jpg?w=740&t=st=1713738573~exp=1713739173~hmac=670b28133d03856472c1ac7d4c8764191d49d86c3868879b500b366391a52ec1",
+            uri: task.client?.avatar,
           }}
           style={styles.avatar}
         />
@@ -72,7 +93,7 @@ const TaskDetails: React.FC = () => {
         <TouchableOpacity onPress={handleDelete}>
           <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
+        <TouchableOpacity style={styles.editButton} onPress={()=>{}}>
           <Text style={styles.editText}>Edit</Text>
         </TouchableOpacity>
       </View>

@@ -1,34 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { ScrollView, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, Text, StyleSheet , TouchableOpacity } from "react-native";
 import TaskItem from "./TaskItem";
 import { TaskProps } from "./TaskItem";
 import config from "../../../config";
-
-const TaskList: React.FC = () => {
+import { useFocusEffect } from '@react-navigation/native';
+const TaskList: React.FC = ({navigation}: any) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch(`${config.apiUrl}/task/getAll/`);
-        const data = await response.json();
-        setTasks(data);
-        // console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchTasks();
-  }, []);
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch(`${config.apiUrl}/task/getAll/`);
+      const data = await response.json();
+      setTasks(data);
+      // console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchTasks();
+    }, [])
+  );
 
   return (
-    <ScrollView style={containerStyles.container}>
-      {tasks && tasks.length > 0 ? (
-        tasks.map((task) => <TaskItem key={task.id.toString()} task={task} />)
-      ) : (
-        <Text>No tasks available.</Text>
-      )}
+    
+    <ScrollView>
+      {tasks.map((task) => (
+        <TouchableOpacity key={task.id.toString()} onPress={() => navigation.navigate('TaskDetails', { taskId: task.id })}>
+          <TaskItem task={task} />
+        </TouchableOpacity>
+      ))}
     </ScrollView>
   );
 };

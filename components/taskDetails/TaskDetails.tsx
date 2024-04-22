@@ -11,12 +11,20 @@ import { TaskProps } from "../tasks/list/TaskItem";
 const TaskDetails: React.FC = ({route,navigation}:any) => {
   console.log()
   const [task, setTask] = useState<Task>({});
+<<<<<<< HEAD
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const taskId = route.params.taskId;
   console.log("task : ", taskId);
   const fetchOne = async () => {
     try {
       const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/${taskId}`);
+=======
+  console.log("task : ", task);
+  console.log("task.client : ", task.client);
+  const fetchOne = async () => {
+    try {
+      const { data } = await axios.get<Task>(`${config.apiUrl}/task/getOne/8`);
+>>>>>>> taskDetail-view
       setTask(data);
     } catch (err) {
       console.log(err);
@@ -65,12 +73,19 @@ const TaskDetails: React.FC = ({route,navigation}:any) => {
     }
   };
 
+  const avatar=  task.client?.avatar 
+console.log(typeof avatar) // typeof : String
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Image
           source={{
+<<<<<<< HEAD
             uri: task.client?.avatar,
+=======
+            uri: avatar,
+>>>>>>> taskDetail-view
           }}
           style={styles.avatar}
         />
@@ -120,17 +135,18 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   editText: {
-    color: "#0000FF",
+    color: "#0C3178",
     fontWeight: "bold",
   },
   deleteText: {
-    fontWeight: "600",
-    color: "#4F4F4F",
+    fontWeight: "bold",
+    color: "#0C3178",
+    
   },
   editButton: {
     marginLeft: 10,
     borderWidth: 1,
-    borderColor: "#0000FF",
+    borderColor: "#0C3178",
     borderRadius: 25,
     paddingHorizontal: 15,
     paddingVertical: 5,

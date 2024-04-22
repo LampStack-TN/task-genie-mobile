@@ -1,4 +1,5 @@
 // In App.js in a new project
+
 import * as React from "react";
 import { View, Text, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,6 +14,12 @@ import BasicInfos from "./components/auth/register/BasicInfos";
 
 import store from "./store";
 import { Provider } from "react-redux";
+import EditTask from './components/editTask/editTask'
+
+
+
+
+
 
 function HomeScreen({ navigation }) {
   return (
@@ -53,6 +60,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
+
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
@@ -69,9 +77,13 @@ function App() {
           <Stack.Screen name="BasicInfos" component={BasicInfos} />
           <Stack.Screen name="Task" component={TaskDetails} />
           <Stack.Screen name="TaskList" component={TaskList} />
+          <Stack.Screen name="EditTask" component={EditTask} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
+
+ 
+
   );
 }
 

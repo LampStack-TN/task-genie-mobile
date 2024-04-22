@@ -8,14 +8,12 @@ const TaskList: React.FC = () => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
 
   useEffect(() => {
-    console.log(123);
-    
     const fetchTasks = async () => {
       try {
         const response = await fetch(`${config.apiUrl}/task/getAll/`);
         const data = await response.json();
         setTasks(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error(error);
       }

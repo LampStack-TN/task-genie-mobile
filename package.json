@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/react": "~18.2.45",
+    "axios": "^1.6.8",
     "expo": "~50.0.14",
     "expo-constants": "~15.4.6",
     "expo-linking": "~6.2.2",

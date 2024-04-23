@@ -5,7 +5,6 @@ import {
   StatusBar,
   TextInput,
   ActivityIndicator,
-  Button as Btn,
   Pressable,
 } from "react-native";
 
@@ -15,7 +14,6 @@ import Button from "../../UI/Button";
 
 const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [fullName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,12 +27,6 @@ const Register = ({ navigation }) => {
           <Text style={styles.title}>Register</Text>
         </View>
         <View style={styles.section}>
-          <TextInput
-            placeholder="Fullname"
-            value={fullName}
-            onChangeText={(text) => setName(text)}
-            style={styles.input}
-          />
           <TextInput
             placeholder="Email"
             value={email}

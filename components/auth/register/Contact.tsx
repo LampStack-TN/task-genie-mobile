@@ -23,6 +23,12 @@ const Contact = ({ navigation }) => {
         <Text style={styles.subTitle}>Contact & Location</Text>
       </View>
       <View style={styles.section}>
+        <TextInput
+          placeholder="+216 98 558"
+          value={phone}
+          onChangeText={(text: any) => setPhone(text)}
+          style={styles.input}
+        />
         <SearchableDropdown
           onItemSelect={(item) => {
             console.log(item);
@@ -43,12 +49,6 @@ const Contact = ({ navigation }) => {
           listProps={{
             nestedScrollEnabled: true,
           }}
-        />
-        <TextInput
-          placeholder="City"
-          value={city}
-          // onChangeText={(text) => setCity(text)}
-          style={styles.input}
         />
       </View>
       <View style={styles.footer}>

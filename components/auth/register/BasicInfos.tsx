@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import Button from "../../UI/Button";
 
@@ -16,23 +17,32 @@ const BasicInfos = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.header}>
-          <Text style={styles.title}>Register</Text>
+          <Text style={styles.title}>Registesr</Text>
           <Text style={styles.subTitle}>Basic Informations</Text>
         </View>
         <View style={styles.section}>
           <View style={styles.dummyImg}></View>
-          <TextInput
-            placeholder="Fullname"
-            value={fullName}
-            onChangeText={(text) => setName(text)}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Birthdate"
-            value={birthdate}
-            onChangeText={(text) => setBirthdate(text)}
-            style={styles.input}
-          />
+
+          <View style={styles.inputView}>
+            <TextInput
+              placeholder="Fullname"
+              value={fullName}
+              onChangeText={(text) => setName(text)}
+              // style={styles.input}
+            />
+          </View>
+
+          <View style={styles.inputView}>
+            <TextInput
+              placeholder="Birthdate"
+              value={birthdate}
+              onChangeText={(text) => setBirthdate(text)}
+              // style={styles.input}
+            />
+            <View style={styles.inputIcon}>
+              <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
+            </View>
+          </View>
         </View>
         <View style={styles.footer}>
           <Button
@@ -101,7 +111,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#6e6e6e",
   },
-  input: {
+  inputView: {
     backgroundColor: "#fff",
     height: 60,
     paddingHorizontal: 22,
@@ -109,7 +119,15 @@ const styles = StyleSheet.create({
     borderColor: "#e5e5e5",
     borderWidth: 1,
     fontSize: 14,
+    justifyContent: "center",
     elevation: 3,
+  },
+  input: {
+    fontSize: 14,
+  },
+  inputIcon: {
+    position: "absolute",
+    right: 28,
   },
   spinner: {
     width: "100%",

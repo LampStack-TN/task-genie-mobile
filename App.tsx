@@ -3,20 +3,14 @@ import { View, Text, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Register from "./components/auth/register/Register";
+import RegisterIndex from "./components/auth/register/Index";
 import TaskDetails from "./components/taskDetails/TaskDetails";
 import TaskList from "./components/tasks/list/TaskList";
-import BasicInfos from "./components/auth/register/BasicInfos";
 
 import store from "./store";
 import { Provider } from "react-redux";
-import EditTask from './components/editTask/editTask'
-import Index from "./components/tasks/steps";
-
-
-
-
-
+import EditTask from "./components/editTask/editTask";
+import TaskStepsIndex from "./components/tasks/steps";
 
 function HomeScreen({ navigation }) {
   // const task = useSelector((state: any) => state.task);
@@ -41,10 +35,6 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("Register")}
       />
       <Button
-        title="BasicInfos"
-        onPress={() => navigation.navigate("BasicInfos")}
-      />
-      <Button
         title="TaskDetails"
         onPress={() => navigation.navigate("TaskDetails")}
       />
@@ -60,7 +50,6 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
@@ -70,18 +59,14 @@ function App() {
           initialRouteName="Home"
         >
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Step1" component={Index} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="BasicInfos" component={BasicInfos} />
+          <Stack.Screen name="Step1" component={TaskStepsIndex} />
+          <Stack.Screen name="Register" component={RegisterIndex} />
           <Stack.Screen name="TaskDetails" component={TaskDetails} />
           <Stack.Screen name="TaskList" component={TaskList} />
           <Stack.Screen name="EditTask" component={EditTask} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
-
- 
-
   );
 }
 

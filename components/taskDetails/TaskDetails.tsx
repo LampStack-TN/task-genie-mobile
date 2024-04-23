@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from "react-native";
 import axios from "axios";
 import Task from "./TaskInterface";
 import config from "../../config";
@@ -62,13 +62,31 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     }
   };
 
+  const formatDate = (dateString: string): string => {
+    const options: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      hour12: true // if you want 12 hour time format with AM/PM
+    };
+    return new Intl.DateTimeFormat('en-US', options).format(new Date(dateString));
+  };
+
   return (
+    <ImageBackground
+    source={{uri:'https://static.vecteezy.com/system/resources/previews/013/107/410/large_2x/color-gradation-background-horizontal-layout-soft-pastel-effect-backdrop-design-dramatic-saturation-trendy-futuristic-style-color-blending-pink-white-yellow-gradient-mesh-abstract-art-vector.jpg'}}
+    style={styles.container}
+    >
+    
     <View style={styles.container}>
-      <View style={{ flex: 2 }}>
+      <View style ={styles.overlay}>
         <View style={styles.headerContainer}>
           <Image
             source={{
-              uri: task.client?.avatar,
+              // uri: "task.client?.avatar",
+              uri: 'https://www.pngarts.com/files/5/Cartoon-Avatar-PNG-Image-Transparent.png',
             }}
             style={styles.avatar}
           />
@@ -76,7 +94,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         </View>
         <View style={styles.subHeaderContainer}>
           <Text style={styles.subHeaderText}>{task.title}</Text>
-          <Text style={styles.timeText}>{task.updatedAt}</Text>
+          <Text style={styles.timeText}>{task.updatedAt ? formatDate(task.updatedAt) : ''}</Text>
         </View>
         <View style={styles.locationContainer}>
           <Text style={styles.locationText}>{task.location}</Text>
@@ -110,12 +128,19 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         </TouchableOpacity>
       </View>
     </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#fffda5', // Darker color
+    opacity: 0.5, // Adjust as necessary
+    borderRadius: 12,
+  },
   container: {
-    backgroundColor: 'linear-gradient(rgba(196, 194, 61, 0.7), rgba(255, 255, 255, 0.8))',
+    
     borderRadius: 12,
     padding: 20,
     flex: 1,

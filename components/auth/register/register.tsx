@@ -49,7 +49,11 @@ const Register = ({ navigation }) => {
           <Controller
             control={control}
             rules={{
-              required: true,
+              required: { value: true, message: "Email is required" },
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
+                message: "Invalid Email",
+              },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
@@ -62,14 +66,17 @@ const Register = ({ navigation }) => {
             name="email"
           />
           {errors.email && (
-            <Text style={{ color: "#f01010" }}>Email is required.</Text>
+            <Text style={{ color: "#f01010" }}>{errors.email.message}</Text>
           )}
 
           <Controller
             control={control}
             rules={{
-              minLength: 8,
-              required: true,
+              minLength: {
+                value: 8,
+                message: "Must be at least 8 characters",
+              },
+              required: { value: true, message: "Password is required" },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
@@ -83,7 +90,7 @@ const Register = ({ navigation }) => {
             name="password"
           />
           {errors.password && (
-            <Text style={{ color: "#f01010" }}>Invalid Password.</Text>
+            <Text style={{ color: "#f01010" }}>{errors.password.message}</Text>
           )}
           <Button
             label="Register"

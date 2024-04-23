@@ -8,14 +8,24 @@ import {
   Pressable,
 } from "react-native";
 
-import React, { useState } from "react";
-
+import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import Button from "../../UI/Button";
 
 const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const onSubmit = (data) => console.log(data);
 
   return (
     <>
@@ -27,24 +37,49 @@ const Register = ({ navigation }) => {
           <Text style={styles.title}>Register</Text>
         </View>
         <View style={styles.section}>
-          <TextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onChangeText={onChange}
+                placeholder="Email"
+                value={value}
+                style={styles.input}
+              />
+            )}
+            name="email"
           />
-          <TextInput
-            passwordRules=""
-            secureTextEntry={true}
-            placeholder="Password"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
+          {errors.email && (
+            <Text style={{ color: "#f01010" }}>Email is required.</Text>
+          )}
+
+          <Controller
+            control={control}
+            rules={{
+              minLength: 8,
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onChangeText={onChange}
+                secureTextEntry={true}
+                placeholder="Password"
+                value={value}
+                style={styles.input}
+              />
+            )}
+            name="password"
           />
+          {errors.password && (
+            <Text style={{ color: "#f01010" }}>Invalid Password.</Text>
+          )}
           <Button
             label="Register"
             style="fill"
-            callback={() => navigation.navigate('basicInfos')}
+            callback={handleSubmit(onSubmit)}
           />
         </View>
       </View>

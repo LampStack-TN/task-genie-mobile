@@ -9,28 +9,27 @@ import {
 import React, { useState } from "react";
 import Button from "../../UI/Button";
 
-const BasicInfos = ({ navigation }) => {
-  const [fullName, setName] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+const Contact = ({ navigation }) => {
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.header}>
           <Text style={styles.title}>Register</Text>
-          <Text style={styles.subTitle}>Basic Informations</Text>
+          <Text style={styles.subTitle}>Contact & Location</Text>
         </View>
         <View style={styles.section}>
-          <View style={styles.dummyImg}></View>
           <TextInput
-            placeholder="Fullname"
-            value={fullName}
-            onChangeText={(text) => setName(text)}
+            placeholder="Phone"
+            value={phone}
+            onChangeText={(text) => setPhone(text)}
             style={styles.input}
           />
           <TextInput
-            placeholder="Birthdate"
-            value={birthdate}
-            onChangeText={(text) => setBirthdate(text)}
+            placeholder="City"
+            value={city}
+            onChangeText={(text) => setCity(text)}
             style={styles.input}
           />
         </View>
@@ -40,18 +39,14 @@ const BasicInfos = ({ navigation }) => {
             style="bare"
             callback={() => navigation.goBack()}
           />
-          <Button
-            label="Next"
-            style="outline"
-            callback={() => navigation.navigate("contact")}
-          />
+          <Button label="Finish" style="fill" callback={() => alert('Done')} />
         </View>
       </ScrollView>
     </View>
   );
 };
 
-export default BasicInfos;
+export default Contact;
 
 const styles = StyleSheet.create({
   container: {

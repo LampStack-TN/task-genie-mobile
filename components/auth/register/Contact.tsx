@@ -9,39 +9,56 @@ import {
 import React, { useState } from "react";
 import Button from "../../UI/Button";
 
+import cities from "../../../data/cities.json";
+
+import SearchableDropdown from "react-native-searchable-dropdown";
+
 const Contact = ({ navigation }) => {
   const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState();
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Register</Text>
-          <Text style={styles.subTitle}>Contact & Location</Text>
-        </View>
-        <View style={styles.section}>
-          <TextInput
-            placeholder="Phone"
-            value={phone}
-            onChangeText={(text) => setPhone(text)}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="City"
-            value={city}
-            onChangeText={(text) => setCity(text)}
-            style={styles.input}
-          />
-        </View>
-        <View style={styles.footer}>
-          <Button
-            label="Back"
-            style="bare"
-            callback={() => navigation.goBack()}
-          />
-          <Button label="Finish" style="fill" callback={() => alert('Done')} />
-        </View>
-      </ScrollView>
+      <View style={styles.header}>
+        <Text style={styles.title}>Register</Text>
+        <Text style={styles.subTitle}>Contact & Location</Text>
+      </View>
+      <View style={styles.section}>
+        <SearchableDropdown
+          onItemSelect={(item) => {
+            console.log(item);
+            setCity(item.name);
+          }}
+          itemStyle={styles.dropItem}
+          itemTextStyle={{ color: "#222" }}
+          itemsContainerStyle={styles.dropList}
+          items={cities}
+          resetValue={false}
+          textInputProps={{
+            placeholder: "Governorates",
+            underlineColorAndroid: "transparent",
+            style: styles.input,
+            value: city,
+            // onTextChange: (text) => alert(text),
+          }}
+          listProps={{
+            nestedScrollEnabled: true,
+          }}
+        />
+        <TextInput
+          placeholder="City"
+          value={city}
+          // onChangeText={(text) => setCity(text)}
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.footer}>
+        <Button
+          label="Back"
+          style="bare"
+          callback={() => navigation.goBack()}
+        />
+        <Button label="Finish" style="fill" callback={() => alert("Done")} />
+      </View>
     </View>
   );
 };
@@ -123,5 +140,24 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0, 0, 0, 0.3)",
     borderWidth: 5,
     alignSelf: "center",
+  },
+  dropList: {
+    position: "absolute",
+    width: "100%",
+    maxHeight: 250,
+    overflow: "hidden",
+    top: "100%",
+    zIndex: 1,
+    backgroundColor: "#fff",
+    borderWidth: 2,
+    borderRadius: 30,
+    borderColor: "#c5c5c5",
+    padding: 10,
+  },
+  dropItem: {
+    padding: 20,
+    borderColor: "#c5c5c5",
+    borderBottomWidth: 1,
+    borderRadius: 5,
   },
 });

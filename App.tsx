@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Step1 from "./components/tasks/steps/Step1";
 import Step2 from "./components/tasks/steps/Step2";
 import Step3 from "./components/tasks/steps/Step3";
-import Register from "./components/auth/register/register";
+import Register from "./components/auth/register/Register";
 import TaskDetails from "./components/taskDetails/TaskDetails";
 import TaskList from "./components/tasks/list/TaskList";
 import BasicInfos from "./components/auth/register/BasicInfos";

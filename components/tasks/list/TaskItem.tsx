@@ -13,6 +13,7 @@ export type TaskProps = {
   location?: string;
   minPrice?: number;
   maxPrice?: number;
+  category?: string;
   dueDate?: string;
   description?: string;
   handleDelete?: (taskId: number) => void;

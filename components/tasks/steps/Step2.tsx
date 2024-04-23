@@ -1,31 +1,34 @@
-import {useState} from "react";
+import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-import { MultiSelect } from 'react-native-element-dropdown';
+import { MultiSelect } from "react-native-element-dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "./TaskSlice";
 
-export default function Step2({navigation}) {
-
+export default function Step2({ navigation }) {
   const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
-  
-  const [Expertise, setExpertise] =useState("");
-  const [Skill, setSkill] =useState([]);
+
+  const [Expertise, setExpertise] = useState("");
+  const [Skill, setSkill] = useState([]);
 
   const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
+    { label: "Item 1", value: "1" },
+    { label: "Item 2", value: "2" },
+    { label: "Item 3", value: "3" },
+    { label: "Item 4", value: "4" },
   ];
-  console.log(task, 123);
+  // console.log(task, 123);
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
         <Text style={styles.heading}>Step 2</Text>
-        <Text style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}>Skills & Expertise</Text>
+        <Text
+          style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
+        >
+          Skills & Expertise
+        </Text>
       </View>
-      
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Expertise"
@@ -33,32 +36,30 @@ export default function Step2({navigation}) {
           value={Expertise}
           style={styles.input}
         />
-        
+
         <MultiSelect
           style={styles.input}
           placeholderStyle={styles.placeholderStyle}
-         
           data={data}
           labelField="label"
           valueField="value"
           placeholder="Skills"
           searchPlaceholder="Search..."
           value={Skill}
-          onChange={item => {
+          onChange={(item) => {
             setSkill(item);
           }}
-          // SkillStyle={styles.SkillStyle}
         />
       </View>
-      
+
       <View style={styles.button}>
-        <Pressable onPress={()=>navigation.navigate("Step3") }>
+        <Pressable onPress={() => navigation.navigate("Step3")}>
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>
-      
+
       <View style={{ position: "absolute", bottom: 40, left: 20 }}>
-        <Pressable  onPress={()=>navigation.navigate("Step1")}>
+        <Pressable onPress={() => navigation.navigate("Step1")}>
           <Text style={styles.textt}>Back</Text>
         </Pressable>
       </View>
@@ -89,9 +90,9 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     flex: 3,
-    gap:15,
+    gap: 15,
     justifyContent: "center",
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
     marginBottom: 300,
   },
   input: {
@@ -140,7 +141,6 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 16,
     backgroundColor: "#fff",
-    
   },
   // selectedTextStyle: {
   //   fontSize: 14,
@@ -153,6 +153,6 @@ const styles = StyleSheet.create({
   // },
 
   selectedStyle: {
-    borderRadius:30,
+    borderRadius: 30,
   },
 });

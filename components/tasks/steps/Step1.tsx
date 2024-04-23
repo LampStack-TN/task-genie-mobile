@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "./TaskSlice";
 
 export default function Step1({ navigation }) {
-
   // Select task state from Redux store
   const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
@@ -55,7 +54,9 @@ export default function Step1({ navigation }) {
 
         <TextInput
           placeholder="Location"
-          onChangeText={(text) => setLocation(text)}
+          onChangeText={(text) => {
+            setLocation(text), UpdateTask("location", text);
+          }}
           value={location}
           style={styles.input}
         />

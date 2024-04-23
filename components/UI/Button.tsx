@@ -15,7 +15,6 @@ const colors = {
 const Button = ({ label, style, callback }: Props) => {
   const styles = StyleSheet.create({
     button: {
-      marginTop: 20,
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 50,

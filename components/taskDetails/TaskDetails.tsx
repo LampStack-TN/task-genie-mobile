@@ -5,10 +5,15 @@ import Task from "./TaskInterface";
 import config from "../../config";
 
 import { TaskProps } from "../tasks/list/TaskItem";
+import { useSelector } from "react-redux";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
-  console.log();
-  const [task, setTask] = useState<Task>({});
+
+  const task = useSelector((state: any) => state.task);
+  // console.log(task,'hhh');
+
+  // console.log();
+  const [taskss, setTask] = useState<Task>({});
 
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const taskId = route.params.taskId;
@@ -54,7 +59,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     try {
       const { data } = await axios.put<Task>(
         `http://localhost:3000/api/task/update/${taskId}`,
-        task
+        taskss
       );
       setTask(data);
     } catch (err) {

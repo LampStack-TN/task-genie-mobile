@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View ,TouchableOpacity ,TextInput} from 'react-native'
 import React from 'react'
-
+import { useForm, SubmitHandler } from "react-hook-form"
 const step3 = ({navigation}) => {
     return (
         <View style={styles.container}>

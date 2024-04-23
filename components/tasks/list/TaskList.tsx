@@ -45,7 +45,7 @@ const TaskList: React.FC = ({ navigation}: any) => {
             navigation.navigate("TaskDetails", { taskId: task.id })
           }
         >
-          <TaskItem task={task} handleDelete={handleDelete} />
+          <TaskItem task={task} handleDelete={handleDelete} navigation={navigation} />
         </TouchableOpacity>
       ))}
     </ScrollView>

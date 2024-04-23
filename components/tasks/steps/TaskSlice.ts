@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const taskSlice = createSlice({
-  name: "task",
-  initialState: { clientId: 1 },
+  name: "task", // Slice name
+  initialState: { clientId: 1 }, // Initial state of the slice
   reducers: {
-    setTask: (state, action) => {
-      state = { ...state, ...action.payload };
+
+    //function to add/update task
+    addTask: (state, action) => {
+      return { ...state, ...action.payload };//Merge payload with current state
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setTask } = taskSlice.actions;
+export const { addTask } = taskSlice.actions;
 
 export default taskSlice.reducer;

@@ -4,6 +4,8 @@ import * as React from "react";
 import { View, Text, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useSelector, useDispatch } from "react-redux";
+
 import Step1 from "./components/tasks/steps/Step1";
 import Step2 from "./components/tasks/steps/Step2";
 import Step3 from "./components/tasks/steps/Step3";
@@ -22,6 +24,9 @@ import EditTask from './components/editTask/editTask'
 
 
 function HomeScreen({ navigation }) {
+  // const task = useSelector((state: any) => state.task);
+  // console.log(task,'hhh');
+
   return (
     <View
       style={{

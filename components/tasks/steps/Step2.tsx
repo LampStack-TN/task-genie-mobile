@@ -1,10 +1,14 @@
 import {useState} from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { MultiSelect } from 'react-native-element-dropdown';
-
+import { useSelector, useDispatch } from "react-redux";
+import { addTask } from "./TaskSlice";
 
 export default function Step2({navigation}) {
- 
+
+  const task = useSelector((state: any) => state.task);
+  const dispatch = useDispatch();
+  
   const [Expertise, setExpertise] =useState("");
   const [Skill, setSkill] =useState([]);
 
@@ -14,7 +18,7 @@ export default function Step2({navigation}) {
     { label: 'Item 3', value: '3' },
     { label: 'Item 4', value: '4' },
   ];
-
+  console.log(task, 123);
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>

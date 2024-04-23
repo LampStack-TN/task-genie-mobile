@@ -5,13 +5,15 @@ import {
   StatusBar,
   TextInput,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
+
 import React, { useState } from "react";
+
 import Button from "../../UI/Button";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [fullName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,16 +21,12 @@ const Register = () => {
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.back}>Back</Text>
+          <Pressable onPress={() => navigation.goBack()} style={styles.back}>
+            <Text style={styles.backText}>Back</Text>
+          </Pressable>
           <Text style={styles.title}>Register</Text>
         </View>
         <View style={styles.section}>
-          <TextInput
-            placeholder="Fullname"
-            value={fullName}
-            onChangeText={(text) => setName(text)}
-            style={styles.input}
-          />
           <TextInput
             placeholder="Email"
             value={email}
@@ -97,9 +95,10 @@ const styles = StyleSheet.create({
   },
   back: {
     position: "absolute",
-    flex: 0,
     top: 32,
     left: 16,
+  },
+  backText: {
     fontSize: 18,
   },
   title: {

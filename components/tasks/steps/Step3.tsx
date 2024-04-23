@@ -1,12 +1,46 @@
-import * as React from "react";
+import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { addTask } from "./TaskSlice";
+import axios from "axios";
+import config from "../../../config";
 
+export type Task = {
+  id?: number;
+  title?: string;
+  description?: string;
+  location?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  dueDated?: string;
+  urgency?: string;
+  clientId?: number;
+};
 
-export default function Step3({navigation}) {
+export default function Step3({ navigation }) {
+  const task = useSelector((state: any) => state.task);
+  const dispatch = useDispatch();
 
-  const [Date, setDate] = React.useState("");
-  const [Between, setBetween] = React.useState("");
-  const [And, setAnd] = React.useState("");
+  const [dueDated, setdueDated] = useState("");
+  const [minPrice, setminPrice] = useState("");
+  const [maxPrice, setmaxPrice] = useState("");
+  const [tasks, setTask] = useState<Task>({ clientId: 1 });
+
+  const UpdateTask = (field, value) => {
+    dispatch(addTask({ [field]: value }));
+  };
+  // console.log(task, 123);
+
+  const create: any = async () => {
+    try {
+      const result = await axios.post<Task>(`${config.apiUrl}/task/add/`, task);
+      // console.log(result,'hhhh');
+      setTask(tasks);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
@@ -20,26 +54,37 @@ export default function Step3({navigation}) {
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Time & Date"
-          onChangeText={(text) => setDate(text)}
-          value={Date}
+          onChangeText={(text) => {
+            setdueDated(text);
+            UpdateTask("Date", text);
+          }}
+          value={dueDated}
           style={styles.input}
         />
 
         <TextInput
-          placeholder="Between"
-          onChangeText={(text) => setBetween(text)}
-          value={Between}
+          placeholder="minPrice"
+          onChangeText={(text) => {
+            setminPrice(text), UpdateTask("minPrice", text);
+          }}
+          value={minPrice}
           style={styles.input}
         />
         <TextInput
-          placeholder="And"
-          onChangeText={(text) => setAnd(text)}
-          value={And}
+          placeholder="maxPrice"
+          onChangeText={(text) => {
+            setmaxPrice(text), UpdateTask("maxPrice", text);
+          }}
+          value={maxPrice}
           style={styles.input}
         />
       </View>
       <View style={styles.button2}>
-        <Pressable onPress={()=>navigation.navigate("Home")}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("TaskDetails", create(tasks));
+          }}
+        >
           <Text style={[styles.text, { color: "white" }]}>Finish</Text>
         </Pressable>
       </View>
@@ -52,7 +97,7 @@ export default function Step3({navigation}) {
           justifyContent: "center",
         }}
       >
-        <Pressable  onPress={()=>navigation.navigate("Step2")}>
+        <Pressable onPress={() => navigation.navigate("Step2")}>
           <Text style={styles.textt}>Back</Text>
         </Pressable>
       </View>
@@ -82,7 +127,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     flex: 3,
-    gap:15,
+    gap: 15,
     justifyContent: "center",
     paddingHorizontal: 11,
     marginBottom: 300,

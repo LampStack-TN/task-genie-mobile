@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { Dropdown } from "react-native-element-dropdown";
 import { addTask } from "./TaskSlice";
 import axios from "axios";
 import config from "../../../config";
@@ -12,29 +13,36 @@ export type Task = {
   location?: string;
   minPrice?: number;
   maxPrice?: number;
-  dueDated?: string;
+  dueDate?: string;
   urgency?: string;
   clientId?: number;
 };
-
+const data = [
+  { label: "high", value: "high" },
+  { label: "low", value: "low" },
+  { label: "medium", value: "medium" },
+];
 export default function Step3({ navigation }) {
+
   const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
 
-  const [dueDated, setdueDated] = useState("");
+  const [dueDate, setdueDate] = useState("");
   const [minPrice, setminPrice] = useState("");
   const [maxPrice, setmaxPrice] = useState("");
+  const [urgency, setUrgency] = useState("");
   const [tasks, setTask] = useState<Task>({ clientId: 1 });
 
   const UpdateTask = (field, value) => {
     dispatch(addTask({ [field]: value }));
   };
+
   // console.log(task, 123);
 
   const create: any = async () => {
     try {
       const result = await axios.post<Task>(`${config.apiUrl}/task/add/`, task);
-      // console.log(result,'hhhh');
+      console.log(result, "jet");
       setTask(tasks);
     } catch (error) {
       console.log(error);
@@ -55,10 +63,9 @@ export default function Step3({ navigation }) {
         <TextInput
           placeholder="Time & Date"
           onChangeText={(text) => {
-            setdueDated(text);
-            UpdateTask("Date", text);
+            setdueDate(text), UpdateTask("dueDate", text);
           }}
-          value={dueDated}
+          value={dueDate}
           style={styles.input}
         />
 
@@ -77,6 +84,18 @@ export default function Step3({ navigation }) {
           }}
           value={maxPrice}
           style={styles.input}
+        />
+        <Dropdown
+          placeholder="Urgency"
+          labelField="label"
+          valueField="value"
+          data={data}
+          onChange={(item) => {
+            setUrgency(item.value);
+            UpdateTask("urgency", item);
+          }}
+          value={urgency}
+          style={[styles.input]}
         />
       </View>
       <View style={styles.button2}>
@@ -162,19 +181,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "#0C3178",
   },
-  //   button: {
-  //     position: "absolute",
-  //     bottom: 40,
-  //     right: 20,
-  //     alignItems: "center",
-  //     justifyContent: "center",
-  //     borderRadius: 50,
-  //     borderColor: "#0C3178",
-  //     borderWidth: 2,
-  //     elevation: 3,
-  //     backgroundColor: "#fff",
-  //     overflow: "hidden",
-  //   },
   button2: {
     position: "absolute",
     bottom: 40,

@@ -29,27 +29,43 @@ const Contact = ({ navigation }) => {
           onChangeText={(text: any) => setPhone(text)}
           style={styles.input}
         />
-        <SearchableDropdown
-          onItemSelect={(item) => {
-            console.log(item);
-            setCity(item.name);
-          }}
-          itemStyle={styles.dropItem}
-          itemTextStyle={{ color: "#222" }}
-          itemsContainerStyle={styles.dropList}
-          items={cities}
-          resetValue={false}
-          textInputProps={{
-            placeholder: "Governorates",
-            underlineColorAndroid: "transparent",
-            style: styles.input,
-            value: city,
-            // onTextChange: (text) => alert(text),
-          }}
-          listProps={{
-            nestedScrollEnabled: true,
-          }}
+        <TextInput
+          placeholder="Address"
+          value={phone}
+          onChangeText={(text: any) => setPhone(text)}
+          style={styles.input}
         />
+        <View style={{ flexDirection: "row", gap: 18 }}>
+          <TextInput
+            placeholder="Zip Code"
+            value={phone}
+            onChangeText={(text: any) => setPhone(text)}
+            style={[styles.input, { flex: 1 }]}
+          />
+          <View style={{ flex: 2 }}>
+            <SearchableDropdown
+              onItemSelect={(item) => {
+                console.log(item);
+                setCity(item.name);
+              }}
+              itemStyle={styles.dropItem}
+              itemTextStyle={{ color: "#222" }}
+              itemsContainerStyle={styles.dropList}
+              items={cities}
+              resetValue={false}
+              textInputProps={{
+                placeholder: "Governorates",
+                underlineColorAndroid: "transparent",
+                style: [styles.input],
+                value: city,
+                // onTextChange: (text) => alert(text),
+              }}
+              listProps={{
+                nestedScrollEnabled: true,
+              }}
+            />
+          </View>
+        </View>
       </View>
       <View style={styles.footer}>
         <Button
@@ -151,12 +167,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderWidth: 2,
     borderRadius: 30,
-    borderColor: "#c5c5c5",
+    borderColor: "#e5e5e5",
     padding: 10,
   },
   dropItem: {
     padding: 20,
-    borderColor: "#c5c5c5",
+    borderColor: "#e5e5e5",
     borderBottomWidth: 1,
     borderRadius: 5,
   },

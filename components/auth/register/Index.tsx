@@ -6,7 +6,12 @@ const Stack = createNativeStackNavigator();
 
 const Index = () => {
   return (
-    <Stack.Navigator initialRouteName="register">
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="register"
+    >
       <Stack.Screen name="register" component={Register} />
       <Stack.Screen name="basicInfos" component={BasicInfos} />
     </Stack.Navigator>

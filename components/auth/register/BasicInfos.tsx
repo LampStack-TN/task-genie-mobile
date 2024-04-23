@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import Button from "../../UI/Button";
 
-const BasicInfos = () => {
+const BasicInfos = ({ navigation }) => {
   const [fullName, setName] = useState("");
   const [birthdate, setBirthdate] = useState("");
   return (
@@ -38,13 +38,9 @@ const BasicInfos = () => {
           <Button
             label="Back"
             style="bare"
-            callback={() => console.log(birthdate)}
+            callback={() => navigation.goBack()}
           />
-          <Button
-            label="Next"
-            style="outline"
-            callback={() => console.log(birthdate)}
-          />
+          <Button label="Next" style="outline" callback={() => true} />
         </View>
       </ScrollView>
     </View>

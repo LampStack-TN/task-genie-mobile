@@ -5,11 +5,15 @@ import {
   StatusBar,
   TextInput,
   ActivityIndicator,
+  Button as Btn,
+  Pressable,
 } from "react-native";
+
 import React, { useState } from "react";
+
 import Button from "../../UI/Button";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [fullName, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +23,9 @@ const Register = () => {
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.back}>Back</Text>
+          <Pressable onPress={() => navigation.goBack()} style={styles.back}>
+            <Text style={styles.backText}>Back</Text>
+          </Pressable>
           <Text style={styles.title}>Register</Text>
         </View>
         <View style={styles.section}>
@@ -97,9 +103,10 @@ const styles = StyleSheet.create({
   },
   back: {
     position: "absolute",
-    flex: 0,
     top: 32,
     left: 16,
+  },
+  backText: {
     fontSize: 18,
   },
   title: {

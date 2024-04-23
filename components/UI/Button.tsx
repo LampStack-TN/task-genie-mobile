@@ -49,11 +49,11 @@ const Button = ({ label, style, callback }: Props) => {
   });
 
   return (
-    <View style={[styles.button, styles[style]]}>
-      <Pressable onPress={callback}>
+    <Pressable onPress={callback}>
+      <View style={[styles.button, styles[style]]}>
         <Text style={styles.text}>{label}</Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   );
 };
 

@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import MyTabs from "./components/editTask/MyTabs";
 
 import TaskStepsIndex from "./components/tasks/steps";
+import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScreen";
 
 function HomeScreen({ navigation ,route}) {
   // const task = useSelector((state: any) => state.task);
@@ -47,6 +48,10 @@ function HomeScreen({ navigation ,route}) {
         title="MyTabs"
         onPress={() => navigation.navigate("MyTabs")}
       />
+      <Button
+      title="ApplyedJobs"
+onPress={()=>navigation.navigate("ApplyedJobs")}
+      />
     </View>
   );
 }
@@ -69,6 +74,7 @@ function App() {
           <Stack.Screen name="TaskDetails" component={TaskDetails} />
           <Stack.Screen name="TaskList" component={TaskList} />
           <Stack.Screen name="MyTabs" component={MyTabs} />
+          <Stack.Screen name="ApplyedJobs" component={NearbyJobsScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

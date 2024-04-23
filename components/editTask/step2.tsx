@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View ,TextInput,TouchableOpacity} from 'react-native'
 import React from 'react'
 import { MultiSelect } from 'react-native-element-dropdown';
+import { useForm, SubmitHandler } from "react-hook-form"
 const step2 = ({navigation}) => {
     const data = [
         { label: 'Item 1', value: '1' },
@@ -42,7 +43,7 @@ const step2 = ({navigation}) => {
           
           <View style={styles.button}>
             <TouchableOpacity onPress={()=>navigation.navigate("step3") }>
-              <Text style={styles.text}>Next</Text>
+              <Text style={styles.text}>Submit</Text>
             </TouchableOpacity>
           </View>
           

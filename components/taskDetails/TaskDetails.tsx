@@ -113,7 +113,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => {
-            navigation.navigate("EditTask");
+            navigation.navigate("MyTabs");
           }}
         >
           <Text style={styles.editText}>Edit</Text>

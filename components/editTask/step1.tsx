@@ -1,72 +1,106 @@
 import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useForm,Controller } from "react-hook-form"
 
-const step1 = ({navigation}) => {
-    return (
-        <View style={styles.container}>
-          <View style={styles.stepContainer}>
-            <Text style={styles.heading}>Edit :</Text>
-            <Text
-              style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
-            >
-              Basic Job Description
-            </Text>
-          </View>
-    
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder="Title"
-              onChangeText={() => {
-                
-              }}
-              
-              style={styles.input}
-            />
-    
-            <TextInput
-              placeholder="Description"
-              onChangeText={(text) => {
-                
-              }}
-              
-              style={[styles.input, styles.largeInput]}
-              multiline={true}
-              numberOfLines={4}
-            />
-    
-            <TextInput
-              placeholder="Location"
-              onChangeText={(text) => (text)}
-              
-              style={styles.input}
-            />
-          </View>
-    
-          <View style={styles.button1}>
-            <TouchableOpacity onPress={ ()=>navigation.navigate("step2")}>
-              <Text style={styles.text}>Next</Text>
-            </TouchableOpacity>
-          </View>
-    
-          <View
-            style={{
-              position: "absolute",
-              bottom: 40,
-              left: 20,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Home");
-              }}
-            >
-              <Text style={styles.textt}>Back</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
+const step1 = ({navigation }) => {
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+      } = useForm({
+        defaultValues: {
+          title: "",
+          description: "",
+          location: "",
+        },
+      });
+
+
+      const onSubmit = (data) => {
+        navigation.navigate("step2")
+        console.log(data)}
+
+        
+        return (
+            <View style={styles.container}>
+              <View style={styles.stepContainer}>
+                <Text style={styles.heading}>Edit :</Text>
+                <Text style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}>
+                  Basic Job Description
+                </Text>
+              </View>
+        
+              <View style={styles.inputContainer}>
+                <Controller
+                  control={control}
+                  rules={{ required: 'Title is required' }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      placeholder="Title"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                    />
+                  )}
+                  name="title"
+                />
+                {errors.title && <Text style={styles.errorText}>Title is required.</Text>}
+        
+                <Controller
+                  control={control}
+                  rules={{ required: 'Description is required' }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      placeholder="Description"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={[styles.input, styles.largeInput]}
+                      multiline={true}
+                      numberOfLines={4}
+                    />
+                  )}
+                  name="description"
+                />
+                {errors.description && <Text style={styles.errorText}>Description is required.</Text>}
+        
+                <Controller
+                  control={control}
+                  rules={{ required: 'Location is required' }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      placeholder="Location"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      style={styles.input}
+                    />
+                  )}
+                  name="location"
+                />
+                {errors.location && <Text style={styles.errorText}>Location is required.</Text>}
+              </View>
+        
+              <View style={styles.button1}>
+                <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+                  <Text style={styles.text}>Submit</Text>
+                </TouchableOpacity>
+              </View>
+        
+              <View style={{
+                position: "absolute",
+                bottom: 40,
+                left: 20,
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <TouchableOpacity onPress={() => navigation.navigate("TaskList")}>
+                  <Text style={styles.textt}>Back</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          );
     }
 
     export default step1
@@ -83,6 +117,11 @@ const step1 = ({navigation}) => {
         alignSelf: "flex-start",
         marginBottom: 20,
         paddingTop: 1,
+      },
+      errorText: {
+        color: 'red',
+        alignSelf: 'flex-start',
+        marginLeft: 15,
       },
       heading: {
         paddingTop: 60,

@@ -11,9 +11,15 @@ import {
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Button from "../../UI/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { appendData } from "./registerSlice";
 
 const Register = ({ navigation }) => {
+  // Loader State
   const [loading, setLoading] = useState(false);
+
+  useSelector((state: any) => state.registerData);
+  const dispatch = useDispatch();
 
   const {
     control,
@@ -25,7 +31,10 @@ const Register = ({ navigation }) => {
       password: "",
     },
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    dispatch(appendData(data));
+    navigation.navigate("basicInfos");
+  };
 
   return (
     <>

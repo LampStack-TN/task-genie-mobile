@@ -44,7 +44,7 @@ const Register = ({ navigation }) => {
           <Button
             label="Register"
             style="fill"
-            callback={() => console.log(email)}
+            callback={() => navigation.navigate('basicInfos')}
           />
         </View>
       </View>

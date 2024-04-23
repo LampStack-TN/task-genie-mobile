@@ -5,7 +5,7 @@ import { TaskProps } from "./TaskItem";
 import config from "../../../config";
 import { useFocusEffect } from "@react-navigation/native";
 
-const TaskList: React.FC = ({ navigation}: any) => {
+const TaskList: React.FC = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
 
   const fetchTasks = async () => {
@@ -29,10 +29,10 @@ const TaskList: React.FC = ({ navigation}: any) => {
       await fetch(`${config.apiUrl}/task/delete/${taskId}`, {
         method: "DELETE",
       });
+
       fetchTasks();
     } catch (err) {
-     console.log(err);
-     
+      console.log(err);
     }
   };
 

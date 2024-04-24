@@ -108,7 +108,7 @@ const Login = ({ navigation }) => {
             label="Register"
             style="fill"
             color="#2e2e2e"
-            callback={() => navigation.navigate("register")}
+            callback={() => navigation.navigate("Register")}
           />
         </View>
       </View>

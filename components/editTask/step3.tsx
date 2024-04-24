@@ -10,7 +10,7 @@ import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
 import axios from "axios";
 import Task from "../taskDetails/TaskInterface";
-
+import config from "../../config";
 type RootStackParamList = {
   step3: { taskId: string };
 };
@@ -49,7 +49,7 @@ const step3: React.FC<Step3Props> = ({ navigation, route }) => {
   const handleEdit = async (updatedTask: Task) => {
     try {
       const { data } = await axios.put<Task>(
-        `http://localhost:3000/api/task/update/${taskId}`,
+        `${config.apiUrl}/task/update/${taskId}`,
         updatedTask
       );
       setTask(data);

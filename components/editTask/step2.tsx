@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { RouteProp } from '@react-navigation/native';
-
+import config from "../../config";
 import Task from '../taskDetails/TaskInterface';
 
 type Step2Props = {

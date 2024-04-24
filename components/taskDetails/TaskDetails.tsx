@@ -90,25 +90,25 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <View style={styles.headerContainer}>
           <Image
             source={{
-              // uri: "task.client?.avatar",
+              // uri: "taskss.client?.avatar",
               uri: 'https://www.pngarts.com/files/5/Cartoon-Avatar-PNG-Image-Transparent.png',
             }}
             style={styles.avatar}
           />
-          <Text style={styles.headerText}>Urgency : {task.urgency}</Text>
+          <Text style={styles.headerText}>Urgency : {taskss.urgency}</Text>
         </View>
         <View style={styles.subHeaderContainer}>
-          <Text style={styles.subHeaderText}>{task.title}</Text>
-          <Text style={styles.timeText}>{task.updatedAt ? formatDate(task.updatedAt) : ''}</Text>
+          <Text style={styles.subHeaderText}>{taskss.title}</Text>
+          <Text style={styles.timeText}>{taskss.updatedAt ? formatDate(taskss.updatedAt) : ''}</Text>
         </View>
         <View style={styles.locationContainer}>
-          <Text style={styles.locationText}>{task.location}</Text>
+          <Text style={styles.locationText}>{taskss.location}</Text>
           <Text style={styles.priceText}>
-            {task.minPrice} - {task.maxPrice}
+            {taskss.minPrice} - {taskss.maxPrice}
           </Text>
         </View>
         <View style={styles.descriptionContainer}>
-          <Text style={styles.descriptionText}>{task.description}</Text>
+          <Text style={styles.descriptionText}>{taskss.description}</Text>
         </View>
       </View>
       <View style={styles.footerContainer}>

@@ -1,70 +1,100 @@
-import { StyleSheet, Text, View ,TouchableOpacity ,TextInput} from 'react-native'
-import React from 'react'
-import { useForm, SubmitHandler } from "react-hook-form"
-const step3 = ({navigation}) => {
-    return (
-        <View style={styles.container}>
-          <View style={styles.stepContainer}>
-            <Text style={styles.heading}>Edit :</Text>
-            <Text
-              style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
-            >
-              Time & Date
-            </Text>
-          </View>
-          <View style={styles.inputContainer}>
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+
+const step3 = ({ navigation }) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      timeDate: '',
+      minPrice: '',
+      maxPrice: '',
+    },
+  });
+
+  const onSubmit = (data) => {
+    // Handle your data submission here
+    console.log(data);
+    navigation.navigate('step1');
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.stepContainer}>
+        <Text style={styles.heading}>Edit :</Text>
+        <Text style={{ marginBottom: 10, alignSelf: 'flex-start', paddingTop: 10 }}>Time & Date</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <Controller
+          control={control}
+          rules={{ required: 'Time & Date is required' }}
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               placeholder="Time & Date"
-              onChangeText={(text) => {
-                
-              }}
-              
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
               style={styles.input}
             />
-    
+          )}
+          name="timeDate"
+        />
+        {errors.timeDate && <Text style={styles.errorText}>Time & Date is required.</Text>}
+
+        <Controller
+          control={control}
+          rules={{ required: 'Min Price is required' }}
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               placeholder="minPrice"
-              onChangeText={(text) => {
-               
-              }}
-             
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
               style={styles.input}
             />
+          )}
+          name="minPrice"
+        />
+        {errors.minPrice && <Text style={styles.errorText}>Min Price is required.</Text>}
+
+        <Controller
+          control={control}
+          rules={{ required: 'Max Price is required' }}
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               placeholder="maxPrice"
-              onChangeText={(text) => {
-                
-              }}
-             
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
               style={styles.input}
             />
-          </View>
-          <View style={styles.button2}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("step1");
-              }}
-            >
-              <Text style={[styles.text, { color: "white" }]}>Finish</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: 40,
-              left: 20,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TouchableOpacity onPress={() => navigation.navigate("step2")}>
-              <Text style={styles.textt}>Back</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
-    }
+          )}
+          name="maxPrice"
+        />
+        {errors.maxPrice && <Text style={styles.errorText}>Max Price is required.</Text>}
+      </View>
+      <View style={styles.button2}>
+        <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+          <Text style={[styles.text, { color: 'white' }]}>Finish</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ position: 'absolute', bottom: 40, left: 20, alignItems: 'center', justifyContent: 'center' }}>
+        <TouchableOpacity onPress={() => navigation.navigate('step2')}>
+          <Text style={styles.textt}>Back</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
     const styles = StyleSheet.create({
+      errorText: {
+        color: 'red',
+        alignSelf: 'flex-start',
+        marginLeft: 15,
+      },
       container: {
         flex: 1,
         alignItems: "center",

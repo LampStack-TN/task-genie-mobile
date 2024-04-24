@@ -12,8 +12,9 @@ import { Provider } from "react-redux";
 import MyTabs from "./components/editTask/MyTabs";
 
 import TaskStepsIndex from "./components/tasks/steps";
+import Login from "./components/auth/Login";
 
-function HomeScreen({ navigation ,route}) {
+function HomeScreen({ navigation, route }) {
   // const task = useSelector((state: any) => state.task);
   // console.log(task,'hhh');
 
@@ -36,6 +37,11 @@ function HomeScreen({ navigation ,route}) {
         onPress={() => navigation.navigate("Register")}
       />
       <Button
+        title="Sign In"
+        color={"black"}
+        onPress={() => navigation.navigate("login")}
+      />
+      <Button
         title="TaskDetails"
         onPress={() => navigation.navigate("TaskDetails")}
       />
@@ -43,10 +49,7 @@ function HomeScreen({ navigation ,route}) {
         title="TaskList"
         onPress={() => navigation.navigate("TaskList")}
       />
-      <Button
-        title="MyTabs"
-        onPress={() => navigation.navigate("MyTabs")}
-      />
+      <Button title="MyTabs" onPress={() => navigation.navigate("MyTabs")} />
     </View>
   );
 }
@@ -66,6 +69,7 @@ function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Step1" component={TaskStepsIndex} />
           <Stack.Screen name="Register" component={RegisterIndex} />
+          <Stack.Screen name="login" component={Login} />
           <Stack.Screen name="TaskDetails" component={TaskDetails} />
           <Stack.Screen name="TaskList" component={TaskList} />
           <Stack.Screen name="MyTabs" component={MyTabs} />

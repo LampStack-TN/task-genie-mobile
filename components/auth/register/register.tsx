@@ -7,7 +7,6 @@ import {
   Pressable,
 } from "react-native";
 
-import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Button from "../../UI/Button";
 import { useSelector, useDispatch } from "react-redux";

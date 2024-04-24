@@ -4,5 +4,7 @@ export type Task = {
     description: string;
     location: string;
     urgency: string;
-    createdAt: string; // Assuming the date is stored as a string
+    createdAt: string;  // Assuming the date is stored as a string
+    price:string
+    task:{}
   };

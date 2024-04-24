@@ -29,8 +29,6 @@ const BasicInfos = ({ navigation }) => {
     },
   });
   const onSubmit = (data) => {
-    console.log(data);
-
     dispatch(appendData(data));
     navigation.navigate("contact");
   };

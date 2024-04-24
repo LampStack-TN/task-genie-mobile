@@ -48,7 +48,6 @@ const Contact = ({ navigation }) => {
         `${config.apiUrl}/auth/register`,
         registerData
       );
-      console.log(data);
       setLoading(true);
       navigation.navigate("Home");
     } catch (error) {

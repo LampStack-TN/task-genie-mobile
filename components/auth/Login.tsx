@@ -32,7 +32,6 @@ const Login = ({ navigation }) => {
       const {
         data: { token },
       } = await axios.post(`${config.apiUrl}/auth/login`, loginData);
-      console.log("⛩️ ⛩️ ⛩️", token);
       setLoading(false);
       // navigation.navigate("Home");
       alert(token);

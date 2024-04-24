@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Register from "./Register";
+import Register from "./register";
 import BasicInfos from "./BasicInfos";
 import Contact from "./Contact";
 

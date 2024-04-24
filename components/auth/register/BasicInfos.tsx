@@ -15,7 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Button from "../../UI/Button";
 
 const BasicInfos = ({ navigation }) => {
-  const task = useSelector((state: any) => state.registerData);
+  useSelector((state: any) => state.registerData);
   const dispatch = useDispatch();
 
   const {

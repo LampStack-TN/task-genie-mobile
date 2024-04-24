@@ -4,7 +4,6 @@ import {
   StyleSheet,
   StatusBar,
   TextInput,
-  ActivityIndicator,
   Pressable,
 } from "react-native";
 
@@ -15,9 +14,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { appendData } from "./registerSlice";
 
 const Register = ({ navigation }) => {
-  // Loader State
-  const [loading, setLoading] = useState(false);
-
   useSelector((state: any) => state.registerData);
   const dispatch = useDispatch();
 
@@ -37,76 +33,67 @@ const Register = ({ navigation }) => {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Pressable onPress={() => navigation.goBack()} style={styles.back}>
-            <Text style={styles.backText}>Back</Text>
-          </Pressable>
-          <Text style={styles.title}>Register</Text>
-        </View>
-        <View style={styles.section}>
-          <Controller
-            control={control}
-            rules={{
-              required: { value: true, message: "Email is required" },
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
-                message: "Invalid Email",
-              },
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                onChangeText={onChange}
-                placeholder="Email"
-                value={value}
-                style={styles.input}
-              />
-            )}
-            name="email"
-          />
-          {errors.email && (
-            <Text style={{ color: "#f01010" }}>{errors.email.message}</Text>
-          )}
-
-          <Controller
-            control={control}
-            rules={{
-              minLength: {
-                value: 8,
-                message: "Must be at least 8 characters",
-              },
-              required: { value: true, message: "Password is required" },
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                onChangeText={onChange}
-                secureTextEntry={true}
-                placeholder="Password"
-                value={value}
-                style={styles.input}
-              />
-            )}
-            name="password"
-          />
-          {errors.password && (
-            <Text style={{ color: "#f01010" }}>{errors.password.message}</Text>
-          )}
-          <Button
-            label="Register"
-            style="fill"
-            callback={handleSubmit(onSubmit)}
-          />
-        </View>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Pressable onPress={() => navigation.goBack()} style={styles.back}>
+          <Text style={styles.backText}>Back</Text>
+        </Pressable>
+        <Text style={styles.title}>Register</Text>
       </View>
-      {loading ? (
-        <View style={styles.spinner}>
-          <ActivityIndicator size="large" color="#0C3178" />
-        </View>
-      ) : (
-        <></>
-      )}
-    </>
+      <View style={styles.section}>
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: "Email is required" },
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
+              message: "Invalid Email",
+            },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              onChangeText={onChange}
+              placeholder="Email"
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="email"
+        />
+        {errors.email && (
+          <Text style={{ color: "#f01010" }}>{errors.email.message}</Text>
+        )}
+
+        <Controller
+          control={control}
+          rules={{
+            minLength: {
+              value: 8,
+              message: "Must be at least 8 characters",
+            },
+            required: { value: true, message: "Password is required" },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              onChangeText={onChange}
+              secureTextEntry={true}
+              placeholder="Password"
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="password"
+        />
+        {errors.password && (
+          <Text style={{ color: "#f01010" }}>{errors.password.message}</Text>
+        )}
+        <Button
+          label="Register"
+          style="fill"
+          callback={handleSubmit(onSubmit)}
+        />
+      </View>
+    </View>
   );
 };
 
@@ -167,14 +154,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 14,
     elevation: 3,
-  },
-  spinner: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
   },
 });

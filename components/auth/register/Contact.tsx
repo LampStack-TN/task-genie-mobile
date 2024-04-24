@@ -5,77 +5,181 @@ import {
   TextInput,
   View,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
+
+import { appendData } from "./registerSlice";
 import Button from "../../UI/Button";
 
 import cities from "../../../data/cities.json";
 
 import SearchableDropdown from "react-native-searchable-dropdown";
+import axios from "axios";
+import config from "../../../config";
 
 const Contact = ({ navigation }) => {
-  const [phone, setPhone] = useState("");
-  const [city, setCity] = useState();
+  // Loader State
+  const [loading, setLoading] = useState(false);
+
+  const registerData = useSelector((state: any) => state.registerData);
+  const dispatch = useDispatch();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      phone: "",
+      city: "",
+      address: "",
+      zipcode: "",
+    },
+  });
+
+  const sumbitRegister = async (registerData) => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        `${config.apiUrl}/auth/register`,
+        registerData
+      );
+      console.log(data);
+      setLoading(true);
+      navigation.navigate("Home");
+    } catch (error) {
+      setLoading(false);
+      alert("Server Error");
+      console.error(error);
+    }
+  };
+
+  const onSubmit = (data) => {
+    dispatch(appendData(data));
+    sumbitRegister({ ...registerData, avatar: "avatar.jpg", role: "client" });
+  };
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Register</Text>
-        <Text style={styles.subTitle}>Contact & Location</Text>
-      </View>
-      <View style={styles.section}>
-        <TextInput
-          placeholder="+216 98 558"
-          value={phone}
-          onChangeText={(text: any) => setPhone(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Address"
-          value={phone}
-          onChangeText={(text: any) => setPhone(text)}
-          style={styles.input}
-        />
-        <View style={{ flexDirection: "row", gap: 18 }}>
-          <TextInput
-            placeholder="Zip Code"
-            value={phone}
-            onChangeText={(text: any) => setPhone(text)}
-            style={[styles.input, { flex: 1 }]}
-          />
-          <View style={{ flex: 2 }}>
-            <SearchableDropdown
-              onItemSelect={(item) => {
-                console.log(item);
-                setCity(item.name);
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Register</Text>
+          <Text style={styles.subTitle}>Contact & Location</Text>
+        </View>
+        <View style={styles.section}>
+          <View style={styles.inputView}>
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "Fullname is required" },
               }}
-              itemStyle={styles.dropItem}
-              itemTextStyle={{ color: "#222" }}
-              itemsContainerStyle={styles.dropList}
-              items={cities}
-              resetValue={false}
-              textInputProps={{
-                placeholder: "Governorates",
-                underlineColorAndroid: "transparent",
-                style: [styles.input],
-                value: city,
-                // onTextChange: (text) => alert(text),
-              }}
-              listProps={{
-                nestedScrollEnabled: true,
-              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  placeholder="Fullname"
+                  value={value}
+                  style={styles.input}
+                />
+              )}
+              name="phone"
             />
           </View>
+          {errors.phone && (
+            <Text style={{ color: "#f01010" }}>{errors.phone.message}</Text>
+          )}
+          <View style={styles.inputView}>
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "Fullname is required" },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  placeholder="Address"
+                  value={value}
+                  style={styles.input}
+                />
+              )}
+              name="address"
+            />
+          </View>
+          {errors.address && (
+            <Text style={{ color: "#f01010" }}>{errors.address.message}</Text>
+          )}
+          <View style={{ flexDirection: "row", gap: 18 }}>
+            <View style={[styles.inputView, { flex: 4 }]}>
+              <Controller
+                control={control}
+                rules={{
+                  required: { value: true, message: "Zip Code is required" },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    placeholder="Zipcode"
+                    value={value}
+                    style={styles.input}
+                  />
+                )}
+                name="zipcode"
+              />
+            </View>
+            <View style={[{ flex: 7 }]}>
+              <Controller
+                control={control}
+                rules={{
+                  required: { value: true, message: "Zip Code is required" },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <SearchableDropdown
+                    onItemSelect={(item) => onChange(item.name)}
+                    itemStyle={styles.dropItem}
+                    itemTextStyle={{ color: "#222" }}
+                    itemsContainerStyle={styles.dropList}
+                    items={cities}
+                    resetValue={false}
+                    textInputProps={{
+                      placeholder: "Governorates",
+                      underlineColorAndroid: "transparent",
+                      style: [styles.inputView, styles.input],
+                      value: value,
+                      // onTextChange: (text) => alert(text),
+                    }}
+                    listProps={{
+                      nestedScrollEnabled: true,
+                    }}
+                  />
+                )}
+                name="city"
+              />
+            </View>
+          </View>
+        </View>
+        <View style={styles.footer}>
+          <Button
+            label="Back"
+            style="bare"
+            callback={() => navigation.goBack()}
+          />
+          <Button
+            label="Finish"
+            style="fill"
+            callback={handleSubmit(onSubmit)}
+          />
         </View>
       </View>
-      <View style={styles.footer}>
-        <Button
-          label="Back"
-          style="bare"
-          callback={() => navigation.goBack()}
-        />
-        <Button label="Finish" style="fill" callback={() => alert("Done")} />
-      </View>
-    </View>
+      {loading ? (
+        <View style={styles.spinner}>
+          <ActivityIndicator size="large" color="#0C3178" />
+        </View>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
@@ -129,7 +233,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#6e6e6e",
   },
-  input: {
+  inputView: {
     backgroundColor: "#fff",
     height: 60,
     paddingHorizontal: 22,
@@ -137,16 +241,11 @@ const styles = StyleSheet.create({
     borderColor: "#e5e5e5",
     borderWidth: 1,
     fontSize: 14,
+    justifyContent: "center",
     elevation: 3,
   },
-  spinner: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
+  input: {
+    fontSize: 14,
   },
   dummyImg: {
     width: 180,
@@ -175,5 +274,14 @@ const styles = StyleSheet.create({
     borderColor: "#e5e5e5",
     borderBottomWidth: 1,
     borderRadius: 5,
+  },
+  spinner: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
   },
 });

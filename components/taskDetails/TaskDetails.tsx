@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from "react-native";
 import axios from "axios";
 import Task from "./TaskInterface";
 import config from "../../config";
@@ -8,7 +15,6 @@ import { TaskProps } from "../tasks/list/TaskItem";
 import { useSelector } from "react-redux";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
-
   const task = useSelector((state: any) => state.task);
   // console.log(task,'hhh');
 
@@ -68,71 +74,76 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
 
   const formatDate = (dateString: string): string => {
-    const options: Intl.DateTimeFormatOptions = { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric', 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      hour12: true // if you want 12 hour time format with AM/PM
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true, // if you want 12 hour time format with AM/PM
     };
-    return new Intl.DateTimeFormat('en-US', options).format(new Date(dateString));
+    return new Intl.DateTimeFormat("en-US", options).format(
+      new Date(dateString)
+    );
   };
 
   return (
     <ImageBackground
-    source={{uri:'https://static.vecteezy.com/system/resources/previews/013/107/410/large_2x/color-gradation-background-horizontal-layout-soft-pastel-effect-backdrop-design-dramatic-saturation-trendy-futuristic-style-color-blending-pink-white-yellow-gradient-mesh-abstract-art-vector.jpg'}}
-    style={styles.container}
+      source={{
+        uri: "https://static.vecteezy.com/system/resources/previews/013/107/410/large_2x/color-gradation-background-horizontal-layout-soft-pastel-effect-backdrop-design-dramatic-saturation-trendy-futuristic-style-color-blending-pink-white-yellow-gradient-mesh-abstract-art-vector.jpg",
+      }}
+      style={styles.container}
     >
-    
-    <View style={styles.container}>
-      <View style ={styles.overlay}>
-        <View style={styles.headerContainer}>
-          <Image
-            source={{
-              // uri: "taskss.client?.avatar",
-              uri: 'https://www.pngarts.com/files/5/Cartoon-Avatar-PNG-Image-Transparent.png',
+      <View style={styles.container}>
+        <View style={styles.overlay}>
+          <View style={styles.headerContainer}>
+            <Image
+              source={{
+                // uri: "taskss.client?.avatar",
+                uri: "https://www.pngarts.com/files/5/Cartoon-Avatar-PNG-Image-Transparent.png",
+              }}
+              style={styles.avatar}
+            />
+            <Text style={styles.headerText}>Urgency : {taskss.urgency}</Text>
+          </View>
+          <View style={styles.subHeaderContainer}>
+            <Text style={styles.subHeaderText}>{taskss.title}</Text>
+            <Text style={styles.timeText}>
+              {taskss.updatedAt ? formatDate(taskss.updatedAt) : ""}
+            </Text>
+          </View>
+          <View style={styles.locationContainer}>
+            <Text style={styles.locationText}>{taskss.location}</Text>
+            <Text style={styles.priceText}>
+              {taskss.minPrice} - {taskss.maxPrice}
+            </Text>
+          </View>
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.descriptionText}>{taskss.description}</Text>
+          </View>
+        </View>
+        <View style={styles.footerContainer}>
+          <TouchableOpacity onPress={handleDelete}>
+            <Text style={styles.deleteText}>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={() => {
+              navigation.navigate("MyTabs", { taskId: taskss.id });
             }}
-            style={styles.avatar}
-          />
-          <Text style={styles.headerText}>Urgency : {taskss.urgency}</Text>
-        </View>
-        <View style={styles.subHeaderContainer}>
-          <Text style={styles.subHeaderText}>{taskss.title}</Text>
-          <Text style={styles.timeText}>{taskss.updatedAt ? formatDate(taskss.updatedAt) : ''}</Text>
-        </View>
-        <View style={styles.locationContainer}>
-          <Text style={styles.locationText}>{taskss.location}</Text>
-          <Text style={styles.priceText}>
-            {taskss.minPrice} - {taskss.maxPrice}
-          </Text>
-        </View>
-        <View style={styles.descriptionContainer}>
-          <Text style={styles.descriptionText}>{taskss.description}</Text>
+          >
+            <Text style={styles.editText}>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => {
+              navigation.navigate("TaskList");
+            }}
+          >
+            <Text style={styles.backText}>Back</Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={handleDelete}>
-          <Text style={styles.deleteText}>Delete</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => {
-            navigation.navigate("MyTabs");
-          }}
-        >
-          <Text style={styles.editText}>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => {
-            navigation.navigate("TaskList");
-          }}
-        >
-          <Text style={styles.backText}>Back</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
     </ImageBackground>
   );
 };
@@ -140,12 +151,11 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#fffda5', // Darker color
+    backgroundColor: "#fffda5", // Darker color
     opacity: 0.5, // Adjust as necessary
     borderRadius: 12,
   },
   container: {
-    
     borderRadius: 12,
     padding: 20,
     flex: 1,

@@ -60,19 +60,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       console.log("handleDelete failed:", err);
     }
   };
-
-  const handleEdit = async () => {
-    try {
-      const { data } = await axios.put<Task>(
-        `http://localhost:3000/api/task/update/${taskId}`,
-        taskss
-      );
-      setTask(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",

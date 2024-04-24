@@ -25,27 +25,27 @@ const NearbyJobsScreen = () => {
 
   const handleApplyToTask = async (appliedTask: Task) => {
     console.log(appliedTask);
+
     try {
       const response = await axios.post(
         "http://localhost:3000/api/task/apply",
-        {
-          userId: 100010,
-          taskId: appliedTask.id,
-          price: appliedTask.price,
-        }
+        { userId: 10015, taskId: appliedTask.id, price: appliedTask.price }
       );
-      setTasks(response.data);
-
       console.log(response.data);
     } catch (error) {
-console.log(error);
+      console.error(error);
     }
   };
 
   return (
     <ScrollView style={{ flex: 1 }}>
       {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} onApply={handleApplyToTask} />
+        <TaskCard
+          key={task.id}
+          task={task}
+          onApply={handleApplyToTask}
+          // userId={userId}
+        />
       ))}
     </ScrollView>
   );

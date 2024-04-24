@@ -1,9 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import { MultiSelect } from 'react-native-element-dropdown';
+import { RouteProp } from '@react-navigation/native';
 
-const step2 = ({ navigation }) => {
+import Task from '../taskDetails/TaskInterface';
+
+type Step2Props = {
+  navigation: any;
+  route: RouteProp<any, any>;
+};
+
+const Step2: React.FC<Step2Props> = ({ navigation , route }) => {
+  console.log("route from step2 :", route)
+  //id in the route params 
   const {
     control,
     handleSubmit,
@@ -14,7 +29,7 @@ const step2 = ({ navigation }) => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     navigation.navigate('step3');
     console.log(data);
   };
@@ -30,7 +45,9 @@ const step2 = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.stepContainer}>
         <Text style={styles.heading}>Edit:</Text>
-        <Text style={{ marginBottom: 10, alignSelf: 'flex-start', paddingTop: 10 }}>Skills & Expertise</Text>
+        <Text style={{ marginBottom: 10, alignSelf: 'flex-start', paddingTop: 10 }}>
+          Skills & Expertise
+        </Text>
       </View>
 
       <View style={styles.inputContainer}>
@@ -48,9 +65,11 @@ const step2 = ({ navigation }) => {
           )}
           name="expertise"
         />
-        {errors.expertise && <Text style={styles.errorText}>Expertise is required.</Text>}
+        {errors.expertise && (
+          <Text style={styles.errorText}>Expertise is required.</Text>
+        )}
 
-        <MultiSelect
+        {/* <MultiSelect
           style={styles.input}
           placeholderStyle={styles.placeholderStyle}
           data={data}
@@ -59,7 +78,7 @@ const step2 = ({ navigation }) => {
           placeholder="Skills"
           searchPlaceholder="Search..."
           onChange={(item) => {}}
-        />
+        /> */}
       </View>
 
       <View style={styles.button}>
@@ -159,4 +178,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default step2;
+export default Step2;

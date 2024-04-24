@@ -9,6 +9,8 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import Button from "../UI/Button";
 import { useState } from "react";
+import axios from "axios";
+import config from "../../config";
 
 const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -23,10 +25,26 @@ const Login = ({ navigation }) => {
       password: "",
     },
   });
-  const onSubmit = (data) => {
-    console.log(data);
 
-    // navigation.navigate("basicInfos");
+  const sumbitLogin = async (loginData) => {
+    try {
+      setLoading(true);
+      const {
+        data: { token },
+      } = await axios.post(`${config.apiUrl}/auth/login`, loginData);
+      console.log("⛩️ ⛩️ ⛩️", token);
+      setLoading(false);
+      // navigation.navigate("Home");
+      alert(token);
+    } catch (error) {
+      setLoading(false);
+      alert("Server Error");
+      console.error(error);
+    }
+  };
+
+  const onSubmit = (data) => {
+    sumbitLogin(data);
   };
 
   return (

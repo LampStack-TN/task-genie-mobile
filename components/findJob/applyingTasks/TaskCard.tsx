@@ -2,7 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Task } from './types'; 
-const TaskCard = ({ task }) => {
+
+const TaskCard = ({ task, onApply }) => {
   return (
     <View style={styles.card}>
       <View style={styles.leftContainer}>
@@ -20,22 +21,13 @@ const TaskCard = ({ task }) => {
           <Text style={styles.createdAt}>{task.createdAt}</Text>
         </View>
       </View>
-      <View style={styles.rightContainer}>
-        <MaterialIcons
-          name="account-circle"
-          size={40}
-          color="#666"
-          style={styles.avatar}
-        />
-      </View>
-      <View style={styles.bottomRightContainer}>
-        <TouchableOpacity style={styles.applyButton}>
-          <Text style={styles.applyButtonText}>Apply</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.applyButton} onPress={() => onApply(task)}>
+        <Text style={styles.applyButtonText}>Apply</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   card: {

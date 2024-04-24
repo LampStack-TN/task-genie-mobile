@@ -3,21 +3,17 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { MultiSelect } from "react-native-element-dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "./TaskSlice";
-
+import skills from "../../../data/skills.json";
 export default function Step2({ navigation }) {
   const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
 
-  const [Expertise, setExpertise] = useState("");
-  const [Skill, setSkill] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
-  const data = [
-    { label: "Item 1", value: "1" },
-    { label: "Item 2", value: "2" },
-    { label: "Item 3", value: "3" },
-    { label: "Item 4", value: "4" },
-  ];
+ 
+
   // console.log(task, 123);
+
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
@@ -30,30 +26,37 @@ export default function Step2({ navigation }) {
       </View>
 
       <View style={styles.inputContainer}>
-        <TextInput
+        {/* <TextInput
           placeholder="Expertise"
           onChangeText={(text) => setExpertise(text)}
           value={Expertise}
           style={styles.input}
-        />
+        /> */}
 
         <MultiSelect
           style={styles.input}
           placeholderStyle={styles.placeholderStyle}
-          data={data}
-          labelField="label"
-          valueField="value"
+          data={skills}
+          labelField="name"
+          valueField="id"
           placeholder="Skills"
           searchPlaceholder="Search..."
-          value={Skill}
-          onChange={(item) => {
-            setSkill(item);
+          value={selectedSkills}
+          onChange={(skillId) => {
+            console.log(skillId);
+
+            setSelectedSkills(skillId);
+            dispatch(addTask({ skills: skillId }));
           }}
         />
       </View>
 
       <View style={styles.button}>
-        <Pressable onPress={() => navigation.navigate("Step3")}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("Step3");
+          }}
+        >
           <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>

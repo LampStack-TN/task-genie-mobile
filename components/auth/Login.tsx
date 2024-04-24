@@ -108,7 +108,7 @@ const Login = ({ navigation }) => {
             label="Register"
             style="fill"
             color="#2e2e2e"
-            callback={handleSubmit(onSubmit)}
+            callback={() => navigation.navigate("register")}
           />
         </View>
       </View>
@@ -133,15 +133,15 @@ const styles = StyleSheet.create({
     paddingVertical: 25,
   },
   // footer: {
-    //   flexDirection: "row",
-    //   backgroundColor: "#fff",
-    //   paddingHorizontal: 22,
-    //   paddingVertical: 25,
-    //   flex: 1,
-    //   alignItems: "center",
-    //   justifyContent: "space-between",
-    // },
-    section: {
+  //   flexDirection: "row",
+  //   backgroundColor: "#fff",
+  //   paddingHorizontal: 22,
+  //   paddingVertical: 25,
+  //   flex: 1,
+  //   alignItems: "center",
+  //   justifyContent: "space-between",
+  // },
+  section: {
     justifyContent: "center",
     backgroundColor: "#fff",
     flex: 3,

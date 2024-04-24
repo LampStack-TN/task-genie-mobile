@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  StatusBar,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, StatusBar } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import Button from "../UI/Button";
 
@@ -27,10 +21,8 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Sign In</Text>
-      </View>
       <View style={styles.section}>
+        <Text style={styles.title}>Sign In</Text>
         <View style={styles.inputView}>
           <Controller
             control={control}
@@ -44,7 +36,7 @@ const Login = ({ navigation }) => {
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 onChangeText={onChange}
-                placeholder="Fullname"
+                placeholder="Email"
                 value={value}
                 style={styles.input}
               />
@@ -69,7 +61,7 @@ const Login = ({ navigation }) => {
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 onChangeText={onChange}
-                placeholder="Fullname"
+                placeholder="Password"
                 value={value}
                 style={styles.input}
               />
@@ -81,11 +73,44 @@ const Login = ({ navigation }) => {
           <Text style={{ color: "#f01010" }}>{errors.password.message}</Text>
         )}
 
-        <Button
-          label="Register"
-          style="fill"
-          callback={handleSubmit(onSubmit)}
-        />
+        <View style={{ marginTop: 18 }}>
+          <Button
+            label="Sign In"
+            style="fill"
+            callback={handleSubmit(onSubmit)}
+          />
+        </View>
+        <Text
+          style={{
+            textAlign: "center",
+            color: "#1E5BD2",
+            fontSize: 18,
+            paddingBottom: 22,
+            marginHorizontal: 40,
+            textDecorationLine: "underline",
+            borderBottomWidth: 1,
+            borderBottomColor: "#c4c4c4",
+          }}
+        >
+          Forgot password?
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            color: "#4e4e4e",
+            fontSize: 18,
+          }}
+        >
+          Don’t have an account?
+        </Text>
+        <View style={{ paddingHorizontal: "20%" }}>
+          <Button
+            label="Register"
+            style="fill"
+            color="#2e2e2e"
+            callback={() => navigation.navigate("Register")}
+          />
+        </View>
       </View>
     </View>
   );
@@ -102,7 +127,6 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
   },
   header: {
-    justifyContent: "center",
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 10,
@@ -118,6 +142,7 @@ const styles = StyleSheet.create({
   //   justifyContent: "space-between",
   // },
   section: {
+    justifyContent: "center",
     backgroundColor: "#fff",
     flex: 3,
     gap: 15,

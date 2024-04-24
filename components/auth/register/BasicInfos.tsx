@@ -78,7 +78,7 @@ const BasicInfos = ({ navigation }) => {
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
                     onChangeText={onChange}
-                    placeholder="Birthdae"
+                    placeholder="Birthdate"
                     value={value}
                     style={styles.input}
                   />

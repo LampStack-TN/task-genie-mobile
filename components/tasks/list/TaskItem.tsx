@@ -19,7 +19,11 @@ export type TaskProps = {
   //   urgency?: 'Urgent' | 'Soon' | 'Low';
 };
 
-const TaskItem: React.FC<{task: TaskProps;handleDelete: (taskId: number) => void;navigation:any}> = ({ task, handleDelete,navigation }) => {
+const TaskItem: React.FC<{
+  task: TaskProps;
+  handleDelete: (taskId: number) => void;
+  navigation: any;
+}> = ({ task, handleDelete, navigation }) => {
   if (!task) {
     return null;
   }
@@ -49,9 +53,13 @@ const TaskItem: React.FC<{task: TaskProps;handleDelete: (taskId: number) => void
         </View>
         <TouchableOpacity style={styles.editButton}>
           <Text
-          onPress={()=>{navigation.navigate("MyTabs")}}
-          style={styles.buttonText}>Edit</Text>
-          
+            onPress={() => {
+              navigation.navigate("MyTabs", { id: task.id });
+            }}
+            style={styles.buttonText}
+          >
+            Edit
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.deleteButton}

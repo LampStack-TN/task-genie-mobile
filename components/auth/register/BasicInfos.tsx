@@ -6,55 +6,107 @@ import {
   View,
   ScrollView,
 } from "react-native";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
+
+import { appendData } from "./registerSlice";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
 import Button from "../../UI/Button";
 
 const BasicInfos = ({ navigation }) => {
-  const [fullName, setName] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+  useSelector((state: any) => state.registerData);
+  const dispatch = useDispatch();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      fullName: "",
+      birthdate: "",
+    },
+  });
+  const onSubmit = (data) => {
+    console.log(data);
+
+    dispatch(appendData(data));
+    navigation.navigate("contact");
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.header}>
-          <Text style={styles.title}>Registesr</Text>
+          <Text style={styles.title}>Register</Text>
           <Text style={styles.subTitle}>Basic Informations</Text>
         </View>
         <View style={styles.section}>
           <View style={styles.dummyImg}></View>
 
-          <View style={styles.inputView}>
-            <TextInput
-              placeholder="Fullname"
-              value={fullName}
-              onChangeText={(text) => setName(text)}
-              // style={styles.input}
-            />
-          </View>
-
-          <View style={styles.inputView}>
-            <TextInput
-              placeholder="Birthdate"
-              value={birthdate}
-              onChangeText={(text) => setBirthdate(text)}
-              // style={styles.input}
-            />
-            <View style={styles.inputIcon}>
-              <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
+          <View style={styles.section}>
+            <View style={styles.inputView}>
+              <Controller
+                control={control}
+                rules={{
+                  required: { value: true, message: "Fullname is required" },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    placeholder="Fullname"
+                    value={value}
+                    style={styles.input}
+                  />
+                )}
+                name="fullName"
+              />
             </View>
+            {errors.fullName && (
+              <Text style={{ color: "#f01010" }}>
+                {errors.fullName.message}
+              </Text>
+            )}
+
+            <View style={styles.inputView}>
+              <Controller
+                control={control}
+                rules={{
+                  required: { value: true, message: "Birthdate is required" },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    placeholder="Birthdae"
+                    value={value}
+                    style={styles.input}
+                  />
+                )}
+                name="birthdate"
+              />
+              <View style={styles.inputIcon}>
+                <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
+              </View>
+            </View>
+            {errors.birthdate && (
+              <Text style={{ color: "#f01010" }}>
+                {errors.birthdate.message}
+              </Text>
+            )}
           </View>
-        </View>
-        <View style={styles.footer}>
-          <Button
-            label="Back"
-            style="bare"
-            callback={() => navigation.goBack()}
-          />
-          <Button
-            label="Next"
-            style="outline"
-            callback={() => navigation.navigate("contact")}
-          />
+          <View style={styles.footer}>
+            <Button
+              label="Back"
+              style="bare"
+              callback={() => navigation.goBack()}
+            />
+            <Button
+              label="Next"
+              style="outline"
+              callback={handleSubmit(onSubmit)}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>

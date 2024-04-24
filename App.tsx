@@ -13,6 +13,8 @@ import MyTabs from "./components/editTask/MyTabs";
 
 import TaskStepsIndex from "./components/tasks/steps";
 import Login from "./components/auth/Login";
+import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScreen";
+import AppliedTasks from "./components/findJob/applyingTasks/AppliedTasks";
 
 function HomeScreen({ navigation, route }) {
   // const task = useSelector((state: any) => state.task);
@@ -50,6 +52,18 @@ function HomeScreen({ navigation, route }) {
         onPress={() => navigation.navigate("TaskList")}
       />
       <Button title="MyTabs" onPress={() => navigation.navigate("MyTabs")} />
+      <Button
+        title="MyTabs"
+        onPress={() => navigation.navigate("MyTabs")}
+      />
+      <Button
+      title="Tasks"
+onPress={()=>navigation.navigate("Tasks")}
+      />
+      <Button
+      title="AppliedJobs"
+      onPress={()=>navigation.navigate('AppliedJobs')}
+      />
     </View>
   );
 }
@@ -73,6 +87,8 @@ function App() {
           <Stack.Screen name="TaskDetails" component={TaskDetails} />
           <Stack.Screen name="TaskList" component={TaskList} />
           <Stack.Screen name="MyTabs" component={MyTabs} />
+          <Stack.Screen name="Tasks" component={NearbyJobsScreen}/>
+          <Stack.Screen name="AppliedJobs" component={AppliedTasks}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

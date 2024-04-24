@@ -1,188 +1,234 @@
-import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native'
-import React from 'react'
-import { useForm,Controller } from "react-hook-form"
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { RouteProp } from "@react-navigation/native";
+import axios from "axios";
+import Task from "../taskDetails/TaskInterface";
 
-const step1 = ({navigation }) => {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-      } = useForm({
-        defaultValues: {
-          title: "",
-          description: "",
-          location: "",
-        },
-      });
+type RootStackParamList = {
+  step1: { taskId: string };
+};
 
+type Step1RouteProp = RouteProp<RootStackParamList, "step1">;
 
-      const onSubmit = (data) => {
-        navigation.navigate("step2")
-        console.log(data)}
+type Step1Props = {
+  navigation: any;
+  route: Step1RouteProp;
+};
 
-        
-        return (
-            <View style={styles.container}>
-              <View style={styles.stepContainer}>
-                <Text style={styles.heading}>Edit :</Text>
-                <Text style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}>
-                  Basic Job Description
-                </Text>
-              </View>
-        
-              <View style={styles.inputContainer}>
-                <Controller
-                  control={control}
-                  rules={{ required: 'Title is required' }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                      placeholder="Title"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      style={styles.input}
-                    />
-                  )}
-                  name="title"
-                />
-                {errors.title && <Text style={styles.errorText}>Title is required.</Text>}
-        
-                <Controller
-                  control={control}
-                  rules={{ required: 'Description is required' }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                      placeholder="Description"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      style={[styles.input, styles.largeInput]}
-                      multiline={true}
-                      numberOfLines={4}
-                    />
-                  )}
-                  name="description"
-                />
-                {errors.description && <Text style={styles.errorText}>Description is required.</Text>}
-        
-                <Controller
-                  control={control}
-                  rules={{ required: 'Location is required' }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                      placeholder="Location"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      style={styles.input}
-                    />
-                  )}
-                  name="location"
-                />
-                {errors.location && <Text style={styles.errorText}>Location is required.</Text>}
-              </View>
-        
-              <View style={styles.button1}>
-                <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-                  <Text style={styles.text}>Submit</Text>
-                </TouchableOpacity>
-              </View>
-        
-              <View style={{
-                position: "absolute",
-                bottom: 40,
-                left: 20,
-                alignItems: "center",
-                justifyContent: "center",
-              }}>
-                <TouchableOpacity onPress={() => navigation.navigate("TaskList")}>
-                  <Text style={styles.textt}>Back</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          );
+const step1: React.FC<Step1Props> = ({ navigation, route }) => {
+  const { taskId } = route.params;
+  const [task, setTask] = useState<Task | null>(null);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Task>({
+    defaultValues: {
+      title: "",
+      description: "",
+      location: "",
+    },
+  });
+
+  const onSubmit = async (data: Task) => {
+    try {
+      await handleEdit(data);
+      navigation.navigate("step2");
+    } catch (err) {
+      console.error("Error updating task:", err);
     }
+  };
 
-    export default step1
-    
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        paddingHorizontal: 25,
-        backgroundColor: "#fff",
-      },
-      stepContainer: {
-        alignSelf: "flex-start",
-        marginBottom: 20,
-        paddingTop: 1,
-      },
-      errorText: {
-        color: 'red',
-        alignSelf: 'flex-start',
-        marginLeft: 15,
-      },
-      heading: {
-        paddingTop: 60,
-        fontSize: 30,
-        fontWeight: "bold",
-        color: "#0C3178",
-      },
-      inputContainer: {
-        width: "100%",
-        alignItems: "center",
-        flex: 3,
-        gap: 15,
-        justifyContent: "center",
-        paddingHorizontal: 11,
-        marginBottom: 300,
-      },
-      input: {
-        backgroundColor: "#fff",
-        height: 60,
-        width: 350,
-        paddingHorizontal: 22,
-        borderRadius: 30,
-        borderWidth: 1,
-        borderColor: "#e5e5e5",
-        marginBottom: 20,
-        fontSize: 14,
-        elevation: 3,
-      },
-      largeInput: {
-        height: 120,
-      },
-      text: {
-        color: "#0C3178",
-        paddingVertical: 4 * 2,
-        paddingHorizontal: 20,
-        fontSize: 20,
-        lineHeight: 21,
-        fontWeight: "bold",
-        letterSpacing: 0.25,
-      },
-      textt: {
-        paddingVertical: 4 * 2,
-        paddingHorizontal: 20,
-        fontSize: 20,
-        lineHeight: 21,
-        fontWeight: "bold",
-        letterSpacing: 0.25,
-        color: "#0C3178",
-      },
-      button1: {
-        position: "absolute",
-        bottom: 40,
-        right: 20,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 50,
-        borderColor: "#0C3178",
-        borderWidth: 2,
-        elevation: 3,
-        backgroundColor: "#fff",
-        overflow: "hidden",
-      },
-    });
-    
+  const handleEdit = async (updatedTask: Task) => {
+    try {
+      const { data } = await axios.put<Task>(
+        `http://localhost:3000/api/task/update/${taskId}`,
+        updatedTask
+      );
+      setTask(data);
+    } catch (err) {
+      console.log("Error editing task:", err);
+    }
+  };
+  return (
+    <View style={styles.container}>
+      <View style={styles.stepContainer}>
+        <Text style={styles.heading}>Edit :</Text>
+        <Text
+          style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
+        >
+          Basic Job Description
+        </Text>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Controller
+          control={control}
+          rules={{ required: "Title is required" }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Title"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="title"
+        />
+        {errors.title && (
+          <Text style={styles.errorText}>Title is required.</Text>
+        )}
+
+        <Controller
+          control={control}
+          rules={{ required: "Description is required" }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Description"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              style={[styles.input, styles.largeInput]}
+              multiline={true}
+              numberOfLines={4}
+            />
+          )}
+          name="description"
+        />
+        {errors.description && (
+          <Text style={styles.errorText}>Description is required.</Text>
+        )}
+
+        <Controller
+          control={control}
+          rules={{ required: "Location is required" }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Location"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="location"
+        />
+        {errors.location && (
+          <Text style={styles.errorText}>Location is required.</Text>
+        )}
+      </View>
+
+      <View style={styles.button1}>
+        <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+          <Text style={styles.text}>Submit</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View
+        style={{
+          position: "absolute",
+          bottom: 40,
+          left: 20,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <TouchableOpacity onPress={() => navigation.navigate("TaskList")}>
+          <Text style={styles.textt}>Back</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+export default step1;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 25,
+    backgroundColor: "#fff",
+  },
+  stepContainer: {
+    alignSelf: "flex-start",
+    marginBottom: 20,
+    paddingTop: 1,
+  },
+  errorText: {
+    color: "red",
+    alignSelf: "flex-start",
+    marginLeft: 15,
+  },
+  heading: {
+    paddingTop: 60,
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#0C3178",
+  },
+  inputContainer: {
+    width: "100%",
+    alignItems: "center",
+    flex: 3,
+    gap: 15,
+    justifyContent: "center",
+    paddingHorizontal: 11,
+    marginBottom: 300,
+  },
+  input: {
+    backgroundColor: "#fff",
+    height: 60,
+    width: 350,
+    paddingHorizontal: 22,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "#e5e5e5",
+    marginBottom: 20,
+    fontSize: 14,
+    elevation: 3,
+  },
+  largeInput: {
+    height: 120,
+  },
+  text: {
+    color: "#0C3178",
+    paddingVertical: 4 * 2,
+    paddingHorizontal: 20,
+    fontSize: 20,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+  },
+  textt: {
+    paddingVertical: 4 * 2,
+    paddingHorizontal: 20,
+    fontSize: 20,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "#0C3178",
+  },
+  button1: {
+    position: "absolute",
+    bottom: 40,
+    right: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    borderColor: "#0C3178",
+    borderWidth: 2,
+    elevation: 3,
+    backgroundColor: "#fff",
+    overflow: "hidden",
+  },
+});

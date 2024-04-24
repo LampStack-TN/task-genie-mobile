@@ -23,7 +23,6 @@ const data = [
   { label: "medium", value: "medium" },
 ];
 export default function Step3({ navigation }) {
-
   const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
 
@@ -37,7 +36,7 @@ export default function Step3({ navigation }) {
     dispatch(addTask({ [field]: value }));
   };
 
-  // console.log(task, 123);
+  console.log(task, 123);
 
   const create: any = async () => {
     try {
@@ -92,7 +91,7 @@ export default function Step3({ navigation }) {
           data={data}
           onChange={(item) => {
             setUrgency(item.value);
-            UpdateTask("urgency", item);
+            UpdateTask("urgency", item.value);
           }}
           value={urgency}
           style={[styles.input]}

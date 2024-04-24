@@ -30,11 +30,11 @@ const Login = ({ navigation }) => {
     try {
       setLoading(true);
       const {
-        data: { token },
+        data: { acessToken },
       } = await axios.post(`${config.apiUrl}/auth/login`, loginData);
       setLoading(false);
       // navigation.navigate("Home");
-      alert(token);
+      alert("acessToken: " + acessToken);
     } catch (error) {
       setLoading(false);
       alert("Server Error");

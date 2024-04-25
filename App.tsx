@@ -17,9 +17,7 @@ import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScree
 import AppliedTasks from "./components/findJob/applyingTasks/AppliedTasks";
 import { useLayoutEffect, useState } from "react";
 import { ApiClient } from "./api";
-
-import Profile1 from "./components/profile/Pofile1";
-import Profile2 from "./components/profile/Profile2";
+import ProfileIndex from "./components/profile/ProfileIndex"
 
 function HomeScreen({ navigation, route }) {
   // const task = useSelector((state: any) => state.task);
@@ -67,7 +65,7 @@ function HomeScreen({ navigation, route }) {
         title="start"
         onPress={() => navigation.navigate("MyBottomTab")}
       />
-      <Button title="Profile" onPress={() => navigation.navigate("Profile1")} />
+      <Button title="Profile" onPress={() => navigation.navigate("ProfileIndex")} />
     </View>
   );
 }
@@ -110,8 +108,7 @@ function App() {
             <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
             <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
             <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
-            <Stack.Screen name="Profile1" component={Profile1} />
-            <Stack.Screen name="Profile2" component={Profile2} />
+            <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
           </Stack.Navigator>
         ) : (
           <Stack.Navigator

@@ -10,54 +10,52 @@ import {
 import axios from "axios";
 import Task from "./TaskInterface";
 import config from "../../config";
-
+import { ApiClient } from "../../api";
 import { TaskProps } from "../tasks/list/TaskItem";
 import { useSelector } from "react-redux";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
+
+  const api = ApiClient()
   const task = useSelector((state: any) => state.task);
   // console.log(task,'hhh');
 
   // console.log();
   const [taskss, setTask] = useState<Task>({});
-
+  const [taskDetail, setTaskDetail] = useState<Task>({});
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const taskId = route.params.taskId;
   console.log("task : ", taskId);
   const fetchOne = async () => {
     try {
-      const { data } = await axios.get<Task>(
-        `${config.apiUrl}/task/getOne/${taskId}`
-      );
-      setTask(data);
+      const { data } = await api.get(`/task/getOne/${taskId}`);
+      setTaskDetail(data);
     } catch (err) {
-      console.log(err);
+      console.log('fetchOne failds :',err);
     }
   };
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch(`${config.apiUrl}/task/getAll`);
-      const data = await response.json();
+      const { data } = await api.get('/task/getAll');
       setTasks(data);
       console.log(data);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
-
   useEffect(() => {
     fetchOne();
     fetchTasks();
-  }, []);
+  }, [taskId]);
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${config.apiUrl}/task/delete/${taskId}`);
+      await api.del(`/task/delete/${taskId}`);
       fetchTasks();
       navigation.navigate("TaskList");
     } catch (err) {
-      console.log("handleDelete failed:", err);
+      console.log("Handle delete failed:", err.message);
     }
   };
   const formatDate = (dateString: string): string => {
@@ -86,8 +84,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <View style={styles.headerContainer}>
             <Image
               source={{
-                // uri: "taskss.client?.avatar",
-                uri: "https://www.pngarts.com/files/5/Cartoon-Avatar-PNG-Image-Transparent.png",
+                uri: taskss.client?.avatar,
               }}
               style={styles.avatar}
             />

@@ -4,17 +4,18 @@ import TaskItem from "./TaskItem";
 import { TaskProps } from "./TaskItem";
 import config from "../../../config";
 import { useFocusEffect } from "@react-navigation/native";
-
+import { ApiClient } from "../../../api";
 const TaskList: React.FC = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
-
+  const api = ApiClient();
   const fetchTasks = async () => {
     try {
-      const response = await fetch(`${config.apiUrl}/task/getAll/`);
-      const data = await response.json();
-      setTasks(data);
+      const response = await api.get('/task/getAll/');
+      if (response && response.data) {
+        setTasks(response.data);
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching tasks:", error.message);
     }
   };
 
@@ -23,16 +24,12 @@ const TaskList: React.FC = ({ navigation }: any) => {
       fetchTasks();
     }, [])
   );
-
   const handleDelete = async (taskId: number) => {
     try {
-      await fetch(`${config.apiUrl}/task/delete/${taskId}`, {
-        method: "DELETE",
-      });
-
-      fetchTasks();
+      await api.del(`/task/delete/${taskId}`);
+      fetchTasks();  
     } catch (err) {
-      console.log(err);
+      console.log("Error deleting task:", err.message);
     }
   };
 

@@ -8,9 +8,8 @@ import TaskList from "./components/tasks/list/TaskList";
 import MyBottomTab from "./components/navigation/MyBottomTab";
 import store from "./store";
 import { Provider } from "react-redux";
-import MyTasks from "./components/tasks/MyLists/MyTasks"
 import MyTabs from "./components/editTask/MyTabs";
-
+import MyTasksPosted from "./components/tasks/MyLists/MyTasksPosted";
 import TaskStepsIndex from "./components/tasks/steps";
 import Login from "./components/auth/Login";
 import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScreen";
@@ -117,7 +116,7 @@ function App() {
             <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
             <Stack.Screen name="Profile1" component={Profile1} />
             <Stack.Screen name="Profile2" component={Profile2} />
-            <Stack.Screen name="MyTasks" component={MyTasks}/>
+            <Stack.Screen name="MyTasks" component={MyTasksPosted}/>
           </Stack.Navigator>
         ) : (
           <Stack.Navigator

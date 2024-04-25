@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RegisterIndex from "./components/auth/register/Index";
 import TaskDetails from "./components/taskDetails/TaskDetails";
 import TaskList from "./components/tasks/list/TaskList";
-
+import MyBottomTab from "./components/navigation/MyBottomTab";
 import store from "./store";
 import { Provider } from "react-redux";
 
@@ -64,6 +64,10 @@ onPress={()=>navigation.navigate("Tasks")}
       title="AppliedJobs"
       onPress={()=>navigation.navigate('AppliedJobs')}
       />
+      <Button
+      title="MyBottomTab"
+      onPress={()=>navigation.navigate('MyBottomTab')}
+      />
     </View>
   );
 }
@@ -89,6 +93,7 @@ function App() {
           <Stack.Screen name="MyTabs" component={MyTabs} />
           <Stack.Screen name="Tasks" component={NearbyJobsScreen}/>
           <Stack.Screen name="AppliedJobs" component={AppliedTasks}/>
+          <Stack.Screen name="MyBottomTab" component={MyBottomTab}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

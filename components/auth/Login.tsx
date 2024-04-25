@@ -6,6 +6,9 @@ import {
   ActivityIndicator,
   StatusBar,
 } from "react-native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useForm, Controller } from "react-hook-form";
 import Button from "../UI/Button";
 import { useState } from "react";
@@ -34,7 +37,8 @@ const Login = ({ navigation }) => {
       } = await axios.post(`${config.apiUrl}/auth/login`, loginData);
       setLoading(false);
       // navigation.navigate("Home");
-      alert("acessToken: " + acessToken);
+      alert("login successful");
+      await AsyncStorage.setItem("token", "Bearer " + acessToken);
     } catch (error) {
       setLoading(false);
       alert("Server Error");

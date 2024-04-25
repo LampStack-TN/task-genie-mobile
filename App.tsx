@@ -104,8 +104,6 @@ function App() {
           >
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Step1" component={TaskStepsIndex} />
-            <Stack.Screen name="Register" component={RegisterIndex} />
-            <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="TaskDetails" component={TaskDetails} />
             <Stack.Screen name="TaskList" component={TaskList} />
             <Stack.Screen name="MyTabs" component={MyTabs} />

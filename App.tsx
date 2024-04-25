@@ -17,6 +17,7 @@ import AppliedTasks from "./components/findJob/applyingTasks/AppliedTasks";
 import { useLayoutEffect, useState } from "react";
 import { ApiClient } from "./api";
 import ProfileIndex from "./components/profile/ProfileIndex";
+import BottomNav from "./components/UI/BottomNav";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,23 +44,28 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         {user ? (
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-            initialRouteName="Home"
-          >
-            <Stack.Screen name="Home" component={MyBottomTab} />
-            <Stack.Screen name="Step1" component={TaskStepsIndex} />
-            <Stack.Screen name="TaskDetails" component={TaskDetails} />
-            <Stack.Screen name="TaskList" component={TaskList} />
-            <Stack.Screen name="MyTabs" component={MyTabs} />
-            <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
-            <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
-            <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
-            <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
-            <Stack.Screen name="MyTasks" component={MyTasksPosted} />
-          </Stack.Navigator>
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+              <Stack.Navigator
+                screenOptions={{
+                  headerShown: false,
+                }}
+                initialRouteName="Home"
+              >
+                <Stack.Screen name="Home" component={MyBottomTab} />
+                <Stack.Screen name="Step1" component={TaskStepsIndex} />
+                <Stack.Screen name="TaskDetails" component={TaskDetails} />
+                <Stack.Screen name="TaskList" component={TaskList} />
+                <Stack.Screen name="MyTabs" component={MyTabs} />
+                <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
+                <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
+                <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
+                <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
+                <Stack.Screen name="MyTasks" component={MyTasksPosted} />
+              </Stack.Navigator>
+            </View>
+            <BottomNav />
+          </View>
         ) : (
           <Stack.Navigator
             screenOptions={{

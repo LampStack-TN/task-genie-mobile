@@ -64,8 +64,8 @@ function HomeScreen({ navigation, route }) {
         onPress={() => navigation.navigate("AppliedJobs")}
       />
       <Button
-      title="MyBottomTab"
-      onPress={()=>navigation.navigate('MyBottomTab')}
+        title="MyBottomTab"
+        onPress={() => navigation.navigate("MyBottomTab")}
       />
       <Button title="Profile" onPress={() => navigation.navigate("Profile1")} />
     </View>
@@ -102,18 +102,18 @@ function App() {
             }}
             initialRouteName="Home"
           >
-          <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Step1" component={TaskStepsIndex} />
-        <Stack.Screen name="Register" component={RegisterIndex} />
-        <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="TaskDetails" component={TaskDetails} />
-        <Stack.Screen name="TaskList" component={TaskList} />
-        <Stack.Screen name="MyTabs" component={MyTabs} />
-        <Stack.Screen name="MyBottomTab" component={MyBottomTab}/>
-        <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
-        <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
-        <Stack.Screen name="Profile1" component={Profile1} />
-        <Stack.Screen name="Profile2" component={Profile2} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Step1" component={TaskStepsIndex} />
+            <Stack.Screen name="Register" component={RegisterIndex} />
+            <Stack.Screen name="login" component={Login} />
+            <Stack.Screen name="TaskDetails" component={TaskDetails} />
+            <Stack.Screen name="TaskList" component={TaskList} />
+            <Stack.Screen name="MyTabs" component={MyTabs} />
+            <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
+            <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
+            <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
+            <Stack.Screen name="Profile1" component={Profile1} />
+            <Stack.Screen name="Profile2" component={Profile2} />
           </Stack.Navigator>
         ) : (
           <Stack.Navigator

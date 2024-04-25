@@ -35,8 +35,8 @@ export const ApiClient = () => {
     return api.post(path, body, params).then((response) => response);
   };
 
-  const put = (path, body, params) => {
-    return api.put(path, body, params).then((response) => response);
+  const put = (path, body) => {
+    return api.put(path, body).then((response) => response);
   };
 
   const patch = (path, body, params) => {

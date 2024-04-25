@@ -64,7 +64,7 @@ function HomeScreen({ navigation, route }) {
         onPress={() => navigation.navigate("AppliedJobs")}
       />
       <Button
-        title="MyBottomTab"
+        title="start"
         onPress={() => navigation.navigate("MyBottomTab")}
       />
       <Button title="Profile" onPress={() => navigation.navigate("Profile1")} />

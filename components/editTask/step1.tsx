@@ -142,7 +142,7 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
           justifyContent: "center",
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("TaskList")}>
+        <TouchableOpacity onPress={() => navigation.navigate("MyBottomTab")}>
           <Text style={styles.textt}>Back</Text>
         </TouchableOpacity>
       </View>

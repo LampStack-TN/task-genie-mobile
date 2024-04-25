@@ -22,6 +22,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   const [user, setUser] = useState(null);
+  const [dummy, setDummy] = useState(false);
 
   const verifyToken = async () => {
     try {
@@ -36,7 +37,7 @@ function App() {
 
   useLayoutEffect(() => {
     verifyToken();
-  }, []);
+  }, [dummy]);
 
   return (
     <Provider store={store}>
@@ -68,7 +69,13 @@ function App() {
           >
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="Register" component={RegisterIndex} />
-            <Stack.Screen name="Home" component={() => <></>} />
+            <Stack.Screen
+              name="Home"
+              component={() => {
+                setDummy(!dummy);
+                return <></>;
+              }}
+            />
           </Stack.Navigator>
         )}
       </NavigationContainer>

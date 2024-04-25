@@ -8,9 +8,8 @@ import TaskList from "./components/tasks/list/TaskList";
 import MyBottomTab from "./components/navigation/MyBottomTab";
 import store from "./store";
 import { Provider } from "react-redux";
-
 import MyTabs from "./components/editTask/MyTabs";
-
+import MyTasksPosted from "./components/tasks/MyLists/MyTasksPosted";
 import TaskStepsIndex from "./components/tasks/steps";
 import Login from "./components/auth/Login";
 import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScreen";
@@ -66,6 +65,12 @@ function HomeScreen({ navigation, route }) {
         onPress={() => navigation.navigate("MyBottomTab")}
       />
       <Button title="Profile" onPress={() => navigation.navigate("ProfileIndex")} />
+      <Button title="Profile" onPress={() => navigation.navigate("Profile1")} />
+      <Button
+        title="MyTasks"
+        onPress={() => navigation.navigate("MyTasks")}
+      />
+
     </View>
   );
 }
@@ -109,6 +114,7 @@ function App() {
             <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
             <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
             <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
+            <Stack.Screen name="MyTasks" component={MyTasksPosted}/>
           </Stack.Navigator>
         ) : (
           <Stack.Navigator

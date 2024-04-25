@@ -40,7 +40,7 @@ const step3: React.FC<Step3Props> = ({ navigation, route }) => {
   const onSubmit = async (data: Task) => {
     try {
       await handleEdit(data);
-      navigation.navigate("TaskList");
+      navigation.navigate("MyBottomTab");
     } catch (err) {
       console.error("Error updating task:", err);
     }

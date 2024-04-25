@@ -15,6 +15,8 @@ import TaskStepsIndex from "./components/tasks/steps";
 import Login from "./components/auth/Login";
 import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScreen";
 import AppliedTasks from "./components/findJob/applyingTasks/AppliedTasks";
+import { useLayoutEffect, useState } from "react";
+import { ApiClient } from "./api";
 
 function HomeScreen({ navigation, route }) {
   // const task = useSelector((state: any) => state.task);
@@ -52,17 +54,11 @@ function HomeScreen({ navigation, route }) {
         onPress={() => navigation.navigate("TaskList")}
       />
       <Button title="MyTabs" onPress={() => navigation.navigate("MyTabs")} />
+      <Button title="MyTabs" onPress={() => navigation.navigate("MyTabs")} />
+      <Button title="Tasks" onPress={() => navigation.navigate("Tasks")} />
       <Button
-        title="MyTabs"
-        onPress={() => navigation.navigate("MyTabs")}
-      />
-      <Button
-      title="Tasks"
-onPress={()=>navigation.navigate("Tasks")}
-      />
-      <Button
-      title="AppliedJobs"
-      onPress={()=>navigation.navigate('AppliedJobs')}
+        title="AppliedJobs"
+        onPress={() => navigation.navigate("AppliedJobs")}
       />
     </View>
   );
@@ -71,25 +67,52 @@ onPress={()=>navigation.navigate("Tasks")}
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const verifyToken = async () => {
+    try {
+      const { data } = await ApiClient().get("auth/verify-token");
+      console.log(data);
+      setUser(data);
+    } catch (error) {
+      console.log(error);
+      console.log("error");
+    }
+  };
+
+  useLayoutEffect(() => {
+    verifyToken();
+  }, []);
+
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-          initialRouteName="Home"
-        >
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Step1" component={TaskStepsIndex} />
-          <Stack.Screen name="Register" component={RegisterIndex} />
-          <Stack.Screen name="login" component={Login} />
-          <Stack.Screen name="TaskDetails" component={TaskDetails} />
-          <Stack.Screen name="TaskList" component={TaskList} />
-          <Stack.Screen name="MyTabs" component={MyTabs} />
-          <Stack.Screen name="Tasks" component={NearbyJobsScreen}/>
-          <Stack.Screen name="AppliedJobs" component={AppliedTasks}/>
-        </Stack.Navigator>
+        {user ? (
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+            initialRouteName="Home"
+          >
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Step1" component={TaskStepsIndex} />
+            <Stack.Screen name="TaskDetails" component={TaskDetails} />
+            <Stack.Screen name="TaskList" component={TaskList} />
+            <Stack.Screen name="MyTabs" component={MyTabs} />
+            <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
+            <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
+          </Stack.Navigator>
+        ) : (
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+            initialRouteName="login"
+          >
+            <Stack.Screen name="login" component={Login} />
+            <Stack.Screen name="Register" component={RegisterIndex} />
+          </Stack.Navigator>
+        )}
       </NavigationContainer>
     </Provider>
   );

@@ -3,6 +3,9 @@ import { ScrollView, View, Text,StyleSheet } from "react-native";
 import axios from "axios";
 import { Task } from "./types";
 import { MaterialIcons } from '@expo/vector-icons';
+import { ApiClient } from "../../../api";
+
+
 const AppliedTasks = () => {
   const [appliedTasks, setAppliedTasks] = useState<Task[]>([]);
 
@@ -13,28 +16,23 @@ const AppliedTasks = () => {
 
   const fetchAppliedTasks = async () => {
     try {
-      const userId = 10015;
-      const response = await axios.get(
-        `http://localhost:3000/api/task/app/${userId}`
-      );
+      const response  = await ApiClient().get(`/api/task/app`);
       setAppliedTasks(response.data);
     } catch (error) {
-      console.error(error);
-    }
+      console.error(error.response ? error.response.data : error.message);    }
   };
+ 
 
   return (
     <ScrollView>
       {appliedTasks.map((applied) => (
         <View key={applied.id} style={styles.taskCard}>
-          {/* still handling ts */}
-          <Text style={styles.title}>{applied.task.title}</Text>   
-          <Text style={styles.description}> {applied.task.description}</Text>
-          <MaterialIcons name="pending" size={24} color="black" />
-          <MaterialIcons name="verified" size={24} color="green" />        </View>
+          <Text style={styles.title}>{applied.task.title}</Text>
+          <Text style={styles.description}>{applied.task.description}</Text>
+          
+        </View>
       ))}
     </ScrollView>
-    
   );
 };
 const styles = StyleSheet.create({

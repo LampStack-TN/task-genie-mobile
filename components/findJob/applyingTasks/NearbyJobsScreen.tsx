@@ -4,6 +4,7 @@ import { ScrollView } from "react-native";
 import axios from "axios";
 import TaskCard from "./TaskCard";
 import { Task } from "./types";
+import { ApiClient } from "../../../api";
 
 const NearbyJobsScreen = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -11,9 +12,7 @@ const NearbyJobsScreen = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/task/getAll"
-        );
+        const response = await ApiClient().get("/task/getAll");
         setTasks(response.data);
       } catch (error) {
         console.error(error);

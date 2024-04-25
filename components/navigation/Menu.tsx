@@ -16,7 +16,7 @@ const Menu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TaskList')}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MyTasks')}>
         <MaterialCommunityIcons name="format-list-checkbox" size={24} color="#000" />
         <Text style={styles.buttonText}>Task List</Text>
       </TouchableOpacity>

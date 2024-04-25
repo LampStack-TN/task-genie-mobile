@@ -105,7 +105,7 @@ function App() {
             }}
             initialRouteName="Home"
           >
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Home" component={MyBottomTab} />
             <Stack.Screen name="Step1" component={TaskStepsIndex} />
             <Stack.Screen name="TaskDetails" component={TaskDetails} />
             <Stack.Screen name="TaskList" component={TaskList} />

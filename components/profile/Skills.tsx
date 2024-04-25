@@ -16,7 +16,7 @@ import { appendData } from "../auth/register/registerSlice";
 import Button from "../UI/Button";
 import skills from "../../data/skills.json";
 
-const Profile2 = ({ navigation }) => {
+const Skills = ({ navigation }) => {
   const [selectedSkills, setSelectedSkills] = useState([]);
   // Loader State
   const [loading, setLoading] = useState(false);
@@ -95,7 +95,7 @@ const Profile2 = ({ navigation }) => {
   );
 };
 
-export default Profile2;
+export default Skills;
 
 const styles = StyleSheet.create({
   container: {

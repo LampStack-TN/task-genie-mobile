@@ -20,7 +20,7 @@ import {
   
 
   
-  const Profile1 = ({ navigation }) => {
+  const Info = ({ navigation }) => {
     // Loader State
     const [loading, setLoading] = useState(false);
   
@@ -122,7 +122,7 @@ import {
             <Button
               label="Next"
               style="fill"
-              callback={()=>navigation.navigate("Profile2")}
+              callback={()=>navigation.navigate("Skills")}
             />
           </View>
         </View>
@@ -137,7 +137,7 @@ import {
     );
   };
   
-  export default Profile1;
+  export default Info;
   
   const styles = StyleSheet.create({
     container: {

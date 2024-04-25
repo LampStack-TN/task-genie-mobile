@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TaskList from '../tasks/list/TaskList';
 import Step1 from '../tasks/steps/Step1';
 
-import Profile1 from '../profile/Pofile1';
+import Profile1 from '../profile/Info';
 import MyTabBar from './MyTabBar';
 
 const Tab = createBottomTabNavigator();

@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
-import axios from "axios";
 import Task from "../taskDetails/TaskInterface";
-import config from "../../config";
+import { ApiClient } from "../../api";
+
 type RootStackParamList = {
   step1: { taskId: string };
 };
@@ -23,6 +23,7 @@ type Step1Props = {
 };
 
 const step1: React.FC<Step1Props> = ({ navigation, route }) => {
+  const api = ApiClient();
   const { taskId } = route.params;
   const [task, setTask] = useState<Task | null>(null);
 
@@ -49,13 +50,10 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
 
   const handleEdit = async (updatedTask: Task) => {
     try {
-      const { data } = await axios.put<Task>(
-        `${config.apiUrl}/task/update/${taskId}`,
-        updatedTask
-      );
+      const { data } = await api.put(`/task/update/${taskId}`, updatedTask);
       setTask(data);
     } catch (err) {
-      console.log("Error editing task:", err);
+      console.log(err);
     }
   };
   return (

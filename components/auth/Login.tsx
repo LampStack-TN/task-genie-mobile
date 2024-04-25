@@ -37,7 +37,6 @@ const Login = ({ navigation }) => {
       } = await axios.post(`${config.apiUrl}/auth/login`, loginData);
       setLoading(false);
       navigation.navigate("Home");
-      alert("login successful");
       await AsyncStorage.setItem("token", acessToken);
     } catch (error) {
       setLoading(false);

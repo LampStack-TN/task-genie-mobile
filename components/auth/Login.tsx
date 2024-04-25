@@ -6,9 +6,14 @@ import {
   ActivityIndicator,
   StatusBar,
 } from "react-native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useForm, Controller } from "react-hook-form";
 import Button from "../UI/Button";
 import { useState } from "react";
+import axios from "axios";
+import config from "../../config";
 
 const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -23,10 +28,26 @@ const Login = ({ navigation }) => {
       password: "",
     },
   });
-  const onSubmit = (data) => {
-    console.log(data);
 
-    // navigation.navigate("basicInfos");
+  const sumbitLogin = async (loginData) => {
+    try {
+      setLoading(true);
+      const {
+        data: { acessToken },
+      } = await axios.post(`${config.apiUrl}/auth/login`, loginData);
+      setLoading(false);
+      // navigation.navigate("Home");
+      alert("login successful");
+      await AsyncStorage.setItem("token", acessToken);
+    } catch (error) {
+      setLoading(false);
+      alert("Server Error");
+      console.error(error);
+    }
+  };
+
+  const onSubmit = (data) => {
+    sumbitLogin(data);
   };
 
   return (

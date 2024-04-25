@@ -15,6 +15,8 @@ import TaskStepsIndex from "./components/tasks/steps";
 import Login from "./components/auth/Login";
 import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScreen";
 import AppliedTasks from "./components/findJob/applyingTasks/AppliedTasks";
+import { useLayoutEffect, useState } from "react";
+import { ApiClient } from "./api";
 
 import Profile1 from "./components/profile/Pofile1";
 import Profile2 from "./components/profile/Profile2";
@@ -73,28 +75,57 @@ function HomeScreen({ navigation, route }) {
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const verifyToken = async () => {
+    try {
+      const { data } = await ApiClient().get("auth/verify-token");
+      console.log(data);
+      setUser(data);
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
+
+  useLayoutEffect(() => {
+    verifyToken();
+  }, []);
+
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-          initialRouteName="Home"
-        >
+        {user ? (
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+            initialRouteName="Home"
+          >
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Step1" component={TaskStepsIndex} />
-          <Stack.Screen name="Register" component={RegisterIndex} />
-          <Stack.Screen name="login" component={Login} />
-          <Stack.Screen name="TaskDetails" component={TaskDetails} />
-          <Stack.Screen name="TaskList" component={TaskList} />
-          <Stack.Screen name="MyTabs" component={MyTabs} />
-          <Stack.Screen name="MyBottomTab" component={MyBottomTab}/>
-          <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
-          <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
-          <Stack.Screen name="Profile1" component={Profile1} />
-          <Stack.Screen name="Profile2" component={Profile2} />
-        </Stack.Navigator>
+        <Stack.Screen name="Step1" component={TaskStepsIndex} />
+        <Stack.Screen name="Register" component={RegisterIndex} />
+        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="TaskDetails" component={TaskDetails} />
+        <Stack.Screen name="TaskList" component={TaskList} />
+        <Stack.Screen name="MyTabs" component={MyTabs} />
+        <Stack.Screen name="MyBottomTab" component={MyBottomTab}/>
+        <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
+        <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
+        <Stack.Screen name="Profile1" component={Profile1} />
+        <Stack.Screen name="Profile2" component={Profile2} />
+          </Stack.Navigator>
+        ) : (
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+            initialRouteName="login"
+          >
+            <Stack.Screen name="login" component={Login} />
+            <Stack.Screen name="Register" component={RegisterIndex} />
+          </Stack.Navigator>
+        )}
       </NavigationContainer>
     </Provider>
   );

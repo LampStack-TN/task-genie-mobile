@@ -9,7 +9,7 @@ export type TaskProps = {
   updatedAt?: string;
   category?: string;
   postedTime?: string;
-  applicants?: string;
+  _count?: string;
   location?: string;
   minPrice?: number;
   maxPrice?: number;
@@ -48,7 +48,7 @@ const TaskItem: React.FC<{
         <Text style={styles.timeText}>{task.postedTime}</Text>
         <View style={styles.applicantCount}>
           <Text style={styles.applicantText}>
-            {task.applicants} People Applied
+            {task._count.applications} People Applied
           </Text>
         </View>
         <TouchableOpacity style={styles.editButton}>

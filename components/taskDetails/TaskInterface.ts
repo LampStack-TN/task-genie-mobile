@@ -1,6 +1,6 @@
 interface Task {
   id?: number;
-  client?: string;
+  client?: any;
   urgency?: string;
   title?: string;
   updatedAt?: string;

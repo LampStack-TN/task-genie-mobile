@@ -9,11 +9,10 @@ import {
 
 import { useForm, Controller } from "react-hook-form";
 import Button from "../../UI/Button";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { appendData } from "./registerSlice";
 
 const Register = ({ navigation }) => {
-  useSelector((state: any) => state.registerData);
   const dispatch = useDispatch();
 
   const {

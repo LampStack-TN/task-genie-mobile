@@ -48,7 +48,7 @@ function HomeScreen({ navigation, route }) {
       />
       <Button
         title="TaskDetails"
-        onPress={() => navigation.navigate("TaskDetails")}
+        onPress={() => navigation.navigate("TaskDetails", { taskId: 3 })}
       />
       <Button
         title="TaskList"
@@ -119,6 +119,7 @@ function App() {
           >
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="Register" component={RegisterIndex} />
+            <Stack.Screen name="Home" component={HomeScreen} />
           </Stack.Navigator>
         )}
       </NavigationContainer>

@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "./TaskSlice";
 import skills from "../../../data/skills.json";
 export default function Step2({ navigation }) {
-  const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
 
   const [selectedSkills, setSelectedSkills] = useState([]);

@@ -7,52 +7,35 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
-import axios from "axios";
 import Task from "./TaskInterface";
-import config from "../../config";
 import { ApiClient } from "../../api";
-import { TaskProps } from "../tasks/list/TaskItem";
-import { useSelector } from "react-redux";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
-
-  const api = ApiClient()
-  const task = useSelector((state: any) => state.task);
+  const api = ApiClient();
   // console.log(task,'hhh');
 
   // console.log();
-  const [taskss, setTask] = useState<Task>({});
-  const [taskDetail, setTaskDetail] = useState<Task>({});
-  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [task, setTask] = useState<Task>({});
   const taskId = route.params.taskId;
-  console.log("task : ", taskId);
+
   const fetchOne = async () => {
     try {
       const { data } = await api.get(`/task/getOne/${taskId}`);
-      setTaskDetail(data);
+      console.log(data);
+
+      setTask(data);
     } catch (err) {
-      console.log('fetchOne failds :',err);
+      console.log("fetchOne failds :", err);
     }
   };
 
-  const fetchTasks = async () => {
-    try {
-      const { data } = await api.get('/task/getAll');
-      setTasks(data);
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
   useEffect(() => {
     fetchOne();
-    fetchTasks();
-  }, [taskId]);
+  }, []);
 
   const handleDelete = async () => {
     try {
       await api.del(`/task/delete/${taskId}`);
-      fetchTasks();
       navigation.navigate("TaskList");
     } catch (err) {
       console.log("Handle delete failed:", err.message);
@@ -73,72 +56,58 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
 
   return (
-    <ImageBackground
-      source={{
-        uri: "https://static.vecteezy.com/system/resources/previews/013/107/410/large_2x/color-gradation-background-horizontal-layout-soft-pastel-effect-backdrop-design-dramatic-saturation-trendy-futuristic-style-color-blending-pink-white-yellow-gradient-mesh-abstract-art-vector.jpg",
-      }}
-      style={styles.container}
-    >
-      <View style={styles.container}>
-        <View style={styles.overlay}>
-          <View style={styles.headerContainer}>
-            <Image
-              source={{
-                uri: taskss.client?.avatar,
-              }}
-              style={styles.avatar}
-            />
-            <Text style={styles.headerText}>Urgency : {taskss.urgency}</Text>
-          </View>
-          <View style={styles.subHeaderContainer}>
-            <Text style={styles.subHeaderText}>{taskss.title}</Text>
-            <Text style={styles.timeText}>
-              {taskss.updatedAt ? formatDate(taskss.updatedAt) : ""}
-            </Text>
-          </View>
-          <View style={styles.locationContainer}>
-            <Text style={styles.locationText}>{taskss.location}</Text>
-            <Text style={styles.priceText}>
-              {taskss.minPrice} - {taskss.maxPrice}
-            </Text>
-          </View>
-          <View style={styles.descriptionContainer}>
-            <Text style={styles.descriptionText}>{taskss.description}</Text>
-          </View>
-        </View>
-        <View style={styles.footerContainer}>
-          <TouchableOpacity onPress={handleDelete}>
-            <Text style={styles.deleteText}>Delete</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.editButton}
-            onPress={() => {
-              navigation.navigate("MyTabs", { taskId: taskss.id });
-            }}
-          >
-            <Text style={styles.editText}>Edit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => {
-              navigation.navigate("MyBottomTab");
-            }}
-          >
-            <Text style={styles.backText}>Back</Text>
-          </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Image
+          source={{
+            // uri: task.client?.avatar,
+            uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
+          }}
+          style={styles.avatar}
+        />
+        <Text style={styles.headerText}>Urgency : {task.urgency}</Text>
       </View>
-    </ImageBackground>
+      <View style={styles.subHeaderContainer}>
+        <Text style={styles.subHeaderText}>{task.title}</Text>
+        <Text style={styles.timeText}>
+          {task.updatedAt ? formatDate(task.updatedAt) : ""}
+        </Text>
+      </View>
+      <View style={styles.locationContainer}>
+        <Text style={styles.locationText}>{task.location}</Text>
+        <Text style={styles.priceText}>
+          {task.minPrice} - {task.maxPrice}
+        </Text>
+      </View>
+      <View style={styles.descriptionContainer}>
+        <Text style={styles.descriptionText}>{task.description}</Text>
+      </View>
+      <View style={styles.footerContainer}>
+        <TouchableOpacity onPress={handleDelete}>
+          <Text style={styles.deleteText}>Delete</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => {
+            navigation.navigate("MyTabs", { taskId: task.id });
+          }}
+        >
+          <Text style={styles.editText}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => {
+            navigation.navigate("MyBottomTab");
+          }}
+        >
+          <Text style={styles.backText}>Back</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "#fffda5", // Darker color
-    opacity: 0.5, // Adjust as necessary
-    borderRadius: 12,
-  },
   container: {
     borderRadius: 12,
     padding: 20,

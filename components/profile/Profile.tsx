@@ -1,13 +1,25 @@
+import React from 'react';
+import { View, Text, Image } from 'react-native';
 
-import { View, Text } from 'react-native'
-import React from 'react'
-
-const Profile = () => {
+const Profile = ({ profile,Data }) => {
+  // Access properties of the profile object
+  
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
-  )
-}
+    <View style={{ alignItems: 'center' }}>
+      {/* Display avatar
+      <Image source={{ uri: avatar }} style={{ width: 150, height: 150, borderRadius: 75 }} /> */}
 
-export default Profile
+      {/* Display basic profile information */}
+      <Text>Name: {Data.fullName}</Text>
+      <Text>Email: {Data.email}</Text>
+      <Text>City: {Data.city}</Text>
+      <Text>Address: {Data.address}</Text>
+
+      {/* Display profile specific information */}
+      <Text>Job Title: {profile.jobTitle}</Text>
+      <Text>Bio: {profile.bio}</Text>
+    </View>
+  );
+};
+
+export default Profile;

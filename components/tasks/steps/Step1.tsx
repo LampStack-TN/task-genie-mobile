@@ -5,7 +5,6 @@ import { addTask } from "./TaskSlice";
 
 export default function Step1({ navigation }) {
   // Select task state from Redux store
-  const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TaskList from '../tasks/list/TaskList';
+import Menu from './Menu';
 import Step1 from '../tasks/steps/Step1';
 
 import Profile1 from '../profile/Info';
@@ -12,7 +12,7 @@ const MyBottomTab: React.FC = () => {
   return (
     <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
       <Tab.Screen name="create" component={Step1} />
-      <Tab.Screen name="tasks" component={TaskList} />
+      <Tab.Screen name="Menu" component={Menu} />
       <Tab.Screen name="Profile1" component={Profile1} />
 
     </Tab.Navigator>

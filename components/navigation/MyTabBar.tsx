@@ -24,7 +24,7 @@ const MyTabBar: React.FC<MyTabBarProps> = ({ state, descriptors, navigation }) =
 
         const iconName = (() => {
           switch (route.name) {
-            case 'tasks': return 'arrow-up';
+            case 'Menu': return 'arrow-up';
             case 'create': return 'plus-box';
             case 'Profile1': return 'account-plus';
             default: return 'circle';

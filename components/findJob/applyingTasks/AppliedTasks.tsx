@@ -4,8 +4,6 @@ import axios from "axios";
 import { Task } from "./types";
 import { MaterialIcons } from '@expo/vector-icons';
 import { ApiClient } from "../../../api";
-
-
 const AppliedTasks = () => {
   const [appliedTasks, setAppliedTasks] = useState<Task[]>([]);
 
@@ -16,23 +14,25 @@ const AppliedTasks = () => {
 
   const fetchAppliedTasks = async () => {
     try {
-      const response  = await ApiClient().get(`/api/task/app`);
+      const response = await ApiClient().get("/task/app/");        
       setAppliedTasks(response.data);
     } catch (error) {
-      console.error(error.response ? error.response.data : error.message);    }
+      console.error(error);
+    }
   };
- 
 
   return (
     <ScrollView>
       {appliedTasks.map((applied) => (
         <View key={applied.id} style={styles.taskCard}>
-          <Text style={styles.title}>{applied.task.title}</Text>
-          <Text style={styles.description}>{applied.task.description}</Text>
-          
-        </View>
+          {/* still handling ts */}
+          <Text style={styles.title}>{applied.task.title}</Text>   
+          <Text style={styles.description}> {applied.task.description}</Text>
+          <MaterialIcons name="pending" size={24} color="black" />
+          <MaterialIcons name="verified" size={24} color="green" />        </View>
       ))}
     </ScrollView>
+    
   );
 };
 const styles = StyleSheet.create({

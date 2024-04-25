@@ -16,64 +16,7 @@ import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScree
 import AppliedTasks from "./components/findJob/applyingTasks/AppliedTasks";
 import { useLayoutEffect, useState } from "react";
 import { ApiClient } from "./api";
-import ProfileIndex from "./components/profile/ProfileIndex"
-
-function HomeScreen({ navigation, route }) {
-  // const task = useSelector((state: any) => state.task);
-  // console.log(task,'hhh');
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        gap: 5,
-        justifyContent: "center",
-      }}
-    >
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Step1"
-        onPress={() => navigation.navigate("Step1")}
-      />
-      <Button
-        title="Register"
-        onPress={() => navigation.navigate("Register")}
-      />
-      <Button
-        title="Sign In"
-        color={"black"}
-        onPress={() => navigation.navigate("login")}
-      />
-      <Button
-        title="TaskDetails"
-        onPress={() => navigation.navigate("TaskDetails", { taskId: 3 })}
-      />
-      <Button
-        title="TaskList"
-        onPress={() => navigation.navigate("TaskList")}
-      />
-      <Button title="MyTabs" onPress={() => navigation.navigate("MyTabs")} />
-      <Button title="MyTabs" onPress={() => navigation.navigate("MyTabs")} />
-      <Button title="Tasks" onPress={() => navigation.navigate("Tasks")} />
-      <Button
-        title="AppliedJobs"
-        onPress={() => navigation.navigate("AppliedJobs")}
-      />
-      <Button
-        title="start"
-        onPress={() => navigation.navigate("MyBottomTab")}
-      />
-      <Button title="Profile" onPress={() => navigation.navigate("ProfileIndex")} />
-      <Button title="Profile" onPress={() => navigation.navigate("Profile1")} />
-      <Button
-        title="MyTasks"
-        onPress={() => navigation.navigate("MyTasks")}
-      />
-
-    </View>
-  );
-}
+import ProfileIndex from "./components/profile/ProfileIndex";
 
 const Stack = createNativeStackNavigator();
 
@@ -114,7 +57,7 @@ function App() {
             <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
             <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
             <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
-            <Stack.Screen name="MyTasks" component={MyTasksPosted}/>
+            <Stack.Screen name="MyTasks" component={MyTasksPosted} />
           </Stack.Navigator>
         ) : (
           <Stack.Navigator
@@ -125,7 +68,7 @@ function App() {
           >
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="Register" component={RegisterIndex} />
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Home" component={() => <></>} />
           </Stack.Navigator>
         )}
       </NavigationContainer>

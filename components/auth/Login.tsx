@@ -38,7 +38,7 @@ const Login = ({ navigation }) => {
       setLoading(false);
       // navigation.navigate("Home");
       alert("login successful");
-      await AsyncStorage.setItem("token", "Bearer " + acessToken);
+      await AsyncStorage.setItem("token", acessToken);
     } catch (error) {
       setLoading(false);
       alert("Server Error");

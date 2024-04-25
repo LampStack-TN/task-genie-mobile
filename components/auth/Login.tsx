@@ -92,6 +92,7 @@ const Login = ({ navigation }) => {
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onChangeText={onChange}
+                  secureTextEntry={true}
                   placeholder="Password"
                   value={value}
                   style={styles.input}

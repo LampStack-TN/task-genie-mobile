@@ -12,8 +12,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useForm, Controller } from "react-hook-form";
 import Button from "../UI/Button";
 import { useState } from "react";
-import axios from "axios";
-import config from "../../config";
 
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";

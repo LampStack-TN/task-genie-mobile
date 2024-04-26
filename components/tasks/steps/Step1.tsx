@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "./TaskSlice";
 
@@ -18,11 +27,18 @@ export default function Step1({ navigation }) {
 
   // console.log(task, 123);
   return (
-    <View style={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      keyboardShouldPersistTaps="handled"
+    >
       <View style={styles.stepContainer}>
         <Text style={styles.heading}>Step 1</Text>
         <Text
-          style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
+          style={{
+            marginBottom: 10,
+            alignSelf: "flex-start",
+            paddingTop: 10,
+          }}
         >
           Basic Job Description
         </Text>
@@ -61,38 +77,31 @@ export default function Step1({ navigation }) {
         />
       </View>
 
-      <View style={styles.button1}>
-        <Pressable onPress={() => navigation.navigate("Step2")}>
-          <Text style={styles.text}>Next</Text>
-        </Pressable>
-      </View>
+      <View style={styles.footer}>
+        <View>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
+          >
+            <Text style={styles.textt}>Back</Text>
+          </Pressable>
+        </View>
 
-      <View
-        style={{
-          position: "absolute",
-          bottom: 40,
-          left: 20,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Pressable
-          onPress={() => {
-            navigation.navigate("Home");
-          }}
-        >
-          <Text style={styles.textt}>Back</Text>
-        </Pressable>
+        <View style={styles.button1}>
+          <Pressable onPress={() => navigation.navigate("Step2")}>
+            <Text style={styles.text}>Next</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     paddingHorizontal: 25,
     backgroundColor: "#fff",
   },
@@ -108,13 +117,12 @@ const styles = StyleSheet.create({
     color: "#0C3178",
   },
   inputContainer: {
+    flex: 1,
     width: "100%",
     alignItems: "center",
-    flex: 3,
     gap: 15,
     justifyContent: "center",
     paddingHorizontal: 11,
-    marginBottom: 300,
   },
   input: {
     backgroundColor: "#fff",
@@ -150,9 +158,6 @@ const styles = StyleSheet.create({
     color: "#0C3178",
   },
   button1: {
-    position: "absolute",
-    bottom: 40,
-    right: 20,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
@@ -162,16 +167,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     overflow: "hidden",
   },
-  // button2: {
-  //   position: "absolute",
-  //   bottom: 40,
-  //   left: 20,
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   borderWidth: 2,
-  //   borderRadius: 50,
-  //   elevation: 3,
-  //   backgroundColor: "#0C3178",
-  //   overflow: "hidden",
-  // },
+  footer: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    elevation: 3,
+    paddingVertical: 25,
+    paddingHorizontal: 25,
+    // overflow: "hidden",
+  },
 });

@@ -1,8 +1,15 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type RootStackParamList = {
   TaskList: undefined;
@@ -35,6 +42,21 @@ const Menu = () => {
         <MaterialIcons name="task" size={24} color="#4e4e4e" />
         <Text style={styles.buttonText}>Nearby Jobs</Text>
       </TouchableOpacity>
+      <Pressable
+        style={{
+          position: "absolute",
+          bottom: 20,
+          right: 20,
+          backgroundColor: "#4e4e4e",
+          padding: 10,
+          borderRadius: 22,
+        }}
+        onPress={() => {
+          AsyncStorage.removeItem("token");
+        }}
+      >
+        <MaterialIcons name="logout" size={22} color="white" />
+      </Pressable>
     </View>
   );
 };

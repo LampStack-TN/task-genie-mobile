@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet,TouchableOpacity} from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ApiClient } from "../../../api";
 
-const MyListTasksPosted: React.FC<{task ,handleDelete: (taskId: number) => void}> = ({ task, handleDelete }) => {
+const MyListTasksPosted: React.FC<{task ,handleDelete: (taskId: number) => void;navigation: any}> = ({ task, handleDelete,navigation }) => {
 
 
 
@@ -27,7 +27,16 @@ const MyListTasksPosted: React.FC<{task ,handleDelete: (taskId: number) => void}
           <TouchableOpacity onPress={()=>handleDelete(task.id)}>
           <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
-          
+        <TouchableOpacity style={styles.editButton}>
+          <Text
+            onPress={() => {
+              navigation.navigate("MyTabs", { id: task.id });
+            }}
+            style={styles.buttonText}
+          >
+            Edit
+          </Text>
+        </TouchableOpacity>
         </View>
       );
 };
@@ -66,7 +75,22 @@ const styles = StyleSheet.create({
     deleteText: {
       fontWeight: "bold",
       color: "#0C3178",
+    },
+    editButton: {
+      marginLeft: 10,
+      borderWidth: 1,
+      borderColor: "#0C3178",
+      borderRadius: 25,
+      paddingHorizontal: 15,
+      paddingVertical: 5,
+      justifyContent: "center",
+      alignItems: "center",
+    }, buttonText: {
+      color: "#333333",
+      fontSize: 14,
+      fontWeight: "bold",
     }
+
 });
 
 export default MyListTasksPosted;

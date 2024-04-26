@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-
 const MyListTasksPosted: React.FC<{
   task;
   handleDelete: (taskId: number) => void;
@@ -39,12 +38,18 @@ const MyListTasksPosted: React.FC<{
             >{`${task.minPrice} - ${task.maxPrice}`}</Text>
           </View>
           <View style={styles.applicantCount}>
-          <Text style={styles.applicantText}>
-            {task._count.applications} People Applied
-          </Text>
-        </View>
+            <Text style={styles.applicantText}>
+              {task._count
+                ? task._count.applications + " People Applied"
+                : "No one Applied Yet"}
+            </Text>
+          </View>
           <View
-            style={{ flexDirection: "row", justifyContent: "flex-end", alignItems:'center' }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
           >
             <TouchableOpacity onPress={() => handleDelete(task.id)}>
               <Text style={styles.deleteText}>Delete</Text>
@@ -115,19 +120,20 @@ const styles = StyleSheet.create({
     color: "#333333",
     fontSize: 14,
     fontWeight: "bold",
-  },applicantCount: {
+  },
+  applicantCount: {
     backgroundColor: "#2F80ED",
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   applicantText: {
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 14,
-  }
+  },
 });
 
 export default MyListTasksPosted;

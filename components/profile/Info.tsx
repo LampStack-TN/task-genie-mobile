@@ -13,7 +13,7 @@ import { useForm, Controller } from "react-hook-form";
 import config from "../../config";
 import { ApiClient } from "../../api";
 
-import Button from "../UI/Button";
+import Button from "../ui/Button";
 import axios from "axios";
 
 

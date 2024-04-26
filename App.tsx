@@ -9,22 +9,21 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RegisterIndex from "./components/auth/register/Index";
-import TaskDetails from "./components/taskDetails/TaskDetails";
+import TaskDetails from "./components/tasks/taskDetails/TaskDetails";
 import TaskList from "./components/tasks/list/TaskList";
-import MyBottomTab from "./components/navigation/MyBottomTab";
 import store from "./redux/store/store";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import MyTabs from "./components/editTask/MyTabs";
-import MyTasksPosted from "./components/tasks/MyLists/MyTasksPosted";
-import TaskStepsIndex from "./components/tasks/steps";
+import MyTabs from "./components/tasks/edit/MyTabs";
+import MyTasksPosted from "./components/tasks/userTaskList/MyTasksPosted";
+import TaskStepsIndex from "./components/tasks/form";
 import Login from "./components/auth/Login";
-import NearbyJobsScreen from "./components/findJob/applyingTasks/NearbyJobsScreen";
-import AppliedTasks from "./components/findJob/applyingTasks/AppliedTasks";
+import NearbyJobsScreen from "./components/tasks/applyingTasks/NearbyJobsScreen";
+import AppliedTasks from "./components/tasks/applyingTasks/AppliedTasks";
 import { useLayoutEffect } from "react";
 import { ApiClient } from "./api";
 import ProfileIndex from "./components/profile/ProfileIndex";
-import BottomNav from "./components/UI/BottomNav";
-import Menu from "./components/navigation/Menu";
+import BottomNav from "./components/ui/BottomNav";
+import Home from "./components/home/Index";
 import Profile from "./components/profile/Profile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser } from "./redux/slices/userSlice";
@@ -81,12 +80,11 @@ const Main = () => {
                 }}
                 initialRouteName="Home"
               >
-                <Stack.Screen name="Home" component={Menu} />
+                <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Step1" component={TaskStepsIndex} />
                 <Stack.Screen name="TaskDetails" component={TaskDetails} />
                 <Stack.Screen name="TaskList" component={TaskList} />
                 <Stack.Screen name="MyTabs" component={MyTabs} />
-                <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
                 <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
                 <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
                 <Stack.Screen name="ProfileIndex" component={ProfileIndex} />

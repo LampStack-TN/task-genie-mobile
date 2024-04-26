@@ -12,7 +12,7 @@ import { useForm, Controller } from "react-hook-form";
 
 import { appendData } from "../../../redux/slices/registerSlice";
 import { Ionicons } from "@expo/vector-icons";
-import Button from "../../UI/Button";
+import Button from "../../ui/Button";
 
 const BasicInfos = ({ navigation }) => {
   const dispatch = useDispatch();

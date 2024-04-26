@@ -36,7 +36,12 @@ const Profile = ({ profile, Data }) => {
         <Text style={styles.email}>{Data.email}</Text>
         <Text style={styles.bio}>{profile.bio}</Text>
         <View style={styles.button}>
-          <Button label={"Edit"} style="outline" callback={() => {}}></Button>
+          <Button
+            transparent={true}
+            label={"Edit"}
+            style="outline"
+            callback={() => {}}
+          ></Button>
         </View>
       </View>
     </View>

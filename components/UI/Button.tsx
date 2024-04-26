@@ -3,12 +3,13 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 //define Props Interface
 interface Props {
   label: string;
+  transparent?: boolean;
   color?: string;
   style?: "outline" | "fill" | "bare";
   callback?: () => any;
 }
 
-const Button = ({ label, style, callback, color }: Props) => {
+const Button = ({ label, style, callback, color, transparent }: Props) => {
   const colors = {
     outline: color || "#0C3178",
     fill: "#fff",
@@ -20,7 +21,7 @@ const Button = ({ label, style, callback, color }: Props) => {
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 50,
-      elevation: style == "bare" ? 0 : 1,
+      // elevation: style == "bare" ? 0 : 1,
       overflow: "hidden",
       height: 60,
       minWidth: 100,
@@ -28,7 +29,7 @@ const Button = ({ label, style, callback, color }: Props) => {
     outline: {
       borderColor: color || "#0C3178",
       borderWidth: 1,
-      backgroundColor: "#fff",
+      backgroundColor: transparent ? "#00000000" : "#fff",
       overflow: "hidden",
       color: color || "#0C3178",
     },

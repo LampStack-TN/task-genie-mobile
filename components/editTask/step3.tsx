@@ -115,9 +115,9 @@ const step3: React.FC<Step3Props> = ({ navigation, route }) => {
           left: 20,
           alignItems: "center",
           justifyContent: "center",
-        }}
+        }}  
       >
-        <TouchableOpacity onPress={() => navigation.navigate("step2")}>
+        <TouchableOpacity onPress={() => navigation.navigate("step1")}>
           <Text style={styles.textt}>Back</Text>
         </TouchableOpacity>
       </View>

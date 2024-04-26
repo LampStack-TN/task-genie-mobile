@@ -4,7 +4,7 @@ import { Tasks } from "./TaskTypes";
 import MyListTasksPosted from "./MyListTasksPosted";
 import { ApiClient } from "../../../api";
 
-const MyTasksPosted = () => {
+const MyTasksPosted = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);
 
   useEffect(() => {
@@ -35,6 +35,8 @@ const MyTasksPosted = () => {
         <MyListTasksPosted
           key={task.id}
           task={task}
+          navigation={navigation}
+
           handleDelete={handleDelete}
         />
       ))}

@@ -27,13 +27,10 @@ const Profile = ({ profile, Data }) => {
         </View>
       </View>
       <View style={{ paddingHorizontal: 20, margin: 5 }}>
-        <MaterialIcons
-          name="email"
-          size={24}
-          color="#6e6e6e"
-          style={{ position: "absolute" }}
-        />
-        <Text style={styles.email}>{Data.email}</Text>
+        <Text style={styles.email}>
+          <MaterialIcons name="email" size={24} color="#6e6e6e" />
+          {Data.email}
+        </Text>
         <Text style={styles.bio}>{profile.bio}</Text>
         <View style={styles.button}>
           <Button
@@ -93,6 +90,8 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 18,
+    flexDirection: "row",
+    alignItems: "center",
     left: 30,
     fontWeight: "400",
     marginBottom: 20,

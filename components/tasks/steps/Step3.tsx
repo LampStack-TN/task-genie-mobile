@@ -3,8 +3,7 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "react-native-element-dropdown";
 import { addTask } from "./TaskSlice";
-import axios from "axios";
-import config from "../../../config";
+import { ApiClient } from "../../../api";
 
 export type Task = {
   id?: number;
@@ -30,19 +29,16 @@ export default function Step3({ navigation }) {
   const [minPrice, setminPrice] = useState("");
   const [maxPrice, setmaxPrice] = useState("");
   const [urgency, setUrgency] = useState("");
-  const [tasks, setTask] = useState<Task>({ clientId: 1 });
 
   const UpdateTask = (field, value) => {
     dispatch(addTask({ [field]: value }));
   };
 
-  console.log(task, 123);
-
   const create: any = async () => {
     try {
-      const result = await axios.post<Task>(`${config.apiUrl}/task/add/`, task);
-      console.log(result, "jet");
-      setTask(tasks);
+      const { data } = await ApiClient().post(`/task/add/`, task);
+      // console.log(data, "jet");
+      navigation.navigate("TaskDetails", { taskId: data.id });
     } catch (error) {
       console.log(error);
     }
@@ -98,11 +94,7 @@ export default function Step3({ navigation }) {
         />
       </View>
       <View style={styles.button2}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate("TaskDetails", create(tasks));
-          }}
-        >
+        <Pressable onPress={create}>
           <Text style={[styles.text, { color: "white" }]}>Finish</Text>
         </Pressable>
       </View>

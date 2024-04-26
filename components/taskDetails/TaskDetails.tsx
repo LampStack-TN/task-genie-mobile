@@ -97,7 +97,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => {
-            navigation.navigate("MyBottomTab");
+            navigation.navigate("MyTasks");
           }}
         >
           <Text style={styles.backText}>Back</Text>

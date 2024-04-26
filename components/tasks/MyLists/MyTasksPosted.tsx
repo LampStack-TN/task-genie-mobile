@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ScrollView } from "react-native";
 import { Tasks } from "./TaskTypes";
 import MyListTasksPosted from "./MyListTasksPosted";
 import { ApiClient } from "../../../api";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MyTasksPosted = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);
 
-  useEffect(() => {
+
     const fetchTasks = async () => {
       try {
         const response = await ApiClient().get("/task/myTasks");
@@ -17,8 +18,13 @@ const MyTasksPosted = ({ navigation }: any) => {
       }
     };
 
-    fetchTasks();
-  }, []);
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchTasks();
+    }, [])
+  );
 
   const handleDelete = async (taskId) => {
     try {

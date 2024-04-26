@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
-import axios from "axios";
 import TaskCard from "./TaskCard";
 import { Task } from "./types";
 import { ApiClient } from "../../../api";

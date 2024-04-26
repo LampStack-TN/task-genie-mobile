@@ -10,7 +10,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import Button from "../../UI/Button";
 import { useDispatch } from "react-redux";
-import { appendData } from "./registerSlice";
+import { appendData } from "../../../redux/slices/registerSlice";
 
 const Register = ({ navigation }) => {
   const dispatch = useDispatch();

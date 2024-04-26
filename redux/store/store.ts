@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import taskReducer from "../../components/tasks/steps/TaskSlice";
-import registerReducer from "../../components/auth/register/registerSlice";
+import taskReducer from "../slices/TaskSlice";
+import registerReducer from "../slices/registerSlice";
 import userReducer from "../slices/userSlice";
 
 export default configureStore({

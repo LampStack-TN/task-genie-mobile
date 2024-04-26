@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "react-native-element-dropdown";
-import { addTask } from "./TaskSlice";
+import { addTask } from "../../../redux/slices/TaskSlice";
 import { ApiClient } from "../../../api";
 
 export type Task = {

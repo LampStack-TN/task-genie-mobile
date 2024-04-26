@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { MultiSelect } from "react-native-element-dropdown";
 import { useSelector, useDispatch } from "react-redux";
-import { addTask } from "./TaskSlice";
+import { addTask } from "../../../redux/slices/TaskSlice";
 import skills from "../../../data/skills.json";
 export default function Step2({ navigation }) {
   const dispatch = useDispatch();

@@ -25,6 +25,7 @@ import { ApiClient } from "./api";
 import ProfileIndex from "./components/profile/ProfileIndex";
 import BottomNav from "./components/UI/BottomNav";
 import Menu from "./components/navigation/Menu";
+import Profile from "./components/profile/Profile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser } from "./redux/slices/userSlice";
 
@@ -90,6 +91,7 @@ const Main = () => {
                 <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
                 <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
                 <Stack.Screen name="MyTasks" component={MyTasksPosted} />
+                <Stack.Screen name="Profile" component={Profile} />
               </Stack.Navigator>
             </View>
             <BottomNav />

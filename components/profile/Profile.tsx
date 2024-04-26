@@ -1,11 +1,10 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, StatusBar } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-// import { useNavigation } from "@react-navigation/native";
+
 import Button from "../UI/Button";
 const Profile = ({ profile, Data }) => {
-  // const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.header}>

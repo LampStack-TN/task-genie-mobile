@@ -8,6 +8,8 @@ export type Tasks = {
     price:string
     minPrice: number;
   maxPrice: number;
+  _count?: string;
+  
   handleDelete?: (taskId: number) => void;
 
   };

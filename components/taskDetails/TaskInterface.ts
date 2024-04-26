@@ -3,6 +3,7 @@ interface Task {
   client?: any;
   urgency?: string;
   title?: string;
+  skills: any;
   updatedAt?: string;
   location?: string;
   minPrice?: number;

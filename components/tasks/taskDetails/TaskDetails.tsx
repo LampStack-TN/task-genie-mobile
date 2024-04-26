@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Task from "./TaskInterface";
 import { ApiClient } from "../../../api";
-
+import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
@@ -38,44 +32,63 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true, // if you want 12 hour time format with AM/PM
     };
     return new Intl.DateTimeFormat("en-US", options).format(
       new Date(dateString)
     );
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Image
           source={{
             uri: task.client?.avatar,
-           
           }}
           style={styles.avatar}
         />
-        <Text style={styles.headerText}>Urgency : {task.urgency}</Text>
+        <Text style={styles.headerText}>Urgency: {task.urgency}</Text>
       </View>
       <View style={styles.subHeaderContainer}>
-        <Text style={styles.subHeaderText}>{task.title}</Text>
-        <Text style={styles.timeText}>
-          {task.updatedAt ? formatDate(task.updatedAt) : ""}
-        </Text>
+        <View style={styles.iconTextContainer}>
+          <Ionicons
+            style={[styles.iconBase]}
+            name="bag-handle-sharp"
+            size={24}
+          />
+          <Text style={styles.subHeaderText}>{task.title}</Text>
+        </View>
+        <View style={styles.iconTextContainer}>
+          <MaterialIcons style={styles.iconBase} size={24} name="date-range" />
+          <Text style={styles.timeText}>
+            {task.updatedAt ? formatDate(task.updatedAt) : ""}
+          </Text>
+        </View>
       </View>
       <View style={styles.locationContainer}>
-        <Text style={styles.locationText}>{task.location}</Text>
-        <Text style={styles.priceText}>
-          {task.minPrice} - {task.maxPrice}
-        </Text>
+        <View style={styles.iconTextContainer}>
+          <FontAwesome6 style={styles.iconBase} name="location-dot" size={24} />
+          <Text style={styles.locationText}>{task.location}</Text>
+        </View>
+        <View style={styles.iconTextContainer}>
+          <FontAwesome6
+            style={styles.iconBase}
+            name="circle-dollar-to-slot"
+            size={24}
+          />
+          <Text style={styles.priceText}>
+            {task.minPrice} - {task.maxPrice}
+          </Text>
+        </View>
       </View>
       <View style={styles.descriptionContainer}>
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
       <View style={styles.skillContainer}>
-        {task.skills?.map(({ id, name }) => (
-          <Text style={styles.skillPill}>{name}</Text>
+        {task.skills?.map((skill, index) => (
+          <Text key={index} style={styles.skillPill}>
+            {skill.name}
+          </Text>
         ))}
       </View>
       <View style={styles.footerContainer}>
@@ -139,7 +152,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   backButton: {
     marginLeft: 10,
     borderWidth: 1,
@@ -170,6 +182,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#000",
+    paddingLeft: 10,
   },
   subHeaderContainer: {
     flexDirection: "row",
@@ -191,11 +204,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: "#4F4F4F",
+    paddingLeft: 10,
   },
   priceText: {
     fontSize: 16,
     fontWeight: "600",
     color: "#EB5757",
+    paddingRight: 10,
   },
   descriptionContainer: {
     marginBottom: 20,
@@ -205,25 +220,16 @@ const styles = StyleSheet.create({
     color: "#4F4F4F",
     lineHeight: 20,
   },
-
   footerContainer: {
     flexDirection: "row",
-    justifyContent: "flex-end", // Aligns the buttons to the right
+    justifyContent: "flex-end",
     alignItems: "center",
-    flex: 1,
-  },
-  footerButton: {
-    marginLeft: 10, // This adds spacing between the buttons
-  },
-  footerText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#4F4F4F",
+    marginTop: 250,
   },
   skillContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 10,
+    marginBottom: 10,
   },
   skillPill: {
     borderRadius: 50,
@@ -234,6 +240,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingHorizontal: 10,
     paddingVertical: 5,
+    margin: 5,
+  },
+  iconBase: {
+    color: "black",
+    marginRight: 5,
+  },
+  iconTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

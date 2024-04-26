@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { ScrollView } from "react-native";
 import { Tasks } from "./TaskTypes";
 import MyListTasksPosted from "./MyListTasksPosted";
@@ -18,7 +18,9 @@ const MyTasksPosted = ({ navigation }: any) => {
       }
     };
 
-
+    useEffect(()=>{
+      fetchTasks()
+    })
 
   useFocusEffect(
     React.useCallback(() => {

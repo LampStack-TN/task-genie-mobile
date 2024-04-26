@@ -36,7 +36,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const handleDelete = async () => {
     try {
       await api.del(`/task/delete/${taskId}`);
-      navigation.navigate("TaskList");
+      navigation.navigate("MyTasks");
     } catch (err) {
       console.log("Handle delete failed:", err.message);
     }

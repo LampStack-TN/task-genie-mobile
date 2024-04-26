@@ -56,7 +56,7 @@ const MyTabBar = ({ state, descriptors, navigation, position }) => {
             style={{
               flex: 1,
               borderRadius: 18,
-              backgroundColor: isFocused ? "#00BFFF" : "#F0F8FF",
+              backgroundColor: isFocused ? "#0C3178" : "#F0F8FF",
               paddingVertical: 8,
               paddingHorizontal: 16,
               marginHorizontal: 4,

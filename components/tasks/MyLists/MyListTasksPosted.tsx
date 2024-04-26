@@ -38,19 +38,24 @@ const MyListTasksPosted: React.FC<{
               style={styles.infoText}
             >{`${task.minPrice} - ${task.maxPrice}`}</Text>
           </View>
-          <TouchableOpacity onPress={() => handleDelete(task.id)}>
-            <Text style={styles.deleteText}>Delete</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.editButton}>
-            <Text
-              onPress={() => {
-                navigation.navigate("MyTabs", { id: task.id });
-              }}
-              style={styles.buttonText}
-            >
-              Edit
-            </Text>
-          </TouchableOpacity>
+
+          <View
+            style={{ flexDirection: "row", justifyContent: "flex-end", alignItems:'center' }}
+          >
+            <TouchableOpacity onPress={() => handleDelete(task.id)}>
+              <Text style={styles.deleteText}>Delete</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.editButton}>
+              <Text
+                onPress={() => {
+                  navigation.navigate("MyTabs", { id: task.id });
+                }}
+                style={styles.buttonText}
+              >
+                Edit
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </Pressable>
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#FFF",
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 3,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

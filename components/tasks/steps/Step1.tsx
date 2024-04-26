@@ -6,8 +6,6 @@ import {
   StyleSheet,
   Pressable,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "./TaskSlice";
@@ -117,7 +115,6 @@ const styles = StyleSheet.create({
     color: "#0C3178",
   },
   inputContainer: {
-    flex: 1,
     width: "100%",
     alignItems: "center",
     gap: 15,

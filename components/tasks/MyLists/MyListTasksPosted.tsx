@@ -38,7 +38,11 @@ const MyListTasksPosted: React.FC<{
               style={styles.infoText}
             >{`${task.minPrice} - ${task.maxPrice}`}</Text>
           </View>
-
+          <View style={styles.applicantCount}>
+          <Text style={styles.applicantText}>
+            {task._count.applications} People Applied
+          </Text>
+        </View>
           <View
             style={{ flexDirection: "row", justifyContent: "flex-end", alignItems:'center' }}
           >
@@ -111,7 +115,19 @@ const styles = StyleSheet.create({
     color: "#333333",
     fontSize: 14,
     fontWeight: "bold",
+  },applicantCount: {
+    backgroundColor: "#2F80ED",
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  applicantText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: 14,
+  }
 });
 
 export default MyListTasksPosted;

@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
     gap: 15,
     justifyContent: "center",
     paddingHorizontal: 11,
-    marginBottom: 300,
   },
   input: {
     backgroundColor: "#fff",

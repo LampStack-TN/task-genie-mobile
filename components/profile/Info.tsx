@@ -1,49 +1,36 @@
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import React, { useState } from "react";
-
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { StatusBar, StyleSheet, Text, TextInput, View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-
 import config from "../../config";
 import { ApiClient } from "../../api";
-
 import Button from "../ui/Button";
 import axios from "axios";
 
-
 const Info = ({ navigation }) => {
-
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-     jobTitle: "",
+      jobTitle: "",
       bio: "",
-      
     },
-  }); 
-  const CreateProfile=async (data:any)=>{
-    try{
-      const result= await ApiClient().post("profile/createProfile/",data)
-    navigation.navigate("Profile")
-    }
-    catch(error){
+  });
+
+  const CreateProfile = async (data: any) => {
+    try {
+      const result = await ApiClient().post("profile/createProfile/", data);
+      navigation.navigate("Profile");
+    } catch (error) {
       console.log(error);
     }
-  }
-  
-  const onSubmit = (data:any) => {
+  };
+
+  const onSubmit = (data: any) => {
     CreateProfile(data);
   };
-  
+
   return (
     <>
       <View style={styles.container}>
@@ -69,7 +56,7 @@ const Info = ({ navigation }) => {
               name="jobTitle"
             />
           </View>
-          {errors.jobTitle&& (
+          {errors.jobTitle && (
             <Text style={{ color: "#f01010" }}>{errors.jobTitle.message}</Text>
           )}
 
@@ -90,16 +77,12 @@ const Info = ({ navigation }) => {
               name="bio"
             />
           </View>
-          {errors.bio&& (
+          {errors.bio && (
             <Text style={{ color: "#f01010" }}>{errors.bio.message}</Text>
           )}
         </View>
         <View style={styles.footer}>
-          <Button
-            label="Next"
-            style="fill"
-           callback={handleSubmit(onSubmit)}
-          />
+          <Button label="Next" style="fill" callback={handleSubmit(onSubmit)} />
         </View>
       </View>
     </>
@@ -113,7 +96,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     display: "flex",
     flex: 1,
-    // margin: 10,
     marginTop: StatusBar.currentHeight || 0,
   },
   header: {
@@ -130,10 +112,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   section: {
-    // backgroundColor: "#f0f0f0",
     gap: 15,
     flex: 1,
-    // borderWidth: 2,
     marginTop: 30,
     paddingHorizontal: 11,
     paddingVertical: 11,
@@ -176,7 +156,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 3,
   },
-
   input: {
     fontSize: 14,
   },

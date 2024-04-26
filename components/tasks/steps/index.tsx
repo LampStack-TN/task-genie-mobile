@@ -7,7 +7,12 @@ const Stack = createNativeStackNavigator();
 
 const Index = () => {
   return (
-    <Stack.Navigator initialRouteName="Step1">
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Step1"
+    >
       <Stack.Screen name="Step1" component={Step1} />
       <Stack.Screen name="Step2" component={Step2} />
       <Stack.Screen name="Step3" component={Step3} />

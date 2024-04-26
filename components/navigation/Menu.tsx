@@ -1,8 +1,18 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/userSlice";
 
 type RootStackParamList = {
   TaskList: undefined;
@@ -12,6 +22,8 @@ type RootStackParamList = {
 
 const Menu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -35,6 +47,22 @@ const Menu = () => {
         <MaterialIcons name="task" size={24} color="#4e4e4e" />
         <Text style={styles.buttonText}>Nearby Jobs</Text>
       </TouchableOpacity>
+      <Pressable
+        style={{
+          position: "absolute",
+          bottom: 20,
+          right: 20,
+          backgroundColor: "#4e4e4e",
+          padding: 10,
+          borderRadius: 22,
+        }}
+        onPress={() => {
+          AsyncStorage.removeItem("token");
+          dispatch(setUser(null));
+        }}
+      >
+        <MaterialIcons name="logout" size={22} color="white" />
+      </Pressable>
     </View>
   );
 };
@@ -46,10 +74,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: 20,
+    paddingTop: 20,
     backgroundColor: "#fff",
     marginHorizontal: 5,
-    borderTopWidth: 1,
     borderBlockColor: "#c5c5c5",
   },
   button: {

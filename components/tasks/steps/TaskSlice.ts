@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const taskSlice = createSlice({
   name: "task", // Slice name
-  initialState: { clientId: 10001}, // Initial state of the slice
+  initialState: { clientId: 10006}, // Initial state of the slice
   reducers: {
 
     //function to add/update task

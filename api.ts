@@ -31,7 +31,7 @@ export const ApiClient = () => {
     return api.get(path, { params }).then((response) => response);
   };
 
-  const post = (path, body, params) => {
+  const post = (path, body, params?) => {
     return api.post(path, body, params).then((response) => response);
   };
 

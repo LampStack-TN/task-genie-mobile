@@ -12,11 +12,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useForm, Controller } from "react-hook-form";
 import Button from "../UI/Button";
 import { useState } from "react";
-import axios from "axios";
-import config from "../../config";
+
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/userSlice";
+import { ApiClient } from "../../api";
 
 const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     control,
@@ -29,14 +32,25 @@ const Login = ({ navigation }) => {
     },
   });
 
+  const checkAuthentication = async () => {
+    try {
+      const { data } = await ApiClient().get("auth/verify-token");
+      console.log(data);
+      dispatch(setUser(data));
+    } catch (error) {
+      console.log(error);
+      await AsyncStorage.removeItem("token");
+    }
+  };
+
   const sumbitLogin = async (loginData) => {
     try {
       setLoading(true);
       const {
         data: { acessToken },
-      } = await axios.post(`${config.apiUrl}/auth/login`, loginData);
+      } = await ApiClient().post(`/auth/login`, loginData);
       setLoading(false);
-      navigation.navigate("Home");
+      checkAuthentication();
       await AsyncStorage.setItem("token", acessToken);
     } catch (error) {
       setLoading(false);

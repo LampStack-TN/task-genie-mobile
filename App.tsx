@@ -18,6 +18,7 @@ import { useLayoutEffect, useState } from "react";
 import { ApiClient } from "./api";
 import ProfileIndex from "./components/profile/ProfileIndex";
 import BottomNav from "./components/UI/BottomNav";
+import Menu from "./components/navigation/Menu";
 
 const Stack = createNativeStackNavigator();
 
@@ -52,7 +53,7 @@ function App() {
                 }}
                 initialRouteName="Home"
               >
-                <Stack.Screen name="Home" component={MyBottomTab} />
+                <Stack.Screen name="Home" component={Menu} />
                 <Stack.Screen name="Step1" component={TaskStepsIndex} />
                 <Stack.Screen name="TaskDetails" component={TaskDetails} />
                 <Stack.Screen name="TaskList" component={TaskList} />

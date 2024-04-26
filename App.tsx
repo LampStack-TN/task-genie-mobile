@@ -1,5 +1,5 @@
 // In App.js in a new project
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StatusBar, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RegisterIndex from "./components/auth/register/Index";
@@ -19,6 +19,7 @@ import { ApiClient } from "./api";
 import ProfileIndex from "./components/profile/ProfileIndex";
 import BottomNav from "./components/UI/BottomNav";
 import Menu from "./components/navigation/Menu";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ function App() {
       setUser(data);
     } catch (error) {
       console.log(error);
+      await AsyncStorage.removeItem("token");
       alert(error.message);
     }
   };
@@ -45,8 +47,14 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         {user ? (
-          <View style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
+          <SafeAreaView
+            style={{
+              flex: 1,
+              marginTop: StatusBar.currentHeight,
+              backgroundColor: "#fff",
+            }}
+          >
+            <View style={{ flex: 1, backgroundColor: "#fff" }}>
               <Stack.Navigator
                 screenOptions={{
                   headerShown: false,
@@ -66,7 +74,7 @@ function App() {
               </Stack.Navigator>
             </View>
             <BottomNav />
-          </View>
+          </SafeAreaView>
         ) : (
           <Stack.Navigator
             screenOptions={{
@@ -76,13 +84,7 @@ function App() {
           >
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="Register" component={RegisterIndex} />
-            <Stack.Screen
-              name="Home"
-              component={() => {
-                setDummy(!dummy);
-                return <></>;
-              }}
-            />
+            <Stack.Screen name="Home" component={Menu} />
           </Stack.Navigator>
         )}
       </NavigationContainer>

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  StatusBar,
-} from "react-native";
+import { View, Text, Image, StyleSheet, StatusBar } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 // import { useNavigation } from "@react-navigation/native";
@@ -39,13 +33,12 @@ const Profile = ({ profile, Data }) => {
           size={24}
           color="#6e6e6e"
           style={{ position: "absolute" }}
-       
         />
         <Text style={styles.email}>{Data.email}</Text>
         <Text style={styles.bio}>{profile.bio}</Text>
       </View>
       <View style={styles.button}>
-        <Button label={"Edit"} style="outline"  callback={() => {}}></Button>
+        <Button label={"Edit"} style="outline" callback={() => {}}></Button>
       </View>
     </View>
   );
@@ -57,7 +50,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FEF2EC",
     display: "flex",
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
     paddingBottom: 30,
   },
   title: {

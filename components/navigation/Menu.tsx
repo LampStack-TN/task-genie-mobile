@@ -11,6 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/userSlice";
+
 type RootStackParamList = {
   TaskList: undefined;
   AppliedJobs: undefined;
@@ -19,6 +22,8 @@ type RootStackParamList = {
 
 const Menu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -53,6 +58,7 @@ const Menu = () => {
         }}
         onPress={() => {
           AsyncStorage.removeItem("token");
+          dispatch(setUser(null));
         }}
       >
         <MaterialIcons name="logout" size={22} color="white" />

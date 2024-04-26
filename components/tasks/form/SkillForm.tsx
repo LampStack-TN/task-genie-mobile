@@ -4,7 +4,7 @@ import { MultiSelect } from "react-native-element-dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "../../../redux/slices/TaskSlice";
 import skills from "../../../data/skills.json";
-export default function Step2({ navigation }) {
+export default function SkillsForm({ navigation }) {
   const dispatch = useDispatch();
 
   const [selectedSkills, setSelectedSkills] = useState([]);

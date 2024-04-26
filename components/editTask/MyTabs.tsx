@@ -12,9 +12,10 @@ type MyTabsProps = {
 };
 
 const MyTabs: React.FC<MyTabsProps> = ({ route }) => {
-  console.log("route :", route);
-  const taskId = route.params?.taskId;
-  console.log("taskId : ", taskId);
+
+
+  const taskId = route.params.taskId;
+
 
   return (
     <Tab.Navigator
@@ -32,12 +33,12 @@ const MyTabs: React.FC<MyTabsProps> = ({ route }) => {
         initialParams={{ taskId }}
         options={{ tabBarLabel: "step1" }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="step2"
         component={step2}
         initialParams={{ taskId }}
         options={{ tabBarLabel: "step2" }}
-      />
+      /> */}
       <Tab.Screen
         name="step3"
         component={step3}

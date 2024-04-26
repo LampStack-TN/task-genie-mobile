@@ -42,7 +42,7 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
   const onSubmit = async (data: Task) => {
     try {
       await handleEdit(data);
-      navigation.navigate("step2");
+      navigation.navigate("step3");
     } catch (err) {
       console.error("Error updating task:", err);
     }

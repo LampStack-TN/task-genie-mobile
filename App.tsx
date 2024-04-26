@@ -1,5 +1,11 @@
 // In App.js in a new project
-import { View, Text, Button, StatusBar, SafeAreaView } from "react-native";
+import {
+  View,
+  StatusBar,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RegisterIndex from "./components/auth/register/Index";
@@ -45,49 +51,54 @@ function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        {user ? (
-          <SafeAreaView
-            style={{
-              flex: 1,
-              marginTop: StatusBar.currentHeight,
-              backgroundColor: "#fff",
-            }}
-          >
-            <View style={{ flex: 1, backgroundColor: "#fff" }}>
-              <Stack.Navigator
-                screenOptions={{
-                  headerShown: false,
-                }}
-                initialRouteName="Home"
-              >
-                <Stack.Screen name="Home" component={Menu} />
-                <Stack.Screen name="Step1" component={TaskStepsIndex} />
-                <Stack.Screen name="TaskDetails" component={TaskDetails} />
-                <Stack.Screen name="TaskList" component={TaskList} />
-                <Stack.Screen name="MyTabs" component={MyTabs} />
-                <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
-                <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
-                <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
-                <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
-                <Stack.Screen name="MyTasks" component={MyTasksPosted} />
-              </Stack.Navigator>
-            </View>
-            <BottomNav />
-          </SafeAreaView>
-        ) : (
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-            initialRouteName="login"
-          >
-            <Stack.Screen name="login" component={Login} />
-            <Stack.Screen name="Register" component={RegisterIndex} />
-            <Stack.Screen name="Home" component={Menu} />
-          </Stack.Navigator>
-        )}
-      </NavigationContainer>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <NavigationContainer>
+          {user ? (
+            <SafeAreaView
+              style={{
+                flex: 1,
+                marginTop: StatusBar.currentHeight,
+                backgroundColor: "#fff",
+              }}
+            >
+              <View style={{ flex: 1, backgroundColor: "#fff" }}>
+                <Stack.Navigator
+                  screenOptions={{
+                    headerShown: false,
+                  }}
+                  initialRouteName="Home"
+                >
+                  <Stack.Screen name="Home" component={Menu} />
+                  <Stack.Screen name="Step1" component={TaskStepsIndex} />
+                  <Stack.Screen name="TaskDetails" component={TaskDetails} />
+                  <Stack.Screen name="TaskList" component={TaskList} />
+                  <Stack.Screen name="MyTabs" component={MyTabs} />
+                  <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
+                  <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
+                  <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
+                  <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
+                  <Stack.Screen name="MyTasks" component={MyTasksPosted} />
+                </Stack.Navigator>
+              </View>
+              <BottomNav />
+            </SafeAreaView>
+          ) : (
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+              initialRouteName="login"
+            >
+              <Stack.Screen name="login" component={Login} />
+              <Stack.Screen name="Register" component={RegisterIndex} />
+              <Stack.Screen name="Home" component={Menu} />
+            </Stack.Navigator>
+          )}
+        </NavigationContainer>
+      </KeyboardAvoidingView>
     </Provider>
   );
 }

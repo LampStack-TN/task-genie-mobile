@@ -7,4 +7,5 @@ export type Task = {
     createdAt: string;  // Assuming the date is stored as a string
     price:string
     task:{}
+    status?: 'Pending' | 'Accepted' | 'Rejected';  // Options
   };

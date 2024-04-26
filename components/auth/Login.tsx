@@ -10,7 +10,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useForm, Controller } from "react-hook-form";
-import Button from "../UI/Button";
+import Button from "../ui/Button";
 import { useState } from "react";
 
 import { useDispatch } from "react-redux";

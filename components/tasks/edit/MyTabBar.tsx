@@ -55,11 +55,11 @@ const MyTabBar = ({ state, descriptors, navigation, position }) => {
             onLongPress={onLongPress}
             style={{
               flex: 1,
-              borderRadius: 18,
+              borderRadius: 3,
               backgroundColor: isFocused ? "#0C3178" : "#F0F8FF",
-              paddingVertical: 8,
+              paddingVertical: 12,
               paddingHorizontal: 16,
-              marginHorizontal: 4,
+              marginHorizontal: 1,
               justifyContent: "center",
               alignItems: "center",
               elevation: isFocused ? 4 : 0,

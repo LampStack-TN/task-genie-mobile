@@ -10,7 +10,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "../../../redux/slices/TaskSlice";
 
-export default function Step1({ navigation }) {
+export default function JobDescription({ navigation }) {
   // Select task state from Redux store
   const dispatch = useDispatch();
 

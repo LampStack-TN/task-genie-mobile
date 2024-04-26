@@ -21,7 +21,7 @@ const data = [
   { label: "low", value: "low" },
   { label: "medium", value: "medium" },
 ];
-export default function Step3({ navigation }) {
+export default function DateTime({ navigation }) {
   const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
 

@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import { useForm, Controller } from "react-hook-form";
-import Button from "../../UI/Button";
+import Button from "../../ui/Button";
 import { useDispatch } from "react-redux";
 import { appendData } from "../../../redux/slices/registerSlice";
 

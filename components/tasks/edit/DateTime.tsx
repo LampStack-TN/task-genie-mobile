@@ -10,8 +10,8 @@ import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
 import axios from "axios";
 import Task from "../taskDetails/TaskInterface";
-import config from "../../config";
-import { ApiClient } from "../../api";
+import config from "../../../config";
+import { ApiClient } from "../../../api";
 type RootStackParamList = {
   step3: { taskId: string };
 };
@@ -23,7 +23,7 @@ type Step3Props = {
   route: Step3RouteProp;
 };
 
-const step3: React.FC<Step3Props> = ({ navigation, route }) => {
+const DateTime: React.FC<Step3Props> = ({ navigation, route }) => {
   const api = ApiClient()
   const { taskId } = route.params;
   const [task, setTask] = useState<Task | null>(null);
@@ -202,4 +202,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default step3;
+export default DateTime;

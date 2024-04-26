@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
   TouchableOpacity,
-} from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
-import { RouteProp } from '@react-navigation/native';
+} from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { RouteProp } from "@react-navigation/native";
+import config from "../../../config";
+import Task from "../taskDetails/TaskInterface";
+
 type Step2Props = {
   navigation: any;
   route: RouteProp<any, any>;
 };
 
-const Step2: React.FC<Step2Props> = ({ navigation , route }) => {
+const Expertise: React.FC<Step2Props> = ({ navigation, route }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      expertise: '',
+      expertise: "",
     },
   });
 
@@ -29,17 +32,19 @@ const Step2: React.FC<Step2Props> = ({ navigation , route }) => {
   };
 
   const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
+    { label: "Item 1", value: "1" },
+    { label: "Item 2", value: "2" },
+    { label: "Item 3", value: "3" },
+    { label: "Item 4", value: "4" },
   ];
 
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
         <Text style={styles.heading}>Edit:</Text>
-        <Text style={{ marginBottom: 10, alignSelf: 'flex-start', paddingTop: 10 }}>
+        <Text
+          style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
+        >
           Skills & Expertise
         </Text>
       </View>
@@ -47,7 +52,7 @@ const Step2: React.FC<Step2Props> = ({ navigation , route }) => {
       <View style={styles.inputContainer}>
         <Controller
           control={control}
-          rules={{ required: 'Expertise is required' }}
+          rules={{ required: "Expertise is required" }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               placeholder="Expertise"
@@ -81,8 +86,8 @@ const Step2: React.FC<Step2Props> = ({ navigation , route }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={{ position: 'absolute', bottom: 40, left: 20 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('step1')}>
+      <View style={{ position: "absolute", bottom: 40, left: 20 }}>
+        <TouchableOpacity onPress={() => navigation.navigate("step1")}>
           <Text style={styles.textt}>Back</Text>
         </TouchableOpacity>
       </View>
@@ -93,39 +98,39 @@ const Step2: React.FC<Step2Props> = ({ navigation , route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   stepContainer: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginBottom: 20,
     paddingTop: 1,
   },
   heading: {
     paddingTop: 60,
     fontSize: 30,
-    fontWeight: 'bold',
-    color: '#0C3178',
+    fontWeight: "bold",
+    color: "#0C3178",
   },
   inputContainer: {
-    width: '100%',
-    alignItems: 'center',
+    width: "100%",
+    alignItems: "center",
     flex: 3,
     gap: 15,
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingHorizontal: 10,
     marginBottom: 300,
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     height: 60,
     width: 350,
     paddingHorizontal: 22,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: '#e5e5e5',
+    borderColor: "#e5e5e5",
     marginBottom: 20,
     fontSize: 14,
     elevation: 3,
@@ -135,41 +140,41 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 20,
     lineHeight: 21,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: '#0C3178',
+    color: "#0C3178",
   },
   textt: {
     paddingVertical: 4 * 2,
     paddingHorizontal: 20,
     fontSize: 20,
     lineHeight: 21,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: '#0C3178',
+    color: "#0C3178",
   },
   button: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 40,
     right: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 50,
-    borderColor: '#0C3178',
+    borderColor: "#0C3178",
     borderWidth: 2,
     elevation: 3,
-    backgroundColor: '#fff',
-    overflow: 'hidden',
+    backgroundColor: "#fff",
+    overflow: "hidden",
   },
   placeholderStyle: {
     fontSize: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   errorText: {
-    color: 'red',
-    alignSelf: 'flex-start',
+    color: "red",
+    alignSelf: "flex-start",
     marginLeft: 15,
   },
 });
 
-export default Step2;
+export default Expertise;

@@ -7,7 +7,7 @@ import {
   Image,
 } from "react-native";
 import Task from "./TaskInterface";
-import { ApiClient } from "../../api";
+import { ApiClient } from "../../../api";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();

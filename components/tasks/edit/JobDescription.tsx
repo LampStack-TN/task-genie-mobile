@@ -9,7 +9,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
 import Task from "../taskDetails/TaskInterface";
-import { ApiClient } from "../../api";
+import { ApiClient } from "../../../api";
 
 type RootStackParamList = {
   step1: { taskId: string };
@@ -22,7 +22,7 @@ type Step1Props = {
   route: Step1RouteProp;
 };
 
-const step1: React.FC<Step1Props> = ({ navigation, route }) => {
+const JobDescription: React.FC<Step1Props> = ({ navigation, route }) => {
   const api = ApiClient();
   const { taskId } = route.params;
   const [task, setTask] = useState<Task | null>(null);
@@ -148,7 +148,7 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
   );
 };
 
-export default step1;
+export default JobDescription;
 
 const styles = StyleSheet.create({
   container: {

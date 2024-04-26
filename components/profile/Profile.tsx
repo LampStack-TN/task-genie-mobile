@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import Button from "../UI/Button";
+import Button from "../ui/Button";
 const Profile = ({ profile, Data }) => {
   return (
     <View style={styles.container}>

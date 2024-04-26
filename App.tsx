@@ -1,6 +1,7 @@
 // In App.js in a new project
 import {
   View,
+  ImageBackground,
   StatusBar,
   SafeAreaView,
   KeyboardAvoidingView,
@@ -19,7 +20,7 @@ import TaskStepsIndex from "./components/tasks/form";
 import Login from "./components/auth/Login";
 import NearbyJobsScreen from "./components/tasks/applyingTasks/NearbyJobsScreen";
 import AppliedTasks from "./components/tasks/applyingTasks/AppliedTasks";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { ApiClient } from "./api";
 import ProfileIndex from "./components/profile/ProfileIndex";
 import BottomNav from "./components/ui/BottomNav";
@@ -27,6 +28,8 @@ import Home from "./components/home/Index";
 import Profile from "./components/profile/Profile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser } from "./redux/slices/userSlice";
+
+import splash from "./assets/splash.png";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +43,7 @@ function App() {
 
 const Main = () => {
   const user = useSelector((state: any) => state.user);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   const checkAuthentication = async () => {
@@ -51,6 +55,7 @@ const Main = () => {
       console.log(error);
       await AsyncStorage.removeItem("token");
     }
+    setLoading(false);
   };
 
   useLayoutEffect(() => {
@@ -59,7 +64,15 @@ const Main = () => {
     }
   }, [user]);
 
-  return (
+  return loading ? (
+    <ImageBackground
+      source={splash}
+      resizeMode="contain"
+      style={{
+        width: "100%",
+      }}
+    />
+  ) : (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}

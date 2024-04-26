@@ -82,6 +82,11 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       <View style={styles.descriptionContainer}>
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
+      <View style={styles.skillContainer}>
+        {task.skills?.map(({ id, name }) => (
+          <Text style={styles.skillPill}>{name}</Text>
+        ))}
+      </View>
       <View style={styles.footerContainer}>
         <TouchableOpacity onPress={handleDelete}>
           <Text style={styles.deleteText}>Delete</Text>
@@ -223,6 +228,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: "#4F4F4F",
+  },
+  skillContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+  },
+  skillPill: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: "#6e6e6e",
+    backgroundColor: "#f8f8f8",
+    textAlignVertical: "center",
+    textAlign: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
 });
 

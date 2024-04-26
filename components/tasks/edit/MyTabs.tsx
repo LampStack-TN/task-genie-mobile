@@ -1,8 +1,8 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import step1 from "./step1";
-import step2 from "./step2";
-import step3 from "./step3";
+import JobDescription from "./JobDescription";
+import Expertise from "./Expertise";
+import DateTime from "./DateTime";
 import MyTabBar from "./MyTabBar";
 
 const Tab = createMaterialTopTabNavigator();
@@ -12,15 +12,12 @@ type MyTabsProps = {
 };
 
 const MyTabs: React.FC<MyTabsProps> = ({ route }) => {
-
-
   const taskId = route.params.taskId;
-
 
   return (
     <Tab.Navigator
       tabBar={(props) => <MyTabBar {...props} />}
-      initialRouteName="step1"
+      initialRouteName="JobDescription"
       screenOptions={{
         tabBarActiveTintColor: "#e91e63",
         tabBarLabelStyle: { fontSize: 12 },
@@ -28,22 +25,22 @@ const MyTabs: React.FC<MyTabsProps> = ({ route }) => {
       }}
     >
       <Tab.Screen
-        name="step1"
-        component={step1}
+        name="JobDescription"
+        component={JobDescription}
         initialParams={{ taskId }}
-        options={{ tabBarLabel: "step1" }}
+        options={{ tabBarLabel: "Description" }}
       />
-      {/* <Tab.Screen
-        name="step2"
-        component={step2}
-        initialParams={{ taskId }}
-        options={{ tabBarLabel: "step2" }}
-      /> */}
       <Tab.Screen
-        name="step3"
-        component={step3}
+        name="Expertise"
+        component={Expertise}
         initialParams={{ taskId }}
-        options={{ tabBarLabel: "step3" }}
+        options={{ tabBarLabel: "Skills" }}
+      />
+      <Tab.Screen
+        name="DateTime"
+        component={DateTime}
+        initialParams={{ taskId }}
+        options={{ tabBarLabel: "Time & Price" }}
       />
     </Tab.Navigator>
   );

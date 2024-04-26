@@ -8,22 +8,23 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
+import axios from "axios";
 import Task from "../taskDetails/TaskInterface";
+import config from "../../../config";
 import { ApiClient } from "../../../api";
-
 type RootStackParamList = {
-  step1: { taskId: string };
+  step3: { taskId: string };
 };
 
-type Step1RouteProp = RouteProp<RootStackParamList, "step1">;
+type Step3RouteProp = RouteProp<RootStackParamList, "step3">;
 
-type Step1Props = {
+type Step3Props = {
   navigation: any;
-  route: Step1RouteProp;
+  route: Step3RouteProp;
 };
 
-const step1: React.FC<Step1Props> = ({ navigation, route }) => {
-  const api = ApiClient();
+const DateTime: React.FC<Step3Props> = ({ navigation, route }) => {
+  const api = ApiClient()
   const { taskId } = route.params;
   const [task, setTask] = useState<Task | null>(null);
 
@@ -33,21 +34,19 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
     formState: { errors },
   } = useForm<Task>({
     defaultValues: {
-      title: "",
-      description: "",
-      location: "",
+      minPrice: 0,
+      maxPrice: 0,
     },
   });
 
   const onSubmit = async (data: Task) => {
     try {
       await handleEdit(data);
-      navigation.navigate("step3");
+      navigation.navigate("MyBottomTab");
     } catch (err) {
       console.error("Error updating task:", err);
     }
   };
-
   const handleEdit = async (updatedTask: Task) => {
     try {
       const { data } = await api.put(`/task/update/${taskId}`, updatedTask);
@@ -56,6 +55,7 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
       console.log(err);
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
@@ -63,74 +63,51 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
         <Text
           style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
         >
-          Basic Job Description
+          Price
         </Text>
       </View>
-
       <View style={styles.inputContainer}>
         <Controller
           control={control}
-          rules={{ required: "Title is required" }}
+          rules={{ required: "Min Price is required" }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              placeholder="Title"
+              placeholder="minPrice"
               onBlur={onBlur}
               onChangeText={onChange}
-              value={value}
+              value={value.toString()}
               style={styles.input}
             />
           )}
-          name="title"
+          name="minPrice"
         />
-        {errors.title && (
-          <Text style={styles.errorText}>Title is required.</Text>
+        {errors.minPrice && (
+          <Text style={styles.errorText}>Min Price is required.</Text>
         )}
 
         <Controller
           control={control}
-          rules={{ required: "Description is required" }}
+          rules={{ required: "Max Price is required" }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              placeholder="Description"
+              placeholder="maxPrice"
               onBlur={onBlur}
               onChangeText={onChange}
-              value={value}
-              style={[styles.input, styles.largeInput]}
-              multiline={true}
-              numberOfLines={4}
-            />
-          )}
-          name="description"
-        />
-        {errors.description && (
-          <Text style={styles.errorText}>Description is required.</Text>
-        )}
-
-        <Controller
-          control={control}
-          rules={{ required: "Location is required" }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="Location"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
+              value={value.toString()}
               style={styles.input}
             />
           )}
-          name="location"
+          name="maxPrice"
         />
-        {errors.location && (
-          <Text style={styles.errorText}>Location is required.</Text>
+        {errors.maxPrice && (
+          <Text style={styles.errorText}>Max Price is required.</Text>
         )}
       </View>
-
-      <View style={styles.button1}>
+      <View style={styles.button2}>
         <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.text}>Submit</Text>
+          <Text style={[styles.text, { color: "white" }]}>Finish</Text>
         </TouchableOpacity>
       </View>
-
       <View
         style={{
           position: "absolute",
@@ -138,9 +115,9 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
           left: 20,
           alignItems: "center",
           justifyContent: "center",
-        }}
+        }}  
       >
-        <TouchableOpacity onPress={() => navigation.navigate("MyBottomTab")}>
+        <TouchableOpacity onPress={() => navigation.navigate("step1")}>
           <Text style={styles.textt}>Back</Text>
         </TouchableOpacity>
       </View>
@@ -148,25 +125,23 @@ const step1: React.FC<Step1Props> = ({ navigation, route }) => {
   );
 };
 
-export default step1;
-
 const styles = StyleSheet.create({
+  errorText: {
+    color: "red",
+    alignSelf: "flex-start",
+    marginLeft: 15,
+  },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 25,
+    paddingHorizontal: 20,
     backgroundColor: "#fff",
   },
   stepContainer: {
     alignSelf: "flex-start",
     marginBottom: 20,
-    paddingTop: 1,
-  },
-  errorText: {
-    color: "red",
-    alignSelf: "flex-start",
-    marginLeft: 15,
+    paddingTop: 10,
   },
   heading: {
     paddingTop: 60,
@@ -195,17 +170,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     elevation: 3,
   },
-  largeInput: {
-    height: 120,
-  },
   text: {
-    color: "#0C3178",
     paddingVertical: 4 * 2,
     paddingHorizontal: 20,
     fontSize: 20,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
+    color: "#0C3178",
   },
   textt: {
     paddingVertical: 4 * 2,
@@ -216,17 +188,18 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "#0C3178",
   },
-  button1: {
+  button2: {
     position: "absolute",
     bottom: 40,
     right: 20,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 50,
-    borderColor: "#0C3178",
     borderWidth: 2,
+    borderRadius: 50,
     elevation: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "#0C3178",
     overflow: "hidden",
   },
 });
+
+export default DateTime;

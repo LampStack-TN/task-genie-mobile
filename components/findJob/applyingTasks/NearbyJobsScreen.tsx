@@ -1,4 +1,3 @@
-// NearbyJobsScreen.tsx
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
@@ -9,6 +8,7 @@ import { ApiClient } from "../../../api";
 
 const NearbyJobsScreen = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
@@ -27,10 +27,14 @@ const NearbyJobsScreen = () => {
 
   const handleApplyToTask = async (appliedTask: Task) => {
     try {
-      // Notice how we're not sending a userId here//
       const response = await ApiClient().post("/task/apply", {
         taskId: appliedTask.id,
       });
+      console.log(response.data);
+      //remove the applied task from state
+      setTasks(tasks.filter((task) => task.id !== appliedTask.id));
+      // Update appliedTasks state to add the appliedtask.id
+      setAppliedTasks([...appliedTasks, appliedTask.id]);
     } catch (error) {
       if (error.response && error.response.data.message) {
         setModalMessage(error.response.data.message);
@@ -41,10 +45,12 @@ const NearbyJobsScreen = () => {
     }
   };
 
+  const filteredTasks = tasks.filter((task) => !appliedTasks.includes(task.id));
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <TaskCard
             key={task.id}
             task={task}

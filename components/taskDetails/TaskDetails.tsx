@@ -5,30 +5,22 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ImageBackground,
 } from "react-native";
 import Task from "./TaskInterface";
 import { ApiClient } from "../../api";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
-  // console.log(task,'hhh');
-
-  // console.log();
   const [task, setTask] = useState<Task>({});
   const taskId = route.params.taskId;
-
   const fetchOne = async () => {
     try {
       const { data } = await api.get(`/task/getOne/${taskId}`);
-      console.log(data);
-
       setTask(data);
     } catch (err) {
       console.log("fetchOne failds :", err);
     }
   };
-
   useEffect(() => {
     fetchOne();
   }, []);
@@ -36,7 +28,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const handleDelete = async () => {
     try {
       await api.del(`/task/delete/${taskId}`);
-      navigation.navigate("MyTasks");
+      navigation.navigate("Home");
     } catch (err) {
       console.log("Handle delete failed:", err.message);
     }
@@ -54,14 +46,13 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       new Date(dateString)
     );
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Image
           source={{
-            // uri: task.client?.avatar,
-            uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
+            uri: task.client?.avatar,
+           
           }}
           style={styles.avatar}
         />

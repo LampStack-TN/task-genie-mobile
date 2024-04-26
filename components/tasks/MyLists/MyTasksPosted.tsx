@@ -9,6 +9,8 @@ const MyTasksPosted = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);
 
 
+  useEffect(() => {
+
     const fetchTasks = async () => {
       try {
         const response = await ApiClient().get("/task/myTasks");
@@ -18,15 +20,10 @@ const MyTasksPosted = ({ navigation }: any) => {
       }
     };
 
-    useEffect(()=>{
-      fetchTasks()
-    })
+    fetchTasks();
+  }, []);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchTasks();
-    }, [])
-  );
+
 
   const handleDelete = async (taskId) => {
     try {

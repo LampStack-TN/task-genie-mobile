@@ -31,18 +31,12 @@ const Info = ({ navigation }) => {
     },
   }); 
   const CreateProfile=async (data:any)=>{
-
     try{
-      console.log(data,'jjj');
-      
       const result= await ApiClient().post("profile/createProfile/",data)
-      console.log(result,'jjj')
     navigation.navigate("Profile")
     }
     catch(error){
       console.log(error);
-      
-      
     }
   }
   

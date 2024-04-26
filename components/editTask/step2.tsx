@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,17 +8,12 @@ import {
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { RouteProp } from '@react-navigation/native';
-import config from "../../config";
-import Task from '../taskDetails/TaskInterface';
-
 type Step2Props = {
   navigation: any;
   route: RouteProp<any, any>;
 };
 
 const Step2: React.FC<Step2Props> = ({ navigation , route }) => {
-  console.log("route from step2 :", route)
-  //id in the route params 
   const {
     control,
     handleSubmit,
@@ -29,9 +24,8 @@ const Step2: React.FC<Step2Props> = ({ navigation , route }) => {
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = () => {
     navigation.navigate('step3');
-    console.log(data);
   };
 
   const data = [

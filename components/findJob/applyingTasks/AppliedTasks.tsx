@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import axios from "axios";
 import { Task } from "./types";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ApiClient } from "../../../api";

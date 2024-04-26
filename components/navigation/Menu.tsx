@@ -15,9 +15,10 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";
 
 type RootStackParamList = {
-  TaskList: undefined;
-  AppliedJobs: undefined;
-  Tasks: undefined;
+  TaskList: String;
+  AppliedJobs: String;
+  Tasks: String;
+  MyTasks:String
 };
 
 const Menu = () => {

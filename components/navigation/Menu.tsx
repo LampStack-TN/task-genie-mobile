@@ -25,7 +25,7 @@ const Menu = () => {
         style={styles.button}
         onPress={() => navigation.navigate("AppliedJobs")}
       >
-        <MaterialIcons name="check-circle" size={24} color="#4e4e4e" />{" "}
+        <MaterialIcons name="check-circle" size={24} color="#4e4e4e" />
         <Text style={styles.buttonText}>Applied Tasks</Text>
       </TouchableOpacity>
       <TouchableOpacity

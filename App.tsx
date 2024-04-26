@@ -19,6 +19,7 @@ import { ApiClient } from "./api";
 import ProfileIndex from "./components/profile/ProfileIndex";
 import BottomNav from "./components/UI/BottomNav";
 import Menu from "./components/navigation/Menu";
+import Profile from "./components/profile/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +64,7 @@ function App() {
                 <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
                 <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
                 <Stack.Screen name="MyTasks" component={MyTasksPosted} />
+                <Stack.Screen name="Profile" component={Profile} />
               </Stack.Navigator>
             </View>
             <BottomNav />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import Task from "./TaskInterface";
-import { ApiClient } from "../../../api";
+import Task from "../../../../types/TaskInterface";
+import { ApiClient } from "../../../../api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();

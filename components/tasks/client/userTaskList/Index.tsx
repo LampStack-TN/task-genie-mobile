@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView } from "react-native";
-import { Tasks } from "./TaskTypes";
-import MyListTasksPosted from "./MyListTasksPosted";
-import { ApiClient } from "../../../api";
+import { ScrollView, Text } from "react-native";
+import { Tasks } from "../../../../types/TaskTypes";
+import UserTaskCard from "./UserTaskCard";
+import { ApiClient } from "../../../../api";
 
-const MyTasksPosted = ({ navigation }: any) => {
+const UserTaskList = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);
 
   const fetchTasks = async () => {
@@ -31,8 +31,8 @@ const MyTasksPosted = ({ navigation }: any) => {
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      {tasks.map((task) => (
-        <MyListTasksPosted
+$      {tasks.map((task) => (
+        <UserTaskCard
           key={task.id}
           task={task}
           navigation={navigation}
@@ -43,4 +43,4 @@ const MyTasksPosted = ({ navigation }: any) => {
   );
 };
 
-export default MyTasksPosted;
+export default UserTaskList;

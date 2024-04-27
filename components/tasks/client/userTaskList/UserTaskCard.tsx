@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const MyListTasksPosted: React.FC<{
+const UserTaskCard: React.FC<{
   task;
   handleDelete: (taskId: number) => void;
   navigation: any;
@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyListTasksPosted;
+export default UserTaskCard;

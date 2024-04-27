@@ -6,20 +6,22 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  Image,
+  Text,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RegisterIndex from "./components/auth/register/Index";
-import TaskDetails from "./components/tasks/taskDetails/TaskDetails";
-import TaskList from "./components/tasks/list/TaskList";
+import TaskDetails from "./components/tasks/client/taskDetails/TaskDetails";
+import TaskList from "./components/tasks/professional/list/TaskList";
 import store from "./redux/store/store";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import MyTabs from "./components/tasks/edit/MyTabs";
-import MyTasksPosted from "./components/tasks/userTaskList/MyTasksPosted";
-import TaskStepsIndex from "./components/tasks/form";
+import MyTabs from "./components/tasks/client/edit/MyTabs";
+import UserTaskList from "./components/tasks/client/userTaskList/Index";
+import TaskStepsIndex from "./components/tasks/client/form";
 import Login from "./components/auth/Login";
-import NearbyJobsScreen from "./components/tasks/applyingTasks/NearbyJobsScreen";
-import AppliedTasks from "./components/tasks/applyingTasks/AppliedTasks";
+import NearbyJobsScreen from "./components/tasks/professional/applyingTasks/NearbyJobsScreen";
+import AppliedTasks from "./components/tasks/professional/applyingTasks/AppliedTasks";
 import { useLayoutEffect, useState } from "react";
 import { ApiClient } from "./api";
 import ProfileIndex from "./components/profile/ProfileIndex";
@@ -67,11 +69,26 @@ const Main = () => {
   return loading ? (
     <ImageBackground
       source={splash}
-      resizeMode="contain"
+      resizeMode="cover"
       style={{
         width: "100%",
+        height: "100%", // Set the height to cover the entire container
       }}
-    />
+    >
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text
+          style={{
+            color: "#fff",
+            fontSize: 50,
+            backgroundColor: "#00000090",
+            textAlign: "center",
+            fontWeight: "700",
+          }}
+        >
+          Temporary Loading Message
+        </Text>
+      </View>
+    </ImageBackground>
   ) : (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -101,7 +118,7 @@ const Main = () => {
                 <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
                 <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
                 <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
-                <Stack.Screen name="MyTasks" component={MyTasksPosted} />
+                <Stack.Screen name="MyTasks" component={UserTaskList} />
                 <Stack.Screen name="Profile" component={Profile} />
               </Stack.Navigator>
             </View>

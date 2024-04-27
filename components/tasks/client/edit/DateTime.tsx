@@ -9,9 +9,9 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
 import axios from "axios";
-import Task from "../taskDetails/TaskInterface";
-import config from "../../../config";
-import { ApiClient } from "../../../api";
+import Task from "../../../../types/TaskInterface";
+import config from "../../../../config";
+import { ApiClient } from "../../../../api";
 type RootStackParamList = {
   step3: { taskId: string };
 };

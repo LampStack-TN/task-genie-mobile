@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
-import Task from "../taskDetails/TaskInterface";
-import { ApiClient } from "../../../api";
+import Task from "../../../../types/TaskInterface";
+import { ApiClient } from "../../../../api";
 
 type RootStackParamList = {
   step1: { taskId: string };

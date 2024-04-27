@@ -116,24 +116,24 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
       >
-        <View >
-          <View >
-            <Text >are u sure u want to delete this details</Text>
-            <View >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>are u sure u want to delete this details</Text>
+            <View style={styles.buttonRow}>
               <TouchableOpacity
-                
+                style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text>No</Text>
+                <Text style={styles.textStyle}>No</Text>
               </TouchableOpacity>
               <TouchableOpacity
-               
+                style={[styles.button, styles.buttonConfirm]}
                 onPress={() => {
                   handleDelete();
                   setModalVisible(!modalVisible);
                 }}
               >
-                <Text>Yes</Text>
+                <Text style={styles.textStyle}>Yes</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -288,7 +288,55 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 14,
-  }
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", 
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonRow: {
+    flexDirection: "row",
+    marginTop: 15,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    marginHorizontal: 10, 
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  buttonConfirm: {
+    backgroundColor: "#F44336",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+
 });
 
 export default TaskDetails;

@@ -74,11 +74,12 @@ const Contact = ({ navigation }) => {
             <Controller
               control={control}
               rules={{
-                required: { value: true, message: "Phone is required" },
+                // required: { value: true, message: "Phone is required" },
               }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onChangeText={onChange}
+                  inputMode="numeric"
                   placeholder="Fullname"
                   value={value}
                   style={styles.input}

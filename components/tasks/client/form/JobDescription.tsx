@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { addTask } from "../../../redux/slices/TaskSlice";
+import { addTask } from "../../../../redux/slices/TaskSlice";
 
 export default function JobDescription({ navigation }) {
   // Select task state from Redux store

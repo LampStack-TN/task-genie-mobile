@@ -1,22 +1,47 @@
-import { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-import { MultiSelect } from "react-native-element-dropdown";
-import { useSelector, useDispatch } from "react-redux";
-import { addTask } from "../../../redux/slices/TaskSlice";
-import skills from "../../../data/skills.json";
-export default function SkillsForm({ navigation }) {
-  const dispatch = useDispatch();
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { RouteProp } from "@react-navigation/native";
+import config from "../../../../config";
+import Task from "../../../../types/TaskInterface";
 
-  const [selectedSkills, setSelectedSkills] = useState([]);
+type Step2Props = {
+  navigation: any;
+  route: RouteProp<any, any>;
+};
 
- 
+const Expertise: React.FC<Step2Props> = ({ navigation, route }) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      expertise: "",
+    },
+  });
 
-  // console.log(task, 123);
+  const onSubmit = () => {
+    navigation.navigate('step3');
+  };
+
+  const data = [
+    { label: "Item 1", value: "1" },
+    { label: "Item 2", value: "2" },
+    { label: "Item 3", value: "3" },
+    { label: "Item 4", value: "4" },
+  ];
 
   return (
     <View style={styles.container}>
       <View style={styles.stepContainer}>
-        <Text style={styles.heading}>Step 2</Text>
+        <Text style={styles.heading}>Edit:</Text>
         <Text
           style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
         >
@@ -25,49 +50,50 @@ export default function SkillsForm({ navigation }) {
       </View>
 
       <View style={styles.inputContainer}>
-        {/* <TextInput
-          placeholder="Expertise"
-          onChangeText={(text) => setExpertise(text)}
-          value={Expertise}
-          style={styles.input}
-        /> */}
+        <Controller
+          control={control}
+          rules={{ required: "Expertise is required" }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Expertise"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="expertise"
+        />
+        {errors.expertise && (
+          <Text style={styles.errorText}>Expertise is required.</Text>
+        )}
 
-        <MultiSelect
+        {/* <MultiSelect
           style={styles.input}
           placeholderStyle={styles.placeholderStyle}
-          data={skills}
-          labelField="name"
-          valueField="id"
+          data={data}
+          labelField="label"
+          valueField="value"
           placeholder="Skills"
           searchPlaceholder="Search..."
-          value={selectedSkills}
-          onChange={(skillId) => {
-            console.log(skillId);
-
-            setSelectedSkills(skillId);
-            dispatch(addTask({ skills: skillId }));
-          }}
-        />
+          onChange={(item) => {}}
+        /> */}
       </View>
 
       <View style={styles.button}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate("Step3");
-          }}
-        >
-          <Text style={styles.text}>Next</Text>
-        </Pressable>
+        <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+          <Text style={styles.text}>Submit</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={{ position: "absolute", bottom: 40, left: 20 }}>
-        <Pressable onPress={() => navigation.navigate("Step1")}>
+        <TouchableOpacity onPress={() => navigation.navigate("step1")}>
           <Text style={styles.textt}>Back</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -144,17 +170,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#fff",
   },
-  // selectedTextStyle: {
-  //   fontSize: 14,
-  //   borderRadius:30,
-  // },
-
-  // inputSearchStyle: {
-  //   height: 40,
-  //   fontSize: 16,
-  // },
-
-  selectedStyle: {
-    borderRadius: 30,
+  errorText: {
+    color: "red",
+    alignSelf: "flex-start",
+    marginLeft: 15,
   },
 });
+
+export default Expertise;

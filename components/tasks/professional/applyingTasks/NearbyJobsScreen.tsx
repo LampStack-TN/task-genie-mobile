@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
 import TaskCard from "./TaskCard";
-import { Task } from "./types";
-import { ApiClient } from "../../../api";
+import { Task } from "../../../../types/Task";
+import { ApiClient } from "../../../../api";
 
 const NearbyJobsScreen = () => {
   const [tasks, setTasks] = useState<Task[]>([]);

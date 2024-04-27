@@ -72,13 +72,16 @@ const Contact = ({ navigation }) => {
           <View style={styles.inputView}>
             <Controller
               control={control}
-              rules={{
-                required: { value: true, message: "Fullname is required" },
-              }}
+              rules={
+                {
+                  // required: { value: true, message: "Phone number is required" },
+                }
+              }
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onChangeText={onChange}
                   placeholder="Fullname"
+                  inputMode="numeric"
                   value={value}
                   style={styles.input}
                 />
@@ -92,9 +95,11 @@ const Contact = ({ navigation }) => {
           <View style={styles.inputView}>
             <Controller
               control={control}
-              rules={{
-                required: { value: true, message: "Fullname is required" },
-              }}
+              rules={
+                {
+                  // required: { value: true, message: "Addess is required" },
+                }
+              }
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onChangeText={onChange}
@@ -131,7 +136,7 @@ const Contact = ({ navigation }) => {
               <Controller
                 control={control}
                 rules={{
-                  required: { value: true, message: "City Code is required" },
+                  required: { value: true, message: "City is required" },
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SearchableDropdown
@@ -157,6 +162,12 @@ const Contact = ({ navigation }) => {
               />
             </View>
           </View>
+          {errors.zipcode && (
+            <Text style={{ color: "#f01010" }}>{errors.zipcode.message}</Text>
+          )}
+          {errors.city && (
+            <Text style={{ color: "#f01010" }}>{errors.city.message}</Text>
+          )}
         </View>
         <View style={styles.footer}>
           <Button

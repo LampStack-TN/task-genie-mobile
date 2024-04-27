@@ -17,9 +17,9 @@ import Button from "../../ui/Button";
 
 import cities from "../../../data/cities.json";
 
-import SearchableDropdown from "react-native-searchable-dropdown";
 import axios from "axios";
 import config from "../../../config";
+import SearchableDropdown from "../../ui/SearchableDropdown";
 
 const Contact = ({ navigation }) => {
   // Loader State
@@ -63,12 +63,12 @@ const Contact = ({ navigation }) => {
   };
   return (
     <>
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Register</Text>
           <Text style={styles.subTitle}>Contact & Location</Text>
         </View>
-        <View style={styles.section}>
+        <View style={[styles.section]}>
           <View style={styles.inputView}>
             <Controller
               control={control}
@@ -131,26 +131,26 @@ const Contact = ({ navigation }) => {
               <Controller
                 control={control}
                 rules={{
-                  required: { value: true, message: "Zip Code is required" },
+                  required: { value: true, message: "City Code is required" },
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SearchableDropdown
+                    style={styles.inputView}
                     onItemSelect={(item) => onChange(item.name)}
                     itemStyle={styles.dropItem}
                     itemTextStyle={{ color: "#222" }}
                     itemsContainerStyle={styles.dropList}
                     items={cities}
-                    resetValue={false}
+                    // resetValue={false}
                     textInputProps={{
                       placeholder: "Governorates",
                       underlineColorAndroid: "transparent",
-                      style: [styles.inputView, styles.input],
-                      value: value,
+                      style: [styles.input, { marginHorizontal: 22 }],
                       // onTextChange: (text) => alert(text),
                     }}
-                    listProps={{
-                      nestedScrollEnabled: true,
-                    }}
+                    // listProps={{
+                    //   nestedScrollEnabled: true,
+                    // }}
                   />
                 )}
                 name="city"
@@ -170,7 +170,7 @@ const Contact = ({ navigation }) => {
             callback={handleSubmit(onSubmit)}
           />
         </View>
-      </View>
+      </ScrollView>
       {loading ? (
         <View style={styles.spinner}>
           <ActivityIndicator size="large" color="#0C3178" />
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     display: "flex",
-    flex: 1,
+    flexGrow: 1,
     margin: 10,
     marginTop: StatusBar.currentHeight || 0,
   },
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   footer: {
+    marginTop: 250,
     flexDirection: "row",
     backgroundColor: "#fff",
     paddingHorizontal: 22,
@@ -256,12 +257,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   dropList: {
+    flexGrow: 1,
     position: "absolute",
     width: "100%",
     maxHeight: 250,
     overflow: "hidden",
     top: "100%",
-    zIndex: 1,
+    zIndex: 10,
     backgroundColor: "#fff",
     borderWidth: 2,
     borderRadius: 30,

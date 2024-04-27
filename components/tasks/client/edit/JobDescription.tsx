@@ -7,22 +7,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { RouteProp } from "@react-navigation/native";
+
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../api";
 
-type RootStackParamList = {
-  step1: { taskId: string };
-};
 
-type Step1RouteProp = RouteProp<RootStackParamList, "step1">;
 
-type Step1Props = {
-  navigation: any;
-  route: Step1RouteProp;
-};
-
-const JobDescription: React.FC<Step1Props> = ({ navigation, route }) => {
+const JobDescription: React.FC= ({ navigation, route }:any) => {
   const api = ApiClient();
   const { taskId } = route.params;
   const [task, setTask] = useState<Task | null>(null);
@@ -42,7 +33,7 @@ const JobDescription: React.FC<Step1Props> = ({ navigation, route }) => {
   const onSubmit = async (data: Task) => {
     try {
       await handleEdit(data);
-      navigation.navigate("step3");
+      navigation.navigate("Home");
     } catch (err) {
       console.error("Error updating task:", err);
     }
@@ -140,7 +131,7 @@ const JobDescription: React.FC<Step1Props> = ({ navigation, route }) => {
           justifyContent: "center",
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("MyBottomTab")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.textt}>Back</Text>
         </TouchableOpacity>
       </View>

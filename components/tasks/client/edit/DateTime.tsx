@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
-import axios from "axios";
+
 import Task from "../../../../types/TaskInterface";
-import config from "../../../../config";
+
 import { ApiClient } from "../../../../api";
 type RootStackParamList = {
   step3: { taskId: string };
@@ -42,7 +42,7 @@ const DateTime: React.FC<Step3Props> = ({ navigation, route }) => {
   const onSubmit = async (data: Task) => {
     try {
       await handleEdit(data);
-      navigation.navigate("MyBottomTab");
+      navigation.navigate("Home");
     } catch (err) {
       console.error("Error updating task:", err);
     }
@@ -117,7 +117,7 @@ const DateTime: React.FC<Step3Props> = ({ navigation, route }) => {
           justifyContent: "center",
         }}  
       >
-        <TouchableOpacity onPress={() => navigation.navigate("step1")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.textt}>Back</Text>
         </TouchableOpacity>
       </View>

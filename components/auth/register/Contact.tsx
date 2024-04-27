@@ -146,16 +146,11 @@ const Contact = ({ navigation }) => {
                     itemTextStyle={{ color: "#222" }}
                     itemsContainerStyle={styles.dropList}
                     items={cities}
-                    // resetValue={false}
                     textInputProps={{
                       placeholder: "Governorates",
                       underlineColorAndroid: "transparent",
                       style: [styles.input, { marginHorizontal: 22 }],
-                      // onTextChange: (text) => alert(text),
                     }}
-                    // listProps={{
-                    //   nestedScrollEnabled: true,
-                    // }}
                   />
                 )}
                 name="city"

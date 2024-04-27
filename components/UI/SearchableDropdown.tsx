@@ -45,6 +45,7 @@ const SearchableDropdown = ({
             )
             .map((item) => (
               <Pressable
+                key={item.id}
                 onPress={() => {
                   setItem(item);
                   Keyboard.dismiss();

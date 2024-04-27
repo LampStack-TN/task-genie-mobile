@@ -24,6 +24,7 @@ import config from "../../../config";
 const Contact = ({ navigation }) => {
   // Loader State
   const [loading, setLoading] = useState(false);
+  const [drop, setDrop] = useState("");
 
   const registerData = useSelector((state: any) => state.registerData);
   const dispatch = useDispatch();
@@ -73,7 +74,7 @@ const Contact = ({ navigation }) => {
             <Controller
               control={control}
               rules={{
-                required: { value: true, message: "Fullname is required" },
+                required: { value: true, message: "Phone is required" },
               }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
@@ -92,9 +93,11 @@ const Contact = ({ navigation }) => {
           <View style={styles.inputView}>
             <Controller
               control={control}
-              rules={{
-                required: { value: true, message: "Fullname is required" },
-              }}
+              rules={
+                {
+                  // required: { value: true, message: "Fullname is required" },
+                }
+              }
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onChangeText={onChange}
@@ -131,11 +134,14 @@ const Contact = ({ navigation }) => {
               <Controller
                 control={control}
                 rules={{
-                  required: { value: true, message: "Zip Code is required" },
+                  required: { value: true, message: "City is required" },
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SearchableDropdown
-                    onItemSelect={(item) => onChange(item.name)}
+                    onItemSelect={(item) => {
+                      onChange(item.name);
+                      setDrop(item.name);
+                    }}
                     itemStyle={styles.dropItem}
                     itemTextStyle={{ color: "#222" }}
                     itemsContainerStyle={styles.dropList}
@@ -145,8 +151,9 @@ const Contact = ({ navigation }) => {
                       placeholder: "Governorates",
                       underlineColorAndroid: "transparent",
                       style: [styles.inputView, styles.input],
-                      value: value,
-                      // onTextChange: (text) => alert(text),
+                      value: drop,
+                      onPressIn: () => setDrop(""),
+                      onTextChange: (text) => setDrop(text),
                     }}
                     listProps={{
                       nestedScrollEnabled: true,
@@ -155,6 +162,20 @@ const Contact = ({ navigation }) => {
                 )}
                 name="city"
               />
+            </View>
+          </View>
+          <View style={{ flex: 1, gap: 18, flexDirection: "row" }}>
+            <View style={{ flex: 5 }}>
+              {errors.zipcode && (
+                <Text style={{ color: "#f01010" }}>
+                  {errors.zipcode.message}
+                </Text>
+              )}
+            </View>
+            <View style={{ flex: 5 }}>
+              {errors.city && (
+                <Text style={{ color: "#f01010" }}>{errors.city.message}</Text>
+              )}
             </View>
           </View>
         </View>

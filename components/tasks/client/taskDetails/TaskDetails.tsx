@@ -112,6 +112,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.applicantCount}>
+            <Text style={styles.applicantText}>
+              {task._count
+                ? task._count.applications + " People Applied"
+                : "No one Applied Yet"}
+            </Text>
+          </View>
+
     </View>
   );
 };
@@ -249,7 +257,19 @@ const styles = StyleSheet.create({
   iconTextContainer: {
     flexDirection: "row",
     alignItems: "center",
+  }, applicantCount: {
+    backgroundColor: "#2F80ED",
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
+  applicantText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: 14,
+  }
 });
 
 export default TaskDetails;

@@ -31,7 +31,7 @@ const UserTaskList = ({ navigation }: any) => {
 
   return (
     <ScrollView style={{ flex: 1 }}>
-$      {tasks.map((task) => (
+      {tasks.map((task) => (
         <UserTaskCard
           key={task.id}
           task={task}

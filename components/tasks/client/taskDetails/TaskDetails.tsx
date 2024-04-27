@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Modal } from "react-native";
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
+
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
+  const [modalVisible, setModalVisible] = useState(false);
   const taskId = route.params.taskId;
+
   const fetchOne = async () => {
     try {
       const { data } = await api.get(`/task/getOne/${taskId}`);
       setTask(data);
     } catch (err) {
-      console.log("fetchOne failds :", err);
+      console.log("fetchOne fails:", err);
     }
   };
+
   useEffect(() => {
     fetchOne();
   }, []);
@@ -27,15 +31,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       console.log("Handle delete failed:", err.message);
     }
   };
+
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
       month: "long",
       day: "numeric",
     };
-    return new Intl.DateTimeFormat("en-US", options).format(
-      new Date(dateString)
-    );
+    return new Intl.DateTimeFormat("en-US", options).format(new Date(dateString));
   };
 
   return (
@@ -51,18 +54,12 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       </View>
       <View style={styles.subHeaderContainer}>
         <View style={styles.iconTextContainer}>
-          <Ionicons
-            style={[styles.iconBase]}
-            name="bag-handle-sharp"
-            size={24}
-          />
+          <Ionicons style={[styles.iconBase]} name="bag-handle-sharp" size={24} />
           <Text style={styles.subHeaderText}>{task.title}</Text>
         </View>
         <View style={styles.iconTextContainer}>
           <MaterialIcons style={styles.iconBase} size={24} name="date-range" />
-          <Text style={styles.timeText}>
-            {task.updatedAt ? formatDate(task.updatedAt) : ""}
-          </Text>
+          <Text style={styles.timeText}>{task.updatedAt ? formatDate(task.updatedAt) : ""}</Text>
         </View>
       </View>
       <View style={styles.locationContainer}>
@@ -71,14 +68,8 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.locationText}>{task.location}</Text>
         </View>
         <View style={styles.iconTextContainer}>
-          <FontAwesome6
-            style={styles.iconBase}
-            name="circle-dollar-to-slot"
-            size={24}
-          />
-          <Text style={styles.priceText}>
-            {task.minPrice} - {task.maxPrice}
-          </Text>
+          <FontAwesome6 style={styles.iconBase} name="circle-dollar-to-slot" size={24} />
+          <Text style={styles.priceText}>{task.minPrice} - {task.maxPrice}</Text>
         </View>
       </View>
       <View style={styles.descriptionContainer}>
@@ -86,19 +77,17 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       </View>
       <View style={styles.skillContainer}>
         {task.skills?.map((skill, index) => (
-          <Text key={index} style={styles.skillPill}>
-            {skill.name}
-          </Text>
+          <Text key={index} style={styles.skillPill}>{skill.name}</Text>
         ))}
       </View>
       <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={handleDelete}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => {
-            navigation.navigate("MyTabs", { taskId: task.id });
+            navigation.navigate("MyTabs", { taskId: task.id , task: task });
           }}
         >
           <Text style={styles.editText}>Edit</Text>
@@ -113,13 +102,43 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         </TouchableOpacity>
       </View>
       <View style={styles.applicantCount}>
-            <Text style={styles.applicantText}>
-              {task._count
-                ? task._count.applications + " People Applied"
-                : "No one Applied Yet"}
-            </Text>
-          </View>
+        <Text style={styles.applicantText}>
+          {task._count
+            ? task._count.applications + " People Applied"
+            : "No one Applied Yet"}
+        </Text>
+      </View>
 
+     
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
+        <View >
+          <View >
+            <Text >are u sure u want to delete this details</Text>
+            <View >
+              <TouchableOpacity
+                
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text>No</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+               
+                onPress={() => {
+                  handleDelete();
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text>Yes</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

@@ -1,18 +1,45 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
 
 const RoleForm = () => {
+  const [role, setRole] = useState("");
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>I'm Here To:</Text>
-      <View style={[styles.inputView, styles.selected]}>
-        <Text style={[styles.inputText, styles.selectedText]}>
-          To Hire For Tasks
-        </Text>
-      </View>
-      <View style={[styles.inputView]}>
-        <Text style={[styles.inputText]}>To Find Jobs</Text>
-      </View>
+
+      <Pressable onPress={() => setRole("client")}>
+        <View
+          style={[styles.inputView, role == "client" ? styles.selected : null]}
+        >
+          <Text
+            style={[
+              styles.inputText,
+              role == "client" ? styles.selectedText : undefined,
+            ]}
+          >
+            To Hire For Tasks
+          </Text>
+        </View>
+      </Pressable>
+
+      <Pressable onPress={() => setRole("professional")}>
+        <View
+          style={[
+            styles.inputView,
+            role == "professional" ? styles.selected : null,
+          ]}
+        >
+          <Text
+            style={[
+              styles.inputText,
+              role == "professional" ? styles.selectedText : undefined,
+            ]}
+          >
+            To Find Jobs
+          </Text>
+        </View>
+      </Pressable>
     </View>
   );
 };

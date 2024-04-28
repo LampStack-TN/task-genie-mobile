@@ -18,7 +18,8 @@ const Info = ({ navigation }) => {
 
   const CreateProfile = async (data: any) => {
     try {
-      const result = await ApiClient().post("profile/createProfile/", data);
+      const response = await ApiClient().post("profile/createProfile/", data);
+      navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
     }
@@ -26,7 +27,6 @@ const Info = ({ navigation }) => {
 
   const onSubmit = (data: any) => {
     CreateProfile(data);
-    navigation.navigate("Profile");
   };
 
   return (
@@ -173,13 +173,4 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 14,
   },
-  // spinner: {
-  //   width: "100%",
-  //   height: "100%",
-  //   backgroundColor: "rgba(0, 0, 0, 0.3)",
-  //   flex: 1,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   position: "absolute",
-  // },
 });

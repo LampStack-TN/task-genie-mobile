@@ -112,6 +112,19 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     }
   };
 
+  const handleRejectApplication = async (applicationId: number) => {
+    try {
+      const response = await api.post("task/application/respond", {
+        applicationId,
+        action: "reject",
+      });
+      console.log(response.data);
+      fetchApplications();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <ImageBackground
       source={gradient}
@@ -230,7 +243,10 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
                   >
                     <Text>✓</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.rejectButton}>
+                  <TouchableOpacity
+                    style={styles.rejectButton}
+                    onPress={() => handleRejectApplication(application.id)}
+                  >
                     <Text>✕</Text>
                   </TouchableOpacity>
                 </View>

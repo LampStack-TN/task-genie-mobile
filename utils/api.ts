@@ -1,7 +1,7 @@
 // Import necessary packages
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import config from "./config";
+import config from "../config";
 
 // Define your API URL
 const API_URL = config.apiUrl;

@@ -5,25 +5,25 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  Text,
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store/store";
-import { setUser } from "./redux/slices/userSlice";
-
-import { ApiClient } from "./api";
 
 import RegisterIndex from "./components/auth/register/Index";
 import Login from "./components/auth/Login";
 import BottomNav from "./components/ui/BottomNav";
 import UserNavigator from "./components/navigators/UserNavigator";
 import Splash from "./components/ui/Splash";
+import checkAuthentication from "./utils/checkAuthentication";
+import RoleForm from "./components/auth/register/RoleForm";
+import ProNavigator from "./components/navigators/ProNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,23 +38,12 @@ function App() {
 const Main = () => {
   const user = useSelector((state: any) => state.user);
   const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
 
-  const checkAuthentication = async () => {
-    try {
-      const { data } = await ApiClient().get("auth/verify-token");
-      console.log(data);
-      dispatch(setUser(data));
-    } catch (error) {
-      console.log(error);
-      await AsyncStorage.removeItem("token");
-    }
-    setLoading(false);
-  };
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!user) {
-      checkAuthentication();
+      checkAuthentication(setLoading, dispatch);
     }
   }, [user]);
 
@@ -74,10 +63,18 @@ const Main = () => {
               backgroundColor: "#fff",
             }}
           >
-            <View style={{ flex: 1, backgroundColor: "#fff" }}>
-              <UserNavigator Stack={Stack} />
-            </View>
-            <BottomNav />
+            {user.role ? (
+              user.role == "client" ? (
+                <View style={{ flex: 1, backgroundColor: "#fff" }}>
+                  <UserNavigator Stack={Stack} />
+                  <BottomNav />
+                </View>
+              ) : (
+                <ProNavigator />
+              )
+            ) : (
+              <RoleForm />
+            )}
           </SafeAreaView>
         ) : (
           <Stack.Navigator

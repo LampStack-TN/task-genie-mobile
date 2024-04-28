@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Profile from "./Profile";
 import Skills from "./Skills";
 import Info from "./Info";
-import { ApiClient } from "../../api";
+import { ApiClient } from "../../utils/api";
 
 const Stack = createNativeStackNavigator();
 

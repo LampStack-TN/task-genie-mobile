@@ -4,7 +4,7 @@ import TaskItem from "./TaskItem";
 import { TaskProps } from "./TaskItem";
 import config from "../../../../config";
 import { useFocusEffect } from "@react-navigation/native";
-import { ApiClient } from "../../../../api";
+import { ApiClient } from "../../../../utils/api";
 const TaskList: React.FC = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const api = ApiClient();

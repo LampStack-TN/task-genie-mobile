@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import Task from "../../../../types/TaskInterface";
-import { ApiClient } from "../../../../api";
+import { ApiClient } from "../../../../utils/api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import Application from "../../../../types/Application";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
@@ -28,7 +28,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   const fetchOne = async () => {
     try {
-      const { data } = await api.get(`/task/getOne/${taskId}`);
+      const { data } = await ApiClient().get(`/task/getOne/${taskId}`);
       setTask(data);
     } catch (err) {
       console.log("fetchOne fails:", err);
@@ -72,16 +72,22 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Image
-          source={{
-            uri: task.client?.avatar,
-          }}
-          style={styles.avatar}
-        />
-        <Text style={styles.headerText}>Urgency: {task.urgency}</Text>
+      <View style={styles.header}>
+        <View style={styles.avatar}>
+          <Image
+            source={{
+              uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
+              // uri: task.client?.avatar,
+            }}
+            style={styles.avatar}
+          />
+        </View>
+        <View style={styles.title}>
+          <Text style={styles.titleText}>{task.title}</Text>
+        </View>
       </View>
       <View style={styles.subHeaderContainer}>
+        <Text style={styles.titleText}>Urgency: {task.urgency}</Text>
         <View style={styles.iconTextContainer}>
           <Ionicons
             style={[styles.iconBase]}
@@ -227,21 +233,29 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 12,
-    padding: 20,
+    padding: 22,
     flex: 1,
-    marginHorizontal: 10,
-    marginTop: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
   },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginBottom: 10,
+  },
+  avatar: {
+    height: 75,
+    width: 75,
+    borderRadius: 75 / 2,
+  },
+  title: {
+    paddingHorizontal: 10,
+    flex: 1,
+  },
+  titleText: {
+    verticalAlign: "middle",
+    fontSize: 28,
+    fontWeight: "600",
+    color: "#0C3178",
   },
   editText: {
     color: "#0C3178",
@@ -274,17 +288,6 @@ const styles = StyleSheet.create({
   backText: {
     color: "#0C3178",
     fontWeight: "bold",
-  },
-  avatar: {
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    marginRight: 10,
-  },
-  headerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
   },
   subHeaderText: {
     flex: 1,

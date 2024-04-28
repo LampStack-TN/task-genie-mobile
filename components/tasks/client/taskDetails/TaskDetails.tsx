@@ -7,11 +7,15 @@ import {
   Image,
   Modal,
   ScrollView,
+  ImageBackground,
+  Pressable,
 } from "react-native";
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../utils/api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import Application from "../../../../types/Application";
+
+import gradient from "../../../../assets/images/orange_gradient.png";
 
 const skills = [
   { id: 200, name: "Carpentry" },
@@ -92,17 +96,19 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={gradient}
+      resizeMode="cover"
+      style={styles.container}
+    >
       <View style={styles.header}>
-        <View style={styles.avatar}>
-          <Image
-            source={{
-              uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
-              // uri: task.client?.avatar,
-            }}
-            style={styles.avatar}
-          />
-        </View>
+        <Image
+          source={{
+            uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
+            // uri: task.client?.avatar,
+          }}
+          style={styles.avatar}
+        />
         <View style={styles.title}>
           <Text style={styles.titleText}>{task.title}</Text>
         </View>
@@ -159,17 +165,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity> */}
       </View>
-      <TouchableOpacity
-        style={styles.applicantCountButton}
-        onPress={toggleModal}
-      >
+      <Pressable style={styles.applicantCountButton} onPress={toggleModal}>
         <Text style={styles.applicantCountText}>
           {task._count && task._count.applications > 0
-            ? `${task._count.applications} People Applied`
+            ? `${task._count.applications} People Apllications Pending...`
             : "No one Applied Yet"}
         </Text>
         <Text style={styles.seeDetailsText}>See details →</Text>
-      </TouchableOpacity>
+      </Pressable>
       <Modal
         animationType="slide"
         transparent={true}
@@ -236,7 +239,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </View>
         </View>
       </Modal>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -256,6 +259,8 @@ const styles = StyleSheet.create({
     height: 75,
     width: 75,
     borderRadius: 75 / 2,
+    borderWidth: 3,
+    borderColor: "#F58D6150",
   },
   title: {
     paddingHorizontal: 10,
@@ -347,17 +352,6 @@ const styles = StyleSheet.create({
     color: "#0C3178",
     fontWeight: "bold",
   },
-  subHeaderText: {
-    flex: 1,
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
-    paddingLeft: 10,
-  },
-  timeText: {
-    fontSize: 14,
-    color: "#828282",
-  },
 
   footerContainer: {
     flexDirection: "row",
@@ -366,31 +360,26 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   applicantCountButton: {
-    backgroundColor: "#2F80ED",
-    borderRadius: 20,
+    backgroundColor: "#1D4FAF",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#052157",
     paddingHorizontal: 15,
-    paddingVertical: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
+    paddingVertical: 20,
+    position: "relative",
   },
 
   applicantCountText: {
     color: "#FFFFFF",
-    fontWeight: "bold",
-    fontSize: 14,
-    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 16,
   },
 
   seeDetailsText: {
-    color: "#FFFFFF",
+    color: "#F49871",
     fontWeight: "bold",
     fontSize: 14,
-    textAlign: "center",
+    textAlign: "right",
     marginTop: 5,
   },
   centeredView: {

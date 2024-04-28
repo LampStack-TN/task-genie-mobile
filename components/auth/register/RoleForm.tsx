@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
+import Button from "../../ui/Button";
 
 const RoleForm = () => {
   const [role, setRole] = useState("");
@@ -40,6 +41,9 @@ const RoleForm = () => {
           </Text>
         </View>
       </Pressable>
+      <View style={styles.float}>
+        {role && <Button label="Submit" style="fill" callback={null} />}
+      </View>
     </View>
   );
 };
@@ -51,9 +55,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     display: "flex",
     flex: 1,
+    margin: 10,
     justifyContent: "center",
     alignItems: "center",
-    margin: 10,
   },
   inputView: {
     backgroundColor: "#fff",
@@ -77,12 +81,19 @@ const styles = StyleSheet.create({
     color: "#6e6e6e",
   },
   selectedText: {
-    fontWeight: "600",
     color: "#4e4e4e",
   },
   title: {
     fontSize: 36,
     fontWeight: "700",
     color: "#0C3178",
+  },
+  float: {
+    position: "absolute",
+    right: 0,
+    bottom: 20,
+    backgroundColor: "#fff",
+    paddingHorizontal: 22,
+    paddingVertical: 8,
   },
 });

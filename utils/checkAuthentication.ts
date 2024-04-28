@@ -5,7 +5,6 @@ import { setUser } from "../redux/slices/userSlice";
 const checkAuthentication = async (setLoading, dispatch) => {
   try {
     const { data } = await ApiClient().get("auth/verify-token");
-    console.log(data);
     dispatch(setUser(data));
   } catch (error) {
     console.log(error);

@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
 import { Dropdown } from "react-native-element-dropdown";
 import { addTask } from "../../../../redux/slices/TaskSlice";
 import { ApiClient } from "../../../../api";
+import Button from "../../../ui/Button";
 
 export type Task = {
   id?: number;
@@ -25,16 +26,22 @@ export default function DateTime({ navigation }) {
   const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
 
-  const [dueDate, setdueDate] = useState("");
-  const [minPrice, setminPrice] = useState("");
-  const [maxPrice, setmaxPrice] = useState("");
-  const [urgency, setUrgency] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      dueDate: "",
+      minPrice: "",
+      maxPrice: "",
+      urgency: "",
+    },
+  });
 
-  const UpdateTask = (field, value) => {
-    dispatch(addTask({ [field]: value }));
-  };
-
-  const create: any = async () => {
+  const create:any = async () => {
+    console.log(task);
+    
     try {
       const { data } = await ApiClient().post(`/task/add/`, task);
       // console.log(data, "jet");
@@ -44,8 +51,16 @@ export default function DateTime({ navigation }) {
     }
   };
 
+  const onSubmit = (data) => {
+    dispatch(addTask(data));
+    create()
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      keyboardShouldPersistTaps="handled"
+    >
       <View style={styles.stepContainer}>
         <Text style={styles.heading}>Step 3</Text>
         <Text
@@ -55,90 +70,123 @@ export default function DateTime({ navigation }) {
         </Text>
       </View>
       <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Time & Date"
-          onChangeText={(text) => {
-            setdueDate(text), UpdateTask("dueDate", text);
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: " Date is required" },
           }}
-          value={dueDate}
-          style={styles.input}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+            placeholder="Date & Time"
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="dueDate"
         />
-
-        <TextInput
-          placeholder="minPrice"
-          onChangeText={(text) => {
-            setminPrice(text), UpdateTask("minPrice", text);
+        {errors.dueDate && (
+          <Text style={{ color: "#f01010" }}>{errors.dueDate.message}</Text>
+        )}
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: "MinPrice is required" },
           }}
-          value={minPrice}
-          style={styles.input}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="minPrice"
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="minPrice"
         />
-        <TextInput
-          placeholder="maxPrice"
-          onChangeText={(text) => {
-            setmaxPrice(text), UpdateTask("maxPrice", text);
+        {errors.minPrice && (
+          <Text style={{ color: "#f01010" }}>{errors.minPrice.message}</Text>
+        )}
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: "maxPrice is required" },
           }}
-          value={maxPrice}
-          style={styles.input}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="maxPrice"
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="maxPrice"
         />
-        <Dropdown
-          placeholder="Urgency"
-          labelField="label"
-          valueField="value"
-          data={data}
-          onChange={(item) => {
-            setUrgency(item.value);
-            UpdateTask("urgency", item.value);
+        {errors.maxPrice && (
+          <Text style={{ color: "#f01010" }}>{errors.maxPrice.message}</Text>
+        )}
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: "Urgency is required" },
           }}
-          value={urgency}
-          style={[styles.input]}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Dropdown
+              placeholder="Urgency"
+              labelField="label"
+              valueField="value"
+              data={data}
+              onChange={(item) => {
+                onChange(item.value)
+              }}
+              value={value}
+              style={[styles.input]}
+            />
+          )}
+          name="urgency"
         />
+        {errors.urgency && (
+          <Text style={{ color: "#f01010" }}>{errors.urgency.message}</Text>
+        )}
       </View>
-      <View style={styles.button2}>
-        <Pressable onPress={create}>
-          <Text style={[styles.text, { color: "white" }]}>Finish</Text>
-        </Pressable>
-      </View>
-      <View
-        style={{
-          position: "absolute",
-          bottom: 40,
-          left: 20,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Pressable onPress={() => navigation.navigate("Step2")}>
-          <Text style={styles.textt}>Back</Text>
-        </Pressable>
-      </View>
-    </View>
+      <View style={styles.footer}>
+          <Button
+            label="Back"
+            style="bare"
+            callback={() => navigation.goBack()}
+          />
+          <Button
+            label="Finish"
+            style="fill"
+            callback={handleSubmit(onSubmit)}
+          />
+        </View>
+    </ScrollView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     paddingHorizontal: 20,
     backgroundColor: "#fff",
   },
+
   stepContainer: {
     alignSelf: "flex-start",
-    marginBottom: 20,
-    paddingTop: 10,
+    marginBottom: 25,
+   
   },
   heading: {
     paddingTop: 60,
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
     color: "#0C3178",
   },
   inputContainer: {
     width: "100%",
-    alignItems: "center",
-    flex: 3,
+    // alignItems: "center",
     gap: 15,
-    justifyContent: "center",
+    // justifyContent: "center",
     paddingHorizontal: 11,
   },
   input: {
@@ -149,38 +197,15 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 1,
     borderColor: "#e5e5e5",
-    marginBottom: 20,
-    fontSize: 14,
+    marginBottom: 30,
+    fontSize: 15,
     elevation: 3,
   },
-  text: {
-    paddingVertical: 4 * 2,
-    paddingHorizontal: 20,
-    fontSize: 20,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "#0C3178",
-  },
-  textt: {
-    paddingVertical: 4 * 2,
-    paddingHorizontal: 20,
-    fontSize: 20,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "#0C3178",
-  },
-  button2: {
-    position: "absolute",
-    bottom: 40,
-    right: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 2,
-    borderRadius: 50,
-    elevation: 3,
-    backgroundColor: "#0C3178",
-    overflow: "hidden",
+  footer: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    paddingHorizontal: 22,
+    paddingVertical: 8,
+    justifyContent: "space-between",
   },
 });

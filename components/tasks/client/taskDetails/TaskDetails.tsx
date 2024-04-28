@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Modal } from "react-native";
 import Task from "../../../../types/TaskInterface";
-import { ApiClient } from "../../../../api";
+import { ApiClient } from "../../../../utils/api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {

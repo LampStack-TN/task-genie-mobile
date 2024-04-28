@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "react-native-element-dropdown";
 import { addTask } from "../../../../redux/slices/TaskSlice";
-import { ApiClient } from "../../../../api";
+import { ApiClient } from "../../../../utils/api";
 
 export type Task = {
   id?: number;

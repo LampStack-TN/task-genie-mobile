@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, Text } from "react-native";
 import { Tasks } from "../../../../types/TaskTypes";
 import UserTaskCard from "./UserTaskCard";
-import { ApiClient } from "../../../../api";
+import { ApiClient } from "../../../../utils/api";
 
 const UserTaskList = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);

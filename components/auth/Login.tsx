@@ -15,7 +15,7 @@ import { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";
-import { ApiClient } from "../../api";
+import { ApiClient } from "../../utils/api";
 
 const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);

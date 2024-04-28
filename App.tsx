@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  Text,
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -22,6 +23,7 @@ import UserNavigator from "./components/navigators/UserNavigator";
 import Splash from "./components/ui/Splash";
 import checkAuthentication from "./utils/checkAuthentication";
 import RoleForm from "./components/auth/register/RoleForm";
+import ProNavigator from "./components/navigators/ProNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -62,10 +64,14 @@ const Main = () => {
             }}
           >
             {user.role ? (
-              <View style={{ flex: 1, backgroundColor: "#fff" }}>
-                <UserNavigator Stack={Stack} />
-                <BottomNav />
-              </View>
+              user.role == "client" ? (
+                <View style={{ flex: 1, backgroundColor: "#fff" }}>
+                  <UserNavigator Stack={Stack} />
+                  <BottomNav />
+                </View>
+              ) : (
+                <ProNavigator />
+              )
             ) : (
               <RoleForm />
             )}

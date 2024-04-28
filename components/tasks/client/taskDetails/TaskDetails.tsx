@@ -12,6 +12,27 @@ import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../utils/api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import Application from "../../../../types/Application";
+
+const skills = [
+  { id: 200, name: "Carpentry" },
+  {
+    id: 201,
+    name: "Electrical Work",
+  },
+  {
+    id: 204,
+    name: "Dog Training",
+  },
+  {
+    id: 205,
+    name: "Cat Grooming",
+  },
+  {
+    id: 206,
+    name: "Coaching",
+  },
+];
+
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
@@ -86,47 +107,35 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.titleText}>{task.title}</Text>
         </View>
       </View>
-      <View style={styles.subHeaderContainer}>
-        <Text style={styles.titleText}>Urgency: {task.urgency}</Text>
-        <View style={styles.iconTextContainer}>
-          <Ionicons
-            style={[styles.iconBase]}
-            name="bag-handle-sharp"
-            size={24}
-          />
-          <Text style={styles.subHeaderText}>{task.title}</Text>
+      <View style={styles.subHeader}>
+        <View style={styles.property}>
+          <MaterialIcons name="location-on" size={28} color="#4e4e4e" />
+          <Text style={styles.propertyText}>{task.location}</Text>
         </View>
-        <View style={styles.iconTextContainer}>
-          <MaterialIcons style={styles.iconBase} size={24} name="date-range" />
-          <Text style={styles.timeText}>
-            {task.updatedAt ? formatDate(task.updatedAt) : ""}
-          </Text>
+        <View style={styles.property}>
+          <MaterialIcons name="calendar-month" size={28} color="#4e4e4e" />
+          <Text style={styles.propertyText}>{task.dueDate}</Text>
         </View>
-      </View>
-      <View style={styles.locationContainer}>
-        <View style={styles.iconTextContainer}>
-          <FontAwesome6 style={styles.iconBase} name="location-dot" size={24} />
-          <Text style={styles.locationText}>{task.location}</Text>
+        <View style={styles.property}>
+          <MaterialIcons name="location-on" size={28} color="#4e4e4e" />
+          <Text style={styles.propertyText}>{task.location}</Text>
         </View>
-        <View style={styles.iconTextContainer}>
-          <FontAwesome6
-            style={styles.iconBase}
-            name="circle-dollar-to-slot"
-            size={24}
-          />
-          <Text style={styles.priceText}>
-            {task.minPrice} - {task.maxPrice}
-          </Text>
+        <View style={styles.property}>
+          <MaterialIcons name="location-on" size={28} color="#4e4e4e" />
+          <Text style={styles.propertyText}>{task.location}</Text>
         </View>
       </View>
-      <View style={styles.descriptionContainer}>
+
+      <View style={styles.description}>
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
       <View style={styles.skillContainer}>
-        {task.skills?.map((skill, index) => (
-          <Text key={index} style={styles.skillPill}>
-            {skill.name}
-          </Text>
+        {skills.map((skill, index) => (
+          <View key={index} style={styles.skillPill}>
+            <Text key={index} style={styles.skillText}>
+              {skill.name}
+            </Text>
+          </View>
         ))}
       </View>
       <View style={styles.footerContainer}>
@@ -141,14 +150,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         >
           <Text style={styles.editText}>Edit</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.backButton}
           onPress={() => {
             navigation.navigate("MyTasks");
           }}
         >
           <Text style={styles.backText}>Back</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <TouchableOpacity
         style={styles.applicantCountButton}
@@ -235,6 +244,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 22,
     flex: 1,
+    backgroundColor: "#fff",
   },
   header: {
     flexDirection: "row",
@@ -256,6 +266,54 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "600",
     color: "#0C3178",
+  },
+  subHeader: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginVertical: 10,
+    rowGap: 10,
+  },
+  property: {
+    flex: 1,
+    flexDirection: "row",
+    flexBasis: "50%",
+    alignItems: "center",
+    columnGap: 4,
+  },
+  propertyText: {
+    color: "#2e2e2e",
+    fontWeight: "400",
+    fontSize: 18,
+  },
+  description: {
+    marginVertical: 10,
+    padding: 5,
+  },
+  descriptionText: {
+    fontSize: 22,
+    color: "#4e4e4e",
+  },
+  skillContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginVertical: 10,
+  },
+  skillPill: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: "#6e6e6e",
+    backgroundColor: "#f8f8f8",
+    textAlignVertical: "center",
+    textAlign: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    margin: 5,
+  },
+  skillText: {
+    textAlignVertical: "center",
+    textAlign: "center",
+    color: "#4e4e4e",
+    fontSize: 14,
   },
   editText: {
     color: "#0C3178",
@@ -296,71 +354,16 @@ const styles = StyleSheet.create({
     color: "#000",
     paddingLeft: 10,
   },
-  subHeaderContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
-  },
   timeText: {
     fontSize: 14,
     color: "#828282",
   },
-  locationContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  locationText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#4F4F4F",
-    paddingLeft: 10,
-  },
-  priceText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#EB5757",
-    paddingRight: 10,
-  },
-  descriptionContainer: {
-    marginBottom: 20,
-  },
-  descriptionText: {
-    fontSize: 14,
-    color: "#4F4F4F",
-    lineHeight: 20,
-  },
+
   footerContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
-    marginTop: 250,
-  },
-  skillContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginBottom: 10,
-  },
-  skillPill: {
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: "#6e6e6e",
-    backgroundColor: "#f8f8f8",
-    textAlignVertical: "center",
-    textAlign: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    margin: 5,
-  },
-  iconBase: {
-    color: "black",
-    marginRight: 5,
-  },
-  iconTextContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    marginVertical: 20,
   },
   applicantCountButton: {
     backgroundColor: "#2F80ED",

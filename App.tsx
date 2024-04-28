@@ -9,21 +9,18 @@ import {
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import store from "./redux/store/store";
-import { setUser } from "./redux/slices/userSlice";
-
-import { ApiClient } from "./api";
 
 import RegisterIndex from "./components/auth/register/Index";
 import Login from "./components/auth/Login";
 import BottomNav from "./components/ui/BottomNav";
 import UserNavigator from "./components/navigators/UserNavigator";
 import Splash from "./components/ui/Splash";
+import checkAuthentication from "./utils/checkAuthentication";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,23 +35,10 @@ function App() {
 const Main = () => {
   const user = useSelector((state: any) => state.user);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
 
-  const checkAuthentication = async () => {
-    try {
-      const { data } = await ApiClient().get("auth/verify-token");
-      console.log(data);
-      dispatch(setUser(data));
-    } catch (error) {
-      console.log(error);
-      await AsyncStorage.removeItem("token");
-    }
-    setLoading(false);
-  };
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!user) {
-      checkAuthentication();
+      checkAuthentication(setLoading);
     }
   }, [user]);
 

@@ -11,7 +11,7 @@ import { RouteProp } from "@react-navigation/native";
 import axios from "axios";
 import Task from "../../../../types/TaskInterface";
 import config from "../../../../config";
-import { ApiClient } from "../../../../api";
+import { ApiClient } from "../../../../utils/api";
 type RootStackParamList = {
   step3: { taskId: string };
 };

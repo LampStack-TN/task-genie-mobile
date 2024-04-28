@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 
 import config from "../../config";
-import { ApiClient } from "../../api";
+import { ApiClient } from "../../utils/api";
 
 import Button from "../ui/Button";
 import axios from "axios";

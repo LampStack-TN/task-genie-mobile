@@ -9,7 +9,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
 import Task from "../../../../types/TaskInterface";
-import { ApiClient } from "../../../../api";
+import { ApiClient } from "../../../../utils/api";
 
 type RootStackParamList = {
   step1: { taskId: string };

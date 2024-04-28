@@ -21,6 +21,7 @@ import BottomNav from "./components/ui/BottomNav";
 import UserNavigator from "./components/navigators/UserNavigator";
 import Splash from "./components/ui/Splash";
 import checkAuthentication from "./utils/checkAuthentication";
+import RoleForm from "./components/auth/register/RoleForm";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,10 +61,14 @@ const Main = () => {
               backgroundColor: "#fff",
             }}
           >
-            <View style={{ flex: 1, backgroundColor: "#fff" }}>
-              <UserNavigator Stack={Stack} />
-            </View>
-            <BottomNav />
+            {user.role ? (
+              <View style={{ flex: 1, backgroundColor: "#fff" }}>
+                <UserNavigator Stack={Stack} />
+                <BottomNav />
+              </View>
+            ) : (
+              <RoleForm />
+            )}
           </SafeAreaView>
         ) : (
           <Stack.Navigator

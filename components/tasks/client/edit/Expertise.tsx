@@ -8,9 +8,6 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { RouteProp } from "@react-navigation/native";
-import config from "../../../../config";
-import Task from "../../../../types/TaskInterface";
-
 type Step2Props = {
   navigation: any;
   route: RouteProp<any, any>;
@@ -28,15 +25,10 @@ const Expertise: React.FC<Step2Props> = ({ navigation, route }) => {
   });
 
   const onSubmit = () => {
-    navigation.navigate('step3');
+    navigation.navigate('Home');
   };
 
-  const data = [
-    { label: "Item 1", value: "1" },
-    { label: "Item 2", value: "2" },
-    { label: "Item 3", value: "3" },
-    { label: "Item 4", value: "4" },
-  ];
+ 
 
   return (
     <View style={styles.container}>
@@ -68,16 +60,6 @@ const Expertise: React.FC<Step2Props> = ({ navigation, route }) => {
           <Text style={styles.errorText}>Expertise is required.</Text>
         )}
 
-        {/* <MultiSelect
-          style={styles.input}
-          placeholderStyle={styles.placeholderStyle}
-          data={data}
-          labelField="label"
-          valueField="value"
-          placeholder="Skills"
-          searchPlaceholder="Search..."
-          onChange={(item) => {}}
-        /> */}
       </View>
 
       <View style={styles.button}>
@@ -87,7 +69,7 @@ const Expertise: React.FC<Step2Props> = ({ navigation, route }) => {
       </View>
 
       <View style={{ position: "absolute", bottom: 40, left: 20 }}>
-        <TouchableOpacity onPress={() => navigation.navigate("step1")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.textt}>Back</Text>
         </TouchableOpacity>
       </View>

@@ -38,6 +38,7 @@ const UserTaskList = ({ navigation }: any) => {
       style={styles.container}
     >
       <ScrollView style={{ flex: 1 }}>
+        <Text style={styles.title}>My Tasks,</Text>
         {tasks.map((task) => (
           <UserTaskCard
             key={task.id}
@@ -58,5 +59,11 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     backgroundColor: "#fff",
+    paddingTop: 28,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "600",
+    color: "#2e2e2e",
   },
 });

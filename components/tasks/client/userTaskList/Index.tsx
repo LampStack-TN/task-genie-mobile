@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Text } from "react-native";
+import { ImageBackground, ScrollView, StyleSheet, Text } from "react-native";
 import { Tasks } from "../../../../types/TaskTypes";
 import UserTaskCard from "./UserTaskCard";
 import { ApiClient } from "../../../../utils/api";
+
+import gradient from "../../../../assets/images/orange_gradient.png";
 
 const UserTaskList = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);
@@ -30,17 +32,31 @@ const UserTaskList = ({ navigation }: any) => {
   };
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      {tasks.map((task) => (
-        <UserTaskCard
-          key={task.id}
-          task={task}
-          navigation={navigation}
-          handleDelete={handleDelete}
-        />
-      ))}
-    </ScrollView>
+    <ImageBackground
+      source={gradient}
+      resizeMode="cover"
+      style={styles.container}
+    >
+      <ScrollView style={{ flex: 1 }}>
+        {tasks.map((task) => (
+          <UserTaskCard
+            key={task.id}
+            task={task}
+            navigation={navigation}
+            handleDelete={handleDelete}
+          />
+        ))}
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
 export default UserTaskList;
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+});

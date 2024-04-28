@@ -25,20 +25,22 @@ const UserTaskCard: React.FC<{
           style={[styles.card, pressed ? { backgroundColor: "#f8f8f8" } : {}]}
         >
           <Text style={styles.title}>{task.title}</Text>
-          <Text style={styles.description}>{task.description}</Text>
-          <View style={styles.info}>
-            <Icon name="place" size={20} color="#4CAF50" />
-            <Text style={styles.infoText}>{task.location}</Text>
-          </View>
-          <View style={styles.info}>
-            <Icon name="event" size={20} color="#FF9800" />
-            <Text style={styles.infoText}>{task.dueDate}</Text>
-          </View>
-          <View style={styles.info}>
-            <Icon name="attach-money" size={20} color="#F44336" />
-            <Text
-              style={styles.infoText}
-            >{`${task.minPrice} - ${task.maxPrice}`}</Text>
+
+          <View style={styles.infoSection}>
+            <View style={styles.info}>
+              <Icon name="event" size={20} color="#FF9800" />
+              <Text style={styles.infoText}>{task.dueDate}</Text>
+            </View>
+            <View style={styles.info}>
+              <Icon name="place" size={20} color="#4CAF50" />
+              <Text style={styles.infoText}>{task.location}</Text>
+            </View>
+            <View style={styles.info}>
+              <Icon name="attach-money" size={20} color="#F44336" />
+              <Text
+                style={styles.infoText}
+              >{`${task.minPrice} - ${task.maxPrice}`}</Text>
+            </View>
           </View>
           <View style={styles.applicantCount}>
             <Text style={styles.applicantText}>
@@ -111,29 +113,28 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#FFF",
     padding: 15,
-    borderRadius: 3,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
-    marginVertical: 8,
-    marginHorizontal: 10,
+    borderRadius: 8,
+    elevation: 2,
+    marginVertical: 6,
+    borderWidth: 1,
+    borderColor: "#bfbfbf",
+    paddingHorizontal: 18,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 20,
+    color: "#0C3178",
+    fontWeight: "600",
     marginBottom: 5,
   },
-  description: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 10,
+  infoSection: {
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   info: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 5,
+    flexBasis: "50%",
   },
   infoText: {
     marginLeft: 5,
@@ -158,24 +159,29 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   applicantCount: {
-    backgroundColor: "#2F80ED",
+    alignSelf: "flex-end",
+    backgroundColor: "#1D4FAF",
+    borderColor: "#052157",
+    borderWidth: 1,
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 10,
     justifyContent: "center",
     alignItems: "center",
+    marginVertical: 5,
   },
   applicantText: {
-    color: "#FFFFFF",
-    fontWeight: "bold",
     fontSize: 14,
+    color: "#F2AE91",
+    fontWeight: "bold",
+    marginHorizontal: 10,
   },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
-    backgroundColor: "rgba(0, 0, 0, 0.5)", 
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     margin: 20,
@@ -200,7 +206,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    marginHorizontal: 10, 
+    marginHorizontal: 10,
   },
   buttonClose: {
     backgroundColor: "#2196F3",

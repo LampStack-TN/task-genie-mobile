@@ -6,15 +6,18 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  ScrollView,
 } from "react-native";
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../utils/api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
-
+import Application from "../../../../types/Application";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
+  const [applications, setApplications] = useState<Application[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+
   const taskId = route.params.taskId;
 
   const fetchOne = async () => {
@@ -28,6 +31,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   useEffect(() => {
     fetchOne();
+    fetchApplications();
   }, []);
 
   const handleDelete = async () => {
@@ -36,6 +40,16 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       navigation.navigate("Home");
     } catch (err) {
       console.log("Handle delete failed:", err.message);
+    }
+  };
+
+  const fetchApplications = async () => {
+    try {
+      const { data } = await api.get(`task/${taskId}/applications`);
+      setApplications(data);
+      console.log(data);
+    } catch (err) {
+      console.error("Error fetching applications:", err);
     }
   };
 
@@ -74,6 +88,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
             name="bag-handle-sharp"
             size={24}
           />
+          <Text style={styles.subHeaderText}>{task.title}</Text>
         </View>
         <View style={styles.iconTextContainer}>
           <MaterialIcons style={styles.iconBase} size={24} name="date-range" />
@@ -129,13 +144,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.applicantCount}>
+      <TouchableOpacity style={styles.applicantCount}>
         <Text style={styles.applicantText}>
-          {task._count
-            ? task._count.applications + " People Applied"
+          {task._count && task._count.applications > 0
+            ? `${task._count.applications} People Applied`
             : "No one Applied Yet"}
         </Text>
-      </View>
+        <Text style={styles.seeDetailsText}>See details →</Text>
+      </TouchableOpacity>
 
       <Modal
         animationType="slide"
@@ -306,15 +322,30 @@ const styles = StyleSheet.create({
   applicantCount: {
     backgroundColor: "#2F80ED",
     borderRadius: 20,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
     justifyContent: "center",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
+
   applicantText: {
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 14,
+    textAlign: "center",
+  },
+
+  seeDetailsText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: 14,
+    textAlign: "center",
+    marginTop: 5,
   },
   centeredView: {
     flex: 1,

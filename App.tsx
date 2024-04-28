@@ -12,7 +12,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { useEffect, useState } from "react";
 
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store/store";
 
 import RegisterIndex from "./components/auth/register/Index";
@@ -36,9 +36,11 @@ const Main = () => {
   const user = useSelector((state: any) => state.user);
   const [loading, setLoading] = useState(true);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!user) {
-      checkAuthentication(setLoading);
+      checkAuthentication(setLoading, dispatch);
     }
   }, [user]);
 

@@ -1,11 +1,8 @@
-const dispatch = useDispatch();
 import { ApiClient } from "./api";
-import { useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser } from "../redux/slices/userSlice";
 
-
-const checkAuthentication = async (setLoading) => {
+const checkAuthentication = async (setLoading, dispatch) => {
   try {
     const { data } = await ApiClient().get("auth/verify-token");
     console.log(data);

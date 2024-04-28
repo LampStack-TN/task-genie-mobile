@@ -1,17 +1,26 @@
 import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import { useForm, Controller } from "react-hook-form";
 import { MultiSelect } from "react-native-element-dropdown";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../../../redux/slices/TaskSlice";
 import skills from "../../../../data/skills.json";
+import Button from "../../../ui/Button";
+
 export default function SkillsForm({ navigation }) {
   const dispatch = useDispatch();
-
-  const [selectedSkills, setSelectedSkills] = useState([]);
-
- 
-
-  // console.log(task, 123);
+  // const task = useSelector((state: any) => state.task);
+  // console.log(task);
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      skills:[],
+    },
+  });
+  
+  const onSubmit = (data) => {
+    dispatch(addTask(data));
+    navigation.navigate("Step3");
+  };
 
   return (
     <View style={styles.container}>
@@ -25,45 +34,36 @@ export default function SkillsForm({ navigation }) {
       </View>
 
       <View style={styles.inputContainer}>
-        {/* <TextInput
-          placeholder="Expertise"
-          onChangeText={(text) => setExpertise(text)}
-          value={Expertise}
-          style={styles.input}
-        /> */}
-
-        <MultiSelect
-          style={styles.input}
-          placeholderStyle={styles.placeholderStyle}
-          data={skills}
-          labelField="name"
-          valueField="id"
-          placeholder="Skills"
-          searchPlaceholder="Search..."
-          value={selectedSkills}
-          onChange={(skillId) => {
-            console.log(skillId);
-
-            setSelectedSkills(skillId);
-            dispatch(addTask({ skills: skillId }));
-          }}
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <MultiSelect
+              style={styles.input}
+              placeholderStyle={styles.placeholderStyle}
+              data={skills}
+              labelField="name"
+              valueField="id"
+              placeholder="Skills"
+              searchPlaceholder="Search..."
+              value={value}
+              onChange={onChange}
+              selectedStyle={styles.selectedStyle}
+            />
+          )}
+          name="skills"
         />
       </View>
-
-      <View style={styles.button}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate("Step3");
-          }}
-        >
-          <Text style={styles.text}>Next</Text>
-        </Pressable>
-      </View>
-
-      <View style={{ position: "absolute", bottom: 40, left: 20 }}>
-        <Pressable onPress={() => navigation.navigate("Step1")}>
-          <Text style={styles.textt}>Back</Text>
-        </Pressable>
+      <View style={styles.footer}>
+        <Button
+          label="Back"
+          style="bare"
+          callback={() => navigation.goBack()}
+        />
+        <Button
+          label="Next"
+          style="outline"
+          callback={handleSubmit(onSubmit)}
+        />
       </View>
     </View>
   );
@@ -72,8 +72,6 @@ export default function SkillsForm({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     paddingHorizontal: 20,
     backgroundColor: "#fff",
   },
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     paddingTop: 60,
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
     color: "#0C3178",
   },
@@ -109,52 +107,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     elevation: 3,
   },
-  text: {
-    paddingVertical: 4 * 2,
-    paddingHorizontal: 20,
-    fontSize: 20,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "#0C3178",
-  },
-  textt: {
-    paddingVertical: 4 * 2,
-    paddingHorizontal: 20,
-    fontSize: 20,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "#0C3178",
-  },
-  button: {
-    position: "absolute",
-    bottom: 40,
-    right: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 50,
-    borderColor: "#0C3178",
-    borderWidth: 2,
-    elevation: 3,
-    backgroundColor: "#fff",
-    overflow: "hidden",
-  },
   placeholderStyle: {
     fontSize: 16,
     backgroundColor: "#fff",
   },
-  // selectedTextStyle: {
-  //   fontSize: 14,
-  //   borderRadius:30,
-  // },
-
-  // inputSearchStyle: {
-  //   height: 40,
-  //   fontSize: 16,
-  // },
-
+  footer: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    paddingHorizontal: 8,
+    paddingVertical: 22,
+    alignItems: "center",
+    justifyContent: "space-between",
+    
+  },
   selectedStyle: {
-    borderRadius: 30,
+    borderRadius: 15,
   },
 });

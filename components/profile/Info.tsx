@@ -1,120 +1,108 @@
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import React, { useState } from "react";
-
-import { useSelector, useDispatch } from "react-redux";
+import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 
-import config from "../../config";
 import { ApiClient } from "../../utils/api";
 
 import Button from "../ui/Button";
-import axios from "axios";
-
 
 const Info = ({ navigation }) => {
-
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-     jobTitle: "",
+      jobTitle: "",
       bio: "",
-      
     },
-  }); 
-  const CreateProfile=async (data:any)=>{
-    try{
-      const result= await ApiClient().post("profile/createProfile/",data)
-    navigation.navigate("Profile")
-    }
-    catch(error){
+  });
+
+  const CreateProfile = async (data: any) => {
+    try {
+      const response = await ApiClient().post("profile/createProfile/", data);
+      navigation.navigate("Profile");
+    } catch (error) {
       console.log(error);
     }
-  }
-  
-  const onSubmit = (data:any) => {
+  };
+
+  const onSubmit = (data: any) => {
     CreateProfile(data);
   };
-  
+
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Profile</Text>
-          <Text style={styles.subTitle}>Professional Info</Text>
-        </View>
-        <View style={styles.section}>
-          <View style={styles.inputView}>
-            <Controller
-              control={control}
-              rules={{
-                required: { value: true, message: "jobTitle required" },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onChangeText={onChange}
-                  placeholder="Title"
-                  value={value}
-                  style={styles.input}
-                />
-              )}
-              name="jobTitle"
-            />
+        <ScrollView>
+          <View style={styles.header}>
+            <Text style={styles.title}>Profile</Text>
+            <Text style={styles.subTitle}>Professional Info</Text>
           </View>
-          {errors.jobTitle&& (
-            <Text style={{ color: "#f01010" }}>{errors.jobTitle.message}</Text>
-          )}
+          <View style={styles.section}>
+            <View style={styles.inputView}>
+              <Controller
+                control={control}
+                rules={{
+                  required: { value: true, message: "jobTitle required" },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    placeholder="Title"
+                    value={value}
+                    style={styles.input}
+                  />
+                )}
+                name="jobTitle"
+              />
+            </View>
+            {errors.jobTitle && (
+              <Text style={{ color: "#f01010" }}>
+                {errors.jobTitle.message}
+              </Text>
+            )}
 
-          <View style={styles.inputBio}>
-            <Controller
-              control={control}
-              rules={{
-                required: { value: true, message: "Bio is required" },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onChangeText={onChange}
-                  placeholder="Bio"
-                  value={value}
-                  style={styles.input}
-                />
-              )}
-              name="bio"
+            <View style={styles.inputBio}>
+              <Controller
+                control={control}
+                rules={{
+                  required: { value: true, message: "Bio is required" },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    placeholder="Bio"
+                    value={value}
+                    style={styles.input}
+                  />
+                )}
+                name="bio"
+              />
+            </View>
+            {errors.bio && (
+              <Text style={{ color: "#f01010" }}>{errors.bio.message}</Text>
+            )}
+          </View>
+          <View style={styles.footer}>
+            <Button
+              label="Next"
+              style="fill"
+              callback={handleSubmit(onSubmit)}
             />
           </View>
-          {errors.bio&& (
-            <Text style={{ color: "#f01010" }}>{errors.bio.message}</Text>
-          )}
-        </View>
-        <View style={styles.footer}>
-          <Button
-            label="Next"
-            style="fill"
-           callback={handleSubmit(onSubmit)}
-          />
-        </View>
+        </ScrollView>
       </View>
     </>
   );
 };
-
 export default Info;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
-    display: "flex",
     flex: 1,
-    // margin: 10,
-    marginTop: StatusBar.currentHeight || 0,
+    justifyContent: "flex-start",
+    paddingHorizontal: 25,
+    backgroundColor: "#fff",
   },
   header: {
     alignItems: "flex-start",
@@ -123,17 +111,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingLeft: 10,
   },
+  text: {
+    color: "#0C3178",
+    paddingVertical: 4 * 2,
+    paddingHorizontal: 20,
+    fontSize: 20,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+  },
   footer: {
     flexDirection: "row",
-    paddingHorizontal: 25,
-    left: 220,
-    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    paddingHorizontal: 260,
+    paddingTop: 25,
   },
   section: {
-    // backgroundColor: "#f0f0f0",
     gap: 15,
     flex: 1,
-    // borderWidth: 2,
     marginTop: 30,
     paddingHorizontal: 11,
     paddingVertical: 11,
@@ -176,17 +171,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 3,
   },
-
   input: {
     fontSize: 14,
-  },
-  spinner: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
   },
 });

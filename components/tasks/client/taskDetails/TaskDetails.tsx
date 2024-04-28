@@ -165,23 +165,37 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity> */}
       </View>
-      <Pressable style={styles.applicantCountButton} onPress={toggleModal}>
-        <Text style={styles.applicantCountText}>
-          {task._count && task._count.applications > 0
-            ? `${task._count.applications} People Apllications Pending...`
-            : "No one Applied Yet"}
-        </Text>
-        <Text style={styles.seeDetailsText}>See details →</Text>
+      <Pressable onPress={toggleModal}>
+        {({ pressed }) => (
+          <View
+            style={[
+              styles.applicantCountButton,
+              pressed && { backgroundColor: "#1D4FAFE0" },
+            ]}
+          >
+            <Text style={styles.applicantCountText}>
+              {task._count && task._count.applications > 0
+                ? `${task._count.applications} People Apllications Pending...`
+                : "No one Applied Yet"}
+            </Text>
+            <Text style={styles.seeDetailsText}>See details →</Text>
+          </View>
+        )}
       </Pressable>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={isModalVisible}
         onRequestClose={toggleModal}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Applicants</Text>
+          <View style={styles.modal}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Applicantions</Text>
+              <Pressable onPress={toggleModal}>
+                <Text style={styles.modalClose}>✕</Text>
+              </Pressable>
+            </View>
             <ScrollView style={styles.applicationsList}>
               {applications.map((application, index) => (
                 <View key={index} style={styles.applicationItem}>
@@ -198,43 +212,45 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
                 </View>
               ))}
             </ScrollView>
-            <TouchableOpacity
-              style={[styles.button, styles.buttonClose]}
-              onPress={toggleModal}
-            >
-              <Text style={styles.textStyle}>Close</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </Modal>
 
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              are u sure u want to delete this details
-            </Text>
-            <View style={styles.buttonRow}>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>No</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonConfirm]}
-                onPress={() => {
-                  handleDelete();
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <Text style={styles.textStyle}>Yes</Text>
-              </TouchableOpacity>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modal}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}></Text>
+              <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.modalClose}>✕</Text>
+              </Pressable>
+            </View>
+            <View style={{}}>
+              <Text style={styles.modalText}>
+                Are u sure u want to delete this task?
+              </Text>
+              <View style={styles.buttonRow}>
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>No</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonConfirm]}
+                  onPress={() => {
+                    handleDelete();
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={styles.textStyle}>Yes</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
@@ -366,6 +382,7 @@ const styles = StyleSheet.create({
     borderColor: "#052157",
     paddingHorizontal: 15,
     paddingVertical: 20,
+    marginVertical: 20,
     position: "relative",
   },
 
@@ -383,6 +400,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   centeredView: {
+    position: "absolute",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -407,6 +425,7 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: "row",
     marginTop: 15,
+    justifyContent: "center",
   },
   button: {
     borderRadius: 20,
@@ -426,8 +445,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   modalText: {
-    marginBottom: 15,
     textAlign: "center",
+    color: "#4e4e4e",
+    fontSize: 18,
+    fontWeight:"600"
   },
   acceptButton: {
     marginRight: 10,
@@ -442,21 +463,34 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    padding: 12,
   },
-  modalContent: {
+  modal: {
     backgroundColor: "white",
     padding: 16,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderRadius: 8,
     maxHeight: "90%",
+  },
+  modalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   modalTitle: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontWeight: "500",
     marginBottom: 16,
-    textAlign: "center",
+    textAlign: "left",
+  },
+  modalClose: {
+    fontSize: 16,
+    fontWeight: "500",
+    paddingHorizontal: 4,
+    color: "#6e6e6e",
   },
   applicationsList: {
     marginBottom: 16,
@@ -466,8 +500,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
   },
   applicantName: {
     flex: 1,

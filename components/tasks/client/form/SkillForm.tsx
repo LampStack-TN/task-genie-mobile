@@ -2,29 +2,25 @@ import { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { MultiSelect } from "react-native-element-dropdown";
-import {useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../../../redux/slices/TaskSlice";
 import skills from "../../../../data/skills.json";
 import Button from "../../../ui/Button";
 
 export default function SkillsForm({ navigation }) {
   const dispatch = useDispatch();
-
-  const {
-    control,
-    handleSubmit,
-  } = useForm({
+  // const task = useSelector((state: any) => state.task);
+  // console.log(task);
+  const { control, handleSubmit } = useForm({
     defaultValues: {
-      skill:[],
-      
+      skills:[],
     },
   });
-
+  
   const onSubmit = (data) => {
     dispatch(addTask(data));
     navigation.navigate("Step3");
   };
-
 
   return (
     <View style={styles.container}>
@@ -39,37 +35,36 @@ export default function SkillsForm({ navigation }) {
 
       <View style={styles.inputContainer}>
         <Controller
-         control={control}
-         render={({ field: { onChange, onBlur, value } }) => (
-       <MultiSelect
-          style={styles.input}
-          placeholderStyle={styles.placeholderStyle}
-          data={skills}
-          labelField="name"
-          valueField="id"
-          placeholder="Skills"
-          searchPlaceholder="Search..."
-          value={value}
-          onChange={onChange}
-          selectedStyle={styles.selectedStyle}
-          />
-        )}
-      name="skill"
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <MultiSelect
+              style={styles.input}
+              placeholderStyle={styles.placeholderStyle}
+              data={skills}
+              labelField="name"
+              valueField="id"
+              placeholder="Skills"
+              searchPlaceholder="Search..."
+              value={value}
+              onChange={onChange}
+              selectedStyle={styles.selectedStyle}
+            />
+          )}
+          name="skills"
         />
       </View>
-
       <View style={styles.footer}>
-            <Button
-              label="Back"
-              style="bare"
-              callback={() => navigation.goBack()}
-            />
-            <Button
-              label="Next"
-              style="outline"
-              callback={handleSubmit(onSubmit)}
-            />
-          </View>
+        <Button
+          label="Back"
+          style="bare"
+          callback={() => navigation.goBack()}
+        />
+        <Button
+          label="Next"
+          style="outline"
+          callback={handleSubmit(onSubmit)}
+        />
+      </View>
     </View>
   );
 }
@@ -77,8 +72,6 @@ export default function SkillsForm({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     paddingHorizontal: 20,
     backgroundColor: "#fff",
   },
@@ -89,7 +82,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     paddingTop: 60,
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
     color: "#0C3178",
   },
@@ -125,8 +118,9 @@ const styles = StyleSheet.create({
     paddingVertical: 22,
     alignItems: "center",
     justifyContent: "space-between",
+    
   },
   selectedStyle: {
-    borderRadius: 15
+    borderRadius: 15,
   },
 });

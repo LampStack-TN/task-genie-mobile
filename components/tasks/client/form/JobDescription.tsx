@@ -5,18 +5,21 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Pressable,
   ScrollView,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../../../redux/slices/TaskSlice";
 import Button from "../../../ui/Button";
+
 
 export default function JobDescription({ navigation }) {
   // Select task state from Redux store
   const dispatch = useDispatch();
 
+  const task = useSelector((state: any) => state.task);
+  console.log(task);
+  
   const {
     control,
     handleSubmit,
@@ -32,6 +35,8 @@ export default function JobDescription({ navigation }) {
   //method dispatch action to update task state
   const onSubmit = (data) => {
     dispatch(addTask(data));
+  
+    
     navigation.navigate("Step2");
   };
 
@@ -76,7 +81,7 @@ export default function JobDescription({ navigation }) {
         <Controller
           control={control}
           rules={{
-            required: { value: true, message: "description is required" },
+            required: { value: true, message: "Description is required" },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
@@ -125,7 +130,6 @@ export default function JobDescription({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
     paddingHorizontal: 25,
     backgroundColor: "#fff",
   },
@@ -136,7 +140,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     paddingTop: 60,
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
     color: "#0C3178",
   },
@@ -193,8 +197,8 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     backgroundColor: "#fff",
-    paddingHorizontal: 22,
-    paddingVertical: 8,
+    paddingHorizontal: 8,
+    paddingVertical:22,
     alignItems: "center",
     justifyContent: "space-between",
   },

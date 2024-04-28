@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Modal,
+  ScrollView,
+} from "react-native";
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
-
+import Application from "../../../../types/Application";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
+  const [applications, setApplications] = useState<Application[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+
   const taskId = route.params.taskId;
 
   const fetchOne = async () => {
@@ -21,6 +31,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   useEffect(() => {
     fetchOne();
+    fetchApplications();
   }, []);
 
   const handleDelete = async () => {
@@ -32,13 +43,25 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     }
   };
 
+  const fetchApplications = async () => {
+    try {
+      const { data } = await api.get(`task/${taskId}/applications`);
+      setApplications(data);
+      console.log(data);
+    } catch (err) {
+      console.error("Error fetching applications:", err);
+    }
+  };
+
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
       month: "long",
       day: "numeric",
     };
-    return new Intl.DateTimeFormat("en-US", options).format(new Date(dateString));
+    return new Intl.DateTimeFormat("en-US", options).format(
+      new Date(dateString)
+    );
   };
 
   return (
@@ -54,12 +77,18 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       </View>
       <View style={styles.subHeaderContainer}>
         <View style={styles.iconTextContainer}>
-          <Ionicons style={[styles.iconBase]} name="bag-handle-sharp" size={24} />
+          <Ionicons
+            style={[styles.iconBase]}
+            name="bag-handle-sharp"
+            size={24}
+          />
           <Text style={styles.subHeaderText}>{task.title}</Text>
         </View>
         <View style={styles.iconTextContainer}>
           <MaterialIcons style={styles.iconBase} size={24} name="date-range" />
-          <Text style={styles.timeText}>{task.updatedAt ? formatDate(task.updatedAt) : ""}</Text>
+          <Text style={styles.timeText}>
+            {task.updatedAt ? formatDate(task.updatedAt) : ""}
+          </Text>
         </View>
       </View>
       <View style={styles.locationContainer}>
@@ -68,8 +97,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.locationText}>{task.location}</Text>
         </View>
         <View style={styles.iconTextContainer}>
-          <FontAwesome6 style={styles.iconBase} name="circle-dollar-to-slot" size={24} />
-          <Text style={styles.priceText}>{task.minPrice} - {task.maxPrice}</Text>
+          <FontAwesome6
+            style={styles.iconBase}
+            name="circle-dollar-to-slot"
+            size={24}
+          />
+          <Text style={styles.priceText}>
+            {task.minPrice} - {task.maxPrice}
+          </Text>
         </View>
       </View>
       <View style={styles.descriptionContainer}>
@@ -77,7 +112,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       </View>
       <View style={styles.skillContainer}>
         {task.skills?.map((skill, index) => (
-          <Text key={index} style={styles.skillPill}>{skill.name}</Text>
+          <Text key={index} style={styles.skillPill}>
+            {skill.name}
+          </Text>
         ))}
       </View>
       <View style={styles.footerContainer}>
@@ -87,7 +124,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => {
-            navigation.navigate("MyTabs", { taskId: task.id , task: task });
+            navigation.navigate("MyTabs", { taskId: task.id, task: task });
           }}
         >
           <Text style={styles.editText}>Edit</Text>
@@ -101,15 +138,15 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.applicantCount}>
+      <TouchableOpacity style={styles.applicantCount}>
         <Text style={styles.applicantText}>
-          {task._count
-            ? task._count.applications + " People Applied"
+          {task._count && task._count.applications > 0
+            ? `${task._count.applications} People Applied`
             : "No one Applied Yet"}
         </Text>
-      </View>
+        <Text style={styles.seeDetailsText}>See details →</Text>
+      </TouchableOpacity>
 
-     
       <Modal
         animationType="slide"
         transparent={true}
@@ -118,7 +155,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>are u sure u want to delete this details</Text>
+            <Text style={styles.modalText}>
+              are u sure u want to delete this details
+            </Text>
             <View style={styles.buttonRow}>
               <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
@@ -276,25 +315,41 @@ const styles = StyleSheet.create({
   iconTextContainer: {
     flexDirection: "row",
     alignItems: "center",
-  }, applicantCount: {
+  },
+  applicantCount: {
     backgroundColor: "#2F80ED",
     borderRadius: 20,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
     justifyContent: "center",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
+
   applicantText: {
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 14,
+    textAlign: "center",
+  },
+
+  seeDetailsText: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: 14,
+    textAlign: "center",
+    marginTop: 5,
   },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
-    backgroundColor: "rgba(0, 0, 0, 0.5)", 
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     margin: 20,
@@ -319,7 +374,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    marginHorizontal: 10, 
+    marginHorizontal: 10,
   },
   buttonClose: {
     backgroundColor: "#2196F3",
@@ -336,7 +391,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
   },
-
 });
 
 export default TaskDetails;

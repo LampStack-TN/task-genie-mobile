@@ -1,23 +1,30 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import Button from "../../ui/Button";
+import { setUser } from "../../../redux/slices/userSlice";
+import { ApiClient } from "../../../utils/api";
 
 const RoleForm = () => {
   const [role, setRole] = useState("");
+  const dispatch = useDispatch();
+
+  const submit = async () => {
+    try {
+      const { data: user } = await ApiClient().put("/auth/set-role", { role });
+      dispatch(setUser(user));
+    } catch (error) {}
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>I'm Here To:</Text>
 
       <Pressable onPress={() => setRole("client")}>
-        <View
-          style={[styles.inputView, role == "client" ? styles.selected : null]}
-        >
+        <View style={[styles.inputView, role == "client" && styles.selected]}>
           <Text
-            style={[
-              styles.inputText,
-              role == "client" ? styles.selectedText : undefined,
-            ]}
+            style={[styles.inputText, role == "client" && styles.selectedText]}
           >
             To Hire For Tasks
           </Text>
@@ -26,15 +33,12 @@ const RoleForm = () => {
 
       <Pressable onPress={() => setRole("professional")}>
         <View
-          style={[
-            styles.inputView,
-            role == "professional" ? styles.selected : null,
-          ]}
+          style={[styles.inputView, role == "professional" && styles.selected]}
         >
           <Text
             style={[
               styles.inputText,
-              role == "professional" ? styles.selectedText : undefined,
+              role == "professional" && styles.selectedText,
             ]}
           >
             To Find Jobs
@@ -42,7 +46,7 @@ const RoleForm = () => {
         </View>
       </Pressable>
       <View style={styles.float}>
-        {role && <Button label="Submit" style="fill" callback={null} />}
+        {role && <Button label="Submit" style="fill" callback={submit} />}
       </View>
     </View>
   );

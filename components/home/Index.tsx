@@ -38,10 +38,12 @@ const Menu = () => {
             <View
               style={[
                 styles.button,
-                pressed && { backgroundColor: "#F58D6120" },
+                pressed && {
+                  backgroundColor: "#F58D6120",
+                },
               ]}
             >
-              <MaterialIcons name={item.icon} size={24} color="#0C3178" />
+              <MaterialIcons name={item.icon} size={32} color="#0C3178e0" />
               <Text style={styles.buttonText}>{item.title}</Text>
             </View>
           )}
@@ -53,7 +55,7 @@ const Menu = () => {
           position: "absolute",
           bottom: 20,
           right: 20,
-          backgroundColor: "#4e4e4e",
+          backgroundColor: "#0C3178",
           padding: 10,
           borderRadius: 22,
         }}
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "stretch",
     justifyContent: "flex-start",
-    paddingTop: 20,
+    paddingTop: 16,
     backgroundColor: "#fff",
     marginHorizontal: 5,
     borderBlockColor: "#c5c5c5",
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     marginLeft: 10,
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "600",
     color: "#2e2e2e",
   },

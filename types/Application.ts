@@ -1,4 +1,4 @@
-interface Application {
+export default interface Application {
   id: number;
   taskId: number;
   applicantId: number;

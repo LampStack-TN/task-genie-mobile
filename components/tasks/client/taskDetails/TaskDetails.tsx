@@ -15,10 +15,16 @@ import Application from "../../../../types/Application";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
-  const [applications, setApplications] = useState<Application[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [applications, setApplications] = useState<Application[]>([]);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const taskId = route.params.taskId;
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
   const fetchOne = async () => {
     try {
@@ -144,14 +150,51 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.applicantCount}>
-        <Text style={styles.applicantText}>
+      <TouchableOpacity
+        style={styles.applicantCountButton}
+        onPress={toggleModal}
+      >
+        <Text style={styles.applicantCountText}>
           {task._count && task._count.applications > 0
             ? `${task._count.applications} People Applied`
             : "No one Applied Yet"}
         </Text>
         <Text style={styles.seeDetailsText}>See details →</Text>
       </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Applicants</Text>
+            <ScrollView style={styles.applicationsList}>
+              {applications.map((application, index) => (
+                <View key={index} style={styles.applicationItem}>
+                  <Image source={{}} style={styles.avatar} />
+                  <Text style={styles.applicantName}>
+                    {application.applicant.fullName}
+                  </Text>
+                  <TouchableOpacity style={styles.acceptButton}>
+                    <Text>✓</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.rejectButton}>
+                    <Text>✕</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </ScrollView>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={toggleModal}
+            >
+              <Text style={styles.textStyle}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
       <Modal
         animationType="slide"
@@ -319,7 +362,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  applicantCount: {
+  applicantCountButton: {
     backgroundColor: "#2F80ED",
     borderRadius: 20,
     paddingHorizontal: 15,
@@ -333,7 +376,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 
-  applicantText: {
+  applicantCountText: {
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 14,
@@ -393,6 +436,52 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  acceptButton: {
+    marginRight: 10,
+    padding: 10,
+    backgroundColor: "#27ae60",
+    borderRadius: 20,
+  },
+  rejectButton: {
+    padding: 10,
+    backgroundColor: "#c0392b",
+    borderRadius: 20,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 16,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    maxHeight: "90%",
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 16,
+    textAlign: "center",
+  },
+  applicationsList: {
+    marginBottom: 16,
+  },
+  applicationItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  applicantName: {
+    flex: 1,
+    marginHorizontal: 8,
+    fontWeight: "500",
+    fontSize: 16,
   },
 });
 

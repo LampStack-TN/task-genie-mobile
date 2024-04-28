@@ -12,7 +12,11 @@ import {
 } from "react-native";
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../utils/api";
-import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import Application from "../../../../types/Application";
 
 import gradient from "../../../../assets/images/orange_gradient.png";
@@ -123,12 +127,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.propertyText}>{task.dueDate}</Text>
         </View>
         <View style={styles.property}>
-          <MaterialIcons name="location-on" size={28} color="#4e4e4e" />
-          <Text style={styles.propertyText}>{task.location}</Text>
+          <MaterialCommunityIcons name="clock" size={28} color="#4e4e4e" />
+          <Text style={styles.propertyText}>Urgency: {task.urgency}</Text>
         </View>
         <View style={styles.property}>
-          <MaterialIcons name="location-on" size={28} color="#4e4e4e" />
-          <Text style={styles.propertyText}>{task.location}</Text>
+          <View style={styles.roundIcon}>
+            <FontAwesome name="dollar" size={18} color="#fff" />
+          </View>
+          <Text style={styles.propertyText}>{task.minPrice} - {task.maxPrice} TND</Text>
         </View>
       </View>
 
@@ -394,7 +400,7 @@ const styles = StyleSheet.create({
 
   seeDetailsText: {
     color: "#F49871",
-    fontWeight: "bold",
+    fontWeight: "400",
     fontSize: 14,
     textAlign: "right",
     marginTop: 5,
@@ -448,7 +454,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#4e4e4e",
     fontSize: 18,
-    fontWeight:"600"
+    fontWeight: "600",
   },
   acceptButton: {
     marginRight: 10,
@@ -506,6 +512,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     fontWeight: "500",
     fontSize: 16,
+  },
+  roundIcon: {
+    backgroundColor: "#4e4e4e",
+    width: 28,
+    height: 28,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 14,
   },
 });
 

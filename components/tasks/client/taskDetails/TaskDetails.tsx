@@ -99,6 +99,19 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     );
   };
 
+  const handleAcceptApplication = async (applicationId: number) => {
+    try {
+      const response = await api.post("task/application/respond", {
+        applicationId,
+        action: "accept",
+      });
+      console.log(response.data);
+      fetchApplications();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <ImageBackground
       source={gradient}
@@ -134,7 +147,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <View style={styles.roundIcon}>
             <FontAwesome name="dollar" size={18} color="#fff" />
           </View>
-          <Text style={styles.propertyText}>{task.minPrice} - {task.maxPrice} TND</Text>
+          <Text style={styles.propertyText}>
+            {task.minPrice} - {task.maxPrice} TND
+          </Text>
         </View>
       </View>
 
@@ -209,7 +224,10 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
                   <Text style={styles.applicantName}>
                     {application.applicant.fullName}
                   </Text>
-                  <TouchableOpacity style={styles.acceptButton}>
+                  <TouchableOpacity
+                    style={styles.acceptButton}
+                    onPress={() => handleAcceptApplication(application.id)}
+                  >
                     <Text>✓</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.rejectButton}>

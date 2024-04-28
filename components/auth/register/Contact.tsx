@@ -60,7 +60,7 @@ const Contact = ({ navigation }) => {
 
   const onSubmit = (data) => {
     dispatch(appendData(data));
-    sumbitRegister({ ...registerData, avatar: "avatar.jpg", role: "client" });
+    sumbitRegister({ ...registerData, avatar: "avatar.jpg" });
   };
   return (
     <>
@@ -73,9 +73,11 @@ const Contact = ({ navigation }) => {
           <View style={styles.inputView}>
             <Controller
               control={control}
-              rules={{
-                // required: { value: true, message: "Phone is required" },
-              }}
+              rules={
+                {
+                  // required: { value: true, message: "Phone is required" },
+                }
+              }
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onChangeText={onChange}

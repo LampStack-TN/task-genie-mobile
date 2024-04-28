@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Modal,
+} from "react-native";
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../utils/api";
 import { FontAwesome6, MaterialIcons, Ionicons } from "@expo/vector-icons";
@@ -12,7 +19,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   const fetchOne = async () => {
     try {
-      const { data } = await api.get(`/task/getOne/${taskId}`);
+      const { data } = await ApiClient().get(`/task/getOne/${taskId}`);
       setTask(data);
     } catch (err) {
       console.log("fetchOne fails:", err);
@@ -38,28 +45,41 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       month: "long",
       day: "numeric",
     };
-    return new Intl.DateTimeFormat("en-US", options).format(new Date(dateString));
+    return new Intl.DateTimeFormat("en-US", options).format(
+      new Date(dateString)
+    );
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Image
-          source={{
-            uri: task.client?.avatar,
-          }}
-          style={styles.avatar}
-        />
-        <Text style={styles.headerText}>Urgency: {task.urgency}</Text>
+      <View style={styles.header}>
+        <View style={styles.avatar}>
+          <Image
+            source={{
+              uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
+              // uri: task.client?.avatar,
+            }}
+            style={styles.avatar}
+          />
+        </View>
+        <View style={styles.title}>
+          <Text style={styles.titleText}>{task.title}</Text>
+        </View>
       </View>
       <View style={styles.subHeaderContainer}>
+        <Text style={styles.titleText}>Urgency: {task.urgency}</Text>
         <View style={styles.iconTextContainer}>
-          <Ionicons style={[styles.iconBase]} name="bag-handle-sharp" size={24} />
-          <Text style={styles.subHeaderText}>{task.title}</Text>
+          <Ionicons
+            style={[styles.iconBase]}
+            name="bag-handle-sharp"
+            size={24}
+          />
         </View>
         <View style={styles.iconTextContainer}>
           <MaterialIcons style={styles.iconBase} size={24} name="date-range" />
-          <Text style={styles.timeText}>{task.updatedAt ? formatDate(task.updatedAt) : ""}</Text>
+          <Text style={styles.timeText}>
+            {task.updatedAt ? formatDate(task.updatedAt) : ""}
+          </Text>
         </View>
       </View>
       <View style={styles.locationContainer}>
@@ -68,8 +88,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.locationText}>{task.location}</Text>
         </View>
         <View style={styles.iconTextContainer}>
-          <FontAwesome6 style={styles.iconBase} name="circle-dollar-to-slot" size={24} />
-          <Text style={styles.priceText}>{task.minPrice} - {task.maxPrice}</Text>
+          <FontAwesome6
+            style={styles.iconBase}
+            name="circle-dollar-to-slot"
+            size={24}
+          />
+          <Text style={styles.priceText}>
+            {task.minPrice} - {task.maxPrice}
+          </Text>
         </View>
       </View>
       <View style={styles.descriptionContainer}>
@@ -77,7 +103,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       </View>
       <View style={styles.skillContainer}>
         {task.skills?.map((skill, index) => (
-          <Text key={index} style={styles.skillPill}>{skill.name}</Text>
+          <Text key={index} style={styles.skillPill}>
+            {skill.name}
+          </Text>
         ))}
       </View>
       <View style={styles.footerContainer}>
@@ -87,7 +115,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => {
-            navigation.navigate("MyTabs", { taskId: task.id , task: task });
+            navigation.navigate("MyTabs", { taskId: task.id, task: task });
           }}
         >
           <Text style={styles.editText}>Edit</Text>
@@ -109,7 +137,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         </Text>
       </View>
 
-     
       <Modal
         animationType="slide"
         transparent={true}
@@ -118,7 +145,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>are u sure u want to delete this details</Text>
+            <Text style={styles.modalText}>
+              are u sure u want to delete this details
+            </Text>
             <View style={styles.buttonRow}>
               <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
@@ -145,21 +174,29 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 12,
-    padding: 20,
+    padding: 22,
     flex: 1,
-    marginHorizontal: 10,
-    marginTop: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
   },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginBottom: 10,
+  },
+  avatar: {
+    height: 75,
+    width: 75,
+    borderRadius: 75 / 2,
+  },
+  title: {
+    paddingHorizontal: 10,
+    flex: 1,
+  },
+  titleText: {
+    verticalAlign: "middle",
+    fontSize: 28,
+    fontWeight: "600",
+    color: "#0C3178",
   },
   editText: {
     color: "#0C3178",
@@ -192,17 +229,6 @@ const styles = StyleSheet.create({
   backText: {
     color: "#0C3178",
     fontWeight: "bold",
-  },
-  avatar: {
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    marginRight: 10,
-  },
-  headerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
   },
   subHeaderText: {
     flex: 1,
@@ -276,7 +302,8 @@ const styles = StyleSheet.create({
   iconTextContainer: {
     flexDirection: "row",
     alignItems: "center",
-  }, applicantCount: {
+  },
+  applicantCount: {
     backgroundColor: "#2F80ED",
     borderRadius: 20,
     paddingVertical: 5,
@@ -294,7 +321,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
-    backgroundColor: "rgba(0, 0, 0, 0.5)", 
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     margin: 20,
@@ -319,7 +346,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    marginHorizontal: 10, 
+    marginHorizontal: 10,
   },
   buttonClose: {
     backgroundColor: "#2196F3",
@@ -336,7 +363,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
   },
-
 });
 
 export default TaskDetails;

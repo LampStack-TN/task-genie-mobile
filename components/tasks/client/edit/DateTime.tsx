@@ -11,7 +11,7 @@ import { RouteProp } from "@react-navigation/native";
 
 import Task from "../../../../types/TaskInterface";
 
-import { ApiClient } from "../../../../api";
+import { ApiClient } from "../../../../utils/api";
 type RootStackParamList = {
   step3: { taskId: string };
 };
@@ -24,7 +24,7 @@ type Step3Props = {
 };
 
 const DateTime: React.FC<Step3Props> = ({ navigation, route }) => {
-  const api = ApiClient()
+  const api = ApiClient();
   const { taskId } = route.params;
   const [task, setTask] = useState<Task | null>(null);
 
@@ -115,7 +115,7 @@ const DateTime: React.FC<Step3Props> = ({ navigation, route }) => {
           left: 20,
           alignItems: "center",
           justifyContent: "center",
-        }}  
+        }}
       >
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text style={styles.textt}>Back</Text>

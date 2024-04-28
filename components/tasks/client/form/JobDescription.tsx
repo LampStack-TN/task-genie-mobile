@@ -1,29 +1,45 @@
+import React from "react";
 import { useState } from "react";
 import {
   View,
   Text,
   TextInput,
   StyleSheet,
-  Pressable,
   ScrollView,
 } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../../../redux/slices/TaskSlice";
+import Button from "../../../ui/Button";
+
 
 export default function JobDescription({ navigation }) {
   // Select task state from Redux store
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
+  const task = useSelector((state: any) => state.task);
+  console.log(task);
+  
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: "",
+      description: "",
+      location: "",
+    },
+  });
 
   //method dispatch action to update task state
-  const UpdateTask = (field, value) => {
-    dispatch(addTask({ [field]: value }));
+  const onSubmit = (data) => {
+    dispatch(addTask(data));
+  
+    
+    navigation.navigate("Step2");
   };
 
-  // console.log(task, 123);
   return (
     <ScrollView
       contentContainerStyle={styles.container}
@@ -43,54 +59,69 @@ export default function JobDescription({ navigation }) {
       </View>
 
       <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Title"
-          onChangeText={(text) => {
-            setTitle(text);
-            UpdateTask("title", text);
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: "Title is required" },
           }}
-          value={title}
-          style={styles.input}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Title"
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="title"
         />
+        {errors.title && (
+          <Text style={{ color: "#f01010" }}>{errors.title.message}</Text>
+        )}
 
-        <TextInput
-          placeholder="Description"
-          onChangeText={(text) => {
-            setDescription(text);
-            UpdateTask("description", text);
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: "Description is required" },
           }}
-          value={description}
-          style={[styles.input, styles.largeInput]}
-          multiline={true}
-          numberOfLines={4}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Description"
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="description"
         />
+        {errors.description && (
+          <Text style={{ color: "#f01010" }}>
+            {errors.description.message}
+          </Text>
+        )}
 
-        <TextInput
-          placeholder="Location"
-          onChangeText={(text) => {
-            setLocation(text), UpdateTask("location", text);
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: "Location is required" },
           }}
-          value={location}
-          style={styles.input}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Location"
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="location"
         />
+        {errors.location && (
+          <Text style={{ color: "#f01010" }}>{errors.location.message}</Text>
+        )}
       </View>
 
       <View style={styles.footer}>
-        <View>
-          <Pressable
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          >
-            <Text style={styles.textt}>Back</Text>
-          </Pressable>
-        </View>
-
-        <View style={styles.button1}>
-          <Pressable onPress={() => navigation.navigate("Step2")}>
-            <Text style={styles.text}>Next</Text>
-          </Pressable>
-        </View>
+        <Button label="Back" style="bare" callback={() => navigation.goBack()} />
+        <Button label="Next" style="outline" callback={handleSubmit(onSubmit)} />
       </View>
     </ScrollView>
   );
@@ -99,7 +130,6 @@ export default function JobDescription({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
     paddingHorizontal: 25,
     backgroundColor: "#fff",
   },
@@ -110,7 +140,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     paddingTop: 60,
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
     color: "#0C3178",
   },
@@ -165,12 +195,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   footer: {
-    justifyContent: "space-between",
-    alignItems: "center",
     flexDirection: "row",
-    elevation: 3,
-    paddingVertical: 25,
-    paddingHorizontal: 25,
-    // overflow: "hidden",
+    backgroundColor: "#fff",
+    paddingHorizontal: 8,
+    paddingVertical:22,
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

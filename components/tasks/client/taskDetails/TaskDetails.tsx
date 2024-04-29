@@ -82,7 +82,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     try {
       const { data } = await api.get(`task/${taskId}/applications`);
       setApplications(data);
-      console.log(data);
     } catch (err) {
       console.error("Error fetching applications:", err);
     }
@@ -105,8 +104,16 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         applicationId,
         action: "accept",
       });
+      if (response.data) {
+        setApplications((prevApplications) =>
+          prevApplications.map((ele) =>
+            ele.id === applicationId ? { ...ele, status: "Accepted" } : ele
+          )
+        )
+        setApplications(response.data)
+
+      }
       console.log(response.data);
-      fetchApplications();
     } catch (err) {
       console.error(err);
     }
@@ -118,13 +125,18 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         applicationId,
         action: "reject",
       });
-      console.log(response.data);
-      fetchApplications();
+      if (response.data) {
+        setApplications((prevApplications) =>
+          prevApplications.filter((ele) => ele.id !== applicationId)
+        )
+      }
+      
     } catch (err) {
       console.error(err);
     }
   };
 
+  
   return (
     <ImageBackground
       source={gradient}
@@ -165,7 +177,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </Text>
         </View>
       </View>
-
       <View style={styles.description}>
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
@@ -199,6 +210,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity> */}
       </View>
+
       <Pressable onPress={toggleModal}>
         {({ pressed }) => (
           <View
@@ -225,32 +237,34 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <View style={styles.modalOverlay}>
           <View style={styles.modal}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Applicantions</Text>
+              <Text style={styles.modalTitle}>Applications</Text>
               <Pressable onPress={toggleModal}>
                 <Text style={styles.modalClose}>✕</Text>
               </Pressable>
             </View>
             <ScrollView style={styles.applicationsList}>
-              {applications.map((application, index) => (
-                <View key={index} style={styles.applicationItem}>
-                  <Image source={{}} style={styles.avatar} />
-                  <Text style={styles.applicantName}>
-                    {application.applicant.fullName}
-                  </Text>
-                  <TouchableOpacity
-                    style={styles.acceptButton}
-                    onPress={() => handleAcceptApplication(application.id)}
-                  >
-                    <Text>✓</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.rejectButton}
-                    onPress={() => handleRejectApplication(application.id)}
-                  >
-                    <Text>✕</Text>
-                  </TouchableOpacity>
-                </View>
-              ))}
+              {applications
+                .filter((ele) => ele.status !== "Accepted")
+                .map((application, index) => (
+                  <View key={index} style={styles.applicationItem}>
+                    <Image source={{}} style={styles.avatar} />
+                    <Text style={styles.applicantName}>
+                      {application.applicant.fullName}
+                    </Text>
+                    <TouchableOpacity
+                      style={styles.acceptButton}
+                      onPress={() => handleAcceptApplication(application.id)}
+                    >
+                      <Text style={styles.acceptButton}>✓</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.rejectButton}
+                      onPress={() => handleRejectApplication(application.id)}
+                    >
+                      <Text style={styles.rejectButton}>✕</Text>
+                    </TouchableOpacity>
+                  </View>
+                ))}
             </ScrollView>
           </View>
         </View>
@@ -555,6 +569,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 14,
   },
+  
 });
 
 export default TaskDetails;

@@ -334,6 +334,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     padding: 22,
+    overflow: "hidden",
     flex: 1,
     backgroundColor: "#fff",
   },

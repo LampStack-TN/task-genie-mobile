@@ -8,6 +8,7 @@ const Splash = () => {
       source={splash}
       resizeMode="cover"
       style={{
+        overflow: "hidden",
         width: "100%",
         height: "100%", // Set the height to cover the entire container
       }}

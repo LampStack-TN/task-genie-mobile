@@ -58,6 +58,7 @@ export default UserTaskList;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    overflow: "hidden",
     flex: 1,
     backgroundColor: "#fff",
     paddingTop: 28,

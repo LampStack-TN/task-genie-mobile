@@ -96,6 +96,7 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     display: "flex",
+    overflow: "hidden",
     flex: 1,
     paddingBottom: 30,
     backgroundColor: "#fff",

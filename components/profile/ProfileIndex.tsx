@@ -1,5 +1,3 @@
-import { View, Text, Button } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState, useEffect } from "react";
 import Profile from "./Profile";
@@ -25,7 +23,7 @@ const ProfileIndex = () => {
     userProfile();
   }, []);
 
-  return user ? (
+  return user?.profile ? (
     <Profile {...{ user }} />
   ) : (
     <Stack.Navigator>

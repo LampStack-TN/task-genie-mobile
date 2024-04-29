@@ -6,7 +6,8 @@ import Button from "../ui/Button";
 
 
 
-const Profile = ({ profile, Data }) => {
+const Profile = ({route,navigation }) => {
+  const { Data,profile } = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,7 +39,7 @@ const Profile = ({ profile, Data }) => {
             transparent={true}
             label={"Edit"}
             style="outline"
-            callback={() => {}}
+            callback={() => {navigation.navigate("Tabs")}}
           ></Button>
         </View>
       </View>

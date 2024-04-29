@@ -10,32 +10,33 @@ import { ApiClient } from "../../utils/api";
 const Stack = createNativeStackNavigator();
 
 const ProfileIndex = () => {
-  const [profile , setProfile] = useState(null);
-  const [data , setdata] = useState([]);
-
+  const [profile, setProfile] = useState(null);
+  const [data, setdata] = useState([]);
 
   const userProfile = async () => {
     try {
-      const { data,
+      const {
+        data,
         data: { profile },
       } = await ApiClient().get("profile/getProfile");
-      // console.log(profile);
       setProfile(profile);
-      setdata(data)
-      console.log(data)
+      setdata(data);
     } catch (error) {
       console.log(error);
       alert("Let's create you Profile");
-      
     }
   };
   useEffect(() => {
     userProfile();
   }, []);
 
-  return profile ? ( 
+  return profile ? (
     <Stack.Navigator>
-      <Stack.Screen name="Profile " component={Profile} initialParams={{Data:data,profile:profile}} />
+      <Stack.Screen
+        name="Profile "
+        component={Profile}
+        initialParams={{ Data: data, profile: profile }}
+      />
     </Stack.Navigator>
   ) : (
     <Stack.Navigator>

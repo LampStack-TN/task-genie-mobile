@@ -111,8 +111,8 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           )
         );
         setApplications(response.data);
+
       }
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     }
@@ -137,6 +137,10 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     return applications
       .filter((ele) => ele.status === "Accepted")
       .map((application, index) => (
+        <TouchableOpacity
+        key={index}
+        onPress={() => navigation.navigate('ProfileDetails', { userId: application.applicant.id })} 
+      >
         <View key={index} style={styles.acceptedApplicationCard}>
           <Image
             source={{ uri: application.applicant.avatar }}
@@ -150,6 +154,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </View>
           <FontAwesome name="check-circle" size={24} color="green" />
         </View>
+        </TouchableOpacity>
       ));
   };
 

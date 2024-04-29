@@ -1,9 +1,15 @@
 import React from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  ImageBackground,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
-
+import gradient from "../../assets/images/orange_gradient.png";
 
 type RootStackParamList = {
   TaskList: String;
@@ -27,7 +33,11 @@ const Menu = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      imageStyle={{ opacity: 0.5 }}
+      source={gradient}
+      style={styles.container}
+    >
       {menu.map((item) => (
         <Pressable key={item.id} onPress={() => navigation.navigate(item.name)}>
           {({ pressed }) => (
@@ -45,7 +55,7 @@ const Menu = () => {
           )}
         </Pressable>
       ))}
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -56,9 +66,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "stretch",
     justifyContent: "flex-start",
-    paddingTop: 16,
+    paddingTop: 4,
+    gap: 2,
     backgroundColor: "#fff",
-    marginHorizontal: 5,
     borderBlockColor: "#c5c5c5",
   },
   button: {
@@ -69,7 +79,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     elevation: 1,
     borderBottomWidth: 1,
-    borderBlockColor: "#c5c5c5",
+    borderBlockColor: "#d0d0d0",
   },
   buttonText: {
     marginLeft: 10,

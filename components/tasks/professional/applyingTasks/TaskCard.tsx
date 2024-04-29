@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 4,
+    justifyContent: 'flex-start'
   },
   description: {
     fontSize: 14,
@@ -90,6 +91,7 @@ const styles = StyleSheet.create({
   createdAt: {
     fontSize: 12,
     color: "#666",
+    marginLeft: 8, 
   },
   avatar: {
     marginBottom: 20,

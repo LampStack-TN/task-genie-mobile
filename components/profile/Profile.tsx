@@ -4,6 +4,7 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "../ui/Button";
 import gradient from "../../assets/images/double-gradient.png";
+import { useNavigation } from "@react-navigation/native";
 
 const skills = [
   { id: 200, name: "Carpentry" },
@@ -26,6 +27,7 @@ const skills = [
 ];
 
 const Profile = ({ user }) => {
+  const navigation = useNavigation();
   const { profile } = user;
   return (
     <ImageBackground
@@ -80,7 +82,9 @@ const Profile = ({ user }) => {
             transparent={true}
             label={"Edit"}
             style="bare"
-            callback={() => {}}
+            callback={() => {
+              navigation.navigate("Tabs", { user });
+            }}
           ></Button>
         </View>
       </View>

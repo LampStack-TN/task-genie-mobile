@@ -82,7 +82,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     try {
       const { data } = await api.get(`task/${taskId}/applications`);
       setApplications(data);
-      console.log(data);
     } catch (err) {
       console.error("Error fetching applications:", err);
     }
@@ -105,8 +104,15 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         applicationId,
         action: "accept",
       });
+      if (response.data) {
+        setApplications((prevApplications) =>
+          prevApplications.map((ele) =>
+            ele.id === applicationId ? { ...ele, status: "Accepted" } : ele
+          )
+        );
+        setApplications(response.data);
+      }
       console.log(response.data);
-      fetchApplications();
     } catch (err) {
       console.error(err);
     }
@@ -118,11 +124,33 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         applicationId,
         action: "reject",
       });
-      console.log(response.data);
-      fetchApplications();
+      if (response.data) {
+        setApplications((prevApplications) =>
+          prevApplications.filter((ele) => ele.id !== applicationId)
+        );
+      }
     } catch (err) {
       console.error(err);
     }
+  };
+  const renderAcceptedApplications = () => {
+    return applications
+      .filter((ele) => ele.status === "Accepted")
+      .map((application, index) => (
+        <View key={index} style={styles.acceptedApplicationCard}>
+          <Image
+            source={{ uri: application.applicant.avatar }}
+            style={styles.applicantAvatar}
+          />
+          <View style={styles.acceptedInfo}>
+            <Text style={styles.applicantName}>
+              {application.applicant.fullName}
+            </Text>
+            <Text style={styles.applicantPrice}>{application.price} TND</Text>
+          </View>
+          <FontAwesome name="check-circle" size={24} color="green" />
+        </View>
+      ));
   };
 
   return (
@@ -166,7 +194,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </Text>
         </View>
       </View>
-
       <View style={styles.description}>
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
@@ -179,6 +206,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </View>
         ))}
       </View>
+     
       <View style={styles.footerContainer}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Text style={styles.deleteText}>Delete</Text>
@@ -200,6 +228,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity> */}
       </View>
+      {renderAcceptedApplications()}
       <Pressable onPress={toggleModal}>
         {({ pressed }) => (
           <View
@@ -226,32 +255,34 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <View style={styles.modalOverlay}>
           <View style={styles.modal}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Applicantions</Text>
+              <Text style={styles.modalTitle}>Applications</Text>
               <Pressable onPress={toggleModal}>
                 <Text style={styles.modalClose}>✕</Text>
               </Pressable>
             </View>
             <ScrollView style={styles.applicationsList}>
-              {applications.map((application, index) => (
-                <View key={index} style={styles.applicationItem}>
-                  <Image source={{}} style={styles.avatar} />
-                  <Text style={styles.applicantName}>
-                    {application.applicant.fullName}
-                  </Text>
-                  <TouchableOpacity
-                    style={styles.acceptButton}
-                    onPress={() => handleAcceptApplication(application.id)}
-                  >
-                    <Text>✓</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.rejectButton}
-                    onPress={() => handleRejectApplication(application.id)}
-                  >
-                    <Text>✕</Text>
-                  </TouchableOpacity>
-                </View>
-              ))}
+              {applications
+                .filter((ele) => ele.status !== "Accepted")
+                .map((application, index) => (
+                  <View key={index} style={styles.applicationItem}>
+                    <Image source={{}} style={styles.avatar} />
+                    <Text style={styles.applicantName}>
+                      {application.applicant.fullName}
+                    </Text>
+                    <TouchableOpacity
+                      style={styles.acceptButton}
+                      onPress={() => handleAcceptApplication(application.id)}
+                    >
+                      <Text style={styles.acceptButton}>✓</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.rejectButton}
+                      onPress={() => handleRejectApplication(application.id)}
+                    >
+                      <Text style={styles.rejectButton}>✕</Text>
+                    </TouchableOpacity>
+                  </View>
+                ))}
             </ScrollView>
           </View>
         </View>
@@ -555,6 +586,36 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 14,
+  },
+  acceptedApplicationCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 10,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    marginVertical: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  applicantAvatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  acceptedInfo: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  applicantPrice: {
+    fontSize: 14,
+    color: "#666",
   },
 });
 

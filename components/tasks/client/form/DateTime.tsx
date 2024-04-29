@@ -46,21 +46,22 @@ export default function DateTime({ navigation }) {
     },
   });
 
-  const create: any = async () => {
+  const create: any = async (data) => {
     console.log(task);
 
     try {
-      const { data } = await ApiClient().post(`/task/add/`, task);
-      // console.log(data, "jet");
-      navigation.navigate("TaskDetails", { taskId: data.id });
+      const { data: postedTask } = await ApiClient().post(`/task/add/`, {
+        ...task,
+        ...data,
+      });
+      navigation.navigate("TaskDetails", { taskId: postedTask.id });
     } catch (error) {
       console.log(error);
     }
   };
 
   const onSubmit = (data) => {
-    dispatch(addTask(data));
-    create();
+    create(data);
   };
 
   return (

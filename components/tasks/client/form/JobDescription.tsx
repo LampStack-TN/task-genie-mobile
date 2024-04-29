@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import {
   View,
   Text,
@@ -18,7 +17,6 @@ export default function JobDescription({ navigation }) {
   const dispatch = useDispatch();
 
   const task = useSelector((state: any) => state.task);
-  console.log(task);
   
   const {
     control,
@@ -35,8 +33,6 @@ export default function JobDescription({ navigation }) {
   //method dispatch action to update task state
   const onSubmit = (data) => {
     dispatch(addTask(data));
-  
-    
     navigation.navigate("Step2");
   };
 

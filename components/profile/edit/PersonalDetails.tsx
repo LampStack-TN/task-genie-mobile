@@ -1,12 +1,11 @@
-import { useState } from "react";
+
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { ApiClient } from "../../../utils/api";
 import Button from "../../ui/Button";
 
 export default function PersonalDetails({ navigation, route }) {
-  const { Data, profile } = route.params;
+  const { Data} = route.params;
 
   const { control, handleSubmit } = useForm({
     defaultValues: {

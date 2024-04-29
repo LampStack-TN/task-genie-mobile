@@ -22,6 +22,7 @@ export default function Tabs({route}) {
       <Tab.Screen
         name="ProfessionalInfo"
         component={ProfessionalInfo}
+        initialParams={{ profile: profile }}
         options={{ tabBarLabel: "Professional Info" }}
       />
       <Tab.Screen

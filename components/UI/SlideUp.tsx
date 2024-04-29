@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Modal, Pressable, Image } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 
-const SlideUp = ({ slideOn, toggleSlide }) => {
+const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
   return (
     <Modal
       animationType="fade"
@@ -13,7 +13,13 @@ const SlideUp = ({ slideOn, toggleSlide }) => {
       <View style={styles.modalOverlay}>
         <View style={styles.modal}>
           <View style={styles.modalHeader}>
-            <Pressable style={{ flex: 1 }}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("ProfileIndex");
+                toggleSlide();
+              }}
+              style={{ flex: 1 }}
+            >
               {({ pressed }) => (
                 <View
                   style={[

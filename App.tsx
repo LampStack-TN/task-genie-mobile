@@ -17,12 +17,13 @@ import store from "./redux/store/store";
 
 import RegisterIndex from "./components/auth/register/Index";
 import Login from "./components/auth/Login";
-import BottomNav from "./components/ui/BottomNavUser";
+import BottomNavUser from "./components/ui/BottomNavUser";
 import UserNavigator from "./components/navigators/UserNavigator";
 import Splash from "./components/ui/Splash";
 import checkAuthentication from "./utils/checkAuthentication";
 import RoleForm from "./components/auth/register/RoleForm";
 import ProNavigator from "./components/navigators/ProNavigator";
+import BottomNavPro from "./components/ui/BottomNavPro";
 
 const Stack = createNativeStackNavigator();
 
@@ -66,13 +67,13 @@ const Main = () => {
               user.role == "client" ? (
                 <View style={{ flex: 1, backgroundColor: "#fff" }}>
                   <UserNavigator Stack={Stack} />
-                  <BottomNav />
+                  <BottomNavUser />
                 </View>
               ) : (
                 <View style={{ flex: 1, backgroundColor: "#fff" }}>
                   {/* <UserNavigator Stack={Stack} /> */}
                   <ProNavigator />
-                  <BottomNav />
+                  <BottomNavPro />
                 </View>
               )
             ) : (

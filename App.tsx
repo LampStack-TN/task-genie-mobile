@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
-  Text,
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -18,7 +17,7 @@ import store from "./redux/store/store";
 
 import RegisterIndex from "./components/auth/register/Index";
 import Login from "./components/auth/Login";
-import BottomNav from "./components/ui/BottomNav";
+import BottomNav from "./components/ui/BottomNavUser";
 import UserNavigator from "./components/navigators/UserNavigator";
 import Splash from "./components/ui/Splash";
 import checkAuthentication from "./utils/checkAuthentication";
@@ -70,7 +69,11 @@ const Main = () => {
                   <BottomNav />
                 </View>
               ) : (
-                <ProNavigator />
+                <View style={{ flex: 1, backgroundColor: "#fff" }}>
+                  {/* <UserNavigator Stack={Stack} /> */}
+                  <ProNavigator />
+                  <BottomNav />
+                </View>
               )
             ) : (
               <RoleForm />

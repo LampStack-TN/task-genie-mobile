@@ -34,6 +34,7 @@ const UserTaskList = ({ navigation }: any) => {
   return (
     <ImageBackground
       source={gradient}
+      imageStyle={{ opacity: 0.6 }}
       resizeMode="cover"
       style={styles.container}
     >

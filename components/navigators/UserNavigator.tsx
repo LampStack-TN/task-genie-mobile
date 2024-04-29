@@ -3,7 +3,7 @@ import MyTabs from "../tasks/client/edit/MyTabs";
 import UserTaskList from "../tasks/client/userTaskList/Index";
 import TaskStepsIndex from "../tasks/client/form";
 import Home from "../home/Index";
-
+import ProfileDetails from "../profile/ProfileDetails"
 
 const UserNavigator = ({ Stack }) => {
   return (
@@ -18,6 +18,7 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="TaskDetails" component={TaskDetails} />
       <Stack.Screen name="MyTabs" component={MyTabs} />
       <Stack.Screen name="MyTasks" component={UserTaskList} />
+      <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
     </Stack.Navigator>
   );
 };

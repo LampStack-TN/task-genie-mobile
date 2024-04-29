@@ -71,8 +71,7 @@ const Main = () => {
                 </View>
               ) : (
                 <View style={{ flex: 1, backgroundColor: "#fff" }}>
-                  {/* <UserNavigator Stack={Stack} /> */}
-                  <ProNavigator />
+                  <ProNavigator Stack={Stack}/>
                   <BottomNavPro />
                 </View>
               )

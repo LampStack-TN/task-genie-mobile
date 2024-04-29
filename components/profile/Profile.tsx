@@ -39,7 +39,7 @@ const Profile = ({route,navigation }) => {
             transparent={true}
             label={"Edit"}
             style="outline"
-            callback={() => {navigation.navigate("Tabs")}}
+            callback={() => {navigation.navigate("Tabs" ,{Data:Data,profile:profile})}}
           ></Button>
         </View>
       </View>

@@ -10,6 +10,7 @@ import Home from "../home/Index";
 import Profile from "../profile/Profile";
 
 import React from "react";
+import Tabs from "../profile/edit/Tabs";
 
 const UserNavigator = ({ Stack }) => {
   return (
@@ -29,6 +30,7 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="MyTasks" component={UserTaskList} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Tabs" component={Tabs} />
     </Stack.Navigator>
   );
 };

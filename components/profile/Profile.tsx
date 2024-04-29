@@ -1,14 +1,39 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "../ui/Button";
+import gradient from "../../assets/images/double-gradient.png";
 
+const skills = [
+  { id: 200, name: "Carpentry" },
+  {
+    id: 201,
+    name: "Electrical Work",
+  },
+  {
+    id: 204,
+    name: "Dog Training",
+  },
+  {
+    id: 205,
+    name: "Cat Grooming",
+  },
+  {
+    id: 206,
+    name: "Coaching",
+  },
+];
 
-
-const Profile = ({ profile, Data }) => {
+const Profile = ({ user }) => {
+  const { profile } = user;
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={gradient}
+      resizeMode="cover"
+      imageStyle={{ opacity: 1 }}
+      style={styles.container}
+    >
       <View style={styles.header}>
         <View style={styles.avatar}>
           <Image
@@ -19,41 +44,59 @@ const Profile = ({ profile, Data }) => {
           />
         </View>
         <View style={{ flex: 1, alignItems: "flex-start" }}>
-          <Text style={styles.title}>{Data.fullName}</Text>
+          <Text style={styles.title}>{user.fullName}</Text>
           <Text style={styles.subTitle}>{profile.jobTitle}</Text>
           <View style={styles.cityContainer}>
             <Entypo name="location-pin" size={24} color="#6e6e6e" />
-            <Text style={{ fontSize: 20, color: "#4e4e4e" }}>{Data.city}</Text>
+            <Text style={{ fontSize: 20, color: "#4e4e4e" }}>{user.city}</Text>
           </View>
         </View>
       </View>
       <View style={{ paddingHorizontal: 20, margin: 5 }}>
-        <Text style={styles.email}>
-          <MaterialIcons name="email" size={24} color="#6e6e6e" />
-          {Data.email}
-        </Text>
-        <Text style={styles.bio}>{profile.bio}</Text>
+        <View style={{ marginVertical: 10 }}>
+          <View style={styles.contact}>
+            <MaterialIcons name="phone" size={24} color="#F58D61" />
+            <Text style={[styles.contactText]}>+216 25 363 845</Text>
+          </View>
+          <View style={styles.contact}>
+            <MaterialIcons name="email" size={24} color="#F58D61" />
+            <Text style={styles.contactText}>{user.email}</Text>
+          </View>
+        </View>
+        <View style={styles.bio}>
+          <Text style={styles.bioText}>{profile.bio}</Text>
+        </View>
+        <View style={styles.skillContainer}>
+          {skills.map((skill, index) => (
+            <View key={index} style={styles.skillPill}>
+              <Text key={index} style={styles.skillText}>
+                {skill.name}
+              </Text>
+            </View>
+          ))}
+        </View>
         <View style={styles.button}>
           <Button
             transparent={true}
             label={"Edit"}
-            style="outline"
+            style="bare"
             callback={() => {}}
           ></Button>
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FEF2EC",
     display: "flex",
     flex: 1,
     paddingBottom: 30,
+    backgroundColor: "#fff",
   },
+  header: { flexDirection: "row", paddingVertical: 20 },
   title: {
     textAlign: "right",
     fontSize: 25,
@@ -77,10 +120,13 @@ const styles = StyleSheet.create({
     color: "2e2e2e",
   },
   bio: {
+    marginVertical: 10,
+  },
+  bioText: {
     fontSize: 18,
     textAlign: "left",
     fontWeight: "400",
-    color: "#2e2e2e",
+    color: "#4e4e4e",
   },
   cityContainer: {
     flexDirection: "row",
@@ -89,18 +135,20 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#6e6e6e",
   },
-  email: {
-    fontSize: 18,
+  contact: {
     flexDirection: "row",
     alignItems: "center",
-    left: 30,
-    fontWeight: "400",
-    marginBottom: 20,
-    color: "#e6e6e",
+    gap: 10,
+  },
+  contactText: {
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#4e4e4e",
+    verticalAlign: "middle",
   },
   button: {
     alignSelf: "flex-end",
-    marginTop: 50,
+    marginTop: 20,
   },
   avatar: { flex: 1, borderRadius: 70 },
   avatarImg: {
@@ -108,6 +156,29 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: 100,
     alignSelf: "center",
+    borderWidth: 3,
+    borderColor: "#F58D6150",
   },
-  header: { flexDirection: "row", paddingVertical: 20 },
+  skillContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginVertical: 10,
+  },
+  skillPill: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: "#6e6e6e",
+    backgroundColor: "#f8f8f8",
+    textAlignVertical: "center",
+    textAlign: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    margin: 5,
+  },
+  skillText: {
+    textAlignVertical: "center",
+    textAlign: "center",
+    color: "#0C3178",
+    fontSize: 14,
+  },
 });

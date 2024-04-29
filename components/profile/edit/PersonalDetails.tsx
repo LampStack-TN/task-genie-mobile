@@ -8,22 +8,20 @@ import Button from "../../ui/Button";
 export default function PersonalDetails({ navigation, route }) {
   const { Data, profile } = route.params;
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       fullName: Data.fullName,
-      birthdate:Data.birthdate,
-      adress: Data.adress,
+      birthdate: Data.birthdate,
       phone: Data.phone,
+      adress: Data.adress,
+      email: Data.email,
     },
   });
 
   const updateUserInfo = async (data: any) => {
     try {
       const response = await ApiClient().put("auth/updateUser/", data);
+      console.log(response);
       navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
@@ -36,7 +34,10 @@ export default function PersonalDetails({ navigation, route }) {
     <View style={styles.container}>
       <View style={styles.stepContainer}>
         <Text
-          style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
+          style={[
+            styles.heading,
+            { marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 },
+          ]}
         >
           Edit Personal Details
         </Text>
@@ -95,6 +96,19 @@ export default function PersonalDetails({ navigation, route }) {
           )}
           name="phone"
         />
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="email"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              style={styles.input}
+            />
+          )}
+          name="email"
+        />
       </View>
       <View style={styles.footer}>
         <Button
@@ -125,25 +139,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingTop: 1,
   },
-  errorText: {
-    color: "red",
-    alignSelf: "flex-start",
-    marginLeft: 15,
-  },
   heading: {
     paddingTop: 60,
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#0C3178",
   },
   inputContainer: {
     width: "100%",
+    flex: 2,
     alignItems: "center",
-    flex: 3,
     gap: 15,
-    justifyContent: "center",
-    paddingHorizontal: 11,
-    marginBottom: 300,
   },
   input: {
     backgroundColor: "#fff",
@@ -156,9 +162,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontSize: 14,
     elevation: 3,
-  },
-  largeInput: {
-    height: 120,
   },
   text: {
     color: "#0C3178",

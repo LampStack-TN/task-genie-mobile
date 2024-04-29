@@ -16,7 +16,7 @@ export default function Tabs({route}) {
       <Tab.Screen
         name="PersonalDetails"
         component={PersonalDetails}
-        initialParams={{ Data: Data, profile: profile }}
+        initialParams={{ Data: Data}}
         options={{ tabBarLabel: "Personal Details" }}
       />
       <Tab.Screen

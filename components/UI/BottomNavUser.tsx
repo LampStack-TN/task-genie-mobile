@@ -11,13 +11,13 @@ const BottomNavUser: React.FC = () => {
   const toggleSlide = () => setSlideOn(!slideOn);
 
   const navItems = [
-    { id: 1, screen: "Home", icon: "home" },
-    { id: 2, screen: "Step1", icon: "circle-with-plus" },
+    { id: 1, screen: "Home", icon: "home", size: 32 },
+    { id: 2, screen: "Step1", icon: "circle-with-plus", size: 45 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
   return (
     <View style={styles.navContainer}>
-      {navItems.map(({ id, screen, icon }: any) => (
+      {navItems.map(({ id, screen, icon, size }: any) => (
         <View key={id} style={styles.navItem}>
           <Pressable
             onPress={() => navigation.navigate(screen)}
@@ -26,7 +26,7 @@ const BottomNavUser: React.FC = () => {
             {({ pressed }) => (
               <Entypo
                 name={icon}
-                size={32}
+                size={size}
                 color={pressed ? "#0C3178" : "#5275B7"}
               />
             )}

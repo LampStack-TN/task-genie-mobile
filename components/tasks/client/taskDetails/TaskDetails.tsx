@@ -19,7 +19,7 @@ import {
 } from "@expo/vector-icons";
 import Application from "../../../../types/Application";
 
-import gradient from "../../../../assets/images/orange_gradient.png";
+import gradient from "../../../../assets/images/double-gradient.png";
 
 const skills = [
   { id: 200, name: "Carpentry" },
@@ -103,6 +103,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     <ImageBackground
       source={gradient}
       resizeMode="cover"
+      imageStyle={{ opacity: 1 }}
       style={styles.container}
     >
       <View style={styles.header}>
@@ -134,7 +135,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <View style={styles.roundIcon}>
             <FontAwesome name="dollar" size={18} color="#fff" />
           </View>
-          <Text style={styles.propertyText}>{task.minPrice} - {task.maxPrice} TND</Text>
+          <Text style={styles.propertyText}>
+            {task.minPrice} - {task.maxPrice} TND
+          </Text>
         </View>
       </View>
 

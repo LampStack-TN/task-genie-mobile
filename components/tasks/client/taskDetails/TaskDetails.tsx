@@ -157,7 +157,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     <ImageBackground
       source={gradient}
       resizeMode="cover"
-      imageStyle={{ opacity: 1 }}
+      imageStyle={{ opacity: 0.5 }}
       style={styles.container}
     >
       <View style={styles.header}>
@@ -206,7 +206,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </View>
         ))}
       </View>
-     
+
       <View style={styles.footerContainer}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Text style={styles.deleteText}>Delete</Text>

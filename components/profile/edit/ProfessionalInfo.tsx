@@ -33,7 +33,7 @@ export default function ProfessionalInfo({ navigation, route }) {
             { marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 },
           ]}
         >
-          Edit Personal Details
+          Edit Professional Information
         </Text>
       </View>
 

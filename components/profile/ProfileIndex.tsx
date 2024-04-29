@@ -9,6 +9,7 @@ const Stack = createNativeStackNavigator();
 
 const ProfileIndex = () => {
   const [user, setUser] = useState(null);
+  const [dummy, setDummy] = useState(false);
 
   const userProfile = async () => {
     try {
@@ -21,13 +22,13 @@ const ProfileIndex = () => {
   };
   useEffect(() => {
     userProfile();
-  }, []);
+  }, [dummy]);
 
   return user?.profile ? (
     <Profile {...{ user }} />
   ) : (
     <Stack.Navigator>
-      <Stack.Screen name="Info" component={Info} />
+      <Stack.Screen name="Info" component={Info} initialParams={{ setDummy }} />
       <Stack.Screen name="Skills" component={Skills} />
     </Stack.Navigator>
   );

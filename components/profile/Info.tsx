@@ -5,7 +5,7 @@ import { ApiClient } from "../../utils/api";
 
 import Button from "../ui/Button";
 
-const Info = ({ navigation }) => {
+const Info = ({ navigation, route }) => {
   const {
     control,
     handleSubmit,
@@ -17,10 +17,12 @@ const Info = ({ navigation }) => {
     },
   });
 
+  const { setDummy } = route.params;
+
   const CreateProfile = async (data: any) => {
     try {
-      const response = await ApiClient().post("profile/createProfile/", data);
-      navigation.navigate("Profile");
+      await ApiClient().post("profile/createProfile/", data);
+      setDummy((prev) => !prev);
     } catch (error) {
       console.log(error);
     }

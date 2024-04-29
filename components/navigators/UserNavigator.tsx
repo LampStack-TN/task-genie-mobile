@@ -8,9 +8,9 @@ import AppliedTasks from "../tasks/professional/applyingTasks/AppliedTasks";
 import ProfileIndex from "../profile/ProfileIndex";
 import Home from "../home/Index";
 import Profile from "../profile/Profile";
+import search from '../tasks/client/search/search'
 
 import React from "react";
-
 const UserNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -29,6 +29,7 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="MyTasks" component={UserTaskList} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Search" component={search} />
     </Stack.Navigator>
   );
 };

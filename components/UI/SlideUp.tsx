@@ -3,10 +3,12 @@ import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser } from "../../redux/slices/userSlice";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
   const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
+
   return (
     <Modal
       animationType="fade"
@@ -33,11 +35,11 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
                 >
                   <Image
                     source={{
-                      uri: "https://images.assetsdelivery.com/compings_v2/fizkes/fizkes2011/fizkes201102042.jpg",
+                      uri: user.avatar,
                     }}
                     style={styles.profilePhoto}
                   />
-                  <Text style={styles.profileName}>Linda Mnasri</Text>
+                  <Text style={styles.profileName}>{user.fullName}</Text>
                 </View>
               )}
             </Pressable>

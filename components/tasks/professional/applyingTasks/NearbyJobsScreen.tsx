@@ -4,6 +4,7 @@ import Modal from "react-native-modal";
 import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
+import Search from "../../client/search/search";
 
 const NearbyJobsScreen = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -46,8 +47,13 @@ const NearbyJobsScreen = () => {
 
   const filteredTasks = tasks.filter((task) => !appliedTasks.includes(task.id));
 
+  const handleSearchResults = (searchResults) => {
+    setTasks(searchResults); 
+  };
+
   return (
     <View style={{ flex: 1 }}>
+       <Search onSearchResults={handleSearchResults} />
       <ScrollView>
         {filteredTasks.map((task) => (
           <TaskCard

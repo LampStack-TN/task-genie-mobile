@@ -5,6 +5,10 @@ import TaskStepsIndex from "../tasks/client/form";
 import Home from "../home/Index";
 
 
+import Profile from "../profile/Profile";
+import search from '../tasks/client/search/search'
+
+import React from "react";
 const UserNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -18,6 +22,8 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="TaskDetails" component={TaskDetails} />
       <Stack.Screen name="MyTabs" component={MyTabs} />
       <Stack.Screen name="MyTasks" component={UserTaskList} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Search" component={search} />
     </Stack.Navigator>
   );
 };

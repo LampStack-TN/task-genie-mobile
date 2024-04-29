@@ -1,8 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Task } from '../../../../types/Task'; 
-
 const TaskCard = ({ task, onApply }) => {
   return (
     <View style={styles.card}>

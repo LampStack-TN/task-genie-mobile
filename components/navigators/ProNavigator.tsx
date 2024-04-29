@@ -4,6 +4,7 @@ import NearbyJobsScreen from "../tasks/professional/applyingTasks/NearbyJobsScre
 import AppliedTasks from "../tasks/professional/applyingTasks/AppliedTasks";
 import TaskList from "../tasks/professional/list/TaskList";
 import Tabs from "../profile/edit/Tabs";
+import Home from "../home/Index";
 
 const ProNavigator = ({ Stack }) => {
   return (
@@ -11,9 +12,10 @@ const ProNavigator = ({ Stack }) => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Home"
+      initialRouteName="Soon"
     >
-      <Stack.Screen name="Home" component={ProHome} />
+      <Stack.Screen name="Soon" component={ProHome} />
+      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="TaskList" component={TaskList} />
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
       <Stack.Screen name="AppliedJobs" component={AppliedTasks} />

@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 import { ApiClient } from '../../../../utils/api';
 import cities from '../../../../data/cities.json'
-const Search = () => {
+const Search = ({ onSearchResults }:any) => {
 
    
         const [searchQuery, setSearchQuery] = useState('');
@@ -12,12 +12,14 @@ const Search = () => {
       
         const searchByTitle = async () => {
             try {
-              await ApiClient().get('/task/search', {
+              const res = await ApiClient().get('/task/search', {
                 params: {
                   searchTitle: searchQuery,
                 },
               });
-              
+              if (onSearchResults) {
+                onSearchResults(res.data);
+              }
             } catch (error) {
               console.error("Failed to fetch tasks by title:", error);
             }
@@ -25,12 +27,14 @@ const Search = () => {
 
           const searchByLocation = async () => {
             try {
-              await ApiClient().get('/task/search', {
+              const res = await ApiClient().get('/task/search', {
                 params: {
                   searchLocation: selectedCity,
                 },
               });
-              
+              if (onSearchResults) {
+                onSearchResults(res.data);
+              }
             } catch (error) {
               console.error("searchByLocation faileds :", error);
             }
@@ -40,13 +44,15 @@ const Search = () => {
           const onFindJobsPress = async () => {
             if (searchQuery && selectedCity) {
               try {
-                await ApiClient().get('/task/search', {
+                const res = await ApiClient().get('/task/search', {
                   params: {
                     searchTitle: searchQuery,
                     searchLocation: selectedCity,
                   },
                 });
-                
+                if (onSearchResults) {
+                  onSearchResults(res.data);
+                }
               } catch (error) {
                 console.error("onFindJobsPress faileds :", error);
               }

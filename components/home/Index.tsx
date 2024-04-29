@@ -3,10 +3,7 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/slices/userSlice";
 
 type RootStackParamList = {
   TaskList: String;
@@ -17,7 +14,6 @@ type RootStackParamList = {
 
 const Menu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const dispatch = useDispatch();
 
   const menu = [
     { id: 1, title: "Task List", name: "MyTasks", icon: "list" },
@@ -49,23 +45,6 @@ const Menu = () => {
           )}
         </Pressable>
       ))}
-
-      <Pressable
-        style={{
-          position: "absolute",
-          bottom: 20,
-          right: 20,
-          backgroundColor: "#0C3178",
-          padding: 10,
-          borderRadius: 22,
-        }}
-        onPress={() => {
-          AsyncStorage.removeItem("token");
-          dispatch(setUser(null));
-        }}
-      >
-        <MaterialIcons name="logout" size={22} color="white" />
-      </Pressable>
     </View>
   );
 };

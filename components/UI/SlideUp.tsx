@@ -1,8 +1,12 @@
 import { StyleSheet, Text, View, Modal, Pressable, Image } from "react-native";
 import React from "react";
-import { Entypo } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setUser } from "../../redux/slices/userSlice";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
 
 const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
+  const dispatch = useDispatch();
   return (
     <Modal
       animationType="fade"
@@ -44,6 +48,24 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
             </Pressable>
           </View>
           <View style={styles.slideMenu}></View>
+          <Pressable
+            style={{
+              flexDirection: "row",
+              position: "absolute",
+              bottom: 20,
+              left: 20,
+              backgroundColor: "#0C3178",
+              padding: 10,
+              gap: 5,
+              borderRadius: 22,
+            }}
+            onPress={() => {
+              AsyncStorage.removeItem("token");
+              dispatch(setUser(null));
+            }}
+          >
+            <MaterialIcons name="logout" size={22} color="white" />
+          </Pressable>
         </View>
       </View>
     </Modal>

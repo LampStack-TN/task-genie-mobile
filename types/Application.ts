@@ -12,5 +12,6 @@ export default interface Application {
     email: string;
     city: string;
     phone: number;
+    avatar:string
   };
 }

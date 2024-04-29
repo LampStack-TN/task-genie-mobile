@@ -19,7 +19,7 @@ const ProfileIndex = () => {
       const { data,
         data: { profile },
       } = await ApiClient().get("profile/getProfile");
-      console.log(profile);
+      // console.log(profile);
       setProfile(profile);
       setdata(data)
       console.log(data)
@@ -33,8 +33,10 @@ const ProfileIndex = () => {
     userProfile();
   }, []);
 
-  return profile ? (
-    <Profile profile={profile} Data={data}/>
+  return profile ? ( 
+    <Stack.Navigator>
+      <Stack.Screen name="Profile " component={Profile} initialParams={{Data:data,profile:profile}} />
+    </Stack.Navigator>
   ) : (
     <Stack.Navigator>
       <Stack.Screen name="Info" component={Info} />

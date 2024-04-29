@@ -1,19 +1,18 @@
-
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { ApiClient } from "../../../utils/api";
 import Button from "../../ui/Button";
 
 export default function PersonalDetails({ navigation, route }) {
-  const { Data} = route.params;
+  const { user } = route.params;
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      fullName: Data.fullName,
-      birthdate: Data.birthdate,
-      phone: Data.phone,
-      adress: Data.adress,
-      email: Data.email,
+      fullName: user.fullName,
+      birthdate: user.birthdate,
+      phone: user.phone,
+      adress: user.adress,
+      email: user.email,
     },
   });
 

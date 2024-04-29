@@ -6,8 +6,8 @@ import MyTab from "./MyTab";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function Tabs({route}) {
-  const { Data,profile } = route.params;
+export default function Tabs({ route }) {
+  const { user } = route.params;
   return (
     <Tab.Navigator
       initialRouteName="PersonalDetails"
@@ -16,13 +16,13 @@ export default function Tabs({route}) {
       <Tab.Screen
         name="PersonalDetails"
         component={PersonalDetails}
-        initialParams={{ Data: Data}}
+        initialParams={{ user }}
         options={{ tabBarLabel: "Personal Details" }}
       />
       <Tab.Screen
         name="ProfessionalInfo"
         component={ProfessionalInfo}
-        initialParams={{ profile: profile }}
+        initialParams={{ profile: user.profile }}
         options={{ tabBarLabel: "Professional Info" }}
       />
       <Tab.Screen

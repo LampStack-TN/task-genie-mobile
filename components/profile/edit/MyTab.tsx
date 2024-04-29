@@ -1,8 +1,8 @@
-import { Animated, View, TouchableOpacity } from 'react-native';
+import { Animated, View, TouchableOpacity } from "react-native";
 
 function MyTab({ state, descriptors, navigation, position }) {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={{ flexDirection: "row" }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -16,7 +16,7 @@ function MyTab({ state, descriptors, navigation, position }) {
 
         const onPress = () => {
           const event = navigation.emit({
-            type: 'tabPress',
+            type: "tabPress",
             target: route.key,
             canPreventDefault: true,
           });
@@ -28,7 +28,7 @@ function MyTab({ state, descriptors, navigation, position }) {
 
         const onLongPress = () => {
           navigation.emit({
-            type: 'tabLongPress',
+            type: "tabLongPress",
             target: route.key,
           });
         };
@@ -36,11 +36,12 @@ function MyTab({ state, descriptors, navigation, position }) {
         const inputRange = state.routes.map((_, i) => i);
         const opacity = position.interpolate({
           inputRange,
-          outputRange: inputRange.map(i => (i === index ? 1 : 0)),
+          outputRange: inputRange.map((i) => (i === index ? 1 : 0)),
         });
 
         return (
           <TouchableOpacity
+            key={index}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -49,9 +50,7 @@ function MyTab({ state, descriptors, navigation, position }) {
             onLongPress={onLongPress}
             style={{ flex: 1 }}
           >
-            <Animated.Text style={{ opacity }}>
-              {label}
-            </Animated.Text>
+            <Animated.Text style={{ opacity }}>{label}</Animated.Text>
           </TouchableOpacity>
         );
       })}

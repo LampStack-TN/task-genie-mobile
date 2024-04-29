@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ApiClient } from "../../../utils/api";
 import Button from "../../ui/Button";
 
-export default function Security({ navigation }) {
+const Security = ({ navigation }) => {
   // const [showPassword, setShowPassword] = useState(false)
   const {
     control,
@@ -96,7 +96,10 @@ export default function Security({ navigation }) {
       </View>
     </View>
   );
-}
+};
+
+export default Security;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

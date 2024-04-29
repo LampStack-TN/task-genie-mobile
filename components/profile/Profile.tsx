@@ -33,7 +33,7 @@ const Profile = ({ user }) => {
     <ImageBackground
       source={gradient}
       resizeMode="cover"
-      imageStyle={{ opacity: 1 }}
+      imageStyle={{ opacity: 0.6 }}
       style={styles.container}
     >
       <View style={styles.header}>

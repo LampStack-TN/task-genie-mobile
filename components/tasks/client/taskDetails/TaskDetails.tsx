@@ -109,9 +109,8 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           prevApplications.map((ele) =>
             ele.id === applicationId ? { ...ele, status: "Accepted" } : ele
           )
-        )
-        setApplications(response.data)
-
+        );
+        setApplications(response.data);
       }
       console.log(response.data);
     } catch (err) {
@@ -128,15 +127,32 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       if (response.data) {
         setApplications((prevApplications) =>
           prevApplications.filter((ele) => ele.id !== applicationId)
-        )
+        );
       }
-      
     } catch (err) {
       console.error(err);
     }
   };
+  const renderAcceptedApplications = () => {
+    return applications
+      .filter((ele) => ele.status === "Accepted")
+      .map((application, index) => (
+        <View key={index} style={styles.acceptedApplicationCard}>
+          <Image
+            source={{ uri: application.applicant.avatar }}
+            style={styles.applicantAvatar}
+          />
+          <View style={styles.acceptedInfo}>
+            <Text style={styles.applicantName}>
+              {application.applicant.fullName}
+            </Text>
+            <Text style={styles.applicantPrice}>{application.price} TND</Text>
+          </View>
+          <FontAwesome name="check-circle" size={24} color="green" />
+        </View>
+      ));
+  };
 
-  
   return (
     <ImageBackground
       source={gradient}
@@ -189,6 +205,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </View>
         ))}
       </View>
+     
       <View style={styles.footerContainer}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Text style={styles.deleteText}>Delete</Text>
@@ -210,7 +227,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity> */}
       </View>
-
+      {renderAcceptedApplications()}
       <Pressable onPress={toggleModal}>
         {({ pressed }) => (
           <View
@@ -569,7 +586,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 14,
   },
-  
+  acceptedApplicationCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 10,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    marginVertical: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  applicantAvatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  acceptedInfo: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  applicantPrice: {
+    fontSize: 14,
+    color: "#666",
+  },
 });
 
 export default TaskDetails;

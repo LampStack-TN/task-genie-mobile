@@ -19,26 +19,28 @@ const TaskCard = ({ task, onApply }) => {
         <Image style={styles.avatar} source={{ uri: task.client?.avatar }} />
         <Text style={styles.title}>{task.title}</Text>
       </View>
-      <View style={styles.leftContainer}>
-        <View style={styles.iconRow}>
-          <MaterialIcons name="build" size={18} color="#666" />
-          <Text style={styles.description}>{task.description}</Text>
+      <View style={styles.subHeader}>
+        <View style={styles.property}>
+          <MaterialIcons name="place" size={22} color="#4e4e4e" />
+          <Text style={styles.propertyText}>{task.location}</Text>
         </View>
-        <View style={styles.iconRow}>
-          <MaterialIcons name="place" size={18} color="#666" />
-          <Text style={styles.location}>{task.location}</Text>
+        <View style={styles.property}>
+          <MaterialIcons name="timelapse" size={22} color="#4e4e4e" />
+          <Text style={styles.propertyText}>Urgency: {task.urgency}</Text>
         </View>
-        <View style={styles.iconRow}>
-          <MaterialIcons name="access-time" size={18} color="#666" />
-          <Text style={styles.createdAt}>{formatDate(task.createdAt)}</Text>
+        <View style={styles.property}>
+          <MaterialIcons name="access-time" size={22} color="#4e4e4e" />
+          <Text style={styles.propertyText}>{formatDate(task.dueDate)}</Text>
         </View>
       </View>
-      <TouchableOpacity
-        style={styles.applyButton}
-        onPress={() => onApply(task)}
-      >
-        <Text style={styles.applyButtonText}>Apply</Text>
-      </TouchableOpacity>
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={styles.applyButton}
+          onPress={() => onApply(task)}
+        >
+          <Text style={styles.applyButtonText}>Apply</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -52,6 +54,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#c5c5c5",
     marginVertical: 6,
+    elevation: 2,
   },
   header: {
     flexDirection: "row",
@@ -71,24 +74,25 @@ const styles = StyleSheet.create({
     width: 45,
     borderRadius: 45 / 2,
   },
-  iconRow: {
+  subHeader: {
+    flexWrap: "wrap",
+    rowGap: 2,
+  },
+  property: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 4,
-    justifyContent: "flex-start",
+    columnGap: 4,
   },
-  description: {
-    fontSize: 14,
-    marginLeft: 8,
+  propertyText: {
+    color: "#4e4e4e",
+    fontWeight: "400",
+    fontSize: 18,
   },
-  location: {
-    fontSize: 14,
-    marginLeft: 8,
-  },
-  createdAt: {
-    fontSize: 12,
-    color: "#666",
-    marginLeft: 8,
+  footer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    columnGap: 4,
   },
   applyButton: {
     backgroundColor: "#0C3178",

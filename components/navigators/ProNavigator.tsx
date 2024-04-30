@@ -1,14 +1,13 @@
 import { Text, View } from "react-native";
 import ProfileIndex from "../profile/ProfileIndex";
 import NearbyJobsScreen from "../tasks/professional/applyingTasks/NearbyJobsScreen";
-import AppliedTasks from "../tasks/professional/applyingTasks/AppliedTasks";
-import TaskList from "../tasks/professional/list/TaskList";
 import Tabs from "../profile/edit/Tabs";
 import Home from "../professional/home/ProIndex";
 import proDetails from "../tasks/professional/proDetails/proDetails";
 import ServicesList from "../professional/services/ServicesList";
 import MyServices from "../professional/services/MyServices";
 import ProIndex from "../professional/form/ProIndex";
+import ServiceDetails from "../professional/serviceDetails/ServiceDetails";
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -21,7 +20,8 @@ const ProNavigator = ({ Stack }) => {
       <Stack.Screen name="AddService" component={ProIndex} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="ServicesList" component={ServicesList} />
-      <Stack.Screen name="My Services" component={MyServices} />
+      <Stack.Screen name="MyServices" component={MyServices} />
+      <Stack.Screen name="ServiceDetails" component={ServiceDetails} />
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />

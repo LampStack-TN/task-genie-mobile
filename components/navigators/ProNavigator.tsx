@@ -21,7 +21,7 @@ const ProNavigator = ({ Stack }) => {
       <Stack.Screen name="AddService" component={ProIndex} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="ServicesList" component={ServicesList} />
-      <Stack.Screen name=" MyServices" component={MyServices} />
+      <Stack.Screen name="My Services" component={MyServices} />
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />

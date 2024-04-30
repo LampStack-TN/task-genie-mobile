@@ -3,6 +3,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -11,13 +12,13 @@ import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
 import Search from "../../client/search/search";
-
-const NearbyJobsScreen = ({navigation}) => {
+const NearbyJobsScreen = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [suggestedPrice, setSuggestedPrice] = useState("");
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -27,65 +28,91 @@ const NearbyJobsScreen = ({navigation}) => {
         console.error(error);
       }
     };
-
     fetchTasks();
   }, []);
-
-  const handleApplyToTask = async (appliedTask: Task) => {
-    try {
-      const response = await ApiClient().post("/task/apply", {
-        taskId: appliedTask.id,
-      });
-      console.log(response.data);
-      //remove the applied task from state
-      setTasks(tasks.filter((task) => task.id !== appliedTask.id));
-      // Update appliedTasks state to add the appliedtask.id
-      setAppliedTasks([...appliedTasks, appliedTask.id]);
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        setModalMessage(error.response.data.message);
-        setModalVisible(true);
-      } else {
-        console.error(error);
+  const handleApplyToTask = (task: Task) => {
+    setSelectedTask(task);
+    setModalVisible(true);
+  };
+  const handleConfirmApply = async () => {
+    if (selectedTask) {
+      try {
+        const response = await ApiClient().post("/task/apply", {
+          taskId: selectedTask.id,
+          suggestedPrice: suggestedPrice.trim(),
+        });
+        console.log(response.data);
+        //remove the applied task from state
+        setTasks(tasks.filter((task) => task.id !== selectedTask.id));
+        // Update appliedTasks state to add the appliedtask.id
+        setAppliedTasks([...appliedTasks, selectedTask.id]);
+      } catch (error) {
+        if (error.response && error.response.data.message) {
+          setModalMessage(error.response.data.message);
+          setModalVisible(true);
+        } else {
+          console.error(error);
+        }
       }
     }
+    setModalVisible(false);
+    setSuggestedPrice("");
   };
-
-  const filteredTasks = tasks.filter((task) => !appliedTasks.includes(task.id));
-
+  const handleRejectApply = () => {
+    setSelectedTask(null);
+    setModalVisible(false);
+    setSuggestedPrice("");
+  };
   const handleSearchResults = (searchResults) => {
     setTasks(searchResults);
   };
-
   return (
     <View style={{ flex: 1 }}>
       <Search onSearchResults={handleSearchResults} />
       <ScrollView style={styles.container}>
-        {filteredTasks.map((task) => (
+        {tasks.map((task) => (
           <TouchableOpacity
-          key={task.id.toString()}
+            key={task.id.toString()}
             onPress={() =>
               navigation.navigate("ProDetails", { taskId: task.id })
-            }>
-          <TaskCard
-            key={task.id}
-            task={task}
-            onApply={() => handleApplyToTask(task)}
-          />
+            }
+          >
+            <TaskCard
+              key={task.id}
+              task={task}
+              onApply={() => handleApplyToTask(task)}
+            />
           </TouchableOpacity>
         ))}
       </ScrollView>
       <Modal isVisible={isModalVisible}>
-        <View
-          style={{
-            backgroundColor: "white",
-            padding: 22,
-            borderRadius: 4,
-            borderColor: "rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <Text style={{ fontSize: 16, marginBottom: 12 }}>{modalMessage}</Text>
-          <TouchableOpacity onPress={() => setModalVisible(false)}>
+        <View style={styles.modalContent}>
+          <Text style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
+            Do you want to apply for this task?
+          </Text>
+          <TextInput
+            placeholder="Suggested Price"
+            value={suggestedPrice}
+            onChangeText={setSuggestedPrice}
+          />
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <TouchableOpacity onPress={handleConfirmApply}>
+              <Text>Yes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleRejectApply}>
+              <Text>No</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal isVisible={modalMessage !== ""}>
+        <View style={styles.modalContent}>
+          <Text style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
+            {modalMessage}
+          </Text>
+          <TouchableOpacity onPress={() => setModalMessage("")}>
             <Text style={{ fontSize: 16, color: "blue", textAlign: "center" }}>
               Close
             </Text>
@@ -95,9 +122,6 @@ const NearbyJobsScreen = ({navigation}) => {
     </View>
   );
 };
-
-export default NearbyJobsScreen;
-
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 18,
@@ -107,4 +131,11 @@ const styles = StyleSheet.create({
     rowGap: 22,
     backgroundColor: "#fff",
   },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 22,
+    borderRadius: 4,
+    borderColor: "#00000019",
+  },
 });
+export default NearbyJobsScreen;

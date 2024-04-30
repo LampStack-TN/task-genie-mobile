@@ -25,8 +25,8 @@ const ProMenu = () => {
     { id: 1, title: "Services List", name: "ServicesList", icon: "list" },
     {
       id: 2,
-      title: "MyServices",
-      name: "My Services",
+      title: "My Services",
+      name: "MyServices",
       icon: "check-circle",
     },
     { id: 3, title: "Nearby Jobs", name: "Tasks", icon: "task" },

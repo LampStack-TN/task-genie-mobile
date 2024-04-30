@@ -14,8 +14,8 @@ const ProIndex = () => {
       initialRouteName="Step1"
     >
       <Stack.Screen name="Step1" component={Information} />
-      <Stack.Screen name="Step2" component={Price} />
-      <Stack.Screen name="Step3" component={Skills} />
+      <Stack.Screen name="Step2" component={Skills} />
+      <Stack.Screen name="Step3" component={Price} />
     </Stack.Navigator>
   );
 };

@@ -1,8 +1,8 @@
-import { Animated, View, TouchableOpacity } from "react-native";
+import { Animated, View, StyleSheet, Pressable } from "react-native";
 
 function MyTab({ state, descriptors, navigation, position }) {
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View style={styles.navContainer}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -33,14 +33,8 @@ function MyTab({ state, descriptors, navigation, position }) {
           });
         };
 
-        const inputRange = state.routes.map((_, i) => i);
-        const opacity = position.interpolate({
-          inputRange,
-          outputRange: inputRange.map((i) => (i === index ? 1 : 0)),
-        });
-
         return (
-          <TouchableOpacity
+          <Pressable
             key={index}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
@@ -48,13 +42,44 @@ function MyTab({ state, descriptors, navigation, position }) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1 }}
+            style={[styles.navItem, isFocused && styles.navItemSelected]}
           >
-            <Animated.Text style={{ opacity }}>{label}</Animated.Text>
-          </TouchableOpacity>
+            <Animated.Text
+              style={[styles.navText, isFocused && styles.navTextSelected]}
+            >
+              {label}
+            </Animated.Text>
+          </Pressable>
         );
       })}
     </View>
   );
 }
 export default MyTab;
+const styles = StyleSheet.create({
+  navContainer: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+  },
+  navItem: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: false ? 4 : 0,
+    paddingTop: 15,
+    paddingBottom: 5 + 10,
+  },
+  navItemSelected: {
+    paddingBottom: 0 + 10,
+    borderBottomWidth: 5,
+    borderColor: "#F58D61",
+  },
+  navText: {
+    color: "#6e6e6e",
+  },
+  navTextSelected: {
+    color: "#4e4e4e",
+    fontWeight: "600",
+  },
+});

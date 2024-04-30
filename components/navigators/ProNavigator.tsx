@@ -5,7 +5,7 @@ import AppliedTasks from "../tasks/professional/applyingTasks/AppliedTasks";
 import TaskList from "../tasks/professional/list/TaskList";
 import Tabs from "../profile/edit/Tabs";
 import Home from "../home/Index";
-
+import FavouriteTasksList from "../tasks/professional/favouriteTasks/FavouriteTasksList"
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -21,6 +21,7 @@ const ProNavigator = ({ Stack }) => {
       <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList}/>
     </Stack.Navigator>
   );
 };

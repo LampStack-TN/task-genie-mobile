@@ -18,7 +18,7 @@ const UserNavigator = ({ Stack }) => {
       initialRouteName="Home"
     >
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Step1" component={TaskStepsIndex} />
+      <Stack.Screen name="AddTask" component={TaskStepsIndex} />
       <Stack.Screen name="TaskDetails" component={TaskDetails} />
       <Stack.Screen name="MyTabs" component={MyTabs} />
       <Stack.Screen name="MyTasks" component={UserTaskList} />

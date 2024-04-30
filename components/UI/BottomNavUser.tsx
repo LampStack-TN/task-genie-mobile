@@ -12,7 +12,7 @@ const BottomNavUser: React.FC = () => {
 
   const navItems = [
     { id: 1, screen: "Home", icon: "home", size: 32 },
-    { id: 2, screen: "Step1", icon: "circle-with-plus", size: 45 },
+    { id: 2, screen: "AddTask", icon: "circle-with-plus", size: 45 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
   return (

@@ -11,7 +11,7 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
 
   return (
     <Modal
-      animationType="fade"
+      animationType="slide"
       transparent={true}
       visible={slideOn}
       onRequestClose={toggleSlide}
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    // backgroundColor: "rgba(0, 0, 0, 0.5)",
     position: "relative",
     width: "100%",
     height: "100%",

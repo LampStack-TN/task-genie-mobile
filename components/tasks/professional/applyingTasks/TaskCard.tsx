@@ -2,16 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 const TaskCard = ({ task, onApply }) => {
-  const formatDate = (dateString: string): string => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return new Intl.DateTimeFormat("en-US", options).format(
-      new Date(dateString)
-    );
-  };
+  
 
   return (
     <View style={styles.card}>
@@ -30,7 +21,7 @@ const TaskCard = ({ task, onApply }) => {
         </View>
         <View style={styles.property}>
           <MaterialIcons name="access-time" size={22} color="#4e4e4e" />
-          <Text style={styles.propertyText}>{formatDate(task.dueDate)}</Text>
+          <Text style={styles.propertyText}>{task.dueDate}</Text>
         </View>
       </View>
       <View style={styles.footer}>

@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Modal from "react-native-modal";
 import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
@@ -48,13 +54,13 @@ const NearbyJobsScreen = () => {
   const filteredTasks = tasks.filter((task) => !appliedTasks.includes(task.id));
 
   const handleSearchResults = (searchResults) => {
-    setTasks(searchResults); 
+    setTasks(searchResults);
   };
 
   return (
     <View style={{ flex: 1 }}>
-       <Search onSearchResults={handleSearchResults} />
-      <ScrollView>
+      <Search onSearchResults={handleSearchResults} />
+      <ScrollView style={styles.container}>
         {filteredTasks.map((task) => (
           <TaskCard
             key={task.id}
@@ -85,3 +91,14 @@ const NearbyJobsScreen = () => {
 };
 
 export default NearbyJobsScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 18,
+    paddingVertical: 6,
+    overflow: "hidden",
+    flex: 1,
+    rowGap: 22,
+    backgroundColor: "#fff",
+  },
+});

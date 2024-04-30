@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 const TaskCard = ({ task, onApply }) => {
-
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
@@ -16,8 +15,11 @@ const TaskCard = ({ task, onApply }) => {
 
   return (
     <View style={styles.card}>
-      <View style={styles.leftContainer}>
+      <View style={styles.header}>
+        <Image style={styles.avatar} source={{ uri: task.client?.avatar }} />
         <Text style={styles.title}>{task.title}</Text>
+      </View>
+      <View style={styles.leftContainer}>
         <View style={styles.iconRow}>
           <MaterialIcons name="build" size={18} color="#666" />
           <Text style={styles.description}>{task.description}</Text>
@@ -27,58 +29,53 @@ const TaskCard = ({ task, onApply }) => {
           <Text style={styles.location}>{task.location}</Text>
         </View>
         <View style={styles.iconRow}>
-  <MaterialIcons name="access-time" size={18} color="#666" />
-  <Text style={styles.createdAt}>{formatDate(task.createdAt)}</Text>
-</View>
-
+          <MaterialIcons name="access-time" size={18} color="#666" />
+          <Text style={styles.createdAt}>{formatDate(task.createdAt)}</Text>
+        </View>
       </View>
-      <TouchableOpacity style={styles.applyButton} onPress={() => onApply(task)}>
+      <TouchableOpacity
+        style={styles.applyButton}
+        onPress={() => onApply(task)}
+      >
         <Text style={styles.applyButtonText}>Apply</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 20,
+    borderRadius: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: "#c5c5c5",
+    marginVertical: 6,
+  },
+  header: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  leftContainer: {
-    flex: 1,
-  },
-  rightContainer: {
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-    flex: 0.3,
-  },
-  bottomRightContainer: {
-    position: "absolute",
-    right: 20,
-    bottom: 20,
-    alignItems: "center",
+    gap: 12,
+    marginVertical: 10,
   },
   title: {
     fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 4,
+    fontWeight: "700",
+    flex: 1,
+    color: "#0c3178",
+    alignSelf: "center",
+  },
+  avatar: {
+    height: 45,
+    width: 45,
+    borderRadius: 45 / 2,
   },
   iconRow: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 4,
-    justifyContent: 'flex-start'
+    justifyContent: "flex-start",
   },
   description: {
     fontSize: 14,
@@ -91,10 +88,7 @@ const styles = StyleSheet.create({
   createdAt: {
     fontSize: 12,
     color: "#666",
-    marginLeft: 8, 
-  },
-  avatar: {
-    marginBottom: 20,
+    marginLeft: 8,
   },
   applyButton: {
     backgroundColor: "#0C3178",

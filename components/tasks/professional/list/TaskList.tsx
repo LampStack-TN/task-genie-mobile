@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import TaskItem from "./TaskItem";
 import { TaskProps } from "./TaskItem";
-import config from "../../../../config";
 import { useFocusEffect } from "@react-navigation/native";
 import { ApiClient } from "../../../../utils/api";
 const TaskList: React.FC = ({ navigation }: any) => {

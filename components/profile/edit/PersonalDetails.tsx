@@ -107,7 +107,7 @@ export default function PersonalDetails({ navigation, route }) {
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <View style={styles.inputView}>
-              <Text style={styles.inputLabel}>Email Adress</Text>
+              <Text style={styles.inputLabel}>Email Address</Text>
               <TextInput
                 placeholder="email"
                 onBlur={onBlur}
@@ -151,10 +151,9 @@ const styles = StyleSheet.create({
     marginBottom: 22,
   },
   inputContainer: {
+    marginVertical: 11,
     width: "100%",
-    flex: 2,
-    // alignItems: "center",
-    justifyContent: "center",
+    flex: 1,
     gap: 28,
   },
   inputView: {

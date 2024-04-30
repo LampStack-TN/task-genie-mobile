@@ -12,7 +12,7 @@ import { ApiClient } from "../../../../utils/api";
 import cities from "../../../../data/cities.json";
 import City from "../../../../types/city";
 import SearchProps from "../../../../types/searchFunc";
-const Search: React.FC = ({ onSearchResults }: SearchProps) => {
+const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
   const onFindJobsPress = async () => {

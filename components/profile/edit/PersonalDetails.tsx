@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { ApiClient } from "../../../utils/api";
 import Button from "../../ui/Button";
@@ -29,15 +29,15 @@ export default function PersonalDetails({ navigation, route }) {
     updateUserInfo(data);
   };
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.stepContainer}>
         <Text
           style={[
             styles.heading,
-            { marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 },
+            { marginVertical: 10, alignSelf: "flex-start" },
           ]}
         >
-          Edit Personal Details
+          Edit Profile
         </Text>
       </View>
 
@@ -116,30 +116,27 @@ export default function PersonalDetails({ navigation, route }) {
         />
         <Button
           label="Submit"
-          style="outline"
+          style="fill"
           callback={handleSubmit(onSubmit)}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
+    flexGrow: 1,
     justifyContent: "center",
     paddingHorizontal: 25,
     backgroundColor: "#fff",
   },
   stepContainer: {
     alignSelf: "flex-start",
-    marginBottom: 20,
-    paddingTop: 1,
+    marginVertical: 15,
   },
   heading: {
-    paddingTop: 60,
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#0C3178",
   },
@@ -147,6 +144,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 2,
     alignItems: "center",
+    justifyContent: "center",
     gap: 15,
   },
   input: {
@@ -183,7 +181,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     paddingHorizontal: 22,
-    paddingVertical: 8,
+    paddingVertical: 16,
     alignItems: "center",
     justifyContent: "space-between",
   },

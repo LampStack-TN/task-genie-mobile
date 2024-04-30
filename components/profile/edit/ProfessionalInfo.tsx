@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { ApiClient } from "../../../utils/api";
 import Button from "../../ui/Button";
@@ -25,7 +25,7 @@ export default function ProfessionalInfo({ navigation, route }) {
     updateInfo(data);
   };
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.stepContainer}>
         <Text
           style={[
@@ -77,13 +77,13 @@ export default function ProfessionalInfo({ navigation, route }) {
           callback={handleSubmit(onSubmit)}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 25,
@@ -102,9 +102,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "100%",
-    flex: 2,
+    flex: 1,
     alignItems: "center",
     gap: 15,
+    justifyContent: "center",
   },
   input: {
     backgroundColor: "#fff",

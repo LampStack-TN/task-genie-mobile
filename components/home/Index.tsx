@@ -30,6 +30,7 @@ const Menu = () => {
       icon: "check-circle",
     },
     { id: 3, title: "Nearby Jobs", name: "Tasks", icon: "task" },
+    {id:4,title:"FavouriteTasksList",name:"FavouriteTasksList",icon:"list"}
   ];
 
   return (

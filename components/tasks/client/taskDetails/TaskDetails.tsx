@@ -22,9 +22,8 @@ import Application from "../../../../types/Application";
 import gradient from "../../../../assets/images/double-gradient.png";
 import Skills from "../../../../data/skills.json";
 
-
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
-  const skill = Skills
+  const skill = Skills;
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -347,6 +346,7 @@ const styles = StyleSheet.create({
     columnGap: 4,
   },
   propertyText: {
+    flex: 1,
     color: "#2e2e2e",
     fontWeight: "400",
     fontSize: 18,

@@ -13,10 +13,10 @@ export default function SkillsForm({ navigation }) {
   // console.log(task);
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      skills:[],
+      skills: [],
     },
   });
-  
+
   const onSubmit = (data) => {
     dispatch(addTask(data));
     navigation.navigate("Step3");
@@ -47,7 +47,8 @@ export default function SkillsForm({ navigation }) {
               searchPlaceholder="Search..."
               value={value}
               onChange={onChange}
-              selectedStyle={styles.selectedStyle}
+              selectedStyle={styles.skillPill}
+              selectedTextStyle={styles.skillText}
             />
           )}
           name="skills"
@@ -118,9 +119,22 @@ const styles = StyleSheet.create({
     paddingVertical: 22,
     alignItems: "center",
     justifyContent: "space-between",
-    
   },
-  selectedStyle: {
-    borderRadius: 15,
+  skillPill: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: "#6e6e6e",
+    backgroundColor: "#f8f8f8",
+    textAlignVertical: "center",
+    textAlign: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    margin: 5,
+  },
+  skillText: {
+    textAlignVertical: "center",
+    textAlign: "center",
+    color: "#4e4e4e",
+    fontSize: 14,
   },
 });

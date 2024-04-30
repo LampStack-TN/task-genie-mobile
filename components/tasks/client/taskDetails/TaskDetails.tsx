@@ -23,7 +23,7 @@ import gradient from "../../../../assets/images/double-gradient.png";
 import Skills from "../../../../data/skills.json";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
-  const skill = Skills;
+  const skill = Skills.slice(0, 5);
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
   const [modalVisible, setModalVisible] = useState(false);

@@ -26,6 +26,7 @@
     "react-hook-form": "^7.51.3",
     "react-native": "^0.73.6",
     "react-native-element-dropdown": "^2.10.4",
+    "react-native-image-picker": "^7.1.2",
     "react-native-modal": "^13.0.1",
     "react-native-multiple-select": "^0.5.12",
     "react-native-pager-view": "6.2.3",

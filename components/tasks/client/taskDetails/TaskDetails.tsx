@@ -20,28 +20,11 @@ import {
 import Application from "../../../../types/Application";
 
 import gradient from "../../../../assets/images/double-gradient.png";
+import Skills from "../../../../data/skills.json";
 
-const skills = [
-  { id: 200, name: "Carpentry" },
-  {
-    id: 201,
-    name: "Electrical Work",
-  },
-  {
-    id: 204,
-    name: "Dog Training",
-  },
-  {
-    id: 205,
-    name: "Cat Grooming",
-  },
-  {
-    id: 206,
-    name: "Coaching",
-  },
-];
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
+  const skill = Skills
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -85,17 +68,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     } catch (err) {
       console.error("Error fetching applications:", err);
     }
-  };
-
-  const formatDate = (dateString: string): string => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return new Intl.DateTimeFormat("en-US", options).format(
-      new Date(dateString)
-    );
   };
 
   const handleAcceptApplication = async (applicationId: number) => {
@@ -203,7 +175,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
       <View style={styles.skillContainer}>
-        {skills.map((skill, index) => (
+        {skill.map((skill, index) => (
           <View key={index} style={styles.skillPill}>
             <Text key={index} style={styles.skillText}>
               {skill.name}
@@ -339,6 +311,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     padding: 22,
+    overflow: "hidden",
     flex: 1,
     backgroundColor: "#fff",
   },

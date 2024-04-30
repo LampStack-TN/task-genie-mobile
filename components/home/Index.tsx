@@ -64,6 +64,7 @@ export default Menu;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    overflow: "hidden",
     alignItems: "stretch",
     justifyContent: "flex-start",
     paddingTop: 4,

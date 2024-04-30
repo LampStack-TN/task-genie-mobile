@@ -22,7 +22,12 @@ const NearbyJobsScreen = () => {
     const fetchTasks = async () => {
       try {
         const response = await ApiClient().get("/task/getAll");
-        setTasks(response.data);
+        setTasks(
+          response.data.map((task) => ({
+            ...task,
+            liked: task._count.favouriteTasks > 0,
+          }))
+        );
       } catch (error) {
         console.error(error);
       }
@@ -57,6 +62,23 @@ const NearbyJobsScreen = () => {
     setTasks(searchResults);
   };
 
+  const toggleLikeTask = async (taskId) => {
+    try {
+      const response = await ApiClient().post("/task/likeTask", { taskId });
+      setTasks((currentTasks) =>
+        currentTasks.map((task) => {
+          if (task.id === taskId) {
+            return { ...task, liked: !task.liked };
+          }
+          return task;
+        })
+      );
+    } catch (error) {
+      setModalMessage("Failed to toggle like.");
+      setModalVisible(true);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <Search onSearchResults={handleSearchResults} />
@@ -66,6 +88,7 @@ const NearbyJobsScreen = () => {
             key={task.id}
             task={task}
             onApply={() => handleApplyToTask(task)}
+            onToggleLike={() => toggleLikeTask(task.id)}
           />
         ))}
       </ScrollView>

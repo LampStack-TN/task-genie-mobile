@@ -87,10 +87,12 @@ const NearbyJobsScreen = ({ navigation }) => {
       </ScrollView>
       <Modal isVisible={isModalVisible}>
         <View style={styles.modalContent}>
-          <Text style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
+          <Text 
+            style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
             Do you want to apply for this task?
           </Text>
-          <TextInput
+          <TextInput 
+            style={styles.input}
             placeholder="Suggested Price"
             value={suggestedPrice}
             onChangeText={setSuggestedPrice}
@@ -98,11 +100,22 @@ const NearbyJobsScreen = ({ navigation }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
-            <TouchableOpacity onPress={handleConfirmApply}>
-              <Text>Yes</Text>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={handleConfirmApply}
+            >
+              <Text 
+              style={styles.modalButtonText}
+              >Yes</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleRejectApply}>
-              <Text>No</Text>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={handleRejectApply}
+            >
+              <Text 
+              style={styles.modalButtonText}
+              >No
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -136,6 +149,27 @@ const styles = StyleSheet.create({
     padding: 22,
     borderRadius: 4,
     borderColor: "#00000019",
+  },
+  modalButton: {
+    backgroundColor: "#335ba7",
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginBottom: 10,
+    width: "45%",
+  },
+  modalButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
   },
 });
 export default NearbyJobsScreen;

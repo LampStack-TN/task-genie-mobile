@@ -4,9 +4,11 @@ import NearbyJobsScreen from "../tasks/professional/applyingTasks/NearbyJobsScre
 import AppliedTasks from "../tasks/professional/applyingTasks/AppliedTasks";
 import TaskList from "../tasks/professional/list/TaskList";
 import Tabs from "../profile/edit/Tabs";
-import Home from "../professional/home/ProIndex"
+import Home from "../professional/home/ProIndex";
 import proDetails from "../tasks/professional/proDetails/proDetails";
 import ServicesList from "../professional/services/ServicesList";
+import MyServices from "../professional/services/MyServices";
+import ProIndex from "../professional/form/ProIndex";
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -16,10 +18,11 @@ const ProNavigator = ({ Stack }) => {
       initialRouteName="Soon"
     >
       <Stack.Screen name="Soon" component={ProHome} />
+      <Stack.Screen name="AddService" component={ProIndex} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="ServicesList" component={ServicesList} />
+      <Stack.Screen name=" MyServices" component={MyServices} />
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
-      <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen name="ProDetails" component={proDetails} />

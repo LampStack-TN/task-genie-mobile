@@ -12,7 +12,7 @@ import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
 import Search from "../../client/search/search";
 
-const NearbyJobsScreen = () => {
+const NearbyJobsScreen = ({navigation}) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -62,11 +62,17 @@ const NearbyJobsScreen = () => {
       <Search onSearchResults={handleSearchResults} />
       <ScrollView style={styles.container}>
         {filteredTasks.map((task) => (
+          <TouchableOpacity
+          key={task.id.toString()}
+            onPress={() =>
+              navigation.navigate("ProDetails", { taskId: task.id })
+            }>
           <TaskCard
             key={task.id}
             task={task}
             onApply={() => handleApplyToTask(task)}
           />
+          </TouchableOpacity>
         ))}
       </ScrollView>
       <Modal isVisible={isModalVisible}>

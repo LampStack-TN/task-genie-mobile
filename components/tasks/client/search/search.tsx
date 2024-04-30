@@ -10,60 +10,21 @@ const Search = ({ onSearchResults }:any) => {
         const [searchQuery, setSearchQuery] = useState('');
         const [selectedCity, setSelectedCity] = useState('');
       
-        const searchByTitle = async () => {
-            try {
+        const onFindJobsPress = async () => {
+          try {
               const res = await ApiClient().get('/task/search', {
-                params: {
-                  searchTitle: searchQuery,
-                },
-              });
-              if (onSearchResults) {
-                onSearchResults(res.data);
-              }
-            } catch (error) {
-              console.error("Failed to fetch tasks by title:", error);
-            }
-          };
-
-          const searchByLocation = async () => {
-            try {
-              const res = await ApiClient().get('/task/search', {
-                params: {
-                  searchLocation: selectedCity,
-                },
-              });
-              if (onSearchResults) {
-                onSearchResults(res.data);
-              }
-            } catch (error) {
-              console.error("searchByLocation faileds :", error);
-            }
-          };
-
-
-          const onFindJobsPress = async () => {
-            if (searchQuery && selectedCity) {
-              try {
-                const res = await ApiClient().get('/task/search', {
                   params: {
-                    searchTitle: searchQuery,
-                    searchLocation: selectedCity,
+                      searchTitle: searchQuery,
+                      searchLocation: selectedCity,
                   },
-                });
-                if (onSearchResults) {
+              });
+              if (onSearchResults) {
                   onSearchResults(res.data);
-                }
-              } catch (error) {
-                console.error("onFindJobsPress faileds :", error);
               }
-            } else if (searchQuery) {
-             
-              await searchByTitle();
-            } else if (selectedCity) {
-             
-              await searchByLocation();
-            }
-          };
+          } catch (error) {
+              console.error("onFindJobsPress faileds :", error);
+          }
+      };
           
 
 

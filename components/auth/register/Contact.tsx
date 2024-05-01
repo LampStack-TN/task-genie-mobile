@@ -28,7 +28,7 @@ const Contact = ({ navigation }) => {
 
   const registerData = useSelector((state: any) => state.registerData);
   const dispatch = useDispatch();
-
+console.log('registerData :' ,registerData)
   const {
     control,
     handleSubmit,
@@ -60,7 +60,7 @@ const Contact = ({ navigation }) => {
 
   const onSubmit = (data) => {
     dispatch(appendData(data));
-    sumbitRegister({ ...registerData, avatar: "avatar.jpg" });
+    sumbitRegister({ ...registerData, avatar: registerData.avatar });
   };
   return (
     <>

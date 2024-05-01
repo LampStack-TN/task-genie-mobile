@@ -57,7 +57,7 @@ const BasicInfos = ({ navigation }:any) => {
   {watch("avatar") ? (
     <Image source={{ uri: watch("avatar") }} />
   ) : (
-    <Pressable onPress={handlePickImage} >
+    <Pressable onPress={handlePickImage} style={styles.placeholder} >
       <Text>Select Image</Text>
     </Pressable>
   )}
@@ -215,5 +215,11 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0, 0, 0, 0.3)",
     borderWidth: 5,
     alignSelf: "center",
+  },
+  placeholder: {
+    width: 180,
+    height: 180,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

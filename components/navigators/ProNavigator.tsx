@@ -6,6 +6,9 @@ import TaskList from "../tasks/professional/list/TaskList";
 import Tabs from "../profile/edit/Tabs";
 import Home from "../home/Index";
 import FavouriteTasksList from "../tasks/professional/favouriteTasks/FavouriteTasksList"
+import Home from "../professional/home/ProIndex"
+import proDetails from "../tasks/professional/proDetails/proDetails";
+import ServicesList from "../professional/services/ServicesList";
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -16,12 +19,13 @@ const ProNavigator = ({ Stack }) => {
     >
       <Stack.Screen name="Soon" component={ProHome} />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="TaskList" component={TaskList} />
+      <Stack.Screen name="ServicesList" component={ServicesList} />
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
       <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList}/>
+      <Stack.Screen name="ProDetails" component={proDetails} />
     </Stack.Navigator>
   );
 };

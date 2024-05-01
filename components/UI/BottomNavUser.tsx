@@ -16,36 +16,48 @@ const BottomNavUser: React.FC = () => {
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
   return (
-    <View style={styles.navContainer}>
-      {navItems.map(({ id, screen, icon, size }: any) => (
-        <View key={id} style={styles.navItem}>
-          <Pressable
-            onPress={() => navigation.navigate(screen)}
-            style={styles.navIcon}
-          >
+    <>
+      <View style={styles.navContainer}>
+        {navItems.map(({ id, screen, icon, size }: any) => (
+          <View key={id} style={styles.navItem}>
+            <Pressable
+              onPress={() => navigation.navigate(screen)}
+              style={styles.navIcon}
+            >
+              {({ pressed }) => (
+                <Entypo
+                  name={icon}
+                  size={size}
+                  color={pressed ? "#0C3178" : "#5275B7"}
+                />
+              )}
+            </Pressable>
+          </View>
+        ))}
+        <View style={styles.navItem}>
+          <Pressable onPress={toggleSlide} style={styles.navIcon}>
             {({ pressed }) => (
               <Entypo
-                name={icon}
-                size={size}
+                name="menu"
+                size={32}
                 color={pressed ? "#0C3178" : "#5275B7"}
               />
             )}
           </Pressable>
+          <SlideUp {...{ slideOn, toggleSlide, navigation }} />
         </View>
-      ))}
-      <View style={styles.navItem}>
-        <Pressable onPress={toggleSlide} style={styles.navIcon}>
-          {({ pressed }) => (
-            <Entypo
-              name="menu"
-              size={32}
-              color={pressed ? "#0C3178" : "#5275B7"}
-            />
-          )}
-        </Pressable>
-        <SlideUp {...{ slideOn, toggleSlide, navigation }} />
       </View>
-    </View>
+      {slideOn && (
+        <View
+          style={{
+            backgroundColor: "#2e2e2ea0",
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+          }}
+        ></View>
+      )}
+    </>
   );
 };
 

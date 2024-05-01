@@ -1,4 +1,4 @@
-import { Animated, View, TouchableOpacity } from "react-native";
+import { Animated, View, Pressable } from "react-native";
 
 const MyTabBar = ({ state, descriptors, navigation, position }) => {
   return (
@@ -46,7 +46,8 @@ const MyTabBar = ({ state, descriptors, navigation, position }) => {
         });
 
         return (
-          <TouchableOpacity
+          <Pressable
+            key={index}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -74,7 +75,7 @@ const MyTabBar = ({ state, descriptors, navigation, position }) => {
             >
               {label}
             </Animated.Text>
-          </TouchableOpacity>
+          </Pressable>
         );
       })}
     </View>

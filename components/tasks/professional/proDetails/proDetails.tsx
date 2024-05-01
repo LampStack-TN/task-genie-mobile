@@ -18,25 +18,16 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import Application from "../../../../types/Application";
-
 import gradient from "../../../../assets/images/double-gradient.png";
-import Skills from "../../../../data/skills.json";
-
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
-  const skill = Skills.slice(0, 5);
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
-  const [modalVisible, setModalVisible] = useState(false);
   const [applications, setApplications] = useState<Application[]>([]);
-
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const taskId = route.params.taskId;
-
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
-
   const fetchOne = async () => {
     try {
       const { data } = await ApiClient().get(`/task/getOne/${taskId}`);
@@ -45,21 +36,10 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       console.log("fetchOne fails:", err);
     }
   };
-
   useEffect(() => {
     fetchOne();
     fetchApplications();
   }, []);
-
-  const handleDelete = async () => {
-    try {
-      await api.del(`/task/delete/${taskId}`);
-      navigation.navigate("Home");
-    } catch (err) {
-      console.log("Handle delete failed:", err.message);
-    }
-  };
-
   const fetchApplications = async () => {
     try {
       const { data } = await api.get(`task/${taskId}/applications`);
@@ -68,7 +48,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       console.error("Error fetching applications:", err);
     }
   };
-
   const handleAcceptApplication = async (applicationId: number) => {
     try {
       const response = await api.post("task/application/respond", {
@@ -82,13 +61,11 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           )
         );
         setApplications(response.data);
-
       }
     } catch (err) {
       console.error(err);
     }
   };
-
   const handleRejectApplication = async (applicationId: number) => {
     try {
       const response = await api.post("task/application/respond", {
@@ -109,26 +86,29 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       .filter((ele) => ele.status === "Accepted")
       .map((application, index) => (
         <TouchableOpacity
-        key={index}
-        onPress={() => navigation.navigate('ProfileDetails', { userId: application.applicant.id })} 
-      >
-        <View key={index} style={styles.acceptedApplicationCard}>
-          <Image
-            source={{ uri: application.applicant.avatar }}
-            style={styles.applicantAvatar}
-          />
-          <View style={styles.acceptedInfo}>
-            <Text style={styles.applicantName}>
-              {application.applicant.fullName}
-            </Text>
-            <Text style={styles.applicantPrice}>{application.price} TND</Text>
+          key={index}
+          onPress={() =>
+            navigation.navigate("ProfileIndex", {
+              userId: application.applicant.id,
+            })
+          }
+        >
+          <View key={index} style={styles.acceptedApplicationCard}>
+            <Image
+              source={{ uri: application.applicant.avatar }}
+              style={styles.applicantAvatar}
+            />
+            <View style={styles.acceptedInfo}>
+              <Text style={styles.applicantName}>
+                {application.applicant.fullName}
+              </Text>
+              <Text style={styles.applicantPrice}>{application.price} TND</Text>
+            </View>
+            <FontAwesome name="check-circle" size={24} color="green" />
           </View>
-          <FontAwesome name="check-circle" size={24} color="green" />
-        </View>
         </TouchableOpacity>
       ));
   };
-
   return (
     <ImageBackground
       source={gradient}
@@ -138,7 +118,10 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     >
       <View style={styles.header}>
         <Image
-          source={{ uri: task.client?.avatar }}
+          source={{
+            uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
+            // uri: task.client?.avatar,
+          }}
           style={styles.avatar}
         />
         <View style={styles.title}>
@@ -170,37 +153,8 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       <View style={styles.description}>
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
-      <View style={styles.skillContainer}>
-        {skill.map((skill, index) => (
-          <View key={index} style={styles.skillPill}>
-            <Text key={index} style={styles.skillText}>
-              {skill.name}
-            </Text>
-          </View>
-        ))}
-      </View>
 
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Text style={styles.deleteText}>Delete</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => {
-            navigation.navigate("MyTabs", { taskId: task.id, task: task });
-          }}
-        >
-          <Text style={styles.editText}>Edit</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => {
-            navigation.navigate("MyTasks");
-          }}
-        >
-          <Text style={styles.backText}>Back</Text>
-        </TouchableOpacity> */}
-      </View>
+      <View style={styles.footerContainer}></View>
       {renderAcceptedApplications()}
       <Pressable onPress={toggleModal}>
         {({ pressed }) => (
@@ -219,91 +173,33 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </View>
         )}
       </Pressable>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isModalVisible}
-        onRequestClose={toggleModal}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modal}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Applications</Text>
-              <Pressable onPress={toggleModal}>
-                <Text style={styles.modalClose}>✕</Text>
-              </Pressable>
-            </View>
-            <ScrollView style={styles.applicationsList}>
-              {applications
-                .filter((ele) => ele.status !== "Accepted")
-                .map((application, index) => (
-                  <View key={index} style={styles.applicationItem}>
-                    <Image source={{}} style={styles.avatar} />
-                    <Text style={styles.applicantName}>
-                      {application.applicant.fullName}
-                    </Text>
-                    <TouchableOpacity
-                      style={styles.acceptButton}
-                      onPress={() => handleAcceptApplication(application.id)}
-                    >
-                      <Text style={styles.acceptButton}>✓</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.rejectButton}
-                      onPress={() => handleRejectApplication(application.id)}
-                    >
-                      <Text style={styles.rejectButton}>✕</Text>
-                    </TouchableOpacity>
-                  </View>
-                ))}
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
-
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modal}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}></Text>
-              <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.modalClose}>✕</Text>
-              </Pressable>
-            </View>
-            <View style={{}}>
-              <Text style={styles.modalText}>
-                Are u sure u want to delete this task?
+      <ScrollView style={styles.applicationsList}>
+        {applications
+          .filter((ele) => ele.status !== "Accepted")
+          .map((application, index) => (
+            <View key={index} style={styles.applicationItem}>
+              <Image source={{}} style={styles.avatar} />
+              <Text style={styles.applicantName}>
+                {application.applicant.fullName}
               </Text>
-              <View style={styles.buttonRow}>
-                <TouchableOpacity
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>No</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.button, styles.buttonConfirm]}
-                  onPress={() => {
-                    handleDelete();
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <Text style={styles.textStyle}>Yes</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                style={styles.acceptButton}
+                onPress={() => handleAcceptApplication(application.id)}
+              >
+                <Text style={styles.acceptButton}>✓</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.rejectButton}
+                onPress={() => handleRejectApplication(application.id)}
+              >
+                <Text style={styles.rejectButton}>✕</Text>
+              </TouchableOpacity>
             </View>
-          </View>
-        </View>
-      </Modal>
+          ))}
+      </ScrollView>
     </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     padding: 22,
@@ -348,7 +244,6 @@ const styles = StyleSheet.create({
     columnGap: 4,
   },
   propertyText: {
-    flex: 1,
     color: "#2e2e2e",
     fontWeight: "400",
     fontSize: 18,
@@ -361,46 +256,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "#4e4e4e",
   },
-  skillContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginVertical: 10,
-  },
-  skillPill: {
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: "#6e6e6e",
-    backgroundColor: "#f8f8f8",
-    verticalAlign: "middle",
-    textAlign: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    margin: 5,
-  },
-  skillText: {
-    verticalAlign: "middle",
-    textAlign: "center",
-    color: "#4e4e4e",
-    fontSize: 14,
-  },
-  editText: {
-    color: "#0C3178",
-    fontWeight: "bold",
-  },
+
   deleteText: {
     fontWeight: "bold",
     color: "#0C3178",
   },
-  editButton: {
-    marginLeft: 10,
-    borderWidth: 1,
-    borderColor: "#0C3178",
-    borderRadius: 25,
-    paddingHorizontal: 15,
-    paddingVertical: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+
   backButton: {
     marginLeft: 10,
     borderWidth: 1,
@@ -454,14 +315,6 @@ const styles = StyleSheet.create({
     marginTop: 22,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    elevation: 5,
-  },
   buttonRow: {
     flexDirection: "row",
     marginTop: 15,
@@ -484,12 +337,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  modalText: {
-    textAlign: "center",
-    color: "#4e4e4e",
-    fontSize: 18,
-    fontWeight: "600",
-  },
+
   acceptButton: {
     marginRight: 10,
     padding: 10,
@@ -501,37 +349,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#c0392b",
     borderRadius: 20,
   },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    padding: 12,
-  },
-  modal: {
-    backgroundColor: "white",
-    padding: 16,
-    borderRadius: 8,
-    maxHeight: "90%",
-  },
-  modalHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  modalTitle: {
-    fontSize: 22,
-    fontWeight: "500",
-    marginBottom: 16,
-    textAlign: "left",
-  },
-  modalClose: {
-    fontSize: 16,
-    fontWeight: "500",
-    paddingHorizontal: 4,
-    color: "#6e6e6e",
-  },
+
   applicationsList: {
     marginBottom: 16,
   },
@@ -563,6 +381,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     marginVertical: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: 5,
   },
   applicantAvatar: {
@@ -579,5 +404,4 @@ const styles = StyleSheet.create({
     color: "#666",
   },
 });
-
 export default TaskDetails;

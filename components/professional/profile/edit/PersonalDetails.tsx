@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { ApiClient } from "../../../utils/api";
-import Button from "../../ui/Button";
+import { ApiClient } from "../../../../utils/api";
+import Button from "../../../ui/Button";
 
 export default function PersonalDetails({ navigation, route }) {
   const { user } = route.params;
@@ -31,79 +31,91 @@ export default function PersonalDetails({ navigation, route }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.stepContainer}>
-        <Text
-          style={[
-            styles.heading,
-            { marginVertical: 10, alignSelf: "flex-start" },
-          ]}
-        >
-          Edit Profile
-        </Text>
+        <Text style={[styles.heading]}>Edit Personal Informations</Text>
       </View>
 
       <View style={styles.inputContainer}>
         <Controller
           control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="FullName"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+          render={({ field: { onChange, onBlur, value, isTouched } }) => (
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Fullname</Text>
+              <TextInput
+                placeholder="FullName"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="fullName"
         />
+
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="BirthDate"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Birthdate</Text>
+              <TextInput
+                placeholder="BirthDate"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="birthdate"
         />
+
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="Adress"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Address</Text>
+              <TextInput
+                placeholder="Address"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="adress"
         />
+
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="Phone"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Phone Number</Text>
+              <TextInput
+                placeholder="Phone"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="phone"
         />
+
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="email"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Email Address</Text>
+              <TextInput
+                placeholder="email"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="email"
         />
@@ -114,11 +126,7 @@ export default function PersonalDetails({ navigation, route }) {
           style="bare"
           callback={() => navigation.goBack()}
         />
-        <Button
-          label="Submit"
-          style="fill"
-          callback={handleSubmit(onSubmit)}
-        />
+        <Button label="Submit" style="fill" callback={handleSubmit(onSubmit)} />
       </View>
     </ScrollView>
   );
@@ -133,31 +141,44 @@ const styles = StyleSheet.create({
   },
   stepContainer: {
     alignSelf: "flex-start",
-    marginVertical: 15,
   },
   heading: {
     fontSize: 22,
     fontWeight: "bold",
     color: "#0C3178",
+    alignSelf: "flex-start",
+    paddingTop: 10,
+    marginBottom: 22,
   },
   inputContainer: {
+    marginVertical: 11,
     width: "100%",
-    flex: 2,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 15,
+    flex: 1,
+    gap: 28,
   },
-  input: {
+  inputView: {
     backgroundColor: "#fff",
     height: 60,
-    width: 350,
     paddingHorizontal: 22,
     borderRadius: 30,
-    borderWidth: 1,
     borderColor: "#e5e5e5",
-    marginBottom: 20,
+    borderWidth: 1,
     fontSize: 14,
-    elevation: 3,
+    justifyContent: "center",
+    elevation: 1,
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
+  },
+  input: {
+    fontSize: 14,
   },
   text: {
     color: "#0C3178",

@@ -10,15 +10,15 @@ import {
   ImageBackground,
   Pressable,
 } from "react-native";
-import Task from "../../../../types/TaskInterface";
-import { ApiClient } from "../../../../utils/api";
+import Task from "../../../types/TaskInterface";
+import { ApiClient } from "../../../utils/api";
 import {
   FontAwesome,
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import Application from "../../../../types/Application";
-import gradient from "../../../../assets/images/double-gradient.png";
+import Application from "../../../types/Application";
+import gradient from "../../../assets/images/double-gradient.png";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});

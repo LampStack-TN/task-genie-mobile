@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,7 +12,7 @@ import Modal from "react-native-modal";
 import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
-import Search from "../../client/search/search";
+import Search from "../search/search";
 const NearbyJobsScreen = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
@@ -23,7 +24,12 @@ const NearbyJobsScreen = ({ navigation }) => {
     const fetchTasks = async () => {
       try {
         const response = await ApiClient().get("/task/getAll");
-        setTasks(response.data);
+        setTasks(
+          response.data.map((task) => ({
+            ...task,
+            liked: task._count.favouriteTasks > 0,
+          }))
+        );
       } catch (error) {
         console.error(error);
       }
@@ -66,32 +72,49 @@ const NearbyJobsScreen = ({ navigation }) => {
   const handleSearchResults = (searchResults) => {
     setTasks(searchResults);
   };
+
+  const toggleLikeTask = async (taskId) => {
+    try {
+      const response = await ApiClient().post("/task/likeTask", { taskId });
+      setTasks((currentTasks) =>
+        currentTasks.map((task) => {
+          if (task.id === taskId) {
+            return { ...task, liked: !task.liked };
+          }
+          return task;
+        })
+      );
+    } catch (error) {
+      setModalMessage("Failed to toggle like.");
+      setModalVisible(true);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <Search onSearchResults={handleSearchResults} />
       <ScrollView style={styles.container}>
         {tasks.map((task) => (
-          <TouchableOpacity
-            key={task.id.toString()}
+          <Pressable
             onPress={() =>
               navigation.navigate("ProDetails", { taskId: task.id })
             }
+            key={task.id}
           >
             <TaskCard
-              key={task.id}
               task={task}
               onApply={() => handleApplyToTask(task)}
+              onToggleLike={() => toggleLikeTask(task.id)}
             />
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </ScrollView>
       <Modal isVisible={isModalVisible}>
         <View style={styles.modalContent}>
-          <Text 
-            style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
+          <Text style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
             Do you want to apply for this task?
           </Text>
-          <TextInput 
+          <TextInput
             style={styles.input}
             placeholder="Suggested Price"
             value={suggestedPrice}
@@ -104,18 +127,13 @@ const NearbyJobsScreen = ({ navigation }) => {
               style={styles.modalButton}
               onPress={handleConfirmApply}
             >
-              <Text 
-              style={styles.modalButtonText}
-              >Yes</Text>
+              <Text style={styles.modalButtonText}>Yes</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.modalButton}
               onPress={handleRejectApply}
             >
-              <Text 
-              style={styles.modalButtonText}
-              >No
-              </Text>
+              <Text style={styles.modalButtonText}>No</Text>
             </TouchableOpacity>
           </View>
         </View>

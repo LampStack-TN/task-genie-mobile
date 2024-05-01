@@ -1,12 +1,14 @@
 import { Text, View } from "react-native";
-import ProfileIndex from "../profile/ProfileIndex";
-import NearbyJobsScreen from "../tasks/professional/applyingTasks/NearbyJobsScreen";
-import AppliedTasks from "../tasks/professional/applyingTasks/AppliedTasks";
-import TaskList from "../tasks/professional/list/TaskList";
-import Tabs from "../profile/edit/Tabs";
-import Home from "../professional/home/ProIndex"
-import proDetails from "../tasks/professional/proDetails/proDetails";
-import ServicesList from "../professional/services/ServicesList";
+import ProfileIndex from "../professional/profile/ProfileIndex";
+import NearbyJobsScreen from "../professional/tasks/applyingTasks/NearbyJobsScreen";
+import Tabs from "../professional/profile/edit/Tabs";
+import Home from "../professional/home/ProIndex";
+import FavouriteTasksList from "../professional/tasks/favouriteTasks/FavouriteTasksList";
+import proDetails from "../professional/tasks/proDetails";
+import MyServices from "../professional/services/MyServices";
+import ProIndex from "../professional/form/ProIndex";
+import ServiceDetails from "../professional/serviceDetails/ServiceDetails";
+import AppliedTasks from "../professional/tasks/applyingTasks/AppliedTasks";
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -16,13 +18,16 @@ const ProNavigator = ({ Stack }) => {
       initialRouteName="Soon"
     >
       <Stack.Screen name="Soon" component={ProHome} />
+      <Stack.Screen name="AddService" component={ProIndex} />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="ServicesList" component={ServicesList} />
+      <Stack.Screen name="MyServices" component={MyServices} />
+      <Stack.Screen name="ServiceDetails" component={ServiceDetails} />
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
-      <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList} />
       <Stack.Screen name="ProDetails" component={proDetails} />
+      <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
     </Stack.Navigator>
   );
 };

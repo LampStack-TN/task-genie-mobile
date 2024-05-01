@@ -1,9 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-const TaskCard = ({ task, onApply }) => {
-  
 
+const TaskCard = ({ task, onApply, onToggleLike }) => {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -30,6 +29,13 @@ const TaskCard = ({ task, onApply }) => {
           onPress={() => onApply(task)}
         >
           <Text style={styles.applyButtonText}>Apply</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => onToggleLike()}>
+          <MaterialIcons
+            name={task.liked ? "favorite" : "favorite-outline"}
+            size={40}
+            color="#F58D61"
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -84,13 +90,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     columnGap: 4,
+    marginBottom: 5,
   },
   applyButton: {
     backgroundColor: "#0C3178",
     borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    marginBottom: 10,
   },
   applyButtonText: {
     color: "#fff",

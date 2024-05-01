@@ -5,5 +5,4 @@ export type Service = {
     price: any;
     availability: string;  
     location: string;
-    skill:[]
   };

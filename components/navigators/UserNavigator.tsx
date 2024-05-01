@@ -1,13 +1,13 @@
-import TaskDetails from "../tasks/client/taskDetails/TaskDetails";
-import MyTabs from "../tasks/client/edit/MyTabs";
-import UserTaskList from "../tasks/client/userTaskList/Index";
-import TaskStepsIndex from "../tasks/client/form";
-import Home from "../home/Index";
-import ProfileDetails from "../profile/ProfileDetails"
+import TaskDetails from "../client/tasks/taskDetails/TaskDetails";
+import MyTabs from "../client/tasks/edit/MyTabs";
+import UserTaskList from "../client/tasks/userTaskList/Index";
+import TaskStepsIndex from "../client/tasks/form";
+import Home from "../client/home/Index";
+import ProfileDetails from "../client/ProfileDetails";
 
-import Profile from "../profile/Profile";
-import search from '../tasks/client/search/search'
-
+import Profile from "../professional/profile/Profile";
+import search from "../professional/tasks/search/search";
+import ServicesList from "../professional/services/ServicesList";
 import React from "react";
 const UserNavigator = ({ Stack }) => {
   return (
@@ -25,6 +25,7 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Search" component={search} />
+      <Stack.Screen name="ServicesList" component={ServicesList} />
     </Stack.Navigator>
   );
 };

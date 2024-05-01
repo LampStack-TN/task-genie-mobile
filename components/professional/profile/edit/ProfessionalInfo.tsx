@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { ApiClient } from "../../../utils/api";
-import Button from "../../ui/Button";
+import { ApiClient } from "../../../../utils/api";
+import Button from "../../../ui/Button";
 
 export default function ProfessionalInfo({ navigation, route }) {
   const { profile } = route.params;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -94,22 +95,26 @@ const NearbyJobsScreen = ({ navigation }) => {
       <Search onSearchResults={handleSearchResults} />
       <ScrollView style={styles.container}>
         {tasks.map((task) => (
-          <TaskCard
+          <Pressable
+            onPress={() =>
+              navigation.navigate("ProDetails", { taskId: task.id })
+            }
             key={task.id}
-            task={task}
-            onApply={() => handleApplyToTask(task)}
-            onToggleLike={() => toggleLikeTask(task.id)}
-          />
-
+          >
+            <TaskCard
+              task={task}
+              onApply={() => handleApplyToTask(task)}
+              onToggleLike={() => toggleLikeTask(task.id)}
+            />
+          </Pressable>
         ))}
       </ScrollView>
       <Modal isVisible={isModalVisible}>
         <View style={styles.modalContent}>
-          <Text 
-            style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
+          <Text style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
             Do you want to apply for this task?
           </Text>
-          <TextInput 
+          <TextInput
             style={styles.input}
             placeholder="Suggested Price"
             value={suggestedPrice}
@@ -122,18 +127,13 @@ const NearbyJobsScreen = ({ navigation }) => {
               style={styles.modalButton}
               onPress={handleConfirmApply}
             >
-              <Text 
-              style={styles.modalButtonText}
-              >Yes</Text>
+              <Text style={styles.modalButtonText}>Yes</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.modalButton}
               onPress={handleRejectApply}
             >
-              <Text 
-              style={styles.modalButtonText}
-              >No
-              </Text>
+              <Text style={styles.modalButtonText}>No</Text>
             </TouchableOpacity>
           </View>
         </View>

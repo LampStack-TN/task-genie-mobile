@@ -8,27 +8,20 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
-
 import { appendData } from "../../../redux/slices/registerSlice";
 import Button from "../../ui/Button";
-
 import cities from "../../../data/cities.json";
-
 import SearchableDropdown from "react-native-searchable-dropdown";
 import axios from "axios";
 import config from "../../../config";
-
 const Contact = ({ navigation }) => {
   // Loader State
   const [loading, setLoading] = useState(false);
   const [drop, setDrop] = useState("");
-
   const registerData = useSelector((state: any) => state.registerData);
   const dispatch = useDispatch();
-console.log('registerData :' ,registerData)
   const {
     control,
     handleSubmit,
@@ -41,7 +34,6 @@ console.log('registerData :' ,registerData)
       zipcode: "",
     },
   });
-
   const sumbitRegister = async (registerData) => {
     try {
       setLoading(true);
@@ -57,7 +49,6 @@ console.log('registerData :' ,registerData)
       console.error(error);
     }
   };
-
   const onSubmit = (data) => {
     dispatch(appendData(data));
     sumbitRegister({ ...registerData, avatar: registerData.avatar });
@@ -73,11 +64,9 @@ console.log('registerData :' ,registerData)
           <View style={styles.inputView}>
             <Controller
               control={control}
-              rules={
-                {
-                  required: { value: true, message: "Phone is required" },
-                }
-              }
+              rules={{
+                required: { value: true, message: "Phone is required" },
+              }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onChangeText={onChange}
@@ -96,11 +85,9 @@ console.log('registerData :' ,registerData)
           <View style={styles.inputView}>
             <Controller
               control={control}
-              rules={
-                {
-                  required: { value: true, message: "Fullname is required" },
-                }
-              }
+              rules={{
+                required: { value: true, message: "Fullname is required" },
+              }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onChangeText={onChange}
@@ -205,9 +192,7 @@ console.log('registerData :' ,registerData)
     </>
   );
 };
-
 export default Contact;
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",

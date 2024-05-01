@@ -136,9 +136,9 @@ const Contact = ({ navigation }) => {
             <View style={[{ flex: 7 }]}>
               <Controller
                 control={control}
-                rules={{
-                  required: { value: true, message: "City is required" },
-                }}
+                // rules={{
+                //   required: { value: true, message: "City is required" },
+                // }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SearchableDropdown
                     onItemSelect={(item) => {

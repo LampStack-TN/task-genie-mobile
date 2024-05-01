@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ApiClient } from "../../../utils/api";
 
-const Index = () => {
+const ConversationList = () => {
   const [conversations, setConversations] = useState();
 
   const getConversations = async () => {
@@ -18,6 +18,6 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default ConversationList;
 
 const styles = StyleSheet.create({});

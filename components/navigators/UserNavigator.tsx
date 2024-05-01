@@ -3,11 +3,11 @@ import MyTabs from "../client/tasks/edit/MyTabs";
 import UserTaskList from "../client/tasks/userTaskList/Index";
 import TaskStepsIndex from "../client/tasks/form";
 import Home from "../client/home/Index";
-import ProfileDetails from "../client/ProfileDetails"
+import ProfileDetails from "../client/ProfileDetails";
 
 import Profile from "../professional/profile/Profile";
-import search from '../professional/tasks/search/search'
-
+import search from "../professional/tasks/search/search";
+import ServicesList from "../professional/services/ServicesList";
 import React from "react";
 const UserNavigator = ({ Stack }) => {
   return (
@@ -25,6 +25,7 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Search" component={search} />
+      <Stack.Screen name="ServicesList" component={ServicesList} />
     </Stack.Navigator>
   );
 };

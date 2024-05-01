@@ -5,7 +5,6 @@ import Tabs from "../professional/profile/edit/Tabs";
 import Home from "../professional/home/ProIndex";
 import FavouriteTasksList from "../professional/tasks/favouriteTasks/FavouriteTasksList";
 import proDetails from "../professional/tasks/proDetails";
-import ServicesList from "../professional/services/ServicesList";
 import MyServices from "../professional/services/MyServices";
 import ProIndex from "../professional/form/ProIndex";
 import ServiceDetails from "../professional/serviceDetails/ServiceDetails";
@@ -21,7 +20,6 @@ const ProNavigator = ({ Stack }) => {
       <Stack.Screen name="Soon" component={ProHome} />
       <Stack.Screen name="AddService" component={ProIndex} />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="ServicesList" component={ServicesList} />
       <Stack.Screen name="MyServices" component={MyServices} />
       <Stack.Screen name="ServiceDetails" component={ServiceDetails} />
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />

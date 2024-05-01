@@ -22,7 +22,6 @@ const ProMenu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const menu = [
-    { id: 1, title: "Services List", name: "ServicesList", icon: "list" },
     {
       id: 2,
       title: "My Services",

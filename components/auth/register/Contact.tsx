@@ -36,7 +36,7 @@ const Contact = ({ navigation }) => {
   } = useForm({
     defaultValues: {
       phone: "",
-      city: "",
+      city: "hard code it just for testing ...",
       address: "",
       zipcode: "",
     },
@@ -75,7 +75,7 @@ const Contact = ({ navigation }) => {
               control={control}
               rules={
                 {
-                  // required: { value: true, message: "Phone is required" },
+                  required: { value: true, message: "Phone is required" },
                 }
               }
               render={({ field: { onChange, onBlur, value } }) => (
@@ -98,7 +98,7 @@ const Contact = ({ navigation }) => {
               control={control}
               rules={
                 {
-                  // required: { value: true, message: "Fullname is required" },
+                  required: { value: true, message: "Fullname is required" },
                 }
               }
               render={({ field: { onChange, onBlur, value } }) => (
@@ -136,9 +136,9 @@ const Contact = ({ navigation }) => {
             <View style={[{ flex: 7 }]}>
               <Controller
                 control={control}
-                // rules={{
-                //   required: { value: true, message: "City is required" },
-                // }}
+                rules={{
+                  required: { value: true, message: "City is required" },
+                }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <SearchableDropdown
                     onItemSelect={(item) => {

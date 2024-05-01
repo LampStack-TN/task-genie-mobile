@@ -30,6 +30,18 @@ const ProMenu = () => {
       icon: "check-circle",
     },
     { id: 3, title: "Nearby Jobs", name: "Tasks", icon: "task" },
+    {
+      id: 4,
+      title: "Applied Tasks",
+      name: "AppliedJobs",
+      icon: "check-circle",
+    },
+    {
+      id: 5,
+      title: "FavouriteTasksList",
+      name: "FavouriteTasksList",
+      icon: "list",
+    },
   ];
 
   return (

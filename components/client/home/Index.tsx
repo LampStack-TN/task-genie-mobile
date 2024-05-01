@@ -21,17 +21,7 @@ type RootStackParamList = {
 const Menu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const menu = [
-    { id: 1, title: "Task List", name: "MyTasks", icon: "list" },
-    {
-      id: 2,
-      title: "Applied Tasks",
-      name: "AppliedJobs",
-      icon: "check-circle",
-    },
-    { id: 3, title: "Nearby Jobs", name: "Tasks", icon: "task" },
-    {id:4,title:"FavouriteTasksList",name:"FavouriteTasksList",icon:"list"}
-  ];
+  const menu = [{ id: 1, title: "Task List", name: "MyTasks", icon: "list" }];
 
   return (
     <ImageBackground

@@ -3,12 +3,13 @@ import ProfileIndex from "../professional/profile/ProfileIndex";
 import NearbyJobsScreen from "../professional/tasks/applyingTasks/NearbyJobsScreen";
 import Tabs from "../professional/profile/edit/Tabs";
 import Home from "../professional/home/ProIndex";
-import FavouriteTasksList from "../professional/tasks/favouriteTasks/FavouriteTasksList"
+import FavouriteTasksList from "../professional/tasks/favouriteTasks/FavouriteTasksList";
 import proDetails from "../professional/tasks/proDetails";
 import ServicesList from "../professional/services/ServicesList";
 import MyServices from "../professional/services/MyServices";
 import ProIndex from "../professional/form/ProIndex";
 import ServiceDetails from "../professional/serviceDetails/ServiceDetails";
+import AppliedTasks from "../professional/tasks/applyingTasks/AppliedTasks";
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -26,8 +27,9 @@ const ProNavigator = ({ Stack }) => {
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />
-      <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList}/>
+      <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList} />
       <Stack.Screen name="ProDetails" component={proDetails} />
+      <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
     </Stack.Navigator>
   );
 };

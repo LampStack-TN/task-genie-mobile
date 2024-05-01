@@ -27,7 +27,7 @@ const BasicInfos = ({ navigation }:any) => {
       avatar : null
     },
   });
-  
+
   const onSubmit = (data) => {
     dispatch(appendData({ ...data }));
     navigation.navigate("contact");
@@ -57,7 +57,7 @@ const BasicInfos = ({ navigation }:any) => {
   {watch("avatar") ? (
     <Image source={{ uri: watch("avatar") }} />
   ) : (
-    <Pressable onPress={()=>{}} >
+    <Pressable onPress={handlePickImage} >
       <Text>Select Image</Text>
     </Pressable>
   )}

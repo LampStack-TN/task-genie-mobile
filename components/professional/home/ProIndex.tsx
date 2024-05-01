@@ -41,6 +41,7 @@ const ProMenu = () => {
       name: "FavouriteTasksList",
       icon: "list",
     },
+    { id: 6, title: "Chat", name: "ConversationList", icon: "chat" },
   ];
 
   return (

@@ -9,6 +9,7 @@ import Profile from "../professional/profile/Profile";
 import search from "../professional/tasks/search/search";
 import ServicesList from "../professional/services/ServicesList";
 import React from "react";
+import ConversationList from "../chat/conversation-list/Index";
 const UserNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -26,6 +27,7 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Search" component={search} />
       <Stack.Screen name="ServicesList" component={ServicesList} />
+      <Stack.Screen name="ConversationList" component={ConversationList} />
     </Stack.Navigator>
   );
 };

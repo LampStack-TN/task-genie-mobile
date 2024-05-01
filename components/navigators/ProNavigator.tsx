@@ -9,6 +9,7 @@ import MyServices from "../professional/services/MyServices";
 import ProIndex from "../professional/form/ProIndex";
 import ServiceDetails from "../professional/serviceDetails/ServiceDetails";
 import AppliedTasks from "../professional/tasks/applyingTasks/AppliedTasks";
+import ConversationList from "../chat/conversation-list/Index";
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -28,6 +29,7 @@ const ProNavigator = ({ Stack }) => {
       <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList} />
       <Stack.Screen name="ProDetails" component={proDetails} />
       <Stack.Screen name="AppliedJobs" component={AppliedTasks} />
+      <Stack.Screen name="ConversationList" component={ConversationList} />
     </Stack.Navigator>
   );
 };

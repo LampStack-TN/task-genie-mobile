@@ -5,33 +5,46 @@ import {
   TextInput,
   View,
   ScrollView,
+  Pressable,
+  Image,
 } from "react-native";
-
 import { useSelector, useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
-
+import * as ImagePicker from "expo-image-picker";
 import { appendData } from "../../../redux/slices/registerSlice";
 import { Ionicons } from "@expo/vector-icons";
 import Button from "../../ui/Button";
-
-const BasicInfos = ({ navigation }) => {
+const BasicInfos = ({ navigation }: any) => {
   const dispatch = useDispatch();
-
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm({
     defaultValues: {
       fullName: "",
       birthdate: "",
+      avatar: null,
     },
   });
   const onSubmit = (data) => {
-    dispatch(appendData(data));
+    dispatch(appendData({ ...data }));
     navigation.navigate("contact");
   };
+  const handlePickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
+    if (result) {
+      setValue("avatar", result.assets[0].uri);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -40,8 +53,15 @@ const BasicInfos = ({ navigation }) => {
           <Text style={styles.subTitle}>Basic Informations</Text>
         </View>
         <View style={styles.section}>
-          <View style={styles.dummyImg}></View>
-
+          <View style={styles.dummyImg}>
+            {watch("avatar") ? (
+              <Image source={{ uri: watch("avatar") }} />
+            ) : (
+              <Pressable onPress={handlePickImage} style={styles.placeholder}>
+                <Text>Select Image</Text>
+              </Pressable>
+            )}
+          </View>
           <View style={styles.section}>
             <View style={styles.inputView}>
               <Controller
@@ -65,7 +85,6 @@ const BasicInfos = ({ navigation }) => {
                 {errors.fullName.message}
               </Text>
             )}
-
             <View style={styles.inputView}>
               <Controller
                 control={control}
@@ -109,9 +128,7 @@ const BasicInfos = ({ navigation }) => {
     </View>
   );
 };
-
 export default BasicInfos;
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
@@ -195,5 +212,12 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0, 0, 0, 0.3)",
     borderWidth: 5,
     alignSelf: "center",
+  },
+
+  placeholder: {
+    width: 180,
+    height: 180,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

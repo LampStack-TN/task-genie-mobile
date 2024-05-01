@@ -9,7 +9,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
-import gradient from "../../../assets/images/orange_gradient.png"
+import gradient from "../../../assets/images/orange_gradient.png";
 
 type RootStackParamList = {
   TaskList: String;
@@ -18,15 +18,15 @@ type RootStackParamList = {
   MyTasks: String;
 };
 
-const  ProMenu =() => {
+const ProMenu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const menu = [
     { id: 1, title: "Services List", name: "ServicesList", icon: "list" },
     {
       id: 2,
-      title: "Applied Tasks",
-      name: "AppliedJobs",
+      title: "My Services",
+      name: "MyServices",
       icon: "check-circle",
     },
     { id: 3, title: "Nearby Jobs", name: "Tasks", icon: "task" },

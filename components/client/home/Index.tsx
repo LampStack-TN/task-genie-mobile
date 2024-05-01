@@ -9,7 +9,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
-import gradient from "../../assets/images/orange_gradient.png";
+import gradient from "../../../assets/images/orange_gradient.png";
 
 type RootStackParamList = {
   TaskList: String;

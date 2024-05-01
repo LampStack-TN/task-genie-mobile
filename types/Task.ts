@@ -8,4 +8,5 @@ export type Task = {
     price:string
     task:{}
     status?: 'Pending' | 'Accepted' | 'Rejected';  // Options
+    liked: boolean;
   };

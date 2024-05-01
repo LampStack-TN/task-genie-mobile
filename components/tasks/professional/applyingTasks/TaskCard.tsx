@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-const TaskCard = ({ task, onApply }) => {
-  
+
+const TaskCard = ({ task, onApply,onToggleLike }) => {
+
 
   return (
     <View style={styles.card}>
@@ -32,6 +33,10 @@ const TaskCard = ({ task, onApply }) => {
           <Text style={styles.applyButtonText}>Apply</Text>
         </TouchableOpacity>
       </View>
+    
+      <TouchableOpacity onPress={() => onToggleLike()}>
+        <MaterialIcons name={task.liked ? "favorite" : "favorite-outline"} size={24} color="red" />
+      </TouchableOpacity>
     </View>
   );
 };

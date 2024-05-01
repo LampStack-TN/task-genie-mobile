@@ -3,6 +3,7 @@ import ProfileIndex from "../profile/ProfileIndex";
 import NearbyJobsScreen from "../tasks/professional/applyingTasks/NearbyJobsScreen";
 import Tabs from "../profile/edit/Tabs";
 import Home from "../professional/home/ProIndex";
+import FavouriteTasksList from "../tasks/professional/favouriteTasks/FavouriteTasksList"
 import proDetails from "../tasks/professional/proDetails/proDetails";
 import ServicesList from "../professional/services/ServicesList";
 import MyServices from "../professional/services/MyServices";
@@ -25,6 +26,7 @@ const ProNavigator = ({ Stack }) => {
       <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList}/>
       <Stack.Screen name="ProDetails" component={proDetails} />
     </Stack.Navigator>
   );

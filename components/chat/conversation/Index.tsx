@@ -1,19 +1,52 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { ApiClient } from "../../../utils/api";
 import { useSelector } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 const Conversation = ({ route, navigation }) => {
-  const [conversation, setConversation] = useState(null);
+  const [messages, setMessages] = useState(null);
+  const [participant, setParticipant] = useState(null);
+  const [content, setContent] = useState("");
   const { id } = route.params;
   const user = useSelector((state: any) => state.user);
 
   const getConversation = async () => {
     try {
-      const { data } = await ApiClient().get(`/chat/conversation/${id}`);
-      setConversation(data);
+      const {
+        data: {
+          participants: [{ user }],
+          messages,
+        },
+      } = await ApiClient().get(`/chat/conversation/${id}`);
+      setMessages(messages);
+      setParticipant(user);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const sendMessage = async () => {
+    if (content) {
+      try {
+        const body = {
+          conversationId: id,
+          senderId: user.id,
+          content,
+        };
+        const { data } = await ApiClient().post(`/chat/message`, body);
+        setContent("");
+        setMessages([{ ...data, isMine: true }, ...messages]);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -23,26 +56,40 @@ const Conversation = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      {conversation?.messages.map((item, i) => (
-        <View key={i} style={item.isMine ? styles.myMessage : styles.message}>
-          <Image
-            source={{
-              uri: conversation.participants[0].user.avatar,
-            }}
-            style={styles.profilePhoto}
-          />
-          <View style={item.isMine ? styles.myChatBubble : styles.chatBubble}>
-            <Text
-              style={[
-                { fontSize: 18, fontWeight: "400" },
-                item.isMine ? { color: "#fff" } : { color: "#2e2e2e" },
-              ]}
-            >
-              {item.content}
-            </Text>
+      <View style={styles.chatContainer}>
+        {messages?.map((item, i) => (
+          <View key={i} style={item.isMine ? styles.myMessage : styles.message}>
+            <Image
+              source={{
+                uri: participant.avatar,
+              }}
+              style={styles.profilePhoto}
+            />
+            <View style={item.isMine ? styles.myChatBubble : styles.chatBubble}>
+              <Text
+                style={[
+                  { fontSize: 18, fontWeight: "400" },
+                  item.isMine ? { color: "#fff" } : { color: "#2e2e2e" },
+                ]}
+              >
+                {item.content}
+              </Text>
+            </View>
           </View>
-        </View>
-      ))}
+        ))}
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          onChangeText={setContent}
+          placeholder="Message..."
+          value={content}
+          style={styles.input}
+        />
+
+        <Pressable onPress={sendMessage} style={styles.inputIcon}>
+          <Ionicons name="send" size={32} color="#0C3178" />
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -55,8 +102,13 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flex: 1,
     backgroundColor: "#fff",
+  },
+  chatContainer: {
+    padding: 8,
+    flex: 1,
     flexDirection: "column-reverse",
     gap: 12,
+    marginVertical: 12,
   },
   message: {
     gap: 6,
@@ -92,5 +144,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignSelf: "flex-end",
     borderColor: "#F58D6180",
+  },
+  inputView: {
+    backgroundColor: "#fff",
+    height: 60,
+    paddingHorizontal: 22,
+    borderRadius: 30,
+    borderColor: "#e5e5e5",
+    borderWidth: 1,
+    fontSize: 14,
+    justifyContent: "center",
+    elevation: 3,
+  },
+  input: {
+    fontSize: 14,
+    flex: 1,
+    flexWrap: "wrap",
+  },
+  inputIcon: {
+    position: "absolute",
+    right: 28,
   },
 });

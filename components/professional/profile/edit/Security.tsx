@@ -1,8 +1,8 @@
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
-import { ApiClient } from "../../../utils/api";
-import Button from "../../ui/Button";
+import { ApiClient } from "../../../../utils/api";
+import Button from "../../../ui/Button";
 
 const Security = ({ navigation }) => {
   // const [showPassword, setShowPassword] = useState(false)

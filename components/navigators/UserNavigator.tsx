@@ -1,12 +1,12 @@
-import TaskDetails from "../tasks/client/taskDetails/TaskDetails";
-import MyTabs from "../tasks/client/edit/MyTabs";
-import UserTaskList from "../tasks/client/userTaskList/Index";
-import TaskStepsIndex from "../tasks/client/form";
-import Home from "../home/Index";
-import ProfileDetails from "../profile/ProfileDetails"
+import TaskDetails from "../client/tasks/taskDetails/TaskDetails";
+import MyTabs from "../client/tasks/edit/MyTabs";
+import UserTaskList from "../client/tasks/userTaskList/Index";
+import TaskStepsIndex from "../client/tasks/form";
+import Home from "../client/home/Index";
+import ProfileDetails from "../client/ProfileDetails"
 
-import Profile from "../profile/Profile";
-import search from '../tasks/client/search/search'
+import Profile from "../professional/profile/Profile";
+import search from '../professional/tasks/search/search'
 
 import React from "react";
 const UserNavigator = ({ Stack }) => {

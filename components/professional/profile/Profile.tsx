@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 import gradient from "../../assets/images/double-gradient.png";
 import { useNavigation } from "@react-navigation/native";
 

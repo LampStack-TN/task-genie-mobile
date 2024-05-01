@@ -11,7 +11,7 @@ import Modal from "react-native-modal";
 import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
-import Search from "../../client/search/search";
+import Search from "../search/search";
 const NearbyJobsScreen = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);

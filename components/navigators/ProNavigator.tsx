@@ -1,10 +1,10 @@
 import { Text, View } from "react-native";
-import ProfileIndex from "../profile/ProfileIndex";
-import NearbyJobsScreen from "../tasks/professional/applyingTasks/NearbyJobsScreen";
-import Tabs from "../profile/edit/Tabs";
+import ProfileIndex from "../professional/profile/ProfileIndex";
+import NearbyJobsScreen from "../professional/tasks/applyingTasks/NearbyJobsScreen";
+import Tabs from "../professional/profile/edit/Tabs";
 import Home from "../professional/home/ProIndex";
-import FavouriteTasksList from "../tasks/professional/favouriteTasks/FavouriteTasksList"
-import proDetails from "../tasks/professional/proDetails/proDetails";
+import FavouriteTasksList from "../professional/tasks/favouriteTasks/FavouriteTasksList"
+import proDetails from "../professional/tasks/proDetails";
 import ServicesList from "../professional/services/ServicesList";
 import MyServices from "../professional/services/MyServices";
 import ProIndex from "../professional/form/ProIndex";

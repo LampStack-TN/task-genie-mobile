@@ -2,7 +2,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ApiClient } from "../../../utils/api";
 
-const ConversationList = () => {
+const ConversationList = ({ navigation }) => {
   const [conversations, setConversations] = useState(null);
 
   const getConversations = async () => {
@@ -17,14 +17,14 @@ const ConversationList = () => {
   useEffect(() => {
     getConversations();
   }, []);
+
   return (
     <View style={styles.container}>
       {conversations?.map((item) => (
         <Pressable
           key={item.id}
           onPress={() => {
-            // navigation.navigate("ProfileIndex");
-            // toggleSlide();
+            navigation.navigate("Conversation", { id: item.id });
           }}
         >
           {({ pressed }) => (

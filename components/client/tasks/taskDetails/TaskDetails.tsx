@@ -20,10 +20,8 @@ import {
 import Application from "../../../../types/Application";
 
 import gradient from "../../../../assets/images/double-gradient.png";
-import Skills from "../../../../data/skills.json";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
-  const skill = Skills.slice(0, 5);
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,6 +38,8 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const fetchOne = async () => {
     try {
       const { data } = await ApiClient().get(`/task/getOne/${taskId}`);
+      console.log(data);
+
       setTask(data);
     } catch (err) {
       console.log("fetchOne fails:", err);
@@ -82,7 +82,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           )
         );
         setApplications(response.data);
-
       }
     } catch (err) {
       console.error(err);
@@ -109,22 +108,26 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       .filter((ele) => ele.status === "Accepted")
       .map((application, index) => (
         <TouchableOpacity
-        key={index}
-        onPress={() => navigation.navigate('ProfileDetails', { userId: application.applicant.id })} 
-      >
-        <View key={index} style={styles.acceptedApplicationCard}>
-          <Image
-            source={{ uri: application.applicant.avatar }}
-            style={styles.applicantAvatar}
-          />
-          <View style={styles.acceptedInfo}>
-            <Text style={styles.applicantName}>
-              {application.applicant.fullName}
-            </Text>
-            <Text style={styles.applicantPrice}>{application.price} TND</Text>
+          key={index}
+          onPress={() =>
+            navigation.navigate("ProfileDetails", {
+              userId: application.applicant.id,
+            })
+          }
+        >
+          <View key={index} style={styles.acceptedApplicationCard}>
+            <Image
+              source={{ uri: application.applicant.avatar }}
+              style={styles.applicantAvatar}
+            />
+            <View style={styles.acceptedInfo}>
+              <Text style={styles.applicantName}>
+                {application.applicant.fullName}
+              </Text>
+              <Text style={styles.applicantPrice}>{application.price} TND</Text>
+            </View>
+            <FontAwesome name="check-circle" size={24} color="green" />
           </View>
-          <FontAwesome name="check-circle" size={24} color="green" />
-        </View>
         </TouchableOpacity>
       ));
   };
@@ -137,10 +140,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       style={styles.container}
     >
       <View style={styles.header}>
-        <Image
-          source={{ uri: task.client?.avatar }}
-          style={styles.avatar}
-        />
+        <Image source={{ uri: task.client?.avatar }} style={styles.avatar} />
         <View style={styles.title}>
           <Text style={styles.titleText}>{task.title}</Text>
         </View>
@@ -171,7 +171,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
       <View style={styles.skillContainer}>
-        {skill.map((skill, index) => (
+        {task.skills?.map((skill, index) => (
           <View key={index} style={styles.skillPill}>
             <Text key={index} style={styles.skillText}>
               {skill.name}

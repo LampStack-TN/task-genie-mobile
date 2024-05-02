@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, Text, Pressable, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  ImageBackground,
+} from "react-native";
 import ServiceCard from "./ServicesCard";
 import { ApiClient } from "../../../utils/api";
 import { Service } from "../../../types/Service";
+import gradient from "../../../assets/images/double-gradient.png";
 
 const ServicesList = ({ navigation }) => {
   const [services, setServices] = useState<Service[]>([]);
@@ -20,15 +28,20 @@ const ServicesList = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <ImageBackground
+      resizeMode="cover"
+      source={gradient}
+      style={{ flex: 1 }}
+      imageStyle={{ opacity: 0.45 }}
+    >
       <ScrollView style={styles.container}>
         {services.map((service) => (
-          <Pressable key={service.id} >
+          <Pressable key={service.id}>
             <ServiceCard service={service} />
           </Pressable>
         ))}
       </ScrollView>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -40,6 +53,5 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flex: 1,
     rowGap: 22,
-    backgroundColor: "#fff",
   },
 });

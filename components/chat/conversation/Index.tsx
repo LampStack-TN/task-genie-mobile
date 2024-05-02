@@ -10,13 +10,18 @@ import { useState, useEffect } from "react";
 import { ApiClient } from "../../../utils/api";
 import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
+import io from "socket.io-client";
+import config from "../../../config";
 
 const Conversation = ({ route, navigation }) => {
-  const [messages, setMessages] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [participant, setParticipant] = useState(null);
   const [content, setContent] = useState("");
   const { id } = route.params;
   const user = useSelector((state: any) => state.user);
+
+  // Connect to Socket.IO server
+  const socket = io("http://192.168.137.1:3000");
 
   const getConversation = async () => {
     try {
@@ -36,14 +41,14 @@ const Conversation = ({ route, navigation }) => {
   const sendMessage = async () => {
     if (content) {
       try {
-        const body = {
+        const message = {
           conversationId: id,
-          senderId: user.id,
           content,
         };
-        const { data } = await ApiClient().post(`/chat/message`, body);
+        const { data } = await ApiClient().post(`/chat/message`, message);
         setContent("");
-        setMessages([{ ...data, isMine: true }, ...messages]);
+        // setMessages([{ ...data, isMine: true }, ...messages]);
+        socket.emit("sendMessage", { ...message, senderId: user.id });
       } catch (error) {
         console.log(error);
       }
@@ -52,6 +57,16 @@ const Conversation = ({ route, navigation }) => {
 
   useEffect(() => {
     getConversation();
+    socket.on("message", (message) => {
+      console.log(message);
+      setMessages((messages) => [
+        { ...message, isMine: message.senderId == user.id },
+        ...messages,
+      ]);
+    });
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
@@ -61,7 +76,7 @@ const Conversation = ({ route, navigation }) => {
           <View key={i} style={item.isMine ? styles.myMessage : styles.message}>
             <Image
               source={{
-                uri: participant.avatar,
+                uri: participant?.avatar,
               }}
               style={styles.profilePhoto}
             />

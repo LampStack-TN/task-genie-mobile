@@ -26,7 +26,7 @@ const Contact = ({ navigation }) => {
   //location
   const [currentLocation, setCurrentLocation] = useState(null);
   const [address, setAddress] = useState(null);
-  const [loadingLocation, setLoadingLocation] = useState(true);
+  const [loadingLocation, setLoadingLocation] = useState(false);
 
   useEffect(() => {
     const getLocation = async () => {
@@ -39,19 +39,25 @@ const Contact = ({ navigation }) => {
       let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location);
       console.log(location);
-      setLoadingLocation(false);
     };
     getLocation();
   }, []);
 
   const reverseGeocode = async () => {
+    console.log(123);
+
     if (currentLocation) {
+      setLoadingLocation(true);
       const { coords } = currentLocation;
-      const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
+      Location.reverseGeocodeAsync({
         longitude: coords.longitude,
         latitude: coords.latitude,
-      });
-      setAddress(reverseGeocodedAddress);
+      })
+        .then((reverseGeocodedAddress) => {
+          console.log(reverseGeocodedAddress);
+          setAddress(reverseGeocodedAddress);
+        })
+        .finally(() => setLoadingLocation(false));
     }
   };
 
@@ -62,6 +68,8 @@ const Contact = ({ navigation }) => {
         ? `${address[0]?.name},${address[0]?.region}, ${address[0]?.country}`
         : ""
     );
+    setValue("city", address ? `${address[0]?.city}` : "");
+    setDrop(address ? `${address[0]?.city}` : "");
   }, [address]);
 
   //
@@ -121,6 +129,7 @@ const Contact = ({ navigation }) => {
                 <TextInput
                   onChangeText={onChange}
                   placeholder="Phone Number"
+                  inputMode="numeric"
                   value={value}
                   style={styles.input}
                 />
@@ -147,27 +156,27 @@ const Contact = ({ navigation }) => {
                   value={value}
                   style={{ ...styles.input, flex: 1 }}
                 />
-                {loadingLocation ? (
-                  <ActivityIndicator
-                    size="small"
-                    color="#0C3178"
-                    style={styles.loader}
-                  />
-                ) : (
-                  <Pressable
-                    onPress={() => {
-                      reverseGeocode();
-                    }}
-                  >
-                    <View style={styles.inputIcon}>
+                <View style={styles.inputIcon}>
+                  {loadingLocation ? (
+                    <ActivityIndicator
+                      size="small"
+                      color="#0C3178"
+                      style={styles.loader}
+                    />
+                  ) : (
+                    <Pressable
+                      onPress={() => {
+                        reverseGeocode();
+                      }}
+                    >
                       <MaterialIcons
                         name="gps-fixed"
-                        size={26}
+                        size={36}
                         color="#F54D6180"
                       />
-                    </View>
-                  </Pressable>
-                )}
+                    </Pressable>
+                  )}
+                </View>
               </View>
             )}
             name="address"
@@ -344,8 +353,8 @@ const styles = StyleSheet.create({
   },
   inputIcon: {
     position: "absolute",
-    right: 7,
-    transform: [{ translateY: -40 }],
+    top: 9,
+    right: 12,
   },
   dummyImg: {
     width: 180,

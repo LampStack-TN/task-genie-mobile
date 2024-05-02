@@ -14,7 +14,9 @@ import * as ImagePicker from "expo-image-picker";
 import { appendData } from "../../../redux/slices/registerSlice";
 import { Ionicons } from "@expo/vector-icons";
 import Button from "../../ui/Button";
+import { useState } from "react";
 const BasicInfos = ({ navigation }: any) => {
+  const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const {
     control,
@@ -34,15 +36,21 @@ const BasicInfos = ({ navigation }: any) => {
     navigation.navigate("contact");
   };
   const handlePickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let {
+      assets: [asset],
+    } = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
+      base64: true,
       quality: 1,
     });
+    if (asset) {
+      const { uri, base64, mimeType } = asset;
+      const buffer = "data:" + mimeType + ";base64," + base64;
 
-    if (result) {
-      setValue("avatar", result.assets[0].uri);
+      setImage(uri);
+      setValue("avatar", buffer);
     }
   };
   return (
@@ -59,7 +67,7 @@ const BasicInfos = ({ navigation }: any) => {
                 style={styles.placeholder}
                 source={{
                   uri:
-                    watch("avatar") ||
+                    image ||
                     "https://tuffexteriors.com/wp-content/uploads/2021/09/image-dummy.jpg",
                 }}
               />

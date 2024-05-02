@@ -92,7 +92,7 @@ const Contact = ({ navigation }) => {
         registerData
       );
       setLoading(true);
-      navigation.navigate("Home");
+      navigation.navigate("login");
     } catch (error) {
       setLoading(false);
       alert("Server Error");

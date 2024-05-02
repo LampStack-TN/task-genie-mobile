@@ -37,7 +37,7 @@ const BasicInfos = ({ navigation }: any) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -54,13 +54,16 @@ const BasicInfos = ({ navigation }: any) => {
         </View>
         <View style={styles.section}>
           <View style={styles.dummyImg}>
-            {watch("avatar") ? (
-              <Image source={{ uri: watch("avatar") }} />
-            ) : (
-              <Pressable onPress={handlePickImage} style={styles.placeholder}>
-                <Text>Select Image</Text>
-              </Pressable>
-            )}
+            <Pressable onPress={handlePickImage}>
+              <Image
+                style={styles.placeholder}
+                source={{
+                  uri:
+                    watch("avatar") ||
+                    "https://tuffexteriors.com/wp-content/uploads/2021/09/image-dummy.jpg",
+                }}
+              />
+            </Pressable>
           </View>
           <View style={styles.section}>
             <View style={styles.inputView}>
@@ -209,6 +212,7 @@ const styles = StyleSheet.create({
     height: 180,
     backgroundColor: "rgba(0, 0, 0, 0.1)",
     borderRadius: 90,
+    overflow: "hidden",
     borderColor: "rgba(0, 0, 0, 0.3)",
     borderWidth: 5,
     alignSelf: "center",

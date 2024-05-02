@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
   profile: {
     // alignItems: "center",
     flexDirection: "row",
-    flex: 1,
     gap: 12,
     padding: 5,
     paddingBottom: 12,

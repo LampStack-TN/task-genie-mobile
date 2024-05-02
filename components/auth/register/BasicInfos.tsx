@@ -73,67 +73,61 @@ const BasicInfos = ({ navigation }: any) => {
               />
             </Pressable>
           </View>
-          <View style={styles.section}>
-            <View style={styles.inputView}>
-              <Controller
-                control={control}
-                rules={{
-                  required: { value: true, message: "Fullname is required" },
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    onChangeText={onChange}
-                    placeholder="Fullname"
-                    value={value}
-                    style={styles.input}
-                  />
-                )}
-                name="fullName"
-              />
-            </View>
-            {errors.fullName && (
-              <Text style={{ color: "#f01010" }}>
-                {errors.fullName.message}
-              </Text>
-            )}
-            <View style={styles.inputView}>
-              <Controller
-                control={control}
-                rules={{
-                  required: { value: true, message: "Birthdate is required" },
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    onChangeText={onChange}
-                    placeholder="Birthdate"
-                    value={value}
-                    style={styles.input}
-                  />
-                )}
-                name="birthdate"
-              />
-              <View style={styles.inputIcon}>
-                <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
-              </View>
-            </View>
-            {errors.birthdate && (
-              <Text style={{ color: "#f01010" }}>
-                {errors.birthdate.message}
-              </Text>
-            )}
-          </View>
-          <View style={styles.footer}>
-            <Button
-              label="Back"
-              style="bare"
-              callback={() => navigation.goBack()}
-            />
-            <Button
-              label="Next"
-              style="outline"
-              callback={handleSubmit(onSubmit)}
+          <View style={styles.inputView}>
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "Fullname is required" },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  placeholder="Fullname"
+                  value={value}
+                  style={styles.input}
+                />
+              )}
+              name="fullName"
             />
           </View>
+          {errors.fullName && (
+            <Text style={{ color: "#f01010" }}>{errors.fullName.message}</Text>
+          )}
+          <View style={styles.inputView}>
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "Birthdate is required" },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  placeholder="Birthdate"
+                  value={value}
+                  style={styles.input}
+                />
+              )}
+              name="birthdate"
+            />
+            <View style={styles.inputIcon}>
+              <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
+            </View>
+          </View>
+          {errors.birthdate && (
+            <Text style={{ color: "#f01010" }}>{errors.birthdate.message}</Text>
+          )}
+        </View>
+        <View style={styles.footer}>
+          <Button
+            label="Back"
+            style="bare"
+            callback={() => navigation.goBack()}
+          />
+          <Button
+            label="Next"
+            style="outline"
+            callback={handleSubmit(onSubmit)}
+          />
         </View>
       </ScrollView>
     </View>
@@ -224,6 +218,7 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0, 0, 0, 0.3)",
     borderWidth: 5,
     alignSelf: "center",
+    marginBottom: 22,
   },
 
   placeholder: {

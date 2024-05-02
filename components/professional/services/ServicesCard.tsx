@@ -1,7 +1,28 @@
-import { View, Text, StyleSheet, Pressable, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ApiClient } from "../../../utils/api";
+const ServiceCard = ({ service, onHireSuccess, navigation }) => {
+  const handleHire = async () => {
+    try {
+      const response = await ApiClient().post("/hiring/hiring/", {
+        serviceId: service.id,
+        price: service.price,
+      });
+      if (response.status === 201) {
+        onHireSuccess();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-const ServiceCard = ({ service }) => {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -23,9 +44,9 @@ const ServiceCard = ({ service }) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <Pressable style={styles.applyButton}>
-          <Text style={styles.applyButtonText}>Apply</Text>
-        </Pressable>
+        <TouchableOpacity style={styles.applyButton} onPress={handleHire}>
+          <Text style={styles.applyButtonText}>Hire</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

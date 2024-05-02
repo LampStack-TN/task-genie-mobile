@@ -26,7 +26,15 @@ const ServicesList = ({ navigation }) => {
     };
     fetchServices();
   }, []);
+  const removeServiceFromList = (serviceId: any) => {
+    setServices((currentServices) =>
+      currentServices.filter((service) => service.id !== serviceId)
+    );
+  };
 
+  const handleHireSuccess = (serviceId: any) => {
+    removeServiceFromList(serviceId);
+  };
   return (
     <ImageBackground
       resizeMode="cover"
@@ -37,7 +45,12 @@ const ServicesList = ({ navigation }) => {
       <ScrollView style={styles.container}>
         {services.map((service) => (
           <Pressable key={service.id}>
-            <ServiceCard service={service} />
+            <ServiceCard
+              key={service.id}
+              service={service}
+              onHireSuccess={() => handleHireSuccess(service.id)}
+              navigation={navigation}
+            />
           </Pressable>
         ))}
       </ScrollView>

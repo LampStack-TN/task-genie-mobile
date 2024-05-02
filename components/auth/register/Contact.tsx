@@ -6,8 +6,9 @@ import {
   View,
   ScrollView,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
@@ -20,8 +21,54 @@ import cities from "../../../data/cities.json";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import axios from "axios";
 import config from "../../../config";
+import * as Location from "expo-location";
+
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Contact = ({ navigation }) => {
+  
+  //location
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [loadingLocation, setLoadingLocation] = useState(true);
+
+  useEffect(() => {
+    const getLocation = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Please grant location permissions");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setCurrentLocation(location);
+      console.log(location);
+      setLoadingLocation(false);
+    };
+    getLocation();
+  }, []);
+
+  const reverseGeocode = async () => {
+    if (currentLocation) {
+      const { coords } = currentLocation;
+      const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
+        longitude: coords.longitude,
+        latitude: coords.latitude,
+      });
+      setAddress(reverseGeocodedAddress);
+    }
+  };
+
+  useEffect(() => {
+    setValue(
+      "address",
+      address
+        ? `${address[0]?.name},${address[0]?.region}, ${address[0]?.country}`
+        : ""
+    );
+  }, [address]);
+
+  //
   // Loader State
   const [loading, setLoading] = useState(false);
   const [drop, setDrop] = useState("");
@@ -33,6 +80,7 @@ const Contact = ({ navigation }) => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       phone: "",
@@ -106,11 +154,28 @@ const Contact = ({ navigation }) => {
                   onChangeText={onChange}
                   placeholder="Address"
                   value={value}
-                  style={styles.input}
+                  style={{ ...styles.input, flex: 1 }}
                 />
               )}
               name="address"
             />
+            {loadingLocation ? (
+              <ActivityIndicator
+                size="small"
+                color="#0C3178"
+                style={styles.loader}
+              />
+            ) : (
+              <Pressable
+                onPress={() => {
+                  reverseGeocode();
+                }}
+              >
+                <View style={styles.inputIcon}>
+                  <MaterialIcons name="gps-fixed" size={26} color="#F54D6180" />
+                </View>
+              </Pressable>
+            )}
           </View>
           {errors.address && (
             <Text style={{ color: "#f01010" }}>{errors.address.message}</Text>
@@ -270,6 +335,11 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 14,
   },
+  inputIcon: {
+    position: "absolute",
+    right: 7,
+    transform: [{ translateY: -40 }],
+  },
   dummyImg: {
     width: 180,
     height: 180,
@@ -306,5 +376,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
+  },
+  loader: {
+    position: "absolute",
+    right: 10,
+    top: 15,
   },
 });

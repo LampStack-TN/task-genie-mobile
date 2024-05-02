@@ -25,6 +25,12 @@ const Menu = () => {
     { id: 1, title: "My Tasks", name: "MyTasks", icon: "list" },
     { id: 2, title: "Services List", name: "ServicesList", icon: "list" },
     { id: 3, title: "Chat", name: "ConversationList", icon: "chat" },
+    {
+      id: 4,
+      title: "MyHiredServices",
+      name: "MyHiredServices",
+      icon: "list",
+    }
   ];
 
   return (

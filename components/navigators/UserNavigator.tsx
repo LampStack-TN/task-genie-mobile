@@ -4,7 +4,7 @@ import UserTaskList from "../client/tasks/userTaskList/Index";
 import TaskStepsIndex from "../client/tasks/form";
 import Home from "../client/home/Index";
 import ProfileDetails from "../client/ProfileDetails";
-
+import MyHiredServices from "../professional/services/MyHiredServices";
 import Profile from "../professional/profile/Profile";
 import search from "../professional/tasks/search/search";
 import ServicesList from "../professional/services/ServicesList";
@@ -30,6 +30,7 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="ServicesList" component={ServicesList} />
       <Stack.Screen name="ConversationList" component={ConversationList} />
       <Stack.Screen name="Conversation" component={Conversation} />
+      <Stack.Screen name="MyHiredServices" component={MyHiredServices}/> 
     </Stack.Navigator>
   );
 };

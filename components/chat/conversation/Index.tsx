@@ -23,8 +23,7 @@ const Conversation = ({ route, navigation }) => {
 
   // Connect to Socket.IO server
   const socket = io("http://192.168.137.1:3000");
-  socket.auth = { converstaionId: id };
-  
+
   const getConversation = async () => {
     try {
       const {
@@ -59,6 +58,12 @@ const Conversation = ({ route, navigation }) => {
 
   useEffect(() => {
     getConversation();
+
+    socket.on("connect", () => {
+      console.log("Connected to server");
+      socket.emit("joinConversation", id);
+    });
+
     socket.on("message", (message) => {
       console.log(message);
       setMessages((messages) => [

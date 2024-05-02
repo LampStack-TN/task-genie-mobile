@@ -37,7 +37,7 @@ const ProMenu = () => {
     },
     {
       id: 5,
-      title: "FavouriteTasksList",
+      title: "Favourite Tasks List",
       name: "FavouriteTasksList",
       icon: "list",
     },

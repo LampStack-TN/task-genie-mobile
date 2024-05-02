@@ -27,7 +27,7 @@ const Menu = () => {
     { id: 3, title: "Chat", name: "ConversationList", icon: "chat" },
     {
       id: 4,
-      title: "MyHiredServices",
+      title: "My Services Demands",
       name: "MyHiredServices",
       icon: "list",
     }

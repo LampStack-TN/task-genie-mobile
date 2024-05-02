@@ -1,5 +1,6 @@
 import {
   Image,
+  ImageBackground,
   Pressable,
   StyleSheet,
   Text,
@@ -11,7 +12,7 @@ import { ApiClient } from "../../../utils/api";
 import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import io from "socket.io-client";
-import config from "../../../config";
+import gradient from "../../../assets/images/double-gradient.png";
 
 const Conversation = ({ route, navigation }) => {
   const [messages, setMessages] = useState([]);
@@ -22,7 +23,8 @@ const Conversation = ({ route, navigation }) => {
 
   // Connect to Socket.IO server
   const socket = io("http://192.168.137.1:3000");
-
+  socket.auth = { converstaionId: id };
+  
   const getConversation = async () => {
     try {
       const {
@@ -70,7 +72,15 @@ const Conversation = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={gradient}
+      resizeMode="cover"
+      imageStyle={{
+        opacity: 0.7,
+        // transform: [{ rotateZ: "90deg" }],
+      }}
+      style={styles.container}
+    >
       <View style={styles.chatContainer}>
         {messages?.map((item, i) => (
           <View key={i} style={item.isMine ? styles.myMessage : styles.message}>
@@ -105,7 +115,7 @@ const Conversation = ({ route, navigation }) => {
           <Ionicons name="send" size={32} color="#0C3178" />
         </Pressable>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -142,7 +152,9 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 16,
     borderBottomLeftRadius: 2,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#f8f8f8",
+    borderWidth: 0.5,
+    borderColor: "#c5c5c5",
   },
   myChatBubble: {
     flex: 1,

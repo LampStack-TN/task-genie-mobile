@@ -23,7 +23,6 @@ import * as Location from "expo-location";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Contact = ({ navigation }) => {
-  
   //location
   const [currentLocation, setCurrentLocation] = useState(null);
   const [address, setAddress] = useState(null);
@@ -79,7 +78,7 @@ const Contact = ({ navigation }) => {
   } = useForm({
     defaultValues: {
       phone: "",
-      city: "hard code it just for testing ...",
+      city: "",
       address: "",
       zipcode: "",
     },
@@ -111,89 +110,100 @@ const Contact = ({ navigation }) => {
           <Text style={styles.subTitle}>Contact & Location</Text>
         </View>
         <View style={styles.section}>
-          <View style={styles.inputView}>
-            <Controller
-              control={control}
-              rules={{
-                required: { value: true, message: "Phone is required" },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Phone Number is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Phone Number</Text>
                 <TextInput
                   onChangeText={onChange}
-                  inputMode="numeric"
-                  placeholder="Fullname"
+                  placeholder="Phone Number"
                   value={value}
                   style={styles.input}
                 />
-              )}
-              name="phone"
-            />
-          </View>
+              </View>
+            )}
+            name="phone"
+          />
           {errors.phone && (
             <Text style={{ color: "#f01010" }}>{errors.phone.message}</Text>
           )}
-          <View style={styles.inputView}>
-            <Controller
-              control={control}
-              rules={{
-                required: { value: true, message: "Fullname is required" },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
+          <Controller
+            control={control}
+            rules={
+              {
+                // required: { value: true, message: "Address is required" },
+              }
+            }
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Address</Text>
                 <TextInput
                   onChangeText={onChange}
                   placeholder="Address"
                   value={value}
                   style={{ ...styles.input, flex: 1 }}
                 />
-              )}
-              name="address"
-            />
-            {loadingLocation ? (
-              <ActivityIndicator
-                size="small"
-                color="#0C3178"
-                style={styles.loader}
-              />
-            ) : (
-              <Pressable
-                onPress={() => {
-                  reverseGeocode();
-                }}
-              >
-                <View style={styles.inputIcon}>
-                  <MaterialIcons name="gps-fixed" size={26} color="#F54D6180" />
-                </View>
-              </Pressable>
+                {loadingLocation ? (
+                  <ActivityIndicator
+                    size="small"
+                    color="#0C3178"
+                    style={styles.loader}
+                  />
+                ) : (
+                  <Pressable
+                    onPress={() => {
+                      reverseGeocode();
+                    }}
+                  >
+                    <View style={styles.inputIcon}>
+                      <MaterialIcons
+                        name="gps-fixed"
+                        size={26}
+                        color="#F54D6180"
+                      />
+                    </View>
+                  </Pressable>
+                )}
+              </View>
             )}
-          </View>
+            name="address"
+          />
           {errors.address && (
             <Text style={{ color: "#f01010" }}>{errors.address.message}</Text>
           )}
           <View style={{ flexDirection: "row", gap: 18 }}>
-            <View style={[styles.inputView, { flex: 4 }]}>
-              <Controller
-                control={control}
-                rules={{
-                  required: { value: true, message: "Zip Code is required" },
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "Zip Code is required" },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <View style={[styles.inputView, { flex: 4 }]}>
+                  <Text style={styles.inputLabel}>Zipcode</Text>
                   <TextInput
                     onChangeText={onChange}
                     placeholder="Zipcode"
                     value={value}
                     style={styles.input}
                   />
-                )}
-                name="zipcode"
-              />
-            </View>
-            <View style={[{ flex: 7 }]}>
-              <Controller
-                control={control}
-                rules={{
-                  required: { value: true, message: "City is required" },
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
+                </View>
+              )}
+              name="zipcode"
+            />
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "City is required" },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <View style={[{ flex: 7 }]}>
+                  <Text style={{ ...styles.inputLabel, zIndex: 1 }}>
+                    Governorate
+                  </Text>
                   <SearchableDropdown
                     onItemSelect={(item) => {
                       onChange(item.name);
@@ -205,7 +215,7 @@ const Contact = ({ navigation }) => {
                     items={cities}
                     resetValue={false}
                     textInputProps={{
-                      placeholder: "Governorates",
+                      placeholder: "Search...",
                       underlineColorAndroid: "transparent",
                       style: [styles.inputView, styles.input],
                       value: drop,
@@ -216,10 +226,10 @@ const Contact = ({ navigation }) => {
                       nestedScrollEnabled: true,
                     }}
                   />
-                )}
-                name="city"
-              />
-            </View>
+                </View>
+              )}
+              name="city"
+            />
           </View>
           <View style={{ flex: 1, gap: 18, flexDirection: "row" }}>
             <View style={{ flex: 5 }}>
@@ -318,6 +328,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     justifyContent: "center",
     elevation: 3,
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
   },
   input: {
     fontSize: 14,

@@ -49,12 +49,15 @@ const Register = ({ navigation }) => {
             },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              onChangeText={onChange}
-              placeholder="Email"
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Email</Text>
+              <TextInput
+                onChangeText={onChange}
+                placeholder="Email"
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="email"
         />
@@ -72,13 +75,16 @@ const Register = ({ navigation }) => {
             required: { value: true, message: "Password is required" },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              onChangeText={onChange}
-              secureTextEntry={true}
-              placeholder="Password"
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Password</Text>
+              <TextInput
+                onChangeText={onChange}
+                secureTextEntry={true}
+                placeholder="Password"
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="password"
         />
@@ -112,15 +118,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 25,
   },
-  // footer: {
-  //   flexDirection: "row",
-  //   backgroundColor: "#fff",
-  //   paddingHorizontal: 22,
-  //   paddingVertical: 25,
-  //   flex: 1,
-  //   alignItems: "center",
-  //   justifyContent: "space-between",
-  // },
   section: {
     backgroundColor: "#fff",
     flex: 3,
@@ -143,7 +140,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#0C3178",
   },
-  input: {
+  inputView: {
     backgroundColor: "#fff",
     height: 60,
     paddingHorizontal: 22,
@@ -151,6 +148,20 @@ const styles = StyleSheet.create({
     borderColor: "#e5e5e5",
     borderWidth: 1,
     fontSize: 14,
-    elevation: 3,
+    justifyContent: "center",
+    elevation: 1,
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
+  },
+  input: {
+    fontSize: 14,
   },
 });

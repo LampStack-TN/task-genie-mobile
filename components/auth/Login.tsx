@@ -68,42 +68,44 @@ const Login = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.section}>
           <Text style={styles.title}>Sign In</Text>
-          <View style={styles.inputView}>
-            <Controller
-              control={control}
-              rules={{
-                required: { value: true, message: "Email is required" },
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
-                  message: "Invalid Email",
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Email is required" },
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
+                message: "Invalid Email",
+              },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Email</Text>
                 <TextInput
                   onChangeText={onChange}
                   placeholder="Email"
                   value={value}
                   style={styles.input}
                 />
-              )}
-              name="email"
-            />
-          </View>
+              </View>
+            )}
+            name="email"
+          />
           {errors.email && (
             <Text style={{ color: "#f01010" }}>{errors.email.message}</Text>
           )}
 
-          <View style={styles.inputView}>
-            <Controller
-              control={control}
-              rules={{
-                minLength: {
-                  value: 8,
-                  message: "Must be at least 8 characters",
-                },
-                required: { value: true, message: "Password is required" },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
+          <Controller
+            control={control}
+            rules={{
+              minLength: {
+                value: 8,
+                message: "Must be at least 8 characters",
+              },
+              required: { value: true, message: "Password is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Password</Text>
                 <TextInput
                   onChangeText={onChange}
                   secureTextEntry={true}
@@ -111,10 +113,10 @@ const Login = ({ navigation }) => {
                   value={value}
                   style={styles.input}
                 />
-              )}
-              name="password"
-            />
-          </View>
+              </View>
+            )}
+            name="password"
+          />
           {errors.password && (
             <Text style={{ color: "#f01010" }}>{errors.password.message}</Text>
           )}
@@ -186,15 +188,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 25,
   },
-  // footer: {
-  //   flexDirection: "row",
-  //   backgroundColor: "#fff",
-  //   paddingHorizontal: 22,
-  //   paddingVertical: 25,
-  //   flex: 1,
-  //   alignItems: "center",
-  //   justifyContent: "space-between",
-  // },
   section: {
     justifyContent: "center",
     backgroundColor: "#fff",
@@ -220,6 +213,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     justifyContent: "center",
     elevation: 3,
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
   },
   input: {
     fontSize: 14,

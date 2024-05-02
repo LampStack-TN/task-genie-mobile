@@ -73,46 +73,48 @@ const BasicInfos = ({ navigation }: any) => {
               />
             </Pressable>
           </View>
-          <View style={styles.inputView}>
-            <Controller
-              control={control}
-              rules={{
-                required: { value: true, message: "Fullname is required" },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Fullname is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Fullname</Text>
                 <TextInput
                   onChangeText={onChange}
                   placeholder="Fullname"
                   value={value}
                   style={styles.input}
                 />
-              )}
-              name="fullName"
-            />
-          </View>
+              </View>
+            )}
+            name="fullName"
+          />
           {errors.fullName && (
             <Text style={{ color: "#f01010" }}>{errors.fullName.message}</Text>
           )}
-          <View style={styles.inputView}>
-            <Controller
-              control={control}
-              rules={{
-                required: { value: true, message: "Birthdate is required" },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Birthdate is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Birthdate</Text>
                 <TextInput
                   onChangeText={onChange}
                   placeholder="Birthdate"
                   value={value}
                   style={styles.input}
                 />
-              )}
-              name="birthdate"
-            />
-            <View style={styles.inputIcon}>
-              <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
-            </View>
-          </View>
+                <View style={styles.inputIcon}>
+                  <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
+                </View>
+              </View>
+            )}
+            name="birthdate"
+          />
           {errors.birthdate && (
             <Text style={{ color: "#f01010" }}>{errors.birthdate.message}</Text>
           )}
@@ -192,6 +194,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     justifyContent: "center",
     elevation: 3,
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
   },
   input: {
     fontSize: 14,

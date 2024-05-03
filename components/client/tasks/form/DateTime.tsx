@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,9 +10,10 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { Dropdown } from "react-native-element-dropdown";
-import { addTask } from "../../../../redux/slices/TaskSlice";
 import { ApiClient } from "../../../../utils/api";
 import Button from "../../../ui/Button";
+import { Ionicons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export type Task = {
   id?: number;
@@ -30,12 +32,26 @@ const data = [
   { label: "medium", value: "medium" },
 ];
 export default function DateTime({ navigation }) {
+  //
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const handleDateChange = (event: any, date: any) => {
+    if (date) {
+      setSelectedDate(date);
+      setShowDatePicker(false);
+      const formattedDate =
+        date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+      setValue("dueDate", formattedDate);
+    }
+  };
+  //
   const task = useSelector((state: any) => state.task);
   const dispatch = useDispatch();
 
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -65,106 +81,141 @@ export default function DateTime({ navigation }) {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      keyboardShouldPersistTaps="handled"
-    >
-      <View style={styles.stepContainer}>
-        <Text style={styles.heading}>Step 3</Text>
-        <Text
-          style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
+    <>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.stepContainer}>
+          <Text style={styles.heading}>Step 3</Text>
+          <Text
+            style={{
+              marginBottom: 10,
+              alignSelf: "flex-start",
+              paddingTop: 10,
+            }}
+          >
+            Time & Date
+          </Text>
+        </View>
+        <View style={styles.inputContainer}>
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: " Date is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View>
+                <TextInput
+                  editable={false}
+                  placeholder="Date & Time"
+                  value={value}
+                  style={[
+                    styles.input,
+                    { color: "#4e4e4e", fontWeight: "600" },
+                  ]}
+                />
+              </View>
+            )}
+            name="dueDate"
+          />
+          <View style={[styles.inputIcon, { zIndex: 999 }]}>
+            <Pressable onPress={() => setShowDatePicker(true)}>
+              <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
+            </Pressable>
+          </View>
+          {errors.dueDate && (
+            <Text style={{ color: "#f01010" }}>{errors.dueDate.message}</Text>
+          )}
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "MinPrice is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                placeholder="minPrice"
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            )}
+            name="minPrice"
+          />
+          {errors.minPrice && (
+            <Text style={{ color: "#f01010" }}>{errors.minPrice.message}</Text>
+          )}
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "maxPrice is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                placeholder="maxPrice"
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            )}
+            name="maxPrice"
+          />
+          {errors.maxPrice && (
+            <Text style={{ color: "#f01010" }}>{errors.maxPrice.message}</Text>
+          )}
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Urgency is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Dropdown
+                placeholder="Urgency"
+                labelField="label"
+                valueField="value"
+                data={data}
+                onChange={(item) => {
+                  onChange(item.value);
+                }}
+                value={value}
+                style={[styles.input]}
+              />
+            )}
+            name="urgency"
+          />
+          {errors.urgency && (
+            <Text style={{ color: "#f01010" }}>{errors.urgency.message}</Text>
+          )}
+        </View>
+        <View style={styles.footer}>
+          <Button
+            label="Back"
+            style="bare"
+            callback={() => navigation.goBack()}
+          />
+          <Button
+            label="Finish"
+            style="fill"
+            callback={handleSubmit(onSubmit)}
+          />
+        </View>
+      </ScrollView>
+      {showDatePicker && (
+        <Pressable
+          onPress={() => setShowDatePicker(false)}
+          style={styles.dateContainer}
         >
-          Time & Date
-        </Text>
-      </View>
-      <View style={styles.inputContainer}>
-        <Controller
-          control={control}
-          rules={{
-            required: { value: true, message: " Date is required" },
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="Date & Time"
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
+          <View style={styles.date}>
+            <DateTimePicker
+              value={selectedDate}
+              mode="date"
+              display="inline"
+              onChange={handleDateChange}
             />
-          )}
-          name="dueDate"
-        />
-        {errors.dueDate && (
-          <Text style={{ color: "#f01010" }}>{errors.dueDate.message}</Text>
-        )}
-        <Controller
-          control={control}
-          rules={{
-            required: { value: true, message: "MinPrice is required" },
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="minPrice"
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
-          )}
-          name="minPrice"
-        />
-        {errors.minPrice && (
-          <Text style={{ color: "#f01010" }}>{errors.minPrice.message}</Text>
-        )}
-        <Controller
-          control={control}
-          rules={{
-            required: { value: true, message: "maxPrice is required" },
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="maxPrice"
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
-          )}
-          name="maxPrice"
-        />
-        {errors.maxPrice && (
-          <Text style={{ color: "#f01010" }}>{errors.maxPrice.message}</Text>
-        )}
-        <Controller
-          control={control}
-          rules={{
-            required: { value: true, message: "Urgency is required" },
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Dropdown
-              placeholder="Urgency"
-              labelField="label"
-              valueField="value"
-              data={data}
-              onChange={(item) => {
-                onChange(item.value);
-              }}
-              value={value}
-              style={[styles.input]}
-            />
-          )}
-          name="urgency"
-        />
-        {errors.urgency && (
-          <Text style={{ color: "#f01010" }}>{errors.urgency.message}</Text>
-        )}
-      </View>
-      <View style={styles.footer}>
-        <Button
-          label="Back"
-          style="bare"
-          callback={() => navigation.goBack()}
-        />
-        <Button label="Finish" style="fill" callback={handleSubmit(onSubmit)} />
-      </View>
-    </ScrollView>
+          </View>
+        </Pressable>
+      )}
+    </>
   );
 }
 
@@ -187,9 +238,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "100%",
-    // alignItems: "center",
     gap: 15,
-    // justifyContent: "center",
     paddingHorizontal: 11,
   },
   input: {
@@ -210,5 +259,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     paddingVertical: 8,
     justifyContent: "space-between",
+  },
+  inputIcon: {
+    position: "absolute",
+    top: 17,
+    right: 35,
+  },
+  dateContainer: {
+    backgroundColor: "#00000080",
+    position: "absolute",
+    width: "100%",
+    zIndex: 999,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  date: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 22,
   },
 });

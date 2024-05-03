@@ -82,6 +82,18 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       console.error(err);
     }
   };
+
+
+  const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
+
+ 
+  const handleIconPress = (application: Application) => {
+    setSelectedApplication(application);
+    toggleModal();
+  };
+
+
+
   const renderAcceptedApplications = () => {
     return applications
       .filter((ele) => ele.status === "Accepted")
@@ -106,7 +118,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
               <Text style={styles.applicantPrice}>{application.price} TND</Text>
             </View>
 
-            <TouchableOpacity >
+            <TouchableOpacity  onPress={() => handleIconPress(application)}>
         <FontAwesome name="check-circle" size={60} color="green" />
       </TouchableOpacity>
           </View>

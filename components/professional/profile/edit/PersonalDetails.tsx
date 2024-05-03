@@ -12,6 +12,7 @@ export default function PersonalDetails({ navigation, route }) {
       birthdate: user.birthdate,
       phone: user.phone,
       adress: user.adress,
+      city: user.city,
       email: user.email,
     },
   });
@@ -37,7 +38,7 @@ export default function PersonalDetails({ navigation, route }) {
       <View style={styles.inputContainer}>
         <Controller
           control={control}
-          render={({ field: { onChange, onBlur, value, isTouched } }) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <View style={styles.inputView}>
               <Text style={styles.inputLabel}>Fullname</Text>
               <TextInput
@@ -67,6 +68,23 @@ export default function PersonalDetails({ navigation, route }) {
             </View>
           )}
           name="birthdate"
+        />
+
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>City</Text>
+              <TextInput
+                placeholder="City"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
+          )}
+          name="city"
         />
 
         <Controller

@@ -56,10 +56,12 @@ const Profile = ({ user }) => {
       </View>
       <View style={{ paddingHorizontal: 20, margin: 5 }}>
         <View style={{ marginVertical: 10 }}>
-          {user.phone?<View style={styles.contact}>
-            <MaterialIcons name="phone" size={24} color="#F58D61" />
-            <Text} style={[styles.contactText]}>{user.phone}</Text>
-          </View>
+          {user.phone && (
+            <View style={styles.contact}>
+              <MaterialIcons name="phone" size={24} color="#F58D61" />
+              <Text style={[styles.contactText]}>{user.phone}</Text>
+            </View>
+          )}
           <View style={styles.contact}>
             <MaterialIcons name="email" size={24} color="#F58D61" />
             <Text style={styles.contactText}>{user.email}</Text>

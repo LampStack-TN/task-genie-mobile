@@ -16,8 +16,11 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
       visible={slideOn}
       onRequestClose={toggleSlide}
     >
-      <View style={styles.modalOverlay}>
-        <View style={styles.modal}>
+      <Pressable onPress={toggleSlide} style={styles.modalOverlay}>
+        <Pressable
+          style={styles.modal}
+          onPress={(event) => event.stopPropagation()}
+        >
           <View style={styles.modalHeader}>
             <Pressable
               onPress={() => {
@@ -68,8 +71,8 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
           >
             <MaterialIcons name="logout" size={22} color="white" />
           </Pressable>
-        </View>
-      </View>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 };

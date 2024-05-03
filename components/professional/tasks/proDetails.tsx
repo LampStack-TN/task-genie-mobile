@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Modal,
   ScrollView,
   ImageBackground,
   Pressable,
@@ -19,6 +18,8 @@ import {
 } from "@expo/vector-icons";
 import Application from "../../../types/Application";
 import gradient from "../../../assets/images/double-gradient.png";
+import Ratings from "./ratings/rating";
+import Modal from "react-native-modal";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
@@ -104,7 +105,10 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
               </Text>
               <Text style={styles.applicantPrice}>{application.price} TND</Text>
             </View>
-            <FontAwesome name="check-circle" size={24} color="green" />
+
+            <TouchableOpacity >
+        <FontAwesome name="check-circle" size={60} color="green" />
+      </TouchableOpacity>
           </View>
         </TouchableOpacity>
       ));

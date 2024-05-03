@@ -34,7 +34,6 @@ const MyHiredServices = () => {
       imageStyle={{ opacity: 0.35 }}
     >
       <ScrollView style={styles.container}>
-        <Text style={styles.title1}>My Services,</Text>
         {services.map((service) => (
           <View key={service.id} style={styles.serviceCard}>
             <Text style={styles.title}>{service.service.title}</Text>
@@ -99,11 +98,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     columnGap: 4,
-  },
-  title1: {
-    fontSize: 30,
-    fontWeight: "600",
-    color: "#2e2e2e",
   },
 });
 

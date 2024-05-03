@@ -21,6 +21,7 @@ const MyServices = ({ navigation }) => {
 
   return (
     <View>
+       <Text style={styles.title1}>My Services,</Text>
       {services.map((service) => (
         <Pressable
           key={service.id}
@@ -81,4 +82,9 @@ const styles = StyleSheet.create({
   infoText: {
     marginLeft: 5,
   },
+  title1: {
+    fontSize: 30,
+    fontWeight: "600",
+    color: "#2e2e2e",
+  }
 });

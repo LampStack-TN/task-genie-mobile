@@ -1,12 +1,19 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import SlideUp from "./SlideUp";
 
+import { useState } from "react";
+import useKeyboardOpen from "../../utils/useKeyboardOpen";
+import { useSelector } from "react-redux";
+
 const BottomNavPro: React.FC = () => {
+  const user = useSelector((state: any) => state.user);
+
   const navigation = useNavigation();
   const [slideOn, setSlideOn] = useState(false);
+
+  const isKeyboardOpen = useKeyboardOpen();
 
   const toggleSlide = () => setSlideOn(!slideOn);
 
@@ -16,48 +23,54 @@ const BottomNavPro: React.FC = () => {
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
   return (
-    <>
-      <View style={styles.navContainer}>
-        {navItems.map(({ id, screen, icon, size }: any) => (
-          <View key={id} style={styles.navItem}>
-            <Pressable
-              onPress={() => navigation.navigate(screen)}
-              style={styles.navIcon}
-            >
-              {({ pressed }) => (
-                <MaterialIcons
-                  name={icon}
-                  size={size}
-                  color={pressed ? "#fff" : "#fff"}
-                />
-              )}
-            </Pressable>
-          </View>
-        ))}
-        <View style={styles.navItem}>
-          <Pressable onPress={toggleSlide} style={styles.navIcon}>
-            {({ pressed }) => (
-              <MaterialIcons
-                name="menu"
-                size={32}
-                color={pressed ? "#fff" : "#fff"}
+    !isKeyboardOpen && (
+      <>
+        <View style={styles.navContainer}>
+          {navItems.map(({ id, screen, icon, size }: any) => (
+            <View key={id} style={styles.navItem}>
+              <Pressable
+                onPress={() => navigation.navigate(screen)}
+                style={styles.navIcon}
+              >
+                {({ pressed }) => (
+                  <MaterialIcons
+                    name={icon}
+                    size={size}
+                    color={pressed ? "#fff" : "#fff"}
+                  />
+                )}
+              </Pressable>
+            </View>
+          ))}
+          <View style={styles.navItem}>
+            <Pressable onPress={toggleSlide} style={styles.navIcon}>
+              <Image
+                source={{ uri: user.avatar }}
+                style={{
+                  backgroundColor: "#669",
+                  width: 40,
+                  height: 40,
+                  borderRadius: 30,
+                  borderWidth: 1,
+                  borderColor: "#F58D6180",
+                }}
               />
-            )}
-          </Pressable>
-          <SlideUp {...{ slideOn, toggleSlide, navigation }} />
+            </Pressable>
+            <SlideUp {...{ slideOn, toggleSlide, navigation }} />
+          </View>
         </View>
-      </View>
-      {slideOn && (
-        <View
-          style={{
-            backgroundColor: "#2e2e2ea0",
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-          }}
-        ></View>
-      )}
-    </>
+        {slideOn && (
+          <View
+            style={{
+              backgroundColor: "#2e2e2ea0",
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+            }}
+          ></View>
+        )}
+      </>
+    )
   );
 };
 

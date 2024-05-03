@@ -12,7 +12,7 @@ const BottomNavPro: React.FC = () => {
 
   const navItems = [
     { id: 1, screen: "Home", icon: "task", size: 32 },
-    { id: 2, screen: "AddService", icon: "add-circle", size: 45 },
+    { id: 2, screen: "AddService", icon: "add-circle-outline", size: 45 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
   return (
@@ -28,7 +28,7 @@ const BottomNavPro: React.FC = () => {
                 <MaterialIcons
                   name={icon}
                   size={size}
-                  color={pressed ? "#0C3178" : "#5275B7"}
+                  color={pressed ? "#fff" : "#fff"}
                 />
               )}
             </Pressable>
@@ -40,7 +40,7 @@ const BottomNavPro: React.FC = () => {
               <MaterialIcons
                 name="menu"
                 size={32}
-                color={pressed ? "#0C3178" : "#5275B7"}
+                color={pressed ? "#fff" : "#fff"}
               />
             )}
           </Pressable>
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "#c5c5c5",
     height: 60,
+    backgroundColor: "#0C3178",
     justifyContent: "space-around",
     flexDirection: "row",
   },

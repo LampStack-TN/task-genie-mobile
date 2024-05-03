@@ -133,7 +133,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       style={styles.container}
     >
 <Modal isVisible={isModalVisible} >
-      <View>
+      <View style ={styles.modalContent}>
       <Ratings/>
       <TouchableOpacity style={{ ...styles.button, ...styles.buttonClose }} onPress={toggleModal}>
         <Text style={styles.textStyle}>Close</Text>
@@ -426,6 +426,12 @@ const styles = StyleSheet.create({
   applicantPrice: {
     fontSize: 14,
     color: "#666",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 22,
+    borderRadius: 4,
+    borderColor: "#00000019",
   },
 });
 export default TaskDetails;

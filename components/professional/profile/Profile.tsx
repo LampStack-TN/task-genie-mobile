@@ -7,22 +7,22 @@ import gradient from "../../../assets/images/double-gradient.png";
 import { useNavigation } from "@react-navigation/native";
 
 const skills = [
-  { id: 200, name: "Carpentry" },
+  { id: 200, name: "Sports" },
   {
     id: 201,
-    name: "Electrical Work",
+    name: "Fitness",
   },
   {
     id: 204,
-    name: "Dog Training",
+    name: "Coaching",
   },
   {
     id: 205,
-    name: "Cat Grooming",
+    name: "Nutrition",
   },
   {
     id: 206,
-    name: "Coaching",
+    name: "Health",
   },
 ];
 
@@ -56,9 +56,9 @@ const Profile = ({ user }) => {
       </View>
       <View style={{ paddingHorizontal: 20, margin: 5 }}>
         <View style={{ marginVertical: 10 }}>
-          <View style={styles.contact}>
+          {user.phone?<View style={styles.contact}>
             <MaterialIcons name="phone" size={24} color="#F58D61" />
-            <Text style={[styles.contactText]}>+216 25 363 845</Text>
+            <Text} style={[styles.contactText]}>{user.phone}</Text>
           </View>
           <View style={styles.contact}>
             <MaterialIcons name="email" size={24} color="#F58D61" />

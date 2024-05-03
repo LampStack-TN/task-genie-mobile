@@ -27,40 +27,40 @@ export default function ProfessionalInfo({ navigation, route }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.stepContainer}>
-        <Text
-          style={[
-            styles.heading,
-            { marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 },
-          ]}
-        >
-          Edit Professional Information
-        </Text>
+        <Text style={[styles.heading]}>Edit Professional Information</Text>
       </View>
 
       <View style={styles.inputContainer}>
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="JobTitle"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Job Title</Text>
+              <TextInput
+                placeholder="Job Title"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="jobTitle"
         />
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="Bio"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={[styles.inputView]}>
+              <Text style={styles.inputLabel}>Bio</Text>
+              <TextInput
+                placeholder="Bio"
+                multiline
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={[styles.input, { height: "auto" }]}
+              />
+            </View>
           )}
           name="bio"
         />
@@ -84,40 +84,50 @@ export default function ProfessionalInfo({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 25,
     backgroundColor: "#fff",
   },
   stepContainer: {
     alignSelf: "flex-start",
-    marginBottom: 20,
-    paddingTop: 1,
   },
   heading: {
-    paddingTop: 60,
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#0C3178",
+    alignSelf: "flex-start",
+    paddingTop: 10,
+    marginBottom: 22,
   },
   inputContainer: {
+    marginVertical: 11,
     width: "100%",
     flex: 1,
-    alignItems: "center",
-    gap: 15,
-    justifyContent: "center",
+    gap: 28,
   },
-  input: {
+  inputView: {
     backgroundColor: "#fff",
     height: 60,
-    width: 350,
     paddingHorizontal: 22,
     borderRadius: 30,
-    borderWidth: 1,
     borderColor: "#e5e5e5",
-    marginBottom: 20,
+    borderWidth: 1,
     fontSize: 14,
-    elevation: 3,
+    justifyContent: "center",
+    elevation: 1,
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
+  },
+  input: {
+    fontSize: 14,
   },
   text: {
     color: "#0C3178",
@@ -141,7 +151,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     paddingHorizontal: 22,
-    paddingVertical: 8,
+    paddingVertical: 16,
     alignItems: "center",
     justifyContent: "space-between",
   },

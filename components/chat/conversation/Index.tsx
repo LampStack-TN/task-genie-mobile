@@ -110,6 +110,7 @@ const Conversation = ({ route, navigation }) => {
       </View>
       <View style={styles.inputView}>
         <TextInput
+          multiline
           onChangeText={setContent}
           placeholder="Message..."
           value={content}
@@ -179,22 +180,22 @@ const styles = StyleSheet.create({
   },
   inputView: {
     backgroundColor: "#fff",
-    height: 60,
+    minHeight: 60,
     paddingHorizontal: 22,
+    paddingVertical: 14,
     borderRadius: 30,
     borderColor: "#e5e5e5",
     borderWidth: 1,
     fontSize: 14,
-    justifyContent: "center",
-    elevation: 3,
+    alignItems: "center",
+    elevation: 1,
+    flexDirection: "row",
+    gap: 12,
   },
   input: {
     fontSize: 14,
     flex: 1,
     flexWrap: "wrap",
   },
-  inputIcon: {
-    position: "absolute",
-    right: 28,
-  },
+  inputIcon: {},
 });

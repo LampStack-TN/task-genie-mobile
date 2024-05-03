@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   chatBubble: {
-    flex: 1,
     padding: 16,
+    flexShrink: 1,
     borderRadius: 16,
     borderBottomLeftRadius: 2,
     backgroundColor: "#f8f8f8",
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     borderColor: "#c5c5c5",
   },
   myChatBubble: {
-    flex: 1,
+    flexShrink: 1,
     padding: 16,
     borderRadius: 16,
     borderBottomRightRadius: 2,

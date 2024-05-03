@@ -132,6 +132,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       imageStyle={{ opacity: 0.5 }}
       style={styles.container}
     >
+<Modal isVisible={isModalVisible} >
+      <View>
+      <Ratings/>
+      <TouchableOpacity style={{ ...styles.button, ...styles.buttonClose }} onPress={toggleModal}>
+        <Text style={styles.textStyle}>Close</Text>
+      </TouchableOpacity>
+  </View>
+</Modal>
       <View style={styles.header}>
         <Image
           source={{

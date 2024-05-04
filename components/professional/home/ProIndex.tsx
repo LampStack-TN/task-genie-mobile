@@ -9,7 +9,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
-import gradient from "../../../assets/images/orange_gradient.png";
+import gradient from "../../../assets/images/double-gradient.png";
 
 type RootStackParamList = {
   TaskList: String;
@@ -46,7 +46,7 @@ const ProMenu = () => {
 
   return (
     <ImageBackground
-      imageStyle={{ opacity: 0.5 }}
+      imageStyle={{ opacity: 1, transform: [{ scaleY: -1 }] }}
       source={gradient}
       style={styles.container}
     >
@@ -79,18 +79,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "stretch",
     justifyContent: "flex-start",
-    paddingTop: 4,
-    gap: 2,
-    backgroundColor: "#fff",
     borderBlockColor: "#c5c5c5",
   },
   button: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFF",
-    paddingVertical: 26,
+    backgroundColor: "#10101010",
+    paddingVertical: 16,
     paddingHorizontal: 20,
-    elevation: 1,
     borderBottomWidth: 1,
     borderBlockColor: "#d0d0d0",
   },

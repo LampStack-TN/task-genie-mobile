@@ -16,7 +16,7 @@ import Search from "../search/search";
 const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [applicationModal, setApplicationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState("");
@@ -25,13 +25,7 @@ const TaskList = ({ navigation }) => {
   const fetchTasks = async () => {
     try {
       const { data } = await ApiClient().get("/task/getAll");
-      setTasks(
-        data.map((task) => ({
-          ...task,
-          liked: task._count.favouriteTasks > 0,
-          applied: task._count.applications > 0,
-        }))
-      );
+      setTasks(data);
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +38,7 @@ const TaskList = ({ navigation }) => {
   // * Good
   const handleApplyToTask = (task: Task) => {
     setSelectedTask(task);
-    setModalVisible(true);
+    setApplicationModal(true);
   };
 
   const handleConfirmApply = async () => {
@@ -62,19 +56,19 @@ const TaskList = ({ navigation }) => {
       } catch (error) {
         if (error.response && error.response.data.message) {
           setModalMessage(error.response.data.message);
-          setModalVisible(true);
+          setApplicationModal(true);
         } else {
           console.error(error);
         }
       }
     }
-    setModalVisible(false);
+    setApplicationModal(false);
     setSuggestedPrice("");
   };
 
   const handleRejectApply = () => {
     setSelectedTask(null);
-    setModalVisible(false);
+    setApplicationModal(false);
     setSuggestedPrice("");
   };
 
@@ -96,7 +90,7 @@ const TaskList = ({ navigation }) => {
       );
     } catch (error) {
       setModalMessage("Failed to toggle like.");
-      setModalVisible(true);
+      setApplicationModal(true);
     }
   };
 
@@ -123,7 +117,7 @@ const TaskList = ({ navigation }) => {
       <Modal
         animationIn={"fadeIn"}
         animationOut={"fadeOut"}
-        isVisible={isModalVisible}
+        isVisible={applicationModal}
       >
         <View style={styles.modalContent}>
           <View style={styles.inputView}>

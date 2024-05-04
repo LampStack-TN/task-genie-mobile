@@ -26,7 +26,10 @@ const TaskCard = ({ task, onApply, onToggleLike }) => {
         </View>
         <View style={styles.footer}>
           <TouchableOpacity
-            style={styles.applyButton}
+            style={[
+              styles.applyButton,
+              task.applied && { backgroundColor: "#c5c5c5" },
+            ]}
             onPress={() => onApply(task)}
           >
             <Text style={styles.applyButtonText}>Apply</Text>

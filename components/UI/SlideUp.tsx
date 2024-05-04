@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser } from "../../redux/slices/userSlice";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
+import ProMenu from "../professional/home/ProIndex";
 
 const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
   const dispatch = useDispatch();
@@ -52,7 +53,9 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
               </View>
             </Pressable>
           </View>
-          <View style={styles.slideMenu}></View>
+          <View style={styles.slideMenu}>
+            <ProMenu />
+          </View>
           <Pressable
             style={{
               flexDirection: "row",
@@ -97,18 +100,22 @@ const styles = StyleSheet.create({
     bottom: 0,
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#c5c5c5",
-    padding: 15,
   },
   modalHeader: {
     gap: 5,
     flexDirection: "row",
-    height: 70,
+    height: 85,
     alignItems: "center",
+    backgroundColor: "#0C3178",
     paddingHorizontal: 18,
+    overflow: "hidden",
     borderBottomWidth: 1,
     borderColor: "#c5c5c5",
+    paddingVertical: 15,
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
   },
   profile: {
     alignItems: "center",
@@ -129,7 +136,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 22,
     fontWeight: "500",
-    color: "#2e2e2e",
+    color: "#fff",
   },
   modalClose: {
     backgroundColor: "#f0f0f0",

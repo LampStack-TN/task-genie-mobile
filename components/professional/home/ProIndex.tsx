@@ -28,7 +28,7 @@ const ProMenu = () => {
       name: "MyServices",
       icon: "check-circle",
     },
-    { id: 3, title: "Nearby Jobs", name: "Tasks", icon: "task" },
+    { id: 3, title: "Nearby Jobs", name: "task-list", icon: "task" },
     {
       id: 4,
       title: "Applied Tasks",

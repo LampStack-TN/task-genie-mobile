@@ -1,6 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import Button from "../../../ui/Button";
+
+const colors = {
+  Pending: "#0C7878",
+  Accepted: "#0C780C",
+  Rejected: "#780c0c",
+};
 
 const TaskCard = ({ task, onApply, onToggleLike }) => {
   return (
@@ -25,15 +32,13 @@ const TaskCard = ({ task, onApply, onToggleLike }) => {
           </View>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity
-            style={[
-              styles.applyButton,
-              task.applied && { backgroundColor: "#c5c5c5" },
-            ]}
-            onPress={() => onApply(task)}
-          >
-            <Text style={styles.applyButtonText}>Apply</Text>
-          </TouchableOpacity>
+          <Button
+            label={task.applied ? task.applications[0].status + "..." : "Aplly"}
+            style="fill"
+            size="sm"
+            color={task.applied && colors[task.applications[0].status]}
+            callback={() => onApply(task)}
+          />
           <TouchableOpacity onPress={() => onToggleLike()}>
             <MaterialIcons
               name={task.liked ? "favorite" : "favorite-outline"}
@@ -101,16 +106,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "flex-end",
     columnGap: 4,
-  },
-  applyButton: {
-    backgroundColor: "#0C3178",
-    borderRadius: 20,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  applyButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
   },
 });
 

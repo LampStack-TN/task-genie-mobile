@@ -27,9 +27,9 @@ export type Task = {
   clientId?: number;
 };
 const data = [
-  { label: "high", value: "high" },
-  { label: "low", value: "low" },
-  { label: "medium", value: "medium" },
+  { label: "Immediate", value: "Immediate" },
+  { label: "Urgent", value: "Urgent" },
+  { label: "Soon", value: "Soon" },
 ];
 export default function DateTime({ navigation }) {
   //
@@ -179,6 +179,7 @@ export default function DateTime({ navigation }) {
                 }}
                 value={value}
                 style={[styles.input]}
+                containerStyle={{borderRadius: 30}}
               />
             )}
             name="urgency"

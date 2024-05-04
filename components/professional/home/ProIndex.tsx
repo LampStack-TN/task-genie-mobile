@@ -57,7 +57,7 @@ const ProMenu = () => {
               style={[
                 styles.button,
                 pressed && {
-                  backgroundColor: "#F58D6120",
+                  backgroundColor: "#60606010",
                 },
               ]}
             >
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#10101010",
+    backgroundColor: "#ffffffa0",
     paddingVertical: 16,
     paddingHorizontal: 20,
     borderBottomWidth: 1,

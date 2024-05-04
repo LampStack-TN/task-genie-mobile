@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Modal,
   ScrollView,
   ImageBackground,
   Pressable,
@@ -19,6 +18,8 @@ import {
 } from "@expo/vector-icons";
 import Application from "../../../types/Application";
 import gradient from "../../../assets/images/double-gradient.png";
+import Ratings from "./ratings/rating";
+import Modal from "react-native-modal";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
@@ -81,6 +82,18 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       console.error(err);
     }
   };
+
+
+  const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
+
+ 
+  const handleIconPress = (application: Application) => {
+    setSelectedApplication(application);
+    toggleModal();
+  };
+
+
+
   const renderAcceptedApplications = () => {
     return applications
       .filter((ele) => ele.status === "Accepted")
@@ -104,7 +117,10 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
               </Text>
               <Text style={styles.applicantPrice}>{application.price} TND</Text>
             </View>
-            <FontAwesome name="check-circle" size={24} color="green" />
+
+            <TouchableOpacity  onPress={() => handleIconPress(application)}>
+        <FontAwesome name="check-circle" size={60} color="green" />
+      </TouchableOpacity>
           </View>
         </TouchableOpacity>
       ));
@@ -116,6 +132,14 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       imageStyle={{ opacity: 0.5 }}
       style={styles.container}
     >
+<Modal isVisible={isModalVisible} >
+      <View style ={styles.modalContent}>
+      <Ratings/>
+      <TouchableOpacity style={{ ...styles.button, ...styles.buttonClose }} onPress={toggleModal}>
+        <Text style={styles.textStyle}>Close</Text>
+      </TouchableOpacity>
+  </View>
+</Modal>
       <View style={styles.header}>
         <Image
           source={{
@@ -402,6 +426,12 @@ const styles = StyleSheet.create({
   applicantPrice: {
     fontSize: 14,
     color: "#666",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 22,
+    borderRadius: 4,
+    borderColor: "#00000019",
   },
 });
 export default TaskDetails;

@@ -17,7 +17,7 @@ const ProNavigator = ({ Stack }) => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Soon"
+      initialRouteName="Tasks"
     >
       <Stack.Screen name="Soon" component={ProHome} />
       <Stack.Screen name="AddService" component={ProIndex} />

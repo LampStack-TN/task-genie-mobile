@@ -44,15 +44,18 @@ const TaskList = ({ navigation }) => {
   const handleConfirmApply = async () => {
     if (selectedTask) {
       try {
-        const response = await ApiClient().post("/task/apply", {
+        const { data } = await ApiClient().post("/task/apply", {
           taskId: selectedTask.id,
           suggestedPrice: suggestedPrice.trim(),
         });
-        console.log(response.data);
-        //remove the applied task from state
-        setTasks(tasks.filter((task) => task.id !== selectedTask.id));
-        // Update appliedTasks state to add the appliedtask.id
-        setAppliedTasks([...appliedTasks, selectedTask.id]);
+        setTasks((currentTasks) =>
+          currentTasks.map((task) => {
+            if (task.id === data.taskId) {
+              return { ...task, applied: true };
+            }
+            return task;
+          })
+        );
       } catch (error) {
         if (error.response && error.response.data.message) {
           setModalMessage(error.response.data.message);

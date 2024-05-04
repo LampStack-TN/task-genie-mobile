@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import ProfileIndex from "../professional/profile/ProfileIndex";
-import NearbyJobsScreen from "../professional/tasks/applyingTasks/NearbyJobsScreen";
+import TaskList from "../professional/tasks/applyingTasks/TaskList";
 import Tabs from "../professional/profile/edit/Tabs";
 import Home from "../professional/home/ProIndex";
 import FavouriteTasksList from "../professional/tasks/favouriteTasks/FavouriteTasksList";
@@ -17,14 +17,14 @@ const ProNavigator = ({ Stack }) => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Tasks"
+      initialRouteName="task-list"
     >
       <Stack.Screen name="Soon" component={ProHome} />
       <Stack.Screen name="AddService" component={ProIndex} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="MyServices" component={MyServices} />
       <Stack.Screen name="ServiceDetails" component={ServiceDetails} />
-      <Stack.Screen name="Tasks" component={NearbyJobsScreen} />
+      <Stack.Screen name="task-list" component={TaskList} />
       <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
       <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList} />

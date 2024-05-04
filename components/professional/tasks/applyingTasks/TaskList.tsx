@@ -13,7 +13,7 @@ import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
 import Search from "../search/search";
-const NearbyJobsScreen = ({ navigation }) => {
+const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -23,9 +23,9 @@ const NearbyJobsScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await ApiClient().get("/task/getAll");
+        const { data } = await ApiClient().get("/task/getAll");
         setTasks(
-          response.data.map((task) => ({
+          data.map((task) => ({
             ...task,
             liked: task._count.favouriteTasks > 0,
           }))
@@ -190,4 +190,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 });
-export default NearbyJobsScreen;
+export default TaskList;

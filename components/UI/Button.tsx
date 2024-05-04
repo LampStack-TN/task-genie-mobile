@@ -6,10 +6,18 @@ interface Props {
   transparent?: boolean;
   color?: string;
   style?: "outline" | "fill" | "bare";
+  size?: "normal" | "sm";
   callback?: () => any;
 }
 
-const Button = ({ label, style, callback, color, transparent }: Props) => {
+const Button = ({
+  label,
+  style,
+  callback,
+  color,
+  transparent,
+  size,
+}: Props) => {
   const colors = {
     outline: color || "#0C3178",
     fill: "#fff",
@@ -23,8 +31,8 @@ const Button = ({ label, style, callback, color, transparent }: Props) => {
       borderRadius: 50,
       // elevation: style == "bare" ? 0 : 1,
       overflow: "hidden",
-      height: 60,
-      minWidth: 100,
+      paddingHorizontal: size === "sm" ? 20 : 30,
+      paddingVertical: size === "sm" ? 10 : 20,
     },
     outline: {
       borderColor: color || "#0C3178",
@@ -44,7 +52,7 @@ const Button = ({ label, style, callback, color, transparent }: Props) => {
     },
     text: {
       color: colors[style],
-      fontSize: 20,
+      fontSize: size === "sm" ? 14 : 20,
       lineHeight: 21,
       fontWeight: "500",
       letterSpacing: 0.25,

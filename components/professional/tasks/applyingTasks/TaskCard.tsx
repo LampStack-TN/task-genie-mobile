@@ -10,33 +10,35 @@ const TaskCard = ({ task, onApply, onToggleLike }) => {
         <Text style={styles.title}>{task.title}</Text>
       </View>
       <View style={styles.subHeader}>
-        <View style={styles.property}>
-          <MaterialIcons name="place" size={22} color="#4e4e4e" />
-          <Text style={styles.propertyText}>{task.location}</Text>
+        <View style={styles.properties}>
+          <View style={styles.property}>
+            <MaterialIcons name="place" size={22} color="#4e4e4e" />
+            <Text style={styles.propertyText}>{task.location}</Text>
+          </View>
+          <View style={styles.property}>
+            <MaterialIcons name="timelapse" size={22} color="#4e4e4e" />
+            <Text style={styles.propertyText}>Urgency: {task.urgency}</Text>
+          </View>
+          <View style={styles.property}>
+            <MaterialIcons name="access-time" size={22} color="#4e4e4e" />
+            <Text style={styles.propertyText}>{task.dueDate}</Text>
+          </View>
         </View>
-        <View style={styles.property}>
-          <MaterialIcons name="timelapse" size={22} color="#4e4e4e" />
-          <Text style={styles.propertyText}>Urgency: {task.urgency}</Text>
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={styles.applyButton}
+            onPress={() => onApply(task)}
+          >
+            <Text style={styles.applyButtonText}>Apply</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => onToggleLike()}>
+            <MaterialIcons
+              name={task.liked ? "favorite" : "favorite-outline"}
+              size={40}
+              color="#F58D61"
+            />
+          </TouchableOpacity>
         </View>
-        <View style={styles.property}>
-          <MaterialIcons name="access-time" size={22} color="#4e4e4e" />
-          <Text style={styles.propertyText}>{task.dueDate}</Text>
-        </View>
-      </View>
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.applyButton}
-          onPress={() => onApply(task)}
-        >
-          <Text style={styles.applyButtonText}>Apply</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => onToggleLike()}>
-          <MaterialIcons
-            name={task.liked ? "favorite" : "favorite-outline"}
-            size={40}
-            color="#F58D61"
-          />
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -72,8 +74,13 @@ const styles = StyleSheet.create({
     borderRadius: 45 / 2,
   },
   subHeader: {
+    flexDirection: "row",
+    marginBottom: 12,
+  },
+  properties: {
     flexWrap: "wrap",
     rowGap: 2,
+    flex: 1,
   },
   property: {
     flexDirection: "row",
@@ -84,13 +91,13 @@ const styles = StyleSheet.create({
     color: "#4e4e4e",
     fontWeight: "400",
     fontSize: 18,
+    flex: 1,
   },
   footer: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "flex-end",
     columnGap: 4,
-    marginBottom: 5,
   },
   applyButton: {
     backgroundColor: "#0C3178",

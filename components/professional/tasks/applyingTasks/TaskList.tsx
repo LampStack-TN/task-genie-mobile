@@ -51,7 +51,7 @@ const TaskList = ({ navigation }) => {
         setTasks((currentTasks) =>
           currentTasks.map((task) => {
             if (task.id === data.taskId) {
-              return { ...task, applied: true };
+              return { ...task, applied: true, applications: [data] };
             }
             return task;
           })

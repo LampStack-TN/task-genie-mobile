@@ -5,12 +5,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Modal,
   ScrollView,
   ImageBackground,
   Pressable,
 } from "react-native";
-import Task from "../../../types/TaskInterface";
+import Task from "../../../types/Task";
 import { ApiClient } from "../../../utils/api";
 import {
   FontAwesome,
@@ -19,6 +18,14 @@ import {
 } from "@expo/vector-icons";
 import Application from "../../../types/Application";
 import gradient from "../../../assets/images/double-gradient.png";
+import Button from "../../ui/Button";
+
+const colors = {
+  Pending: "#0C7878",
+  Accepted: "#0C780C",
+  Rejected: "#780c0c",
+};
+
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
@@ -154,49 +161,22 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
 
-      <View style={styles.footerContainer}></View>
-      {renderAcceptedApplications()}
-      <Pressable onPress={toggleModal}>
-        {({ pressed }) => (
-          <View
-            style={[
-              styles.applicantCountButton,
-              pressed && { backgroundColor: "#1D4FAFE0" },
-            ]}
-          >
-            <Text style={styles.applicantCountText}>
-              {task._count && task._count.applications > 0
-                ? `${task._count.applications} People Apllications Pending...`
-                : "No one Applied Yet"}
-            </Text>
-            <Text style={styles.seeDetailsText}>See details →</Text>
-          </View>
-        )}
-      </Pressable>
-      <ScrollView style={styles.applicationsList}>
-        {applications
-          .filter((ele) => ele.status !== "Accepted")
-          .map((application, index) => (
-            <View key={index} style={styles.applicationItem}>
-              <Image source={{}} style={styles.avatar} />
-              <Text style={styles.applicantName}>
-                {application.applicant.fullName}
-              </Text>
-              <TouchableOpacity
-                style={styles.acceptButton}
-                onPress={() => handleAcceptApplication(application.id)}
-              >
-                <Text style={styles.acceptButton}>✓</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.rejectButton}
-                onPress={() => handleRejectApplication(application.id)}
-              >
-                <Text style={styles.rejectButton}>✕</Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-      </ScrollView>
+      <View style={styles.footerContainer}>
+        <Button
+          label={task.applied ? task.applications[0].status + "..." : "Aplly"}
+          style="fill"
+          size="sm"
+          color={task.applied && colors[task.applications[0].status]}
+          callback={() => onApply(task)}
+        />
+        <TouchableOpacity onPress={() => onToggleLike()}>
+          <MaterialIcons
+            name={task.liked ? "favorite" : "favorite-outline"}
+            size={40}
+            color="#F58D61"
+          />
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 };
@@ -276,12 +256,11 @@ const styles = StyleSheet.create({
     color: "#0C3178",
     fontWeight: "bold",
   },
-
   footerContainer: {
     flexDirection: "row",
+    alignItems: "flex-end",
     justifyContent: "flex-end",
-    alignItems: "center",
-    marginVertical: 20,
+    columnGap: 4,
   },
   applicantCountButton: {
     backgroundColor: "#1D4FAF",

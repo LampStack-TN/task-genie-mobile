@@ -37,7 +37,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
   const fetchOne = async () => {
     try {
-      const { data } = await ApiClient().get(`/task/getOne/${taskId}`);
+      const { data } = await ApiClient().get(`/task/${taskId}`);
       setTask(data);
     } catch (err) {
       console.log("fetchOne fails:", err);

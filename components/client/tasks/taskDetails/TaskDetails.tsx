@@ -5,11 +5,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Modal,
   ScrollView,
   ImageBackground,
   Pressable,
 } from "react-native";
+
+import Modal from "react-native-modal";
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../utils/api";
 import {
@@ -20,6 +21,9 @@ import {
 import Application from "../../../../types/Application";
 
 import gradient from "../../../../assets/images/double-gradient.png";
+import Button from "../../../ui/Button";
+import ApplicationList from "./ApplicationList";
+import Deletion from "./Deletion";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
@@ -37,9 +41,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   const fetchOne = async () => {
     try {
-      const { data } = await ApiClient().get(`/task/getOne/${taskId}`);
-      console.log(data);
-
+      const { data } = await ApiClient().get(`/task/client/${taskId}`);
       setTask(data);
     } catch (err) {
       console.log("fetchOne fails:", err);
@@ -219,87 +221,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           </View>
         )}
       </Pressable>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isModalVisible}
-        onRequestClose={toggleModal}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modal}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Applications</Text>
-              <Pressable onPress={toggleModal}>
-                <Text style={styles.modalClose}>✕</Text>
-              </Pressable>
-            </View>
-            <ScrollView style={styles.applicationsList}>
-              {applications
-                .filter((ele) => ele.status !== "Accepted")
-                .map((application, index) => (
-                  <View key={index} style={styles.applicationItem}>
-                    <Image source={{}} style={styles.avatar} />
-                    <Text style={styles.applicantName}>
-                      {application.applicant.fullName}
-                    </Text>
-                    <TouchableOpacity
-                      style={styles.acceptButton}
-                      onPress={() => handleAcceptApplication(application.id)}
-                    >
-                      <Text style={styles.acceptButton}>✓</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.rejectButton}
-                      onPress={() => handleRejectApplication(application.id)}
-                    >
-                      <Text style={styles.rejectButton}>✕</Text>
-                    </TouchableOpacity>
-                  </View>
-                ))}
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
 
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modal}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}></Text>
-              <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.modalClose}>✕</Text>
-              </Pressable>
-            </View>
-            <View style={{}}>
-              <Text style={styles.modalText}>
-                Are u sure u want to delete this task?
-              </Text>
-              <View style={styles.buttonRow}>
-                <TouchableOpacity
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>No</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.button, styles.buttonConfirm]}
-                  onPress={() => {
-                    handleDelete();
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <Text style={styles.textStyle}>Yes</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <ApplicationList {...{ applications, isModalVisible, toggleModal }} />
+      <Deletion {...{ modalVisible, setModalVisible, handleDelete }} />
     </ImageBackground>
   );
 };
@@ -445,101 +369,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "right",
     marginTop: 5,
-  },
-  centeredView: {
-    position: "absolute",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    elevation: 5,
-  },
-  buttonRow: {
-    flexDirection: "row",
-    marginTop: 15,
-    justifyContent: "center",
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    marginHorizontal: 10,
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  buttonConfirm: {
-    backgroundColor: "#F44336",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    textAlign: "center",
-    color: "#4e4e4e",
-    fontSize: 18,
-    fontWeight: "600",
-  },
-  acceptButton: {
-    marginRight: 10,
-    padding: 10,
-    backgroundColor: "#27ae60",
-    borderRadius: 20,
-  },
-  rejectButton: {
-    padding: 10,
-    backgroundColor: "#c0392b",
-    borderRadius: 20,
-  },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    padding: 12,
-  },
-  modal: {
-    backgroundColor: "white",
-    padding: 16,
-    borderRadius: 8,
-    maxHeight: "90%",
-  },
-  modalHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  modalTitle: {
-    fontSize: 22,
-    fontWeight: "500",
-    marginBottom: 16,
-    textAlign: "left",
-  },
-  modalClose: {
-    fontSize: 16,
-    fontWeight: "500",
-    paddingHorizontal: 4,
-    color: "#6e6e6e",
-  },
-  applicationsList: {
-    marginBottom: 16,
-  },
-  applicationItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: 8,
   },
   applicantName: {
     flex: 1,

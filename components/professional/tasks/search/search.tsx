@@ -35,7 +35,12 @@ const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
     }
   };
   return (
-    <ImageBackground source={orange_gradient} style={styles.container}>
+    <ImageBackground
+      source={orange_gradient}
+      style={styles.container}
+      imageStyle={{ backgroundColor: "#fff" }}
+      resizeMode="cover"
+    >
       <View style={styles.inputView}>
         <TextInput
           placeholder="Job, Title, Skill, Expertise..."

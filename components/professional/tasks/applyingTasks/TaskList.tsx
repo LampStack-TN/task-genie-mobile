@@ -171,9 +171,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 6,
     overflow: "hidden",
-    flex: 1,
     rowGap: 22,
-    backgroundColor: "#fff",
+    backgroundColor: "#ECF2FD",
   },
   modalContent: {
     backgroundColor: "white",

@@ -94,7 +94,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       style={styles.container}
     >
       <Details {...{ setModalVisible, task, navigation }}>
-        <ApplicationsCard {...{ task, toggleModal }} />
+        <ApplicationsCard {...{ task, toggleModal, navigation }} />
       </Details>
       <ApplicationList
         {...{

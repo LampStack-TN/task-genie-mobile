@@ -1,5 +1,5 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 const ApplicationsCard = ({ task, toggleModal, navigation }) => {
   if (task.acceptedApplication) {
@@ -12,19 +12,29 @@ const ApplicationsCard = ({ task, toggleModal, navigation }) => {
         }
       >
         <View style={styles.acceptedApplicationCard}>
-          <Image
-            source={{ uri: task.acceptedApplication.applicant.avatar }}
-            style={styles.applicantAvatar}
-          />
-          <View style={styles.acceptedInfo}>
-            <Text style={styles.applicantName}>
-              {task.acceptedApplication.applicant.fullName}
-            </Text>
-            <Text style={styles.applicantPrice}>
-              {task.acceptedApplication.price} TND
-            </Text>
+          <View style={styles.profile}>
+            <Image
+              source={{ uri: task.acceptedApplication.applicant.avatar }}
+              style={styles.profilePhoto}
+            />
+            <View style={styles.profileData}>
+              <Text style={styles.profileName}>
+                {task.acceptedApplication.applicant.fullName}
+              </Text>
+              <Text style={styles.userTitle}>
+                {task.acceptedApplication.applicant.title}Professional Writer
+              </Text>
+              {task.acceptedApplication.price ||
+                (true && (
+                  <Text style={styles.userPrice}>
+                    {task.acceptedApplication.price}30 TND
+                  </Text>
+                ))}
+            </View>
           </View>
-          <FontAwesome name="check-circle" size={24} color="green" />
+          <View style={styles.checkCircle}>
+            <AntDesign name="check" size={28} color="green" />
+          </View>
         </View>
       </Pressable>
     );
@@ -89,21 +99,54 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 10,
     backgroundColor: "#fff",
-    borderRadius: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#0C7831",
     marginVertical: 5,
-    elevation: 5,
   },
-  applicantAvatar: {
+  profile: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 12,
+    flex: 1,
+    padding: 5,
+    paddingBottom: 12,
+  },
+  profilePhoto: {
+    backgroundColor: "#669",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "#0C7831",
+  },
+  profileData: {
+    alignSelf: "flex-start",
+  },
+  profileName: {
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#4e4e4e",
+  },
+  userTitle: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#F58D61",
+  },
+  userPrice: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#4e4e4e",
+  },
+  checkCircle: {
     width: 50,
     height: 50,
     borderRadius: 25,
-  },
-  acceptedInfo: {
-    flex: 1,
-    marginLeft: 10,
-  },
-  applicantPrice: {
-    fontSize: 14,
-    color: "#666",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 20,
+    borderWidth: 2,
+    borderColor: "#0C7831",
+    backgroundColor: "#0C783110",
   },
 });

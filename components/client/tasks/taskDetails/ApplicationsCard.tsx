@@ -23,7 +23,7 @@ const ApplicationsCard = ({ task, toggleModal, navigation }) => {
                 {task.acceptedApplication.applicant.fullName}
               </Text>
               <Text style={styles.userTitle}>
-                {task.acceptedApplication.applicant.title}Professional Writer
+                {task.acceptedApplication.applicant.profile.jobTitle}
               </Text>
               {task.acceptedApplication.price ||
                 (true && (

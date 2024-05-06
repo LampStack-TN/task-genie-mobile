@@ -53,29 +53,34 @@ const ApplicationList = ({
                   }}
                   style={styles.profilePhoto}
                 />
-                <View>
+                <View style={styles.userInfo}>
                   <Text style={styles.profileName}>
                     {application.applicant.fullName}
                   </Text>
                   <Text style={styles.userTitle}>
+                    {application.applicant.profile.jobTitle}
+                  </Text>
+                  <Text style={styles.userCity}>
                     {application.applicant.city}
                   </Text>
                 </View>
               </View>
-              <Button
-                size="sm"
-                style="fill"
-                label="Accept"
-                color="#0C3178"
-                callback={() => handleAcceptApplication(application.id)}
-              />
-              <Button
-                size="sm"
-                style="bare"
-                label="Reject"
-                color="#4e4e4e"
-                callback={() => handleRejectApplication(application.id)}
-              />
+              <View style={styles.actions}>
+                <Button
+                  size="sm"
+                  style="fill"
+                  label="Accept"
+                  color="#0C3178"
+                  callback={() => handleAcceptApplication(application.id)}
+                />
+                <Button
+                  size="sm"
+                  style="bare"
+                  label="Reject"
+                  color="#4e4e4e"
+                  callback={() => handleRejectApplication(application.id)}
+                />
+              </View>
               {/* <TouchableOpacity
               style={styles.acceptButton}
               onPress={() => handleAcceptApplication(application.id)}
@@ -132,6 +137,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderBottomWidth: 0.5,
     borderColor: "#c5c5c5",
+    gap: 10,
   },
   profile: {
     alignItems: "center",
@@ -143,20 +149,32 @@ const styles = StyleSheet.create({
   },
   profilePhoto: {
     backgroundColor: "#669",
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: "#F58D6180",
   },
+  userInfo: {},
   profileName: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "500",
     color: "#4e4e4e",
   },
   userTitle: {
+    flex: 1,
     fontSize: 14,
     // fontWeight: "40",
     color: "#4e4e4e",
+  },
+  userCity: {
+    flex: 1,
+    fontSize: 14,
+    // fontWeight: "40",
+    color: "#F58D61",
+  },
+  actions: {
+    padding: 5,
+    gap: 5,
   },
 });

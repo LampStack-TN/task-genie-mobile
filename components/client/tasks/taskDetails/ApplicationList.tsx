@@ -1,8 +1,21 @@
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Modal from "react-native-modal";
 import Button from "../../../ui/Button";
 
-const ApplicationList = ({ applications, isModalVisible, toggleModal }) => {
+const ApplicationList = ({
+  applications,
+  isModalVisible,
+  toggleModal,
+  handleAcceptApplication,
+  handleRejectApplication,
+}) => {
   return (
     <Modal
       animationIn="fadeIn"
@@ -54,12 +67,14 @@ const ApplicationList = ({ applications, isModalVisible, toggleModal }) => {
                 style="fill"
                 label="Accept"
                 color="#0C3178"
+                callback={() => handleAcceptApplication(application.id)}
               ></Button>
               <Button
                 size="sm"
                 style="bare"
                 label="Reject"
                 color="#4e4e4e"
+                callback={() => handleRejectApplication(application.id)}
               ></Button>
               {/* <TouchableOpacity
               style={styles.acceptButton}

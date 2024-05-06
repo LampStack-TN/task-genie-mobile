@@ -5,12 +5,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ScrollView,
   ImageBackground,
   Pressable,
 } from "react-native";
 
-import Modal from "react-native-modal";
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../utils/api";
 import {
@@ -21,7 +19,6 @@ import {
 import Application from "../../../../types/Application";
 
 import gradient from "../../../../assets/images/double-gradient.png";
-import Button from "../../../ui/Button";
 import ApplicationList from "./ApplicationList";
 import Deletion from "./Deletion";
 
@@ -39,18 +36,21 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     setIsModalVisible(!isModalVisible);
   };
 
-  const fetchOne = async () => {
+  const fatchTask = async () => {
     try {
-      const { data } = await ApiClient().get(`/task/client/${taskId}`);
+      const {
+        data,
+        data: { applications },
+      } = await ApiClient().get(`/task/client/${taskId}`);
       setTask(data);
+      setApplications(applications);
     } catch (err) {
       console.log("fetchOne fails:", err);
     }
   };
 
   useEffect(() => {
-    fetchOne();
-    fetchApplications();
+    fatchTask();
   }, []);
 
   const handleDelete = async () => {
@@ -59,15 +59,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       navigation.navigate("Home");
     } catch (err) {
       console.log("Handle delete failed:", err.message);
-    }
-  };
-
-  const fetchApplications = async () => {
-    try {
-      const { data } = await api.get(`task/${taskId}/applications`);
-      setApplications(data);
-    } catch (err) {
-      console.error("Error fetching applications:", err);
     }
   };
 
@@ -203,7 +194,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           <Text style={styles.backText}>Back</Text>
         </TouchableOpacity> */}
       </View>
-      {renderAcceptedApplications()}
+      {/* {renderAcceptedApplications()} */}
       <Pressable onPress={toggleModal}>
         {({ pressed }) => (
           <View
@@ -222,7 +213,16 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         )}
       </Pressable>
 
-      <ApplicationList {...{ applications, isModalVisible, toggleModal }} />
+      <ApplicationList
+        {...{
+          applications,
+          isModalVisible,
+          toggleModal,
+          handleAcceptApplication,
+          handleRejectApplication,
+        }}
+      />
+
       <Deletion {...{ modalVisible, setModalVisible, handleDelete }} />
     </ImageBackground>
   );

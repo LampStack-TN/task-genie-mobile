@@ -68,14 +68,14 @@ const ApplicationList = ({
                 label="Accept"
                 color="#0C3178"
                 callback={() => handleAcceptApplication(application.id)}
-              ></Button>
+              />
               <Button
                 size="sm"
                 style="bare"
                 label="Reject"
                 color="#4e4e4e"
                 callback={() => handleRejectApplication(application.id)}
-              ></Button>
+              />
               {/* <TouchableOpacity
               style={styles.acceptButton}
               onPress={() => handleAcceptApplication(application.id)}

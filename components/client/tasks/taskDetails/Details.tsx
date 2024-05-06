@@ -5,6 +5,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+
 const Details = ({ setModalVisible, task, navigation }) => {
   return (
     <>

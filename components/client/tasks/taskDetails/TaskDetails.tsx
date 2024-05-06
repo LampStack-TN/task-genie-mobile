@@ -1,17 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-  Pressable,
-} from "react-native";
+import { StyleSheet, ImageBackground } from "react-native";
 
 import Task from "../../../../types/TaskInterface";
 import { ApiClient } from "../../../../utils/api";
-import { FontAwesome } from "@expo/vector-icons";
 import Application from "../../../../types/Application";
 
 import gradient from "../../../../assets/images/double-gradient.png";
@@ -94,34 +85,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       console.error(err);
     }
   };
-  const renderAcceptedApplications = () => {
-    return applications
-      .filter((ele) => ele.status === "Accepted")
-      .map((application, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() =>
-            navigation.navigate("ProfileDetails", {
-              userId: application.applicant.id,
-            })
-          }
-        >
-          <View key={index} style={styles.acceptedApplicationCard}>
-            <Image
-              source={{ uri: application.applicant.avatar }}
-              style={styles.applicantAvatar}
-            />
-            <View style={styles.acceptedInfo}>
-              <Text style={styles.applicantName}>
-                {application.applicant.fullName}
-              </Text>
-              <Text style={styles.applicantPrice}>{application.price} TND</Text>
-            </View>
-            <FontAwesome name="check-circle" size={24} color="green" />
-          </View>
-        </TouchableOpacity>
-      ));
-  };
 
   return (
     <ImageBackground
@@ -154,35 +117,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flex: 1,
     backgroundColor: "#fff",
-  },
-  applicantName: {
-    flex: 1,
-    marginHorizontal: 8,
-    fontWeight: "500",
-    fontSize: 16,
-  },
-  acceptedApplicationCard: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 10,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    marginVertical: 5,
-    elevation: 5,
-  },
-  applicantAvatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  acceptedInfo: {
-    flex: 1,
-    marginLeft: 10,
-  },
-  applicantPrice: {
-    fontSize: 14,
-    color: "#666",
   },
 });
 

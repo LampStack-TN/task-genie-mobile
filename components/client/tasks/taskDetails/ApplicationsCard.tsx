@@ -4,15 +4,16 @@ import { AntDesign } from "@expo/vector-icons";
 const ApplicationsCard = ({ task, toggleModal, navigation }) => {
   if (task.acceptedApplication) {
     return (
-      <Pressable
-        onPress={() =>
-          navigation.navigate("ProfileDetails", {
-            userId: task.acceptedApplication.applicant.id,
-          })
-        }
-      >
+      <View>
         <View style={styles.acceptedApplicationCard}>
-          <View style={styles.profile}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate("ProfileDetails", {
+                userId: task.acceptedApplication.applicant.id,
+              })
+            }
+            style={styles.profile}
+          >
             <Image
               source={{ uri: task.acceptedApplication.applicant.avatar }}
               style={styles.profilePhoto}
@@ -31,12 +32,12 @@ const ApplicationsCard = ({ task, toggleModal, navigation }) => {
                   </Text>
                 ))}
             </View>
-          </View>
+          </Pressable>
           <View style={styles.checkCircle}>
             <AntDesign name="check" size={28} color="green" />
           </View>
         </View>
-      </Pressable>
+      </View>
     );
   }
   return (
@@ -105,12 +106,14 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   profile: {
+    backgroundColor: "#f0f0f0",
     alignItems: "center",
     flexDirection: "row",
     gap: 12,
     flex: 1,
-    padding: 5,
-    paddingBottom: 12,
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
   profilePhoto: {
     backgroundColor: "#669",
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
-    margin: 20,
+    margin: 22,
     borderWidth: 2,
     borderColor: "#0C7831",
     backgroundColor: "#0C783110",

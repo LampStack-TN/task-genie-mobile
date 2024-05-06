@@ -8,29 +8,30 @@ import {
 
 const Details = ({ setModalVisible, task, navigation, children }) => {
   return (
-    <>
+    <View style={styles.taskDetails}>
       <View style={styles.header}>
         <Image source={{ uri: task.client?.avatar }} style={styles.avatar} />
         <View style={styles.title}>
           <Text style={styles.titleText}>{task.title}</Text>
+          <Text style={styles.clientName}>{task.client?.fullName}.</Text>
         </View>
       </View>
       <View style={styles.subHeader}>
         <View style={styles.property}>
-          <MaterialIcons name="location-on" size={28} color="#4e4e4e" />
+          <MaterialIcons name="location-on" size={28} color="#0c4167" />
           <Text style={styles.propertyText}>{task.location}</Text>
         </View>
         <View style={styles.property}>
-          <MaterialIcons name="calendar-month" size={28} color="#4e4e4e" />
+          <MaterialIcons name="calendar-month" size={28} color="#0c4167" />
           <Text style={styles.propertyText}>{task.dueDate}</Text>
         </View>
         <View style={styles.property}>
-          <MaterialCommunityIcons name="clock" size={28} color="#4e4e4e" />
+          <MaterialCommunityIcons name="clock" size={28} color="#0c4167" />
           <Text style={styles.propertyText}>Urgency: {task.urgency}</Text>
         </View>
         <View style={styles.property}>
           <View style={styles.roundIcon}>
-            <FontAwesome name="dollar" size={18} color="#fff" />
+            <FontAwesome name="dollar" size={16} color="#fff" />
           </View>
           <Text style={styles.propertyText}>
             {task.minPrice} - {task.maxPrice} TND
@@ -71,18 +72,28 @@ const Details = ({ setModalVisible, task, navigation, children }) => {
           <Text style={styles.backText}>Back</Text>
         </Pressable> */}
       </View>
-    </>
+    </View>
   );
 };
 
 export default Details;
 
 const styles = StyleSheet.create({
+  taskDetails: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: "#FFFFFFC0",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#c5c5c5",
+    marginVertical: 5,
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
     marginBottom: 10,
+    padding: 5,
   },
   avatar: {
     height: 75,
@@ -101,23 +112,32 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#0C3178",
   },
+  clientName: {
+    verticalAlign: "middle",
+    fontSize: 18,
+    fontWeight: "400",
+    color: "#4e4e4e",
+  },
   subHeader: {
     flexDirection: "row",
     flexWrap: "wrap",
     marginVertical: 10,
     rowGap: 10,
+    borderRadius: 8,
+    backgroundColor: "#f5f5f5",
+    padding: 5,
   },
   property: {
     flex: 1,
     flexDirection: "row",
     flexBasis: "50%",
     alignItems: "center",
-    columnGap: 4,
+    columnGap: 8,
   },
   propertyText: {
     flex: 1,
-    color: "#2e2e2e",
-    fontWeight: "400",
+    color: "#4e4e4e",
+    fontWeight: "500",
     fontSize: 18,
   },
   description: {
@@ -189,9 +209,9 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   roundIcon: {
-    backgroundColor: "#4e4e4e",
-    width: 28,
-    height: 28,
+    backgroundColor: "#0c4167",
+    width: 26,
+    height: 26,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 14,

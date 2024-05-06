@@ -6,7 +6,7 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
-const Details = ({ setModalVisible, task, navigation }) => {
+const Details = ({ setModalVisible, task, navigation, children }) => {
   return (
     <>
       <View style={styles.header}>
@@ -49,7 +49,7 @@ const Details = ({ setModalVisible, task, navigation }) => {
           </View>
         ))}
       </View>
-
+      {children}
       <View style={styles.footerContainer}>
         <Pressable onPress={() => setModalVisible(true)}>
           <Text style={styles.deleteText}>Delete</Text>

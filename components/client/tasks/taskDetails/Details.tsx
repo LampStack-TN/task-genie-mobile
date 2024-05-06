@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: "#4e4e4e",
     fontWeight: "500",
-    fontSize: 18,
+    fontSize: 16,
   },
   description: {
     marginVertical: 10,

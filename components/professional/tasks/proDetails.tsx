@@ -19,6 +19,7 @@ import {
 import Application from "../../../types/Application";
 import gradient from "../../../assets/images/double-gradient.png";
 import Ratings from "./ratings/rating";
+import RatingDisplay from "./ratings/ratingDispaly";
 import Modal from "react-native-modal";
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
@@ -132,6 +133,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       imageStyle={{ opacity: 0.5 }}
       style={styles.container}
     >
+     
 <Modal isVisible={isModalVisible} >
       <View style ={styles.modalContent}>
       <Ratings/>
@@ -221,6 +223,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
             </View>
           ))}
       </ScrollView>
+      <RatingDisplay/>
     </ImageBackground>
   );
 };

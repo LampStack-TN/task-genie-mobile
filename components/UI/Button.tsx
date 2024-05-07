@@ -1,8 +1,9 @@
+import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
 //define Props Interface
 interface Props {
-  label: string;
+  label: string | React.ReactNode;
   transparent?: boolean;
   color?: string;
   style?: "outline" | "fill" | "bare";
@@ -62,7 +63,9 @@ const Button = ({
   return (
     <Pressable onPress={callback}>
       <View style={[styles.button, styles[style]]}>
-        <Text style={styles.text}>{label}</Text>
+        <Text style={styles.text}>
+          {label}
+        </Text>
       </View>
     </Pressable>
   );

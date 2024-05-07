@@ -67,7 +67,7 @@ const ApplicationList = ({
                   size="sm"
                   style="fill"
                   label="Accept"
-                  color="#0C3178"
+                  color="#31780c"
                   callback={() => handleAcceptApplication(application.id)}
                 />
                 <Button
@@ -78,18 +78,6 @@ const ApplicationList = ({
                   callback={() => handleRejectApplication(application.id)}
                 />
               </View>
-              {/* <TouchableOpacity
-              style={styles.acceptButton}
-              onPress={() => handleAcceptApplication(application.id)}
-            >
-              <Text style={styles.acceptButton}>✓</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.rejectButton}
-              onPress={() => handleRejectApplication(application.id)}
-            >
-              <Text style={styles.rejectButton}>✕</Text>
-            </TouchableOpacity> */}
             </View>
           ))}
         </ScrollView>

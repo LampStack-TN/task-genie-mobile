@@ -27,6 +27,8 @@ const Contact = ({ navigation }) => {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [address, setAddress] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(false);
+  const [longitude, setLongitude] = useState(0);
+  const [latitude, setLatitude] = useState(0);
 
   useEffect(() => {
     const getLocation = async () => {
@@ -38,14 +40,17 @@ const Contact = ({ navigation }) => {
 
       let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location);
-      console.log(location);
+      setLatitude(location.coords.latitude);
+      setLongitude(location.coords.longitude);
+      console.log(location.coords.latitude);
+      
+
+      const { latitude, longitude } = location.coords;
     };
     getLocation();
   }, []);
 
   const reverseGeocode = async () => {
-    console.log(123);
-
     if (currentLocation) {
       setLoadingLocation(true);
       const { coords } = currentLocation;
@@ -54,7 +59,6 @@ const Contact = ({ navigation }) => {
         latitude: coords.latitude,
       })
         .then((reverseGeocodedAddress) => {
-          console.log(reverseGeocodedAddress);
           setAddress(reverseGeocodedAddress);
         })
         .finally(() => setLoadingLocation(false));
@@ -89,6 +93,8 @@ const Contact = ({ navigation }) => {
       city: "",
       address: "",
       zipcode: "",
+      longitude: longitude,
+      latitude: latitude,
     },
   });
   const sumbitRegister = async (registerData) => {
@@ -106,9 +112,20 @@ const Contact = ({ navigation }) => {
       console.error(error);
     }
   };
+
   const onSubmit = (data) => {
+    // console.log(registerData,"test");
+
     dispatch(appendData(data));
-    sumbitRegister({ ...registerData, avatar: registerData.avatar });
+    const updatedRegisterData = {
+      ...registerData,
+      city: address[0].city,
+      longitude: longitude,
+      latitude: latitude,
+      avatar: registerData.avatar,
+    };
+    sumbitRegister(updatedRegisterData);
+    console.log(updatedRegisterData, "ee");
   };
   return (
     <>

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   View,
 } from "react-native";
 import Modal from "react-native-modal";
@@ -13,14 +12,13 @@ import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
 import Search from "../search/search";
-//
 import Slider from "@react-native-community/slider";
 import { getDistance } from "geolib";
 
-const NearbyJobsScreen = ({ navigation }) => {
+const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [applicationModal, setApplicationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState("");
@@ -58,43 +56,65 @@ const NearbyJobsScreen = ({ navigation }) => {
     fetchTasks();
   }, []);
 
+  // * Good
+  // const fetchTasks = async () => {
+  //   try {
+  //     const { data } = await ApiClient().get("/task/getAll");
+  //     setTasks(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchTasks();
+  // }, []);
+
+  // * Good
   const handleApplyToTask = (task: Task) => {
     setSelectedTask(task);
-    setModalVisible(true);
+    setApplicationModal(true);
   };
+
   const handleConfirmApply = async () => {
     if (selectedTask) {
       try {
-        const response = await ApiClient().post("/task/apply", {
+        const { data } = await ApiClient().post("/task/apply", {
           taskId: selectedTask.id,
           suggestedPrice: suggestedPrice.trim(),
         });
-        console.log(response.data);
-        //remove the applied task from state
-        setTasks(tasks.filter((task) => task.id !== selectedTask.id));
-        // Update appliedTasks state to add the appliedtask.id
-        setAppliedTasks([...appliedTasks, selectedTask.id]);
+        setTasks((currentTasks) =>
+          currentTasks.map((task) => {
+            if (task.id === data.taskId) {
+              return { ...task, applied: true, applications: [data] };
+            }
+            return task;
+          })
+        );
       } catch (error) {
         if (error.response && error.response.data.message) {
           setModalMessage(error.response.data.message);
-          setModalVisible(true);
+          setApplicationModal(true);
         } else {
           console.error(error);
         }
       }
     }
-    setModalVisible(false);
+    setApplicationModal(false);
     setSuggestedPrice("");
   };
+
   const handleRejectApply = () => {
     setSelectedTask(null);
-    setModalVisible(false);
+    setApplicationModal(false);
     setSuggestedPrice("");
   };
+
   const handleSearchResults = (searchResults) => {
     setTasks(searchResults);
   };
 
+  // * Good
   const toggleLikeTask = async (taskId) => {
     try {
       const response = await ApiClient().post("/task/likeTask", { taskId });
@@ -108,16 +128,16 @@ const NearbyJobsScreen = ({ navigation }) => {
       );
     } catch (error) {
       setModalMessage("Failed to toggle like.");
-      setModalVisible(true);
+      setApplicationModal(true);
     }
   };
 
   return (
     <View style={{ flex: 1 }}>
       <Search onSearchResults={handleSearchResults} />
-    
-        {/* <Text>Distance Filter: {distanceFilter} KM</Text> */}
-        {/* <Slider
+
+      {/* <Text>Distance Filter: {distanceFilter} KM</Text> */}
+      {/* <Slider
           style={{ width: 200, height: 40 }}
           minimumValue={1}
           maximumValue={10}
@@ -128,7 +148,7 @@ const NearbyJobsScreen = ({ navigation }) => {
           onValueChange={(value) => setDistanceFilter(value)}
          
         />  */}
-      
+
       <ScrollView style={styles.container}>
         {tasks.map((task) => (
           <Pressable
@@ -145,45 +165,51 @@ const NearbyJobsScreen = ({ navigation }) => {
           </Pressable>
         ))}
       </ScrollView>
-      <Modal isVisible={isModalVisible}>
+
+      <Modal
+        animationIn={"fadeIn"}
+        animationOut={"fadeOut"}
+        isVisible={applicationModal}
+      >
         <View style={styles.modalContent}>
-          <Text style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
-            Do you want to apply for this task?
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Suggested Price"
-            value={suggestedPrice}
-            onChangeText={setSuggestedPrice}
-          />
+          <View style={styles.inputView}>
+            <Text style={styles.inputLabel}>Price</Text>
+            <TextInput
+              style={styles.input}
+              inputMode="numeric"
+              placeholder="Suggess a price?"
+              value={suggestedPrice}
+              onChangeText={setSuggestedPrice}
+            />
+          </View>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              gap: 8,
+              paddingHorizontal: 8,
+            }}
           >
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={handleConfirmApply}
-            >
-              <Text style={styles.modalButtonText}>Yes</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={handleRejectApply}
-            >
-              <Text style={styles.modalButtonText}>No</Text>
-            </TouchableOpacity>
+            <Pressable style={styles.cancelButton} onPress={handleRejectApply}>
+              <Text style={styles.cancelButtonText}>Cancel</Text>
+            </Pressable>
+            <Pressable style={styles.modalButton} onPress={handleConfirmApply}>
+              <Text style={styles.modalButtonText}>Apply</Text>
+            </Pressable>
           </View>
         </View>
       </Modal>
+
       <Modal isVisible={modalMessage !== ""}>
         <View style={styles.modalContent}>
           <Text style={{ fontSize: 16, marginBottom: 12, textAlign: "center" }}>
             {modalMessage}
           </Text>
-          <TouchableOpacity onPress={() => setModalMessage("")}>
+          <Pressable onPress={() => setModalMessage("")}>
             <Text style={{ fontSize: 16, color: "blue", textAlign: "center" }}>
               Close
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </Modal>
     </View>
@@ -194,36 +220,60 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 6,
     overflow: "hidden",
-    flex: 1,
     rowGap: 22,
-    backgroundColor: "#fff",
+    backgroundColor: "#ECF2FD",
   },
   modalContent: {
     backgroundColor: "white",
     padding: 22,
-    borderRadius: 4,
+    borderRadius: 12,
+    gap: 12,
     borderColor: "#00000019",
   },
   modalButton: {
-    backgroundColor: "#335ba7",
+    backgroundColor: "#E64F0F",
     borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    marginBottom: 10,
-    width: "45%",
+  },
+  cancelButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   modalButtonText: {
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
   },
-  input: {
-    height: 40,
-    borderColor: "gray",
+  cancelButtonText: {
+    color: "#4e4e4e",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  inputView: {
+    backgroundColor: "#fff",
+    height: 60,
+    paddingHorizontal: 22,
+    borderRadius: 30,
+    borderColor: "#e5e5e5",
     borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    fontSize: 14,
+    justifyContent: "center",
+    elevation: 3,
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
+  },
+  input: {
+    fontSize: 14,
   },
 });
-export default NearbyJobsScreen;
+
+export default TaskList;

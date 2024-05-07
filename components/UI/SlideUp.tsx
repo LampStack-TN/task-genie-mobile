@@ -56,24 +56,32 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
           <View style={styles.slideMenu}>
             <ProMenu />
           </View>
-          <Pressable
+          <View
             style={{
-              flexDirection: "row",
-              position: "absolute",
-              bottom: 20,
-              left: 20,
-              backgroundColor: "#0C3178",
-              padding: 10,
-              gap: 5,
-              borderRadius: 22,
-            }}
-            onPress={() => {
-              AsyncStorage.removeItem("token");
-              dispatch(setUser(null));
+              alignItems: "flex-start",
+              paddingHorizontal: 22,
+              paddingVertical: 8,
             }}
           >
-            <MaterialIcons name="logout" size={22} color="white" />
-          </Pressable>
+            <Pressable
+              style={{
+                // flexDirection: "row",
+                // position: "absolute",
+                // bottom: 20,
+                // left: 20,
+                backgroundColor: "#0C3178",
+                padding: 10,
+                gap: 5,
+                borderRadius: 22,
+              }}
+              onPress={() => {
+                AsyncStorage.removeItem("token");
+                dispatch(setUser(null));
+              }}
+            >
+              <MaterialIcons name="logout" size={22} color="white" />
+            </Pressable>
+          </View>
         </Pressable>
       </Pressable>
     </Modal>
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: "white",
-    maxHeight: "90%",
+    // maxHeight: "90%",
     position: "absolute",
     width: "100%",
     bottom: 0,
@@ -147,6 +155,7 @@ const styles = StyleSheet.create({
     borderRadius: 45 / 2,
   },
   slideMenu: {
-    height: 500,
+    // height: 500,
+    flex: 1,
   },
 });

@@ -28,7 +28,7 @@ const ProMenu = () => {
       name: "MyServices",
       icon: "check-circle",
     },
-    { id: 3, title: "Nearby Jobs", name: "Tasks", icon: "task" },
+    { id: 3, title: "Nearby Jobs", name: "task-list", icon: "task" },
     {
       id: 4,
       title: "Applied Tasks",
@@ -57,7 +57,7 @@ const ProMenu = () => {
               style={[
                 styles.button,
                 pressed && {
-                  backgroundColor: "#F58D6120",
+                  backgroundColor: "#60606010",
                 },
               ]}
             >
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#10101010",
+    backgroundColor: "#ffffffa0",
     paddingVertical: 16,
     paddingHorizontal: 20,
     borderBottomWidth: 1,

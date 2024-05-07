@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import io from "socket.io-client";
 import gradient from "../../../assets/images/double-gradient.png";
+import config from "../../../config";
 
 const Conversation = ({ route, navigation }) => {
   const [messages, setMessages] = useState([]);
@@ -22,7 +23,7 @@ const Conversation = ({ route, navigation }) => {
   const user = useSelector((state: any) => state.user);
 
   // Connect to Socket.IO server
-  const socket = io("http://192.168.137.1:3000");
+  const socket = io(config.baseUrl);
 
   const getConversation = async () => {
     try {

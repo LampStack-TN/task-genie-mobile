@@ -96,13 +96,17 @@ const styles = StyleSheet.create({
   },
   modalHeader: {
     padding: 16,
+    backgroundColor: "#e6eaf1",
+    alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
   modalTitle: {
     fontSize: 22,
     fontWeight: "500",
-    marginBottom: 16,
+    verticalAlign: "middle",
     textAlign: "left",
   },
   modalClose: {

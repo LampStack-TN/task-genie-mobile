@@ -13,6 +13,10 @@ import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
 import Search from "../search/search";
+//
+import Slider from "@react-native-community/slider";
+import { getDistance } from "geolib";
+
 const NearbyJobsScreen = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
@@ -20,15 +24,32 @@ const NearbyJobsScreen = ({ navigation }) => {
   const [modalMessage, setModalMessage] = useState("");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState("");
+  const [distanceFilter, setDistanceFilter] = useState(10);
+
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const response = await ApiClient().get("/task/getAll");
         setTasks(
-          response.data.map((task) => ({
-            ...task,
-            liked: task._count.favouriteTasks > 0,
-          }))
+          response.data
+            .map((task) => ({
+              ...task,
+              liked: task._count.favouriteTasks > 0,
+            }))
+            .filter((task) => {
+              const userLocation = {
+                latitude: task.client.latitude,
+                longitude: task.client.longitude,
+              };
+              const taskLocation = {
+                latitude: task.latitude,
+                longitude: task.longitude,
+              };
+              const distance = getDistance(userLocation, taskLocation);
+              const distanceKm = distance / 1000;
+              // console.log(distance, "hhh");
+              return distanceKm > 9000;
+            })
         );
       } catch (error) {
         console.error(error);
@@ -36,6 +57,7 @@ const NearbyJobsScreen = ({ navigation }) => {
     };
     fetchTasks();
   }, []);
+
   const handleApplyToTask = (task: Task) => {
     setSelectedTask(task);
     setModalVisible(true);
@@ -93,6 +115,20 @@ const NearbyJobsScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <Search onSearchResults={handleSearchResults} />
+    
+        {/* <Text>Distance Filter: {distanceFilter} KM</Text> */}
+        {/* <Slider
+          style={{ width: 200, height: 40 }}
+          minimumValue={1}
+          maximumValue={10}
+          step={1}
+          minimumTrackTintColor="#FFFFFF"
+          maximumTrackTintColor="#000000"
+          value={distanceFilter}
+          onValueChange={(value) => setDistanceFilter(value)}
+         
+        />  */}
+      
       <ScrollView style={styles.container}>
         {tasks.map((task) => (
           <Pressable

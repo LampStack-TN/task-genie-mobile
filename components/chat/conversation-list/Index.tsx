@@ -44,7 +44,7 @@ const ConversationList = ({ navigation }) => {
                 <Text style={styles.profileName}>
                   {item.participants[0].user.fullName}
                 </Text>
-                <Text style={styles.message}>{item.messages[0].content}</Text>
+                <Text style={styles.message}>{item.messages?.content}</Text>
               </View>
             </View>
           )}

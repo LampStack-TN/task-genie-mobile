@@ -15,6 +15,7 @@ const ApplicationList = ({
   toggleModal,
   handleAcceptApplication,
   handleRejectApplication,
+  navigation,
 }) => {
   return (
     <Modal
@@ -32,21 +33,17 @@ const ApplicationList = ({
           </Pressable>
         </View>
         <ScrollView style={styles.applicationsList}>
-          {[
-            ...applications,
-            ...applications,
-            ...applications,
-            ...applications,
-            ...applications,
-            ...applications,
-            ...applications,
-            ...applications,
-            ...applications,
-            ...applications,
-            ...applications,
-          ].map((application, index) => (
+          {[...applications].map((application, index) => (
             <View key={index} style={styles.applicationItem}>
-              <View style={[styles.profile]}>
+              <Pressable
+                onPress={() => {
+                  toggleModal();
+                  navigation.push("ProfileDetails", {
+                    userId: application.applicant.id,
+                  });
+                }}
+                style={styles.profile}
+              >
                 <Image
                   source={{
                     uri: application.applicant.avatar,
@@ -64,7 +61,7 @@ const ApplicationList = ({
                     {application.applicant.city}
                   </Text>
                 </View>
-              </View>
+              </Pressable>
               <View style={styles.actions}>
                 <Button
                   size="sm"

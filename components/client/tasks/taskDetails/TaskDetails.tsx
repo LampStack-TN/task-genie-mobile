@@ -98,6 +98,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       </Details>
       <ApplicationList
         {...{
+          navigation,
           applications,
           isModalVisible,
           toggleModal,

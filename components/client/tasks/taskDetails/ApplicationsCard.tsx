@@ -25,12 +25,12 @@ const ApplicationsCard = ({ task, toggleModal, navigation }) => {
               <Text style={styles.userTitle}>
                 {task.acceptedApplication.applicant.profile.jobTitle}
               </Text>
-              {task.acceptedApplication.price ||
-                (true && (
-                  <Text style={styles.userPrice}>
-                    {task.acceptedApplication.price}30 TND
-                  </Text>
-                ))}
+              {task.acceptedApplication.price && (
+                <Text style={styles.userPrice}>
+                  {task.acceptedApplication.price}
+                  <Text style={{ color: "#6e6e6e", fontSize: 12 }}> TND</Text>
+                </Text>
+              )}
             </View>
           </Pressable>
           <View style={styles.checkCircle}>

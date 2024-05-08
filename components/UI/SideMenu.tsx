@@ -52,8 +52,10 @@ const SideMenu = ({ slideOn, toggleSlide, navigation }) => {
         </View>
         <View
           style={{
-            alignItems: "flex-start",
+            alignItems: "center",
+            justifyContent: "space-between",
             paddingHorizontal: 22,
+            flexDirection: "row",
             paddingVertical: 8,
           }}
         >
@@ -74,6 +76,20 @@ const SideMenu = ({ slideOn, toggleSlide, navigation }) => {
             }}
           >
             <MaterialIcons name="logout" size={22} color="white" />
+          </Pressable>
+          <Pressable
+            style={{
+              // flexDirection: "row",
+              // position: "absolute",
+              // bottom: 20,
+              // left: 20,
+              backgroundColor: "#30",
+              padding: 10,
+              borderRadius: 30,
+            }}
+            onPress={toggleSlide}
+          >
+            <MaterialIcons name="menu" size={32} color="#0C3178" />
           </Pressable>
         </View>
       </View>

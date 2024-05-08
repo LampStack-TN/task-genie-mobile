@@ -23,12 +23,12 @@ const Menu = () => {
 
   const menu = [
     { id: 1, title: "My Tasks", name: "MyTasks", icon: "task" },
-    { id: 2, title: "Services", name: "ServicesList", icon: "list" },
+    { id: 2, title: "Services", name: "ServicesList", icon: "auto-awesome" },
     {
       id: 3,
       title: "My Requests",
       name: "MyHiredServices",
-      icon: "list",
+      icon: "pending-actions",
     },
     { id: 4, title: "Chat", name: "ConversationList", icon: "chat" },
   ];
@@ -46,8 +46,10 @@ const Menu = () => {
                 },
               ]}
             >
+              {/* <MaterialIcons name={'circle'} size={14} color="#93543a" /> */}
               <MaterialIcons name={item.icon} size={22} color="#93543a" />
               <Text style={styles.buttonText}>{item.title}</Text>
+              <MaterialIcons name={"chevron-right"} size={22} color="#93543a" />
             </View>
           )}
         </Pressable>
@@ -72,11 +74,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     paddingVertical: 16,
     paddingHorizontal: 22,
+    gap: 8,
   },
   buttonText: {
     marginLeft: 10,
     fontSize: 24,
     fontWeight: "500",
+    flex: 1,
     color: "#4e4e4e",
   },
 });

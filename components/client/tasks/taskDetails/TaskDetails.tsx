@@ -53,18 +53,12 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   const handleAcceptApplication = async (applicationId: number) => {
     try {
-      const response = await api.post("task/application/respond", {
+      const { data } = await api.post("task/application/respond", {
         applicationId,
         action: "accept",
       });
-      if (response.data) {
-        setApplications((prevApplications) =>
-          prevApplications.map((ele) =>
-            ele.id === applicationId ? { ...ele, status: "Accepted" } : ele
-          )
-        );
-        setApplications(response.data);
-      }
+      toggleModal();
+      setTask((task) => ({ ...task, acceptedApplication: data }));
     } catch (err) {
       console.error(err);
     }
@@ -72,15 +66,11 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   const handleRejectApplication = async (applicationId: number) => {
     try {
-      const response = await api.post("task/application/respond", {
+      const { data } = await api.post("task/application/respond", {
         applicationId,
         action: "reject",
       });
-      if (response.data) {
-        setApplications((prevApplications) =>
-          prevApplications.filter((ele) => ele.id !== applicationId)
-        );
-      }
+      console.log(data);
     } catch (err) {
       console.error(err);
     }

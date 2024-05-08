@@ -22,7 +22,8 @@ const Info = ({ navigation, route }) => {
   const CreateProfile = async (data: any) => {
     try {
       await ApiClient().post("profile/createProfile/", data);
-      setDummy((prev) => !prev);
+      // setDummy((prev) => !prev);
+      navigation.navigate('Documents')
     } catch (error) {
       console.log(error);
     }

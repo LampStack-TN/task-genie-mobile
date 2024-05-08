@@ -19,7 +19,12 @@ const Confirmation = ({
   message,
 }: Props) => {
   return (
-    <Modal animationIn="fadeIn" animationOut='fadeOut' isVisible={modalVisible}>
+    <Modal
+      style={{ alignItems: "center" }}
+      animationIn="fadeIn"
+      animationOut="fadeOut"
+      isVisible={modalVisible}
+    >
       <View style={styles.modal}>
         <View style={styles.modalHeader}>
           <Text style={styles.modalTitle}></Text>
@@ -35,14 +40,17 @@ const Confirmation = ({
               style="bare"
               label="Cancel"
               color="#4e4e4e"
-              callback={() => 1}
+              callback={() => setModalVisible(!modalVisible)}
             />
             <Button
               size="sm"
               style="fill"
               label="Confirm"
               color={confirmColor || "#31780c"}
-              callback={() => 1}
+              callback={() => {
+                onConfirm();
+                setModalVisible(!modalVisible);
+              }}
             />
 
             {/* <Pressable
@@ -74,12 +82,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     maxHeight: "90%",
+    width: "auto",
   },
   modalHeader: {
     paddingHorizontal: 12,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    backgroundColor: "#e2e2e2",
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
   modalTitle: {
     fontSize: 22,
@@ -93,7 +105,8 @@ const styles = StyleSheet.create({
     color: "#6e6e6e",
   },
   modalBody: {
-    padding: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 22,
     alignItems: "stretch",
   },
   buttonRow: {

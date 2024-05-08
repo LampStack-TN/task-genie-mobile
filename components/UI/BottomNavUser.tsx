@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import SlideUp from "./SlideUp";
+import SideMenu from "./SideMenu";
 
 const BottomNavUser: React.FC = () => {
   const navigation = useNavigation();
@@ -44,19 +44,9 @@ const BottomNavUser: React.FC = () => {
               />
             )}
           </Pressable>
-          <SlideUp {...{ slideOn, toggleSlide, navigation }} />
+          <SideMenu {...{ slideOn, toggleSlide, navigation }} />
         </View>
       </View>
-      {slideOn && (
-        <View
-          style={{
-            backgroundColor: "#2e2e2ea0",
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-          }}
-        ></View>
-      )}
     </>
   );
 };

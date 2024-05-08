@@ -22,23 +22,19 @@ const Menu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const menu = [
-    { id: 1, title: "My Tasks", name: "MyTasks", icon: "list" },
-    { id: 2, title: "Services List", name: "ServicesList", icon: "list" },
-    { id: 3, title: "Chat", name: "ConversationList", icon: "chat" },
+    { id: 1, title: "My Tasks", name: "MyTasks", icon: "task" },
+    { id: 2, title: "Services", name: "ServicesList", icon: "list" },
     {
-      id: 4,
-      title: "My Services Demands",
+      id: 3,
+      title: "My Requests",
       name: "MyHiredServices",
       icon: "list",
-    }
+    },
+    { id: 4, title: "Chat", name: "ConversationList", icon: "chat" },
   ];
 
   return (
-    <ImageBackground
-      imageStyle={{ opacity: 0.5 }}
-      source={gradient}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       {menu.map((item) => (
         <Pressable key={item.id} onPress={() => navigation.navigate(item.name)}>
           {({ pressed }) => (
@@ -50,13 +46,13 @@ const Menu = () => {
                 },
               ]}
             >
-              <MaterialIcons name={item.icon} size={32} color="#0C3178e0" />
+              <MaterialIcons name={item.icon} size={22} color="#93543a" />
               <Text style={styles.buttonText}>{item.title}</Text>
             </View>
           )}
         </Pressable>
       ))}
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -68,25 +64,19 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "stretch",
     justifyContent: "flex-start",
-    paddingTop: 4,
     gap: 2,
-    backgroundColor: "#fff",
-    borderBlockColor: "#c5c5c5",
   },
   button: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#FFF",
-    paddingVertical: 26,
-    paddingHorizontal: 20,
-    elevation: 1,
-    borderBottomWidth: 1,
-    borderBlockColor: "#d0d0d0",
+    paddingVertical: 16,
+    paddingHorizontal: 22,
   },
   buttonText: {
     marginLeft: 10,
     fontSize: 24,
-    fontWeight: "600",
-    color: "#2e2e2e",
+    fontWeight: "500",
+    color: "#4e4e4e",
   },
 });

@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: "#F58D6180",
+    borderColor: "#f58d61",
   },
   profileName: {
     fontSize: 22,

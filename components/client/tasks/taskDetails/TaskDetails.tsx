@@ -7,9 +7,9 @@ import Application from "../../../../types/Application";
 
 import gradient from "../../../../assets/images/double-gradient.png";
 import ApplicationList from "./ApplicationList";
-import Deletion from "./Deletion";
 import Details from "./Details";
 import ApplicationsCard from "./ApplicationsCard";
+import Confirmation from "../../../ui/Confirmation";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
@@ -30,7 +30,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       const {
         data,
         data: { applications },
-      } = await ApiClient().get(`/task/client/${taskId}`);
+      } = await api.get(`/task/client/${taskId}`);
       setTask(data);
       setApplications(applications);
     } catch (err) {
@@ -97,7 +97,11 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         }}
       />
 
-      <Deletion {...{ modalVisible, setModalVisible, handleDelete }} />
+      <Confirmation
+        message="Are you sure?"
+        confirmColor="#a02020"
+        {...{ modalVisible, setModalVisible, onConfirm: handleDelete }}
+      />
     </ImageBackground>
   );
 };

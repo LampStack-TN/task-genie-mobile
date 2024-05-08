@@ -22,26 +22,15 @@ const ProMenu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const menu = [
+    { id: 1, title: "My Tasks", name: "MyTasks", icon: "task-alt" },
+    { id: 2, title: "Services", name: "ServicesList", icon: "auto-awesome" },
     {
-      id: 2,
-      title: "My Services",
-      name: "MyServices",
-      icon: "check-circle",
+      id: 3,
+      title: "My Requests",
+      name: "MyHiredServices",
+      icon: "pending-actions",
     },
-    { id: 3, title: "Nearby Jobs", name: "task-list", icon: "task" },
-    {
-      id: 4,
-      title: "Applied Tasks",
-      name: "AppliedJobs",
-      icon: "check-circle",
-    },
-    {
-      id: 5,
-      title: "Favourite Tasks List",
-      name: "FavouriteTasksList",
-      icon: "list",
-    },
-    { id: 6, title: "Chat", name: "ConversationList", icon: "chat" },
+    { id: 4, title: "Chat", name: "ConversationList", icon: "wechat" },
   ];
 
   return (

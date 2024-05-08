@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-  ImageBackground,
-} from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
-import gradient from "../../../assets/images/orange_gradient.png";
 
 type RootStackParamList = {
   TaskList: String;
@@ -22,15 +15,26 @@ const Menu = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const menu = [
-    { id: 1, title: "My Tasks", name: "MyTasks", icon: "task" },
-    { id: 2, title: "Services", name: "ServicesList", icon: "auto-awesome" },
+    { id: 3, title: "Tasks", name: "task-list", icon: "search" },
     {
-      id: 3,
-      title: "My Requests",
-      name: "MyHiredServices",
-      icon: "pending-actions",
+      id: 2,
+      title: "My Services",
+      name: "MyServices",
+      icon: "auto-awesome",
     },
-    { id: 4, title: "Chat", name: "ConversationList", icon: "chat" },
+    {
+      id: 4,
+      title: "Applications",
+      name: "AppliedJobs",
+      icon: "task-alt",
+    },
+    {
+      id: 5,
+      title: "Favourite Tasks",
+      name: "FavouriteTasksList",
+      icon: "list",
+    },
+    { id: 6, title: "Chat", name: "ConversationList", icon: "wechat" },
   ];
 
   return (
@@ -47,7 +51,11 @@ const Menu = () => {
               ]}
             >
               {/* <MaterialIcons name={'circle'} size={14} color="#93543a" /> */}
-              <MaterialIcons name={item.icon} size={22} color="#93543a" />
+              {item.id === 5 ? (
+                <AntDesign name="heart" size={22} color="#93543a" />
+              ) : (
+                <MaterialIcons name={item.icon} size={22} color="#93543a" />
+              )}
               <Text style={styles.buttonText}>{item.title}</Text>
               <MaterialIcons name={"chevron-right"} size={22} color="#93543a" />
             </View>
@@ -66,7 +74,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "stretch",
     justifyContent: "flex-start",
-    gap: 2,
+    // backgroundColor: "#fef3ef",
   },
   button: {
     flexDirection: "row",
@@ -75,10 +83,12 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 22,
     gap: 8,
+    borderBottomWidth: 1,
+    borderColor: "#fde8df",
   },
   buttonText: {
     marginLeft: 10,
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "500",
     flex: 1,
     color: "#4e4e4e",

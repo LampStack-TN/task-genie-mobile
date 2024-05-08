@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import SlideUp from "./SlideUp";
 
@@ -11,8 +11,8 @@ const BottomNavUser: React.FC = () => {
   const toggleSlide = () => setSlideOn(!slideOn);
 
   const navItems = [
-    { id: 1, screen: "Home", icon: "home", size: 32 },
-    { id: 2, screen: "AddTask", icon: "circle-with-plus", size: 45 },
+    { id: 1, screen: "Home", icon: "task-alt", size: 32 },
+    { id: 2, screen: "AddTask", icon: "add-circle", size: 45 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
   return (
@@ -25,7 +25,7 @@ const BottomNavUser: React.FC = () => {
               style={styles.navIcon}
             >
               {({ pressed }) => (
-                <Entypo
+                <MaterialIcons
                   name={icon}
                   size={size}
                   color={pressed ? "#0C3178" : "#5275B7"}
@@ -37,7 +37,7 @@ const BottomNavUser: React.FC = () => {
         <View style={styles.navItem}>
           <Pressable onPress={toggleSlide} style={styles.navIcon}>
             {({ pressed }) => (
-              <Entypo
+              <MaterialIcons
                 name="menu"
                 size={32}
                 color={pressed ? "#0C3178" : "#5275B7"}

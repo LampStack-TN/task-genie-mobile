@@ -5,23 +5,33 @@ import { Entypo, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import gradient from "../../assets/images/double-gradient.png";
 import ProfileUser from "../../types/ProfileUser";
 import Button from "../ui/Button";
-const ProfileDetails = ({ route }) => {
+const ProfileDetails = ({ route, navigation }) => {
   const { userId } = route.params;
   const [profile, setProfile] = useState<ProfileUser>({});
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await ApiClient().get(
-          `profile/getOneProfile/${userId}`
-        );
-        setProfile(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
 
+  const fetchProfile = async () => {
+    try {
+      const response = await ApiClient().get(`profile/getOneProfile/${userId}`);
+      setProfile(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchConversation = async () => {
+    try {
+      const {
+        data: { id },
+      } = await ApiClient().get(`/chat/fecth-conversation/${userId}`);
+      navigation.navigate("Conversation", { id });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
     fetchProfile();
-  }, [userId]);
+  }, []);
 
   const skills = [
     { id: 200, name: "Carpentry" },
@@ -109,7 +119,7 @@ const ProfileDetails = ({ route }) => {
               </>
             }
             color="#31780c"
-            callback={() => null}
+            callback={fetchConversation}
           />
         </View>
       </View>

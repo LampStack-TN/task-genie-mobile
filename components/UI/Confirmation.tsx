@@ -1,14 +1,25 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
+import Button from "./Button";
+import React from "react";
+
+interface Props {
+  modalVisible: boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  onConfirm: () => any;
+  confirmColor?: string;
+  message: string;
+}
 
 const Confirmation = ({
   modalVisible,
   setModalVisible,
   onConfirm,
+  confirmColor,
   message,
-}) => {
+}: Props) => {
   return (
-    <Modal animationIn="fadeIn" isVisible={modalVisible}>
+    <Modal animationIn="fadeIn" animationOut='fadeOut' isVisible={modalVisible}>
       <View style={styles.modal}>
         <View style={styles.modalHeader}>
           <Text style={styles.modalTitle}></Text>
@@ -16,10 +27,25 @@ const Confirmation = ({
             <Text style={styles.modalClose}>✕</Text>
           </Pressable>
         </View>
-        <View style={{}}>
+        <View style={styles.modalBody}>
           <Text style={styles.modalText}>{message}</Text>
           <View style={styles.buttonRow}>
-            <Pressable
+            <Button
+              size="sm"
+              style="bare"
+              label="Cancel"
+              color="#4e4e4e"
+              callback={() => 1}
+            />
+            <Button
+              size="sm"
+              style="fill"
+              label="Confirm"
+              color={confirmColor || "#31780c"}
+              callback={() => 1}
+            />
+
+            {/* <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
@@ -33,7 +59,7 @@ const Confirmation = ({
               }}
             >
               <Text style={styles.textStyle}>Yes</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
         </View>
       </View>
@@ -50,14 +76,14 @@ const styles = StyleSheet.create({
     maxHeight: "90%",
   },
   modalHeader: {
-    padding: 16,
+    paddingHorizontal: 12,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   modalTitle: {
     fontSize: 22,
     fontWeight: "500",
-    marginBottom: 16,
     textAlign: "left",
   },
   modalClose: {
@@ -66,32 +92,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     color: "#6e6e6e",
   },
+  modalBody: {
+    padding: 16,
+    alignItems: "stretch",
+  },
   buttonRow: {
     flexDirection: "row",
-    marginTop: 15,
     justifyContent: "center",
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    marginHorizontal: 10,
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  buttonConfirm: {
-    backgroundColor: "#F44336",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    marginVertical: 12,
   },
   modalText: {
     textAlign: "center",
     color: "#4e4e4e",
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "500",
   },
 });

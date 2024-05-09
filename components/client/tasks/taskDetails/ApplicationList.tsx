@@ -67,18 +67,19 @@ const ApplicationList = ({
                   style="fill"
                   label="Accept"
                   color="#31780c"
-                  callback={() =>
-                    handleApplicationRespond(application.id, "Accepted")
-                  }
+                  callback={() => {
+                    toggleModal();
+                    handleApplicationRespond(application.id, "Accepted");
+                  }}
                 />
                 <Button
                   size="sm"
                   style="bare"
                   label="Reject"
                   color="#4e4e4e"
-                  callback={() =>
-                    handleApplicationRespond(application.id, "Rejected")
-                  }
+                  callback={() => {
+                    handleApplicationRespond(application.id, "Rejected");
+                  }}
                 />
               </View>
             </View>

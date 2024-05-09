@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -14,6 +14,7 @@ import { ApiClient } from "../../../../utils/api";
 import Search from "../search/search";
 import Slider from "@react-native-community/slider";
 import { getDistance } from "geolib";
+import { useFocusEffect } from "@react-navigation/native";
 
 const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -24,51 +25,53 @@ const TaskList = ({ navigation }) => {
   const [suggestedPrice, setSuggestedPrice] = useState("");
   const [distanceFilter, setDistanceFilter] = useState(10);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await ApiClient().get("/task/getAll");
-        setTasks(
-          response.data
-            .map((task) => ({
-              ...task,
-              liked: task._count.favouriteTasks > 0,
-            }))
-            .filter((task) => {
-              const userLocation = {
-                latitude: task.client.latitude,
-                longitude: task.client.longitude,
-              };
-              const taskLocation = {
-                latitude: task.latitude,
-                longitude: task.longitude,
-              };
-              const distance = getDistance(userLocation, taskLocation);
-              const distanceKm = distance / 1000;
-              // console.log(distance, "hhh");
-              return distanceKm > 9000;
-            })
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchTasks();
-  }, []);
-
-  // * Good
-  // const fetchTasks = async () => {
-  //   try {
-  //     const { data } = await ApiClient().get("/task/getAll");
-  //     setTasks(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   // useEffect(() => {
+  //   const fetchTasks = async () => {
+  //     try {
+  //       const response = await ApiClient().get("/task/getAll");
+  //       setTasks(
+  //         response.data
+  //           .map((task) => ({
+  //             ...task,
+  //             liked: task._count.favouriteTasks > 0,
+  //           }))
+  //           .filter((task) => {
+  //             const userLocation = {
+  //               latitude: task.client.latitude,
+  //               longitude: task.client.longitude,
+  //             };
+  //             const taskLocation = {
+  //               latitude: task.latitude,
+  //               longitude: task.longitude,
+  //             };
+  //             const distance = getDistance(userLocation, taskLocation);
+  //             const distanceKm = distance / 1000;
+  //             // console.log(distance, "hhh");
+  //             return distanceKm > 9000;
+  //           })
+  //       );
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
   //   fetchTasks();
   // }, []);
+
+  // * Good
+  const fetchTasks = async () => {
+    try {
+      const { data } = await ApiClient().get("/task/getAll");
+      setTasks(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchTasks();
+    }, [])
+  );
 
   // * Good
   const handleApplyToTask = (task: Task) => {
@@ -117,7 +120,7 @@ const TaskList = ({ navigation }) => {
   // * Good
   const toggleLikeTask = async (taskId) => {
     try {
-      const response = await ApiClient().post("/task/likeTask", { taskId });
+      const response = await ApiClient().post("/favrourite-task/likeTask", { taskId });
       setTasks((currentTasks) =>
         currentTasks.map((task) => {
           if (task.id === taskId) {

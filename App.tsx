@@ -26,7 +26,7 @@ import RoleForm from "./components/auth/register/RoleForm";
 import ProNavigator from "./components/navigators/ProNavigator";
 import BottomNavPro from "./components/ui/BottomNavPro";
 import Profile from "./components/professional/profile/Profile";
-import Info from "./components/professional/profile/form/Info";
+import ProfileForm from "./components/professional/profile/form/Index";
 
 const Stack = createNativeStackNavigator();
 
@@ -78,7 +78,7 @@ const Main = () => {
                   <BottomNavPro />
                 </View>
               ) : (
-                <Info />
+                <ProfileForm />
               )
             ) : (
               <RoleForm />

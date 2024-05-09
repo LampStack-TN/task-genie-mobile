@@ -6,25 +6,13 @@ import { ApiClient } from "../../../../utils/api";
 import Button from "../../../ui/Button";
 import { useNavigation } from "@react-navigation/native";
 
-const Info = () => {
-  const navigation = useNavigation();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      jobTitle: "",
-      bio: "",
-    },
-  });
+const Info = ({ control, errors }) => {
 
   const CreateProfile = async (data: any) => {
     try {
       console.log(data);
 
       await ApiClient().post("profile/createProfile/", data);
-      navigation.navigate("Documents");
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +21,6 @@ const Info = () => {
   const onSubmit = (data: any) => {
     CreateProfile(data);
   };
-
   return (
     <>
       <View style={styles.container}>
@@ -91,7 +78,7 @@ const Info = () => {
             <Button
               label="Next"
               style="fill"
-              callback={handleSubmit(onSubmit)}
+              // callback={handleSubmit(onSubmit)}
             />
           </View>
         </ScrollView>

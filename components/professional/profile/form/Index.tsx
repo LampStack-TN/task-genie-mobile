@@ -2,32 +2,43 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Info from "./Info";
 import Skills from "./Skills";
 import Documents from "./Documents";
+import { useForm } from "react-hook-form";
+import Tabs from "./Tabs";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function ProfileForm({ route }) {
-  const { user } = route.params;
+export default function ProfileForm() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      jobTitle: "",
+      bio: "",
+    },
+  });
+
   return (
     <Tab.Navigator
       initialRouteName="PersonalDetails"
-      tabBar={(props) => <MyTab {...props} />}
+      tabBar={(props) => <Tabs {...props} />}
     >
       <Tab.Screen
         name="PersonalDetails"
-        component={Info}
-        initialParams={{ user }}
+        children={() => <Info {...{ control, errors }} />}
         options={{ tabBarLabel: "Personal Details" }}
-      />
-      <Tab.Screen
+        />
+      {/* <Tab.Screen
         name="ProfessionalInfo"
         component={Skills}
-        initialParams={{ profile: user.profile }}
-        options={{ tabBarLabel: "Professional Info" }}
-      />
+        initialParams={{}}
+        options={{ tabBarLabel: "Skills" }}
+    /> */}
       <Tab.Screen
-        name="Security"
-        component={Documents}
-        options={{ tabBarLabel: "Security" }}
+        name="Document"
+        children={() => <Documents {...{ control, errors }} />}
+        options={{ tabBarLabel: "Documents" }}
       />
     </Tab.Navigator>
   );

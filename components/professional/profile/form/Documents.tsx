@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 
-const Documents = () => {
+const Documents = ({ control, errors }) => {
   const [cinRecto, setCinRecto] = useState(null);
   const [cinVerso, setCinVerso] = useState(null);
   const [officialDoc, setOfficialDoc] = useState(null);

@@ -11,6 +11,8 @@ interface Task {
   description?: string;
   _count?: any;
   dueDate?: string;
+  applied?: boolean;
+  liked?: boolean;
 }
 
 export default Task;

@@ -20,8 +20,7 @@ export default function PersonalDetails({ navigation, route }) {
   const updateUserInfo = async (data: any) => {
     try {
       const response = await ApiClient().put("auth/updateUser/", data);
-      console.log(response);
-      navigation.navigate("Profile");
+      navigation.navigate("ProfileIndex");
     } catch (error) {
       console.log(error);
     }

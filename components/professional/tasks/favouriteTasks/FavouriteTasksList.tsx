@@ -1,34 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import TaskCard from "../applyingTasks/TaskCard";
 import { ApiClient } from "../../../../utils/api";
-import Task from "../../../../types/Task";
+import { Task } from "../../../../types/Task";
+import { useFocusEffect } from "@react-navigation/native";
 const FavouriteTasksList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  useEffect(() => {
-    const fetchLikedTasks = async () => {
-      try {
-        const response = await ApiClient().get("/task/favoriteTasks");
-        setTasks(
-          response.data.map((task) => ({
-            ...task,
-            liked: true,
-          }))
-        );
-      } catch (error) {
-        console.error("Failed to fetch favorite tasks:", error);
-      }
-    };
 
-    fetchLikedTasks();
-  }, []);
+  const fetchLikedTasks = async () => {
+    try {
+      const response = await ApiClient().get("/favrourite-task/favoriteTasks");
+      setTasks(
+        response.data.map((task) => ({
+          ...task,
+          liked: true,
+        }))
+      );
+    } catch (error) {
+      console.error("Failed to fetch favorite tasks:", error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLikedTasks();
+    }, [])
+  );
 
   const toggleLikeTask = async (taskId) => {
     try {
-      const response = await ApiClient().post("/task/likeTask", { taskId });
+      const response = await ApiClient().post("/favrourite-task/likeTask", { taskId });
       setTasks((currentTasks) =>
         currentTasks.map((task) => {
           if (task.id === taskId) {
@@ -38,14 +42,13 @@ const FavouriteTasksList = () => {
         })
       );
     } catch (error) {
-console.log(error);
-
+      console.log(error);
     }
   };
 
   const handleApplyToTask = async (appliedTask: Task) => {
     try {
-      const response = await ApiClient().post("/task/apply", {
+      const response = await ApiClient().post("/task-application/apply", {
         taskId: appliedTask.id,
       });
       console.log(response.data);

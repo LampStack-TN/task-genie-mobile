@@ -17,16 +17,13 @@ const UserNavigator = ({ Stack }) => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Home"
+      initialRouteName="MyTasks"
     >
-      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="AddTask" component={TaskStepsIndex} />
       <Stack.Screen name="TaskDetails" component={TaskDetails} />
       <Stack.Screen name="MyTabs" component={MyTabs} />
       <Stack.Screen name="MyTasks" component={UserTaskList} />
       <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
-      <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Search" component={search} />
       <Stack.Screen name="ServicesList" component={ServicesList} />
       <Stack.Screen name="ConversationList" component={ConversationList} />
       <Stack.Screen name="Conversation" component={Conversation} />

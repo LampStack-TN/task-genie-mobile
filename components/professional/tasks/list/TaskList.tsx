@@ -7,12 +7,14 @@ import { ApiClient } from "../../../../utils/api";
 const TaskList: React.FC = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const api = ApiClient();
+  console.log(123);
+  
   const fetchTasks = async () => {
     try {
-      const response = await api.get('/task/getAll/');
-      if (response && response.data) {
-        setTasks(response.data);
-      }
+      const { data } = await api.get("/task/getAll/");
+      console.log(data);
+
+      setTasks(data);
     } catch (error) {
       console.error("Error fetching tasks:", error.message);
     }
@@ -26,7 +28,7 @@ const TaskList: React.FC = ({ navigation }: any) => {
   const handleDelete = async (taskId: number) => {
     try {
       await api.del(`/task/delete/${taskId}`);
-      fetchTasks();  
+      fetchTasks();
     } catch (err) {
       console.log("Error deleting task:", err.message);
     }
@@ -36,7 +38,7 @@ const TaskList: React.FC = ({ navigation }: any) => {
     <ScrollView>
       {tasks.map((task) => (
         <TouchableOpacity
-          key={task.id.toString()}
+          key={task.id}
           onPress={() =>
             navigation.navigate("TaskDetails", { taskId: task.id })
           }

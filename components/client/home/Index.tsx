@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-  ImageBackground,
-} from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
-import gradient from "../../../assets/images/orange_gradient.png";
 
 type RootStackParamList = {
   TaskList: String;
@@ -18,29 +11,42 @@ type RootStackParamList = {
   MyTasks: String;
 };
 
-const Menu = () => {
+const Menu = ({ toggleSlide }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const menu = [
-    { id: 1, title: "My Tasks", name: "MyTasks", icon: "list" },
-    { id: 2, title: "Services List", name: "ServicesList", icon: "list" },
-    { id: 3, title: "Chat", name: "ConversationList", icon: "chat" },
+    { id: 3, title: "Tasks", name: "task-list", icon: "search" },
+    {
+      id: 2,
+      title: "My Services",
+      name: "MyServices",
+      icon: "auto-awesome",
+    },
     {
       id: 4,
-      title: "My Services Demands",
-      name: "MyHiredServices",
+      title: "Applications",
+      name: "AppliedJobs",
+      icon: "task-alt",
+    },
+    {
+      id: 5,
+      title: "Favourite Tasks",
+      name: "FavouriteTasksList",
       icon: "list",
-    }
+    },
+    { id: 6, title: "Chat", name: "ConversationList", icon: "wechat" },
   ];
 
   return (
-    <ImageBackground
-      imageStyle={{ opacity: 0.5 }}
-      source={gradient}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       {menu.map((item) => (
-        <Pressable key={item.id} onPress={() => navigation.navigate(item.name)}>
+        <Pressable
+          key={item.id}
+          onPress={() => {
+            navigation.navigate(item.name);
+            toggleSlide();
+          }}
+        >
           {({ pressed }) => (
             <View
               style={[
@@ -50,13 +56,19 @@ const Menu = () => {
                 },
               ]}
             >
-              <MaterialIcons name={item.icon} size={32} color="#0C3178e0" />
+              {/* <MaterialIcons name={'circle'} size={14} color="#93543a" /> */}
+              {item.id === 5 ? (
+                <AntDesign name="heart" size={22} color="#93543a" />
+              ) : (
+                <MaterialIcons name={item.icon} size={22} color="#93543a" />
+              )}
               <Text style={styles.buttonText}>{item.title}</Text>
+              <MaterialIcons name={"chevron-right"} size={22} color="#93543a" />
             </View>
           )}
         </Pressable>
       ))}
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -68,25 +80,23 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     alignItems: "stretch",
     justifyContent: "flex-start",
-    paddingTop: 4,
-    gap: 2,
-    backgroundColor: "#fff",
-    borderBlockColor: "#c5c5c5",
+    // backgroundColor: "#fef3ef",
   },
   button: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#FFF",
-    paddingVertical: 26,
-    paddingHorizontal: 20,
-    elevation: 1,
+    paddingVertical: 16,
+    paddingHorizontal: 22,
+    gap: 8,
     borderBottomWidth: 1,
-    borderBlockColor: "#d0d0d0",
+    borderColor: "#fde8df",
   },
   buttonText: {
     marginLeft: 10,
-    fontSize: 24,
-    fontWeight: "600",
-    color: "#2e2e2e",
+    fontSize: 18,
+    fontWeight: "500",
+    flex: 1,
+    color: "#4e4e4e",
   },
 });

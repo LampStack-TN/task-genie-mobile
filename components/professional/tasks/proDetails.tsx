@@ -9,7 +9,7 @@ import {
   ImageBackground,
   Pressable,
 } from "react-native";
-import Task from "../../../types/TaskInterface";
+import Task from "../../../types/Task";
 import { ApiClient } from "../../../utils/api";
 import {
   FontAwesome,
@@ -21,6 +21,14 @@ import gradient from "../../../assets/images/double-gradient.png";
 import Ratings from "./ratings/rating";
 import RatingDisplay from "./ratings/ratingDispaly";
 import Modal from "react-native-modal";
+import Button from "../../ui/Button";
+
+const colors = {
+  Pending: "#0C7878",
+  Accepted: "#0C780C",
+  Rejected: "#780c0c",
+};
+
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
@@ -32,7 +40,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
   const fetchOne = async () => {
     try {
-      const { data } = await ApiClient().get(`/task/getOne/${taskId}`);
+      const { data } = await ApiClient().get(`/task/${taskId}`);
       setTask(data);
     } catch (err) {
       console.log("fetchOne fails:", err);
@@ -44,7 +52,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   }, []);
   const fetchApplications = async () => {
     try {
-      const { data } = await api.get(`task/${taskId}/applications`);
+      const { data } = await api.get(`task-application/${taskId}/applications`);
       setApplications(data);
     } catch (err) {
       console.error("Error fetching applications:", err);
@@ -52,7 +60,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
   const handleAcceptApplication = async (applicationId: number) => {
     try {
-      const response = await api.post("task/application/respond", {
+      const response = await api.post("task-application/application/respond", {
         applicationId,
         action: "accept",
       });
@@ -70,7 +78,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
   const handleRejectApplication = async (applicationId: number) => {
     try {
-      const response = await api.post("task/application/respond", {
+      const response = await api.post("task-application/application/respond", {
         applicationId,
         action: "reject",
       });
@@ -84,16 +92,13 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     }
   };
 
+  const [selectedApplication, setSelectedApplication] =
+    useState<Application | null>(null);
 
-  const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
-
- 
   const handleIconPress = (application: Application) => {
     setSelectedApplication(application);
     toggleModal();
   };
-
-
 
   const renderAcceptedApplications = () => {
     return applications
@@ -119,9 +124,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
               <Text style={styles.applicantPrice}>{application.price} TND</Text>
             </View>
 
-            <TouchableOpacity  onPress={() => handleIconPress(application)}>
-        <FontAwesome name="check-circle" size={60} color="green" />
-      </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIconPress(application)}>
+              <FontAwesome name="check-circle" size={60} color="green" />
+            </TouchableOpacity>
           </View>
         </TouchableOpacity>
       ));
@@ -133,15 +138,17 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       imageStyle={{ opacity: 0.5 }}
       style={styles.container}
     >
-     
-<Modal isVisible={isModalVisible} >
-      <View style ={styles.modalContent}>
-      <Ratings/>
-      <TouchableOpacity style={{ ...styles.button, ...styles.buttonClose }} onPress={toggleModal}>
-        <Text style={styles.textStyle}>Close</Text>
-      </TouchableOpacity>
-  </View>
-</Modal>
+      <Modal isVisible={isModalVisible}>
+        <View style={styles.modalContent}>
+          <Ratings />
+          <TouchableOpacity
+            style={{ ...styles.button, ...styles.buttonClose }}
+            onPress={toggleModal}
+          >
+            <Text style={styles.textStyle}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
       <View style={styles.header}>
         <Image
           source={{
@@ -180,50 +187,22 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         <Text style={styles.descriptionText}>{task.description}</Text>
       </View>
 
-      <View style={styles.footerContainer}></View>
-      {renderAcceptedApplications()}
-      <Pressable onPress={toggleModal}>
-        {({ pressed }) => (
-          <View
-            style={[
-              styles.applicantCountButton,
-              pressed && { backgroundColor: "#1D4FAFE0" },
-            ]}
-          >
-            <Text style={styles.applicantCountText}>
-              {task._count && task._count.applications > 0
-                ? `${task._count.applications} People Apllications Pending...`
-                : "No one Applied Yet"}
-            </Text>
-            <Text style={styles.seeDetailsText}>See details →</Text>
-          </View>
-        )}
-      </Pressable>
-      <ScrollView style={styles.applicationsList}>
-        {applications
-          .filter((ele) => ele.status !== "Accepted")
-          .map((application, index) => (
-            <View key={index} style={styles.applicationItem}>
-              <Image source={{}} style={styles.avatar} />
-              <Text style={styles.applicantName}>
-                {application.applicant.fullName}
-              </Text>
-              <TouchableOpacity
-                style={styles.acceptButton}
-                onPress={() => handleAcceptApplication(application.id)}
-              >
-                <Text style={styles.acceptButton}>✓</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.rejectButton}
-                onPress={() => handleRejectApplication(application.id)}
-              >
-                <Text style={styles.rejectButton}>✕</Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-      </ScrollView>
-      <RatingDisplay/>
+      <View style={styles.footerContainer}>
+        <Button
+          label={task.applied ? task.applications[0].status + "..." : "Aplly"}
+          style="fill"
+          size="sm"
+          color={task.applied && colors[task.applications[0].status]}
+          callback={() => onApply(task)}
+        />
+        <TouchableOpacity onPress={() => onToggleLike()}>
+          <MaterialIcons
+            name={task.liked ? "favorite" : "favorite-outline"}
+            size={40}
+            color="#F58D61"
+          />
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 };
@@ -303,12 +282,11 @@ const styles = StyleSheet.create({
     color: "#0C3178",
     fontWeight: "bold",
   },
-
   footerContainer: {
     flexDirection: "row",
+    alignItems: "flex-end",
     justifyContent: "flex-end",
-    alignItems: "center",
-    marginVertical: 20,
+    columnGap: 4,
   },
   applicantCountButton: {
     backgroundColor: "#1D4FAF",

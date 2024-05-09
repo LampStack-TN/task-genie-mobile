@@ -15,7 +15,21 @@ import { appendData } from "../../../redux/slices/registerSlice";
 import { Ionicons } from "@expo/vector-icons";
 import Button from "../../ui/Button";
 import { useState } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 const BasicInfos = ({ navigation }: any) => {
+  //
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const handleDateChange = (event: any, date: any) => {
+    if (date) {
+      setSelectedDate(date);
+      setShowDatePicker(false);
+      const formattedDate =
+        date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+      setValue("birthdate", formattedDate);
+    }
+  };
+  //
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const {
@@ -108,8 +122,14 @@ const BasicInfos = ({ navigation }: any) => {
                   value={value}
                   style={styles.input}
                 />
-                <View style={styles.inputIcon}>
-                  <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
+                <View style={[styles.inputIcon, { zIndex: 999 }]}>
+                  <Pressable onPress={() => setShowDatePicker(true)}>
+                    <Ionicons
+                      name="calendar-clear"
+                      size={24}
+                      color="#F58D6180"
+                    />
+                  </Pressable>
                 </View>
               </View>
             )}
@@ -132,6 +152,21 @@ const BasicInfos = ({ navigation }: any) => {
           />
         </View>
       </ScrollView>
+      {showDatePicker && (
+        <Pressable
+          onPress={() => setShowDatePicker(false)}
+          style={styles.dateContainer}
+        >
+          <View style={styles.date}>
+            <DateTimePicker
+              value={selectedDate}
+              mode="date"
+              display="inline"
+              onChange={handleDateChange}
+            />
+          </View>
+        </Pressable>
+      )}
     </View>
   );
 };
@@ -231,6 +266,20 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     alignSelf: "center",
     marginBottom: 22,
+  },
+  dateContainer: {
+    backgroundColor: "#00000080",
+    position: "absolute",
+    width: "100%",
+    zIndex: 999,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  date: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 22,
   },
 
   placeholder: {

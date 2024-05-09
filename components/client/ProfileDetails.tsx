@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { ApiClient } from "../../utils/api";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Entypo, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import gradient from "../../assets/images/double-gradient.png";
 import ProfileUser from "../../types/ProfileUser";
-const ProfileDetails = ({ route }) => {
+import Button from "../ui/Button";
+const ProfileDetails = ({ route, navigation }) => {
   const { userId } = route.params;
   const [profile, setProfile] = useState<ProfileUser>({});
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await ApiClient().get(
-          `profile/getOneProfile/${userId}`
-        );
-        setProfile(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
 
+  const fetchProfile = async () => {
+    try {
+      const response = await ApiClient().get(`profile/getOneProfile/${userId}`);
+      setProfile(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchConversation = async () => {
+    try {
+      const {
+        data: { id },
+      } = await ApiClient().get(`/chat/fecth-conversation/${userId}`);
+      navigation.navigate("Conversation", { id });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
     fetchProfile();
-  }, [userId]);
+  }, []);
 
   const skills = [
     { id: 200, name: "Carpentry" },
@@ -92,6 +102,25 @@ const ProfileDetails = ({ route }) => {
               </Text>
             </View>
           ))}
+        </View>
+        <View style={styles.actions}>
+          <Button
+            size="sm"
+            style="fill"
+            label={
+              <>
+                Send a Message{"  "}
+                <FontAwesome
+                  name="send"
+                  size={18}
+                  color="#fff"
+                  style={{ margin: 10 }}
+                />
+              </>
+            }
+            color="#31780c"
+            callback={fetchConversation}
+          />
         </View>
       </View>
     </ImageBackground>
@@ -189,6 +218,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#0C3178",
     fontSize: 14,
+  },
+  actions: {
+    alignItems: "flex-end",
   },
 });
 

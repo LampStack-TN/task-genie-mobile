@@ -11,7 +11,7 @@ const UserTaskList = ({ navigation }: any) => {
 
   const fetchTasks = async () => {
     try {
-      const response = await ApiClient().get("/task/myTasks");
+      const response = await ApiClient().get("/task/my-tasks");
       setTasks(response.data);
     } catch (error) {
       console.error(error);

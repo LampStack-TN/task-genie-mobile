@@ -1,11 +1,11 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import SlideUp from "./SlideUp";
 
 import { useState } from "react";
 import useKeyboardOpen from "../../utils/useKeyboardOpen";
 import { useSelector } from "react-redux";
+import SideMenu from "./SideMenu";
 
 const BottomNavPro: React.FC = () => {
   const user = useSelector((state: any) => state.user);
@@ -18,7 +18,7 @@ const BottomNavPro: React.FC = () => {
   const toggleSlide = () => setSlideOn(!slideOn);
 
   const navItems = [
-    { id: 1, screen: "Tasks", icon: "task", size: 32 },
+    { id: 1, screen: "task-list", icon: "task", size: 32 },
     { id: 2, screen: "AddService", icon: "add-circle-outline", size: 45 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
@@ -56,19 +56,9 @@ const BottomNavPro: React.FC = () => {
                 }}
               />
             </Pressable>
-            <SlideUp {...{ slideOn, toggleSlide, navigation }} />
+          <SideMenu {...{ slideOn, toggleSlide, navigation }} />
           </View>
         </View>
-        {slideOn && (
-          <View
-            style={{
-              backgroundColor: "#2e2e2ea0",
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-            }}
-          ></View>
-        )}
       </>
     )
   );

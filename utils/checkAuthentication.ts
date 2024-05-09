@@ -9,7 +9,6 @@ const checkAuthentication = async (setLoading, dispatch) => {
       dispatch(setUser(data));
     } catch (error) {
       // console.log(error);
-      await AsyncStorage.removeItem("token");
     }
   }
   setLoading(false);

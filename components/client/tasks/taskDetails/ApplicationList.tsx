@@ -13,8 +13,7 @@ const ApplicationList = ({
   applications,
   isModalVisible,
   toggleModal,
-  handleAcceptApplication,
-  handleRejectApplication,
+  handleApplicationRespond,
   navigation,
 }) => {
   return (
@@ -68,14 +67,18 @@ const ApplicationList = ({
                   style="fill"
                   label="Accept"
                   color="#31780c"
-                  callback={() => handleAcceptApplication(application.id)}
+                  callback={() =>
+                    handleApplicationRespond(application.id, "Accepted")
+                  }
                 />
                 <Button
                   size="sm"
                   style="bare"
                   label="Reject"
                   color="#4e4e4e"
-                  callback={() => handleRejectApplication(application.id)}
+                  callback={() =>
+                    handleApplicationRespond(application.id, "Rejected")
+                  }
                 />
               </View>
             </View>

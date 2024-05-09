@@ -15,8 +15,7 @@ export default function ProfessionalInfo({ navigation, route }) {
   const updateInfo = async (data: any) => {
     try {
       const response = await ApiClient().put("profile/updateProfile/", data);
-      console.log(response);
-      navigation.navigate("Profile");
+      navigation.navigate("ProfileIndex");
     } catch (error) {
       console.log(error);
     }

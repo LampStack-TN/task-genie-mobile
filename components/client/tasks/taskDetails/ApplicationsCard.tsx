@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-const ApplicationsCard = ({ task, toggleModal, navigation }) => {
+const ApplicationsCard = ({ task, toggleModal, navigation, setCompletion }) => {
   if (task.acceptedApplication) {
     return (
       <View>
@@ -33,9 +33,11 @@ const ApplicationsCard = ({ task, toggleModal, navigation }) => {
               )}
             </View>
           </Pressable>
-          <View style={styles.checkCircle}>
-            <AntDesign name="check" size={28} color="green" />
-          </View>
+          <Pressable onPress={() => setCompletion(true)}>
+            <View style={styles.checkCircle}>
+              <AntDesign name="check" size={28} color="green" />
+            </View>
+          </Pressable>
         </View>
       </View>
     );

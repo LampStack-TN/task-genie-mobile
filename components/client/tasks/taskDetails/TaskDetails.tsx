@@ -18,6 +18,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const [applications, setApplications] = useState<Application[]>([]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [completion, setCompletion] = useState(false);
 
   const taskId = route.params.taskId;
 
@@ -84,7 +85,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       style={styles.container}
     >
       <Details {...{ setModalVisible, task, navigation }}>
-        <ApplicationsCard {...{ task, toggleModal, navigation }} />
+        <ApplicationsCard
+          {...{ task, toggleModal, navigation, setCompletion }}
+        />
       </Details>
       <ApplicationList
         {...{
@@ -101,6 +104,16 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         message="Are you sure?"
         confirmColor="#a02020"
         {...{ modalVisible, setModalVisible, onConfirm: handleDelete }}
+      />
+
+      <Confirmation
+        message="Mark This As Complete?"
+        // confirmColor="#a02020"
+        {...{
+          modalVisible: completion,
+          setModalVisible: setCompletion,
+          onConfirm: null,
+        }}
       />
     </ImageBackground>
   );

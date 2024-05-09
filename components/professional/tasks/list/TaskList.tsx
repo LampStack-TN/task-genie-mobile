@@ -36,7 +36,7 @@ const TaskList: React.FC = ({ navigation }: any) => {
     <ScrollView>
       {tasks.map((task) => (
         <TouchableOpacity
-          key={task.id.toString()}
+          key={task.id}
           onPress={() =>
             navigation.navigate("TaskDetails", { taskId: task.id })
           }

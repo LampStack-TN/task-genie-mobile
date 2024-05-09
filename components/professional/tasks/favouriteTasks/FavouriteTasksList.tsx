@@ -48,7 +48,7 @@ const FavouriteTasksList = () => {
 
   const handleApplyToTask = async (appliedTask: Task) => {
     try {
-      const response = await ApiClient().post("/task/apply", {
+      const response = await ApiClient().post("/task-application/apply", {
         taskId: appliedTask.id,
       });
       console.log(response.data);

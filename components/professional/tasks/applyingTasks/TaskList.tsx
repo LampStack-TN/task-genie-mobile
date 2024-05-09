@@ -82,7 +82,7 @@ const TaskList = ({ navigation }) => {
   const handleConfirmApply = async () => {
     if (selectedTask) {
       try {
-        const { data } = await ApiClient().post("/task/apply", {
+        const { data } = await ApiClient().post("/task-application/apply", {
           taskId: selectedTask.id,
           suggestedPrice: suggestedPrice.trim(),
         });

@@ -12,7 +12,7 @@ const AppliedTasks = () => {
 
   const fetchAppliedTasks = async () => {
     try {
-      const response = await ApiClient().get("/task/app/");
+      const response = await ApiClient().get("/task-application");
       setAppliedTasks(response.data);
     } catch (error) {
       console.error(error);

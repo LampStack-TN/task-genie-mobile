@@ -51,7 +51,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   }, []);
   const fetchApplications = async () => {
     try {
-      const { data } = await api.get(`task/${taskId}/applications`);
+      const { data } = await api.get(`task-application/${taskId}/applications`);
       setApplications(data);
     } catch (err) {
       console.error("Error fetching applications:", err);
@@ -59,7 +59,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
   const handleAcceptApplication = async (applicationId: number) => {
     try {
-      const response = await api.post("task/application/respond", {
+      const response = await api.post("task-application/application/respond", {
         applicationId,
         action: "accept",
       });
@@ -77,7 +77,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   };
   const handleRejectApplication = async (applicationId: number) => {
     try {
-      const response = await api.post("task/application/respond", {
+      const response = await api.post("task-application/application/respond", {
         applicationId,
         action: "reject",
       });
@@ -91,16 +91,13 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     }
   };
 
+  const [selectedApplication, setSelectedApplication] =
+    useState<Application | null>(null);
 
-  const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
-
- 
   const handleIconPress = (application: Application) => {
     setSelectedApplication(application);
     toggleModal();
   };
-
-
 
   const renderAcceptedApplications = () => {
     return applications
@@ -126,9 +123,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
               <Text style={styles.applicantPrice}>{application.price} TND</Text>
             </View>
 
-            <TouchableOpacity  onPress={() => handleIconPress(application)}>
-        <FontAwesome name="check-circle" size={60} color="green" />
-      </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIconPress(application)}>
+              <FontAwesome name="check-circle" size={60} color="green" />
+            </TouchableOpacity>
           </View>
         </TouchableOpacity>
       ));
@@ -140,14 +137,17 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       imageStyle={{ opacity: 0.5 }}
       style={styles.container}
     >
-<Modal isVisible={isModalVisible} >
-      <View style ={styles.modalContent}>
-      <Ratings/>
-      <TouchableOpacity style={{ ...styles.button, ...styles.buttonClose }} onPress={toggleModal}>
-        <Text style={styles.textStyle}>Close</Text>
-      </TouchableOpacity>
-  </View>
-</Modal>
+      <Modal isVisible={isModalVisible}>
+        <View style={styles.modalContent}>
+          <Ratings />
+          <TouchableOpacity
+            style={{ ...styles.button, ...styles.buttonClose }}
+            onPress={toggleModal}
+          >
+            <Text style={styles.textStyle}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
       <View style={styles.header}>
         <Image
           source={{

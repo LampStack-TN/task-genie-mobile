@@ -48,7 +48,7 @@ const SideMenu = ({ slideOn, toggleSlide, navigation }) => {
           </Pressable>
         </View>
         <View style={styles.slideMenu}>
-          <Menu />
+          <Menu {...{ toggleSlide }} />
         </View>
         <View
           style={{

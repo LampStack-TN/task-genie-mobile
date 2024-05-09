@@ -11,7 +11,7 @@ type RootStackParamList = {
   MyTasks: String;
 };
 
-const Menu = () => {
+const Menu = ({ toggleSlide }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const menu = [
@@ -40,7 +40,13 @@ const Menu = () => {
   return (
     <View style={styles.container}>
       {menu.map((item) => (
-        <Pressable key={item.id} onPress={() => navigation.navigate(item.name)}>
+        <Pressable
+          key={item.id}
+          onPress={() => {
+            navigation.navigate(item.name);
+            toggleSlide();
+          }}
+        >
           {({ pressed }) => (
             <View
               style={[

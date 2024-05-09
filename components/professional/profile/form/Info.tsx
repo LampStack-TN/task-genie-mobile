@@ -5,6 +5,7 @@ import { ApiClient } from "../../../../utils/api";
 
 import Button from "../../../ui/Button";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Info = ({ control, errors }) => {
   const navigation = useNavigation();
@@ -73,6 +74,14 @@ const Info = ({ control, errors }) => {
         </View>
         <View style={styles.footer}>
           <Button
+            label="Cancel"
+            style="fill"
+            color="#870c31"
+            callback={() => {
+              AsyncStorage.removeItem("token");
+            }}
+          />
+          <Button
             label="Next"
             style="fill"
             callback={() => navigation.jumpTo("Documents")}
@@ -110,12 +119,11 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     backgroundColor: "#fff",
-    alignSelf: "flex-end",
+    justifyContent: "space-between",
     paddingTop: 25,
   },
   section: {
     gap: 15,
-    flex: 1,
     marginTop: 30,
     paddingHorizontal: 11,
     paddingVertical: 11,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -6,16 +6,21 @@ import {
   StyleSheet,
   ImageBackground,
 } from "react-native";
+
 import { Service } from "../../../types/ServiceHirings";
 import { ApiClient } from "../../../utils/api";
 import { MaterialIcons } from "@expo/vector-icons";
 import gradient from "../../../assets/images/double-gradient.png";
+import { useFocusEffect } from "@react-navigation/native";
+
 const MyHiredServices = () => {
   const [services, setServices] = useState<Service[]>([]);
 
-  useEffect(() => {
-    fetchHiredServices();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchHiredServices();
+    }, [])
+  );
 
   const fetchHiredServices = async () => {
     try {

@@ -36,7 +36,7 @@ export default function ProfileForm() {
         options={{ tabBarLabel: "Skills" }}
     /> */}
       <Tab.Screen
-        name="Document"
+        name="Documents"
         children={() => <Documents {...{ control, errors }} />}
         options={{ tabBarLabel: "Documents" }}
       />

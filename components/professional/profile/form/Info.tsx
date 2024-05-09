@@ -7,7 +7,7 @@ import Button from "../../../ui/Button";
 import { useNavigation } from "@react-navigation/native";
 
 const Info = ({ control, errors }) => {
-
+  const navigation = useNavigation();
   const CreateProfile = async (data: any) => {
     try {
       console.log(data);
@@ -23,66 +23,62 @@ const Info = ({ control, errors }) => {
   };
   return (
     <>
-      <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.header}>
-            <Text style={styles.title}>Profile</Text>
-            <Text style={styles.subTitle}>Professional Info</Text>
-          </View>
-          <View style={styles.section}>
-            <View style={styles.inputView}>
-              <Controller
-                control={control}
-                rules={{
-                  required: { value: true, message: "jobTitle required" },
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    onChangeText={onChange}
-                    placeholder="Title"
-                    value={value}
-                    style={styles.input}
-                  />
-                )}
-                name="jobTitle"
-              />
-            </View>
-            {errors.jobTitle && (
-              <Text style={{ color: "#f01010" }}>
-                {errors.jobTitle.message}
-              </Text>
-            )}
-
-            <View style={styles.inputBio}>
-              <Controller
-                control={control}
-                rules={{
-                  required: { value: true, message: "Bio is required" },
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    onChangeText={onChange}
-                    placeholder="Bio"
-                    value={value}
-                    style={styles.input}
-                  />
-                )}
-                name="bio"
-              />
-            </View>
-            {errors.bio && (
-              <Text style={{ color: "#f01010" }}>{errors.bio.message}</Text>
-            )}
-          </View>
-          <View style={styles.footer}>
-            <Button
-              label="Next"
-              style="fill"
-              // callback={handleSubmit(onSubmit)}
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Profile</Text>
+          <Text style={styles.subTitle}>Professional Info</Text>
+        </View>
+        <View style={styles.section}>
+          <View style={styles.inputView}>
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "jobTitle required" },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  placeholder="Title"
+                  value={value}
+                  style={styles.input}
+                />
+              )}
+              name="jobTitle"
             />
           </View>
-        </ScrollView>
-      </View>
+          {errors.jobTitle && (
+            <Text style={{ color: "#f01010" }}>{errors.jobTitle.message}</Text>
+          )}
+
+          <View style={styles.inputBio}>
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "Bio is required" },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  placeholder="Bio"
+                  value={value}
+                  style={styles.input}
+                />
+              )}
+              name="bio"
+            />
+          </View>
+          {errors.bio && (
+            <Text style={{ color: "#f01010" }}>{errors.bio.message}</Text>
+          )}
+        </View>
+        <View style={styles.footer}>
+          <Button
+            label="Next"
+            style="fill"
+            callback={() => navigation.jumpTo("Documents")}
+          />
+        </View>
+      </ScrollView>
     </>
   );
 };
@@ -90,7 +86,7 @@ export default Info;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "flex-start",
     paddingHorizontal: 25,
     backgroundColor: "#fff",

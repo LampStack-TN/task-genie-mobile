@@ -35,7 +35,6 @@ const Login = ({ navigation }) => {
   const checkAuthentication = async () => {
     try {
       const { data } = await ApiClient().get("auth/verify-token");
-      console.log(data);
       dispatch(setUser(data));
     } catch (error) {
       console.log(error);

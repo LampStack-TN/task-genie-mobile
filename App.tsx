@@ -25,7 +25,6 @@ import checkAuthentication from "./utils/checkAuthentication";
 import RoleForm from "./components/auth/register/RoleForm";
 import ProNavigator from "./components/navigators/ProNavigator";
 import BottomNavPro from "./components/ui/BottomNavPro";
-import Profile from "./components/professional/profile/Profile";
 import ProfileForm from "./components/professional/profile/form/Index";
 
 const Stack = createNativeStackNavigator();

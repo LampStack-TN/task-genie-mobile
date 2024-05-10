@@ -5,6 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Button from "../../ui/Button";
 import gradient from "../../../assets/images/double-gradient.png";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 const skills = [
   { id: 200, name: "Sports" },
@@ -26,7 +27,9 @@ const skills = [
   },
 ];
 
-const Profile = ({ user }) => {
+const Profile = () => {
+  const user = useSelector((state: any) => state.user);
+
   const navigation = useNavigation();
   const { profile } = user;
   return (

@@ -10,11 +10,8 @@ import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import Button from "../../../ui/Button";
 import { ApiClient } from "../../../../utils/api";
-import { useNavigation } from "@react-navigation/native";
 
-const Documents = ({ control, errors, handleSubmit ,setValue}) => {
-  const navigation=useNavigation()
-
+const Documents = ({ handleSubmit, setValue }) => {
   const [cinRecto, setCinRecto] = useState(null);
   const [cinVerso, setCinVerso] = useState(null);
   const [officialDoc, setOfficialDoc] = useState(null);
@@ -23,16 +20,18 @@ const Documents = ({ control, errors, handleSubmit ,setValue}) => {
     try {
       console.log(data);
 
-      await ApiClient().post("profile/createProfile/", data);
+      const { data: user } = await ApiClient().post(
+        "profile/createProfile/",
+        data
+      );
     } catch (error) {
       console.log(error);
     }
   };
   const onSubmit = (data: any) => {
+    console.log(data);
     CreateProfile(data);
-  //  navigation.navigate("Profile")+
   };
-
 
   const handlePickCin = async () => {
     let {
@@ -124,11 +123,7 @@ const Documents = ({ control, errors, handleSubmit ,setValue}) => {
           </Pressable>
         </View>
       </ScrollView>
-      <Button
-        label="Next"
-        style="fill"
-        callback={handleSubmit(onSubmit)}
-      />
+      <Button label="Next" style="fill" callback={handleSubmit(onSubmit)} />
     </View>
   );
 };

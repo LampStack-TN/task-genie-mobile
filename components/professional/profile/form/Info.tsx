@@ -1,22 +1,18 @@
 import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
-import { ApiClient } from "../../../../utils/api";
-import { setUser } from "../../../../redux/slices/userSlice"
+import { setUser } from "../../../../redux/slices/userSlice";
 
 import Button from "../../../ui/Button";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from "react-redux";
 
-
 const Info = ({ control, errors }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.user);
+  // const user = useSelector((state: any) => state.user);
   const navigation = useNavigation();
 
-
- 
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
@@ -70,8 +66,8 @@ const Info = ({ control, errors }) => {
         <View style={styles.footer}>
           <Button
             label="Cancel"
-            style="fill"
-            color="#870c31"
+            style="bare"
+            color="#a00c31"
             callback={() => {
               AsyncStorage.removeItem("token");
               dispatch(setUser(null));

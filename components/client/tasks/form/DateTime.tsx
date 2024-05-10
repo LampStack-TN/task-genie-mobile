@@ -27,8 +27,8 @@ export type Task = {
   clientId?: number;
 };
 const data = [
-  { label: "Immediate", value: "Immediate" },
-  { label: "Urgent", value: "Urgent" },
+  { label: "high", value: "high" },
+  { label: "low", value: "low" },
   { label: "Soon", value: "Soon" },
 ];
 export default function DateTime({ navigation }) {

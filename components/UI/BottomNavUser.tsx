@@ -11,7 +11,7 @@ const BottomNavUser: React.FC = () => {
   const toggleSlide = () => setSlideOn(!slideOn);
 
   const navItems = [
-    { id: 1, screen: "Home", icon: "task-alt", size: 32 },
+    { id: 1, screen: "MyTasks", icon: "task-alt", size: 32 },
     { id: 2, screen: "AddTask", icon: "add-circle", size: 45 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];

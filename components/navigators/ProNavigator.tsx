@@ -11,6 +11,7 @@ import ServiceDetails from "../professional/serviceDetails/ServiceDetails";
 import AppliedTasks from "../professional/tasks/applyingTasks/AppliedTasks";
 import ConversationList from "../chat/conversation-list/Index";
 import Conversation from "../chat/conversation/Index";
+import Profile from "../professional/profile/Profile";
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -19,13 +20,12 @@ const ProNavigator = ({ Stack }) => {
       }}
       initialRouteName="task-list"
     >
-      <Stack.Screen name="Soon" component={ProHome} />
       <Stack.Screen name="AddService" component={ProIndex} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="MyServices" component={MyServices} />
       <Stack.Screen name="ServiceDetails" component={ServiceDetails} />
       <Stack.Screen name="task-list" component={TaskList} />
-      <Stack.Screen name="ProfileIndex" component={ProfileIndex} />
+      <Stack.Screen name="ProfileIndex" component={Profile} />
       <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen name="FavouriteTasksList" component={FavouriteTasksList} />
       <Stack.Screen name="ProDetails" component={proDetails} />
@@ -38,47 +38,3 @@ const ProNavigator = ({ Stack }) => {
 
 export default ProNavigator;
 
-const ProHome = () => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <View>
-        <Text
-          style={{
-            color: "#F58D61",
-            fontSize: 40,
-            fontWeight: "700",
-            textAlign: "center",
-          }}
-        >
-          Professionls!..
-        </Text>
-        <Text
-          style={{
-            color: "#0C3178",
-            fontSize: 40,
-            fontWeight: "600",
-            textAlign: "center",
-          }}
-        >
-          Coming Soon...
-        </Text>
-        <Text
-          style={{
-            color: "#4e4e4e",
-            fontSize: 22,
-            fontWeight: "500",
-            textAlign: "center",
-          }}
-        >
-          Click Here And Reload App To Logout.
-        </Text>
-      </View>
-    </View>
-  );
-};

@@ -19,6 +19,7 @@ import {
 import Application from "../../../types/Application";
 import gradient from "../../../assets/images/double-gradient.png";
 import Ratings from "./ratings/rating";
+import RatingDisplay from "./ratings/ratingDispaly";
 import Modal from "react-native-modal";
 import Button from "../../ui/Button";
 

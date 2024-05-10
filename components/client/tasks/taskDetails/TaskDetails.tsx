@@ -11,6 +11,13 @@ import Details from "./Details";
 import ApplicationsCard from "./ApplicationsCard";
 import Confirmation from "../../../ui/Confirmation";
 
+enum Status {
+  Pending,
+  Accepted,
+  Rejected,
+  Complete,
+}
+
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
   const [task, setTask] = useState<Task>({});
@@ -18,6 +25,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const [applications, setApplications] = useState<Application[]>([]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [completion, setCompletion] = useState(false);
 
   const taskId = route.params.taskId;
 
@@ -51,26 +59,17 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     }
   };
 
-  const handleAcceptApplication = async (applicationId: number) => {
+  const handleApplicationRespond = async (
+    applicationId: number,
+    status: Status
+  ) => {
     try {
       const { data } = await api.post("task-application/application/respond", {
         applicationId,
-        action: "accept",
+        status,
       });
-      toggleModal();
+      // toggleModal();
       setTask((task) => ({ ...task, acceptedApplication: data }));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleRejectApplication = async (applicationId: number) => {
-    try {
-      const { data } = await api.post("task-application/application/respond", {
-        applicationId,
-        action: "reject",
-      });
-      console.log(data);
     } catch (err) {
       console.error(err);
     }
@@ -84,7 +83,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       style={styles.container}
     >
       <Details {...{ setModalVisible, task, navigation }}>
-        <ApplicationsCard {...{ task, toggleModal, navigation }} />
+        <ApplicationsCard
+          {...{ task, toggleModal, navigation, setCompletion }}
+        />
       </Details>
       <ApplicationList
         {...{
@@ -92,8 +93,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           applications,
           isModalVisible,
           toggleModal,
-          handleAcceptApplication,
-          handleRejectApplication,
+          handleApplicationRespond,
         }}
       />
 
@@ -101,6 +101,16 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         message="Are you sure?"
         confirmColor="#a02020"
         {...{ modalVisible, setModalVisible, onConfirm: handleDelete }}
+      />
+
+      <Confirmation
+        message="Mark This As Complete?"
+        // confirmColor="#a02020"
+        {...{
+          modalVisible: completion,
+          setModalVisible: setCompletion,
+          onConfirm: null,
+        }}
       />
     </ImageBackground>
   );

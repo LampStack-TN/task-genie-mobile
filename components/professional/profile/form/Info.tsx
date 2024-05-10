@@ -2,26 +2,21 @@ import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 
 import { ApiClient } from "../../../../utils/api";
+import { setUser } from "../../../../redux/slices/userSlice"
 
 import Button from "../../../ui/Button";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Info = ({ control, errors }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
   const navigation = useNavigation();
-  const CreateProfile = async (data: any) => {
-    try {
-      console.log(data);
 
-      await ApiClient().post("profile/createProfile/", data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const onSubmit = (data: any) => {
-    CreateProfile(data);
-  };
+ 
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
@@ -79,6 +74,7 @@ const Info = ({ control, errors }) => {
             color="#870c31"
             callback={() => {
               AsyncStorage.removeItem("token");
+              dispatch(setUser(null));
             }}
           />
           <Button

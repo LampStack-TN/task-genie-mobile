@@ -8,11 +8,31 @@ import {
 } from "react-native";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import Button from "../../../ui/Button";
+import { ApiClient } from "../../../../utils/api";
+import { useNavigation } from "@react-navigation/native";
 
-const Documents = ({ control, errors }) => {
+const Documents = ({ control, errors, handleSubmit ,setValue}) => {
+  const navigation=useNavigation()
+
   const [cinRecto, setCinRecto] = useState(null);
   const [cinVerso, setCinVerso] = useState(null);
   const [officialDoc, setOfficialDoc] = useState(null);
+
+  const CreateProfile = async (data: any) => {
+    try {
+      console.log(data);
+
+      await ApiClient().post("profile/createProfile/", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onSubmit = (data: any) => {
+    CreateProfile(data);
+  //  navigation.navigate("Profile")+
+  };
+
 
   const handlePickCin = async () => {
     let {
@@ -29,7 +49,7 @@ const Documents = ({ control, errors }) => {
       const buffer = "data:" + mimeType + ";base64," + base64;
 
       setCinRecto(uri);
-      // setValue("avatar", buffer);
+      setValue("cinRecto", buffer);
     }
   };
   const handlePickcin = async () => {
@@ -47,7 +67,7 @@ const Documents = ({ control, errors }) => {
       const buffer = "data:" + mimeType + ";base64," + base64;
 
       setCinVerso(uri);
-      // setValue("avatar", buffer);
+      setValue("cinVerso", buffer);
     }
   };
   const handlePickDoc = async () => {
@@ -65,7 +85,7 @@ const Documents = ({ control, errors }) => {
       const buffer = "data:" + mimeType + ";base64," + base64;
 
       setOfficialDoc(uri);
-      // setValue("avatar", buffer);
+      setValue("officialDoc", buffer);
     }
   };
 
@@ -104,6 +124,11 @@ const Documents = ({ control, errors }) => {
           </Pressable>
         </View>
       </ScrollView>
+      <Button
+        label="Next"
+        style="fill"
+        callback={handleSubmit(onSubmit)}
+      />
     </View>
   );
 };

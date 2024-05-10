@@ -11,11 +11,15 @@ export default function ProfileForm() {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
       jobTitle: "",
       bio: "",
+      cinRecto: null,
+      cinVerso: null,
+      officialDoc: null,
     },
   });
 
@@ -28,7 +32,7 @@ export default function ProfileForm() {
         name="PersonalDetails"
         children={() => <Info {...{ control, errors }} />}
         options={{ tabBarLabel: "Personal Details" }}
-        />
+      />
       {/* <Tab.Screen
         name="ProfessionalInfo"
         component={Skills}
@@ -37,7 +41,7 @@ export default function ProfileForm() {
     /> */}
       <Tab.Screen
         name="Documents"
-        children={() => <Documents {...{ control, errors }} />}
+        children={() => <Documents {...{ control, errors, handleSubmit ,setValue}} />}
         options={{ tabBarLabel: "Documents" }}
       />
     </Tab.Navigator>

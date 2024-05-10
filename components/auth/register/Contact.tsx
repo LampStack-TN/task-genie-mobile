@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   View,
-  ScrollView,
   ActivityIndicator,
   Pressable,
 } from "react-native";
@@ -27,9 +26,6 @@ const Contact = ({ navigation }) => {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [address, setAddress] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(false);
-  const [longitude, setLongitude] = useState(0);
-  const [latitude, setLatitude] = useState(0);
-
   useEffect(() => {
     const getLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -40,12 +36,8 @@ const Contact = ({ navigation }) => {
 
       let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location);
-      setLatitude(location.coords.latitude);
-      setLongitude(location.coords.longitude);
-      console.log(location.coords.latitude);
-      
-
-      const { latitude, longitude } = location.coords;
+      setValue("longitude", location.coords.latitude);
+      setValue("latitude", location.coords.longitude);
     };
     getLocation();
   }, []);
@@ -66,11 +58,11 @@ const Contact = ({ navigation }) => {
   };
 
   useEffect(() => {
+    console.log(address);
+
     setValue(
       "address",
-      address
-        ? `${address[0]?.name},${address[0]?.region}, ${address[0]?.country}`
-        : ""
+      address ? `${address[0]?.region}, ${address[0]?.country}` : ""
     );
     setValue("city", address ? `${address[0]?.city}` : "");
     setDrop(address ? `${address[0]?.city}` : "");
@@ -93,8 +85,8 @@ const Contact = ({ navigation }) => {
       city: "",
       address: "",
       zipcode: "",
-      longitude: longitude,
-      latitude: latitude,
+      longitude: null,
+      latitude: null,
     },
   });
   const sumbitRegister = async (registerData) => {
@@ -114,18 +106,11 @@ const Contact = ({ navigation }) => {
   };
 
   const onSubmit = (data) => {
-    // console.log(registerData,"test");
-
-    dispatch(appendData(data));
     const updatedRegisterData = {
       ...registerData,
-      city: address[0].city,
-      longitude: longitude,
-      latitude: latitude,
-      avatar: registerData.avatar,
+      ...data,
     };
     sumbitRegister(updatedRegisterData);
-    console.log(updatedRegisterData, "ee");
   };
   return (
     <>
@@ -137,9 +122,11 @@ const Contact = ({ navigation }) => {
         <View style={styles.section}>
           <Controller
             control={control}
-            rules={{
-              required: { value: true, message: "Phone Number is required" },
-            }}
+            rules={
+              {
+                // required: { value: true, message: "Phone Number is required" },
+              }
+            }
             render={({ field: { onChange, onBlur, value } }) => (
               <View style={styles.inputView}>
                 <Text style={styles.inputLabel}>Phone Number</Text>
@@ -204,9 +191,11 @@ const Contact = ({ navigation }) => {
           <View style={{ flexDirection: "row", gap: 18 }}>
             <Controller
               control={control}
-              rules={{
-                required: { value: true, message: "Zip Code is required" },
-              }}
+              rules={
+                {
+                  // required: { value: true, message: "Zip Code is required" },
+                }
+              }
               render={({ field: { onChange, onBlur, value } }) => (
                 <View style={[styles.inputView, { flex: 4 }]}>
                   <Text style={styles.inputLabel}>Zipcode</Text>

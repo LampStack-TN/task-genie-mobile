@@ -1,23 +1,13 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTask } from "../../../../redux/slices/TaskSlice";
 import Button from "../../../ui/Button";
-
 
 export default function JobDescription({ navigation }) {
   // Select task state from Redux store
   const dispatch = useDispatch();
 
-  const task = useSelector((state: any) => state.task);
-  
   const {
     control,
     handleSubmit,
@@ -90,9 +80,7 @@ export default function JobDescription({ navigation }) {
           name="description"
         />
         {errors.description && (
-          <Text style={{ color: "#f01010" }}>
-            {errors.description.message}
-          </Text>
+          <Text style={{ color: "#f01010" }}>{errors.description.message}</Text>
         )}
 
         <Controller
@@ -116,8 +104,16 @@ export default function JobDescription({ navigation }) {
       </View>
 
       <View style={styles.footer}>
-        <Button label="Back" style="bare" callback={() => navigation.goBack()} />
-        <Button label="Next" style="outline" callback={handleSubmit(onSubmit)} />
+        <Button
+          label="Back"
+          style="bare"
+          callback={() => navigation.goBack()}
+        />
+        <Button
+          label="Next"
+          style="outline"
+          callback={handleSubmit(onSubmit)}
+        />
       </View>
     </ScrollView>
   );
@@ -194,7 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     paddingHorizontal: 8,
-    paddingVertical:22,
+    paddingVertical: 22,
     alignItems: "center",
     justifyContent: "space-between",
   },

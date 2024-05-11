@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -179,7 +179,7 @@ export default function DateTime({ navigation }) {
                 }}
                 value={value}
                 style={[styles.input]}
-                containerStyle={{borderRadius: 30}}
+                containerStyle={{ borderRadius: 30 }}
               />
             )}
             name="urgency"

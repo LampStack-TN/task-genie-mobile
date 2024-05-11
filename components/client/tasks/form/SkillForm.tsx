@@ -1,16 +1,15 @@
-import { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { MultiSelect } from "react-native-element-dropdown";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTask } from "../../../../redux/slices/TaskSlice";
 import skills from "../../../../data/skills.json";
 import Button from "../../../ui/Button";
 
 export default function SkillsForm({ navigation }) {
   const dispatch = useDispatch();
-  // const task = useSelector((state: any) => state.task);
-  // console.log(task);
+
+  
   const { control, handleSubmit } = useForm({
     defaultValues: {
       skills: [],

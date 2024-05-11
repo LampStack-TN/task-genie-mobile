@@ -53,9 +53,11 @@ const ApplicationList = ({
                   <Text style={styles.profileName}>
                     {application.applicant.fullName}
                   </Text>
-                  <Text style={styles.userTitle}>
-                    {application.applicant.profile.jobTitle}
-                  </Text>
+                  {application.applicant.profile && (
+                    <Text style={styles.userTitle}>
+                      {application.applicant.profile.jobTitle}
+                    </Text>
+                  )}
                   <Text style={styles.userCity}>
                     {application.applicant.city}
                   </Text>

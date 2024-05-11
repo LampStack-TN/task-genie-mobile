@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
-import { appendData } from "../../../redux/slices/registerSlice";
 import Button from "../../ui/Button";
 import cities from "../../../data/cities.json";
 import SearchableDropdown from "react-native-searchable-dropdown";

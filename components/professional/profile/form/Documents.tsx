@@ -10,8 +10,9 @@ import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import Button from "../../../ui/Button";
 import { ApiClient } from "../../../../utils/api";
+import { Controller } from "react-hook-form";
 
-const Documents = ({ handleSubmit, setValue }) => {
+const Documents = ({ handleSubmit, setValue, control, errors }) => {
   const [cinRecto, setCinRecto] = useState(null);
   const [cinVerso, setCinVerso] = useState(null);
   const [officialDoc, setOfficialDoc] = useState(null);
@@ -99,10 +100,28 @@ const Documents = ({ handleSubmit, setValue }) => {
           <View style={styles.imagePickerContainer}>
             <Pressable onPress={handlePickCin}>
               <Text style={styles.inputLabel}>Select CIN Recto</Text>
-              {cinRecto && (
-                <Image source={{ uri: cinRecto }} style={styles.image} />
-              )}
+              <Image
+                source={{
+                  uri:
+                    cinRecto ||
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Carte_d%27identit%C3%A9_tunisienne_recto2.jpg/800px-Carte_d%27identit%C3%A9_tunisienne_recto2.jpg",
+                }}
+                style={styles.image}
+              />
             </Pressable>
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "CIN Recto required" },
+              }}
+              render={() => null}
+              name="cinRecto"
+            />
+            {errors.cinRecto && (
+              <Text style={{ color: "#f01010" }}>
+                {errors.cinRecto.message}
+              </Text>
+            )}
           </View>
           <View style={styles.imagePickerContainer}>
             <Pressable onPress={handlePickcin}>
@@ -158,8 +177,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   image: {
-    width: 180,
-    height: 180,
+    width: 100,
+    height: 64,
+    borderRadius: 8,
     marginTop: 10,
   },
   imagePickerRow: {

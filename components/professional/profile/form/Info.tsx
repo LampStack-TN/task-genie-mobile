@@ -64,7 +64,7 @@ const Info = ({ control, errors, navigation }) => {
           <Button
             label="Cancel"
             style="bare"
-            color="#a00c31"
+            color="#4e4e4e"
             callback={() => {
               AsyncStorage.removeItem("token");
               dispatch(setUser(null));

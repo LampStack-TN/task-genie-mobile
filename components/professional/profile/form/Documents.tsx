@@ -11,6 +11,7 @@ import * as ImagePicker from "expo-image-picker";
 import Button from "../../../ui/Button";
 import { ApiClient } from "../../../../utils/api";
 import { Controller } from "react-hook-form";
+import documentImg from "../../../../assets/images/official_document.png";
 
 const Documents = ({ handleSubmit, setValue, control, errors }) => {
   const [cinRecto, setCinRecto] = useState(null);
@@ -19,7 +20,7 @@ const Documents = ({ handleSubmit, setValue, control, errors }) => {
 
   const CreateProfile = async (data: any) => {
     try {
-      console.log(data);
+      console.log("...");
 
       const { data: user } = await ApiClient().post(
         "profile/createProfile/",
@@ -30,7 +31,6 @@ const Documents = ({ handleSubmit, setValue, control, errors }) => {
     }
   };
   const onSubmit = (data: any) => {
-    console.log(data);
     CreateProfile(data);
   };
 
@@ -40,7 +40,7 @@ const Documents = ({ handleSubmit, setValue, control, errors }) => {
     } = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [25, 16],
       base64: true,
       quality: 1,
     });
@@ -58,7 +58,7 @@ const Documents = ({ handleSubmit, setValue, control, errors }) => {
     } = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [25, 16],
       base64: true,
       quality: 1,
     });
@@ -76,7 +76,6 @@ const Documents = ({ handleSubmit, setValue, control, errors }) => {
     } = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
       base64: true,
       quality: 1,
     });
@@ -106,7 +105,7 @@ const Documents = ({ handleSubmit, setValue, control, errors }) => {
                     cinRecto ||
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Carte_d%27identit%C3%A9_tunisienne_recto2.jpg/800px-Carte_d%27identit%C3%A9_tunisienne_recto2.jpg",
                 }}
-                style={styles.image}
+                style={[styles.image, cinRecto && { opacity: 1 }]}
               />
             </Pressable>
             <Controller
@@ -126,9 +125,14 @@ const Documents = ({ handleSubmit, setValue, control, errors }) => {
           <View style={styles.imagePickerContainer}>
             <Pressable onPress={handlePickcin}>
               <Text style={styles.inputLabel}>Select CIN Verso</Text>
-              {cinVerso && (
-                <Image source={{ uri: cinVerso }} style={styles.image} />
-              )}
+              <Image
+                source={{
+                  uri:
+                    cinVerso ||
+                    "https://upload.wikimedia.org/wikipedia/commons/a/a4/Carte_d%27identit%C3%A9_tunisienne_verso.jpg",
+                }}
+                style={[styles.image, cinVerso && { opacity: 1 }]}
+              />
             </Pressable>
           </View>
         </View>
@@ -136,13 +140,23 @@ const Documents = ({ handleSubmit, setValue, control, errors }) => {
         <View style={styles.imagePickerContainer}>
           <Pressable onPress={handlePickDoc}>
             <Text style={styles.inputLabel}>Select Official Document</Text>
-            {officialDoc && (
-              <Image source={{ uri: officialDoc }} style={styles.image} />
-            )}
+            <Image
+              source={officialDoc ? { uri: officialDoc } : documentImg}
+              style={[
+                styles.documentImg,
+                officialDoc && { opacity: 1, borderWidth: 2 },
+              ]}
+            />
           </Pressable>
         </View>
+        <View style={styles.footer}>
+          <Button
+            label="Submit"
+            style="fill"
+            callback={handleSubmit(onSubmit)}
+          />
+        </View>
       </ScrollView>
-      <Button label="Next" style="fill" callback={handleSubmit(onSubmit)} />
     </View>
   );
 };
@@ -172,25 +186,43 @@ const styles = StyleSheet.create({
     color: "#6e6e6e",
   },
   imagePickerContainer: {
+    // backgroundColor: "#a0a0a0",
     flex: 1,
     marginVertical: 20,
     marginRight: 10,
+    alignItems: "center",
   },
   image: {
-    width: 100,
-    height: 64,
+    width: 100 * 1.5,
+    height: 64 * 1.5,
     borderRadius: 8,
-    marginTop: 10,
+    marginVertical: 5,
+    borderWidth: 2,
+    opacity: 0.5,
+    borderColor: "#f9baa0",
+  },
+  documentImg: {
+    width: 170,
+    height: 190,
+    borderRadius: 8,
+    marginVertical: 5,
+    opacity: 0.5,
+    borderColor: "#f9baa0",
   },
   imagePickerRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
   },
   inputLabel: {
     fontSize: 16,
-    color: "#6e6e6e",
+    color: "#4e4e4e",
     textAlign: "center",
     marginTop: 10,
+  },
+  footer: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    justifyContent: "flex-end",
+    paddingTop: 25,
   },
 });
 

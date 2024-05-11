@@ -7,7 +7,7 @@ import ProfileUser from "../../types/ProfileUser";
 import Button from "../ui/Button";
 const ProfileDetails = ({ route, navigation }) => {
   const { userId } = route.params;
-  const [profile, setProfile] = useState<ProfileUser>({});
+  const [profile, setProfile] = useState<ProfileUser>(null);
 
   const fetchProfile = async () => {
     try {
@@ -54,76 +54,78 @@ const ProfileDetails = ({ route, navigation }) => {
   ];
 
   return (
-    <ImageBackground
-      source={gradient}
-      resizeMode="cover"
-      imageStyle={{ opacity: 0.6 }}
-      style={styles.container}
-    >
-      <View style={styles.header}>
-        <View style={styles.avatar}>
-          <Image
-            source={{
-              uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
-            }}
-            style={styles.avatarImg}
-          />
-        </View>
-        <View style={{ flex: 1, alignItems: "flex-start" }}>
-          <Text style={styles.title}>{profile?.fullName}</Text>
-          <Text style={styles.subTitle}>{profile.profile?.jobTitle}</Text>
-          <View style={styles.cityContainer}>
-            <Entypo name="location-pin" size={24} color="#6e6e6e" />
-            <Text style={{ fontSize: 20, color: "#4e4e4e" }}>
-              {profile.city}
-            </Text>
+    profile && (
+      <ImageBackground
+        source={gradient}
+        resizeMode="cover"
+        imageStyle={{ opacity: 0.6 }}
+        style={styles.container}
+      >
+        <View style={styles.header}>
+          <View style={styles.avatar}>
+            <Image
+              source={{
+                uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
+              }}
+              style={styles.avatarImg}
+            />
           </View>
-        </View>
-      </View>
-      <View style={{ paddingHorizontal: 20, margin: 5 }}>
-        <View style={{ marginVertical: 10 }}>
-          <View style={styles.contact}>
-            <MaterialIcons name="phone" size={24} color="#F58D61" />
-            <Text style={[styles.contactText]}>+216 25 363 845</Text>
-          </View>
-          <View style={styles.contact}>
-            <MaterialIcons name="email" size={24} color="#F58D61" />
-            <Text style={styles.contactText}>{profile?.email}</Text>
-          </View>
-        </View>
-        <View style={styles.bio}>
-          <Text style={styles.bioText}>{profile.profile?.bio}</Text>
-        </View>
-        <View style={styles.skillContainer}>
-          {skills.map((skill, index) => (
-            <View key={index} style={styles.skillPill}>
-              <Text key={index} style={styles.skillText}>
-                {skill.name}
+          <View style={{ flex: 1, alignItems: "flex-start" }}>
+            <Text style={styles.title}>{profile?.fullName}</Text>
+            <Text style={styles.subTitle}>{profile.profile?.jobTitle}</Text>
+            <View style={styles.cityContainer}>
+              <Entypo name="location-pin" size={24} color="#6e6e6e" />
+              <Text style={{ fontSize: 20, color: "#4e4e4e" }}>
+                {profile.city}
               </Text>
             </View>
-          ))}
+          </View>
         </View>
-        <View style={styles.actions}>
-          <Button
-            size="sm"
-            style="fill"
-            label={
-              <>
-                Send a Message{"  "}
-                <FontAwesome
-                  name="send"
-                  size={18}
-                  color="#fff"
-                  style={{ margin: 10 }}
-                />
-              </>
-            }
-            color="#31780c"
-            callback={fetchConversation}
-          />
+        <View style={{ paddingHorizontal: 20, margin: 5 }}>
+          <View style={{ marginVertical: 10 }}>
+            <View style={styles.contact}>
+              <MaterialIcons name="phone" size={24} color="#F58D61" />
+              <Text style={[styles.contactText]}>+216 25 363 845</Text>
+            </View>
+            <View style={styles.contact}>
+              <MaterialIcons name="email" size={24} color="#F58D61" />
+              <Text style={styles.contactText}>{profile?.email}</Text>
+            </View>
+          </View>
+          <View style={styles.bio}>
+            <Text style={styles.bioText}>{profile.profile?.bio}</Text>
+          </View>
+          <View style={styles.skillContainer}>
+            {skills.map((skill, index) => (
+              <View key={index} style={styles.skillPill}>
+                <Text key={index} style={styles.skillText}>
+                  {skill.name}
+                </Text>
+              </View>
+            ))}
+          </View>
+          <View style={styles.actions}>
+            <Button
+              size="sm"
+              style="fill"
+              label={
+                <>
+                  Send a Message{"  "}
+                  <FontAwesome
+                    name="send"
+                    size={18}
+                    color="#fff"
+                    style={{ margin: 10 }}
+                  />
+                </>
+              }
+              color="#31780c"
+              callback={fetchConversation}
+            />
+          </View>
         </View>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    )
   );
 };
 

@@ -150,14 +150,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#F58D6180",
   },
-  userInfo: {},
+  userInfo: {
+    flex: 1,
+  },
   profileName: {
     fontSize: 18,
     fontWeight: "500",
     color: "#4e4e4e",
   },
   userTitle: {
-    flex: 1,
     fontSize: 14,
     // fontWeight: "40",
     color: "#4e4e4e",

@@ -7,7 +7,7 @@ import {
   ImageBackground,
 } from "react-native";
 
-import { Service } from "../../../types/ServiceHirings";
+import { Service } from "../../../types/Service";
 import { ApiClient } from "../../../utils/api";
 import { MaterialIcons } from "@expo/vector-icons";
 import gradient from "../../../assets/images/double-gradient.png";
@@ -24,8 +24,8 @@ const MyHiredServices = () => {
 
   const fetchHiredServices = async () => {
     try {
-      const response = await ApiClient().get("/hiring/myhirings");
-      setServices(response.data);
+      const { data } = await ApiClient().get("/hiring/myhirings");
+      setServices(data.map((item) => item.service));
     } catch (error) {
       console.log(error);
     }
@@ -41,18 +41,14 @@ const MyHiredServices = () => {
       <ScrollView style={styles.container}>
         {services.map((service) => (
           <View key={service.id} style={styles.serviceCard}>
-            <Text style={styles.title}>{service.service.title}</Text>
+            <Text style={styles.title}>{service.title}</Text>
             <View style={styles.property}>
               <MaterialIcons name="place" size={22} color="#4e4e4e" />
-              <Text style={styles.propertyText}>
-                {service.service.location}
-              </Text>
+              <Text style={styles.propertyText}>{service.location}</Text>
             </View>
             <View style={styles.property}>
               <MaterialIcons name="access-time" size={22} color="#4e4e4e" />
-              <Text style={styles.propertyText}>
-                {service.service.availability}
-              </Text>
+              <Text style={styles.propertyText}>{service.availability}</Text>
             </View>
             <View style={styles.property}>
               <MaterialIcons name="price-change" size={22} color="#4e4e4e" />

@@ -2,17 +2,9 @@ import React from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { NavigationProp } from "@react-navigation/native";
-
-type RootStackParamList = {
-  TaskList: String;
-  AppliedJobs: String;
-  Tasks: String;
-  MyTasks: String;
-};
 
 const Menu = ({ toggleSlide }) => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const navigation = useNavigation();
 
   const menu = [
     { id: 3, title: "Tasks", name: "task-list", icon: "search" },
@@ -43,7 +35,7 @@ const Menu = ({ toggleSlide }) => {
         <Pressable
           key={item.id}
           onPress={() => {
-            navigation.navigate(item.name);
+            navigation.navigate(item.name as never);
             toggleSlide();
           }}
         >
@@ -60,7 +52,11 @@ const Menu = ({ toggleSlide }) => {
               {item.id === 5 ? (
                 <AntDesign name="heart" size={22} color="#93543a" />
               ) : (
-                <MaterialIcons name={item.icon} size={22} color="#93543a" />
+                <MaterialIcons
+                  name={item.icon as never}
+                  size={22}
+                  color="#93543a"
+                />
               )}
               <Text style={styles.buttonText}>{item.title}</Text>
               <MaterialIcons name={"chevron-right"} size={22} color="#93543a" />

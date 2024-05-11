@@ -1,13 +1,12 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Info from "./Info";
-import Skills from "./Skills";
 import Documents from "./Documents";
 import { useForm } from "react-hook-form";
 import Tabs from "./Tabs";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function ProfileForm({ navigation }) {
+export default function ProfileForm() {
   const {
     control,
     handleSubmit,
@@ -30,7 +29,7 @@ export default function ProfileForm({ navigation }) {
     >
       <Tab.Screen
         name="PersonalDetails"
-        children={() => <Info {...{ control, errors, navigation }} />}
+        children={() => <Info {...{ control, errors }} />}
         options={{ tabBarLabel: "Personal Details" }}
       />
       {/* <Tab.Screen

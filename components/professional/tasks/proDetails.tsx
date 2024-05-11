@@ -9,7 +9,7 @@ import {
   ImageBackground,
   Pressable,
 } from "react-native";
-import Task from "../../../types/Task";
+import Task from "../../../types/TaskInterface";
 import { ApiClient } from "../../../utils/api";
 import {
   FontAwesome,
@@ -19,7 +19,6 @@ import {
 import Application from "../../../types/Application";
 import gradient from "../../../assets/images/double-gradient.png";
 import Ratings from "./ratings/rating";
-import RatingDisplay from "./ratings/ratingDispaly";
 import Modal from "react-native-modal";
 import Button from "../../ui/Button";
 
@@ -193,9 +192,9 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
           style="fill"
           size="sm"
           color={task.applied && colors[task.applications[0].status]}
-          callback={() => onApply(task)}
+          callback={() => null}
         />
-        <TouchableOpacity onPress={() => onToggleLike()}>
+        <TouchableOpacity onPress={() => null}>
           <MaterialIcons
             name={task.liked ? "favorite" : "favorite-outline"}
             size={40}

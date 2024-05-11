@@ -25,11 +25,11 @@ const ProfileIndex = () => {
   useFocusEffect(
     useCallback(() => {
       userProfile();
-    },[])
+    }, [])
   );
 
   return user?.profile ? (
-    <Profile {...{ user }} />
+    <Profile />
   ) : (
     <Stack.Navigator>
       <Stack.Screen name="Info" component={Info} />

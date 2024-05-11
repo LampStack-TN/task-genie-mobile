@@ -1,3 +1,5 @@
+import Task from "./TaskInterface";
+
 export default interface Application {
   id: number;
   taskId: number;
@@ -12,6 +14,7 @@ export default interface Application {
     email: string;
     city: string;
     phone: number;
-    avatar:string
+    avatar: string;
   };
+  task?: Task;
 }

@@ -88,7 +88,7 @@ const Profile = () => {
             label={"Edit"}
             style="bare"
             callback={() => {
-              navigation.navigate("Tabs", { user });
+              navigation.navigate("Tabs" as never);
             }}
           ></Button>
         </View>

@@ -1,3 +1,5 @@
+import Application from "./Application";
+
 interface Task {
   id?: number;
   client?: any;
@@ -13,6 +15,7 @@ interface Task {
   dueDate?: string;
   applied?: boolean;
   liked?: boolean;
+  applications?: Application[];
 }
 
 export default Task;

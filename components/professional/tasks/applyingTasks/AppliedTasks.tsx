@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import { Task } from "../../../../types/Task";
+import Application from "../../../../types/Application";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ApiClient } from "../../../../utils/api";
 const AppliedTasks = () => {
-  const [appliedTasks, setAppliedTasks] = useState<Task[]>([]);
+  const [applications, seApplication] = useState<Application[]>([]);
 
   useEffect(() => {
     fetchAppliedTasks();
@@ -13,7 +13,7 @@ const AppliedTasks = () => {
   const fetchAppliedTasks = async () => {
     try {
       const response = await ApiClient().get("/task-application");
-      setAppliedTasks(response.data);
+      seApplication(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -21,17 +21,17 @@ const AppliedTasks = () => {
 
   return (
     <ScrollView>
-      {appliedTasks.map((applied) => (
-        <View key={applied.id} style={styles.taskCard}>
+      {applications.map((application) => (
+        <View key={application.id} style={styles.taskCard}>
           {/* still handling ts */}
-          <Text style={styles.title}>{applied.task.title}</Text>
-          <Text style={styles.description}> {applied.task.description}</Text>
+          <Text style={styles.title}>{application.task.title}</Text>
+          <Text style={styles.description}> {application.task.description}</Text>
 
-          {applied.status === "Pending" ? (
+          {application.status === "Pending" ? (
             <MaterialIcons name="access-time-filled" size={24} color="black" />
-          ) : applied.status === "Accepted" ? (
+          ) : application.status === "Accepted" ? (
             <MaterialIcons name="verified" size={24} color="green" />
-          ) : applied.status === "Rejected" ? (
+          ) : application.status === "Rejected" ? (
             <MaterialIcons name="cancel" size={24} color="red" />
           ) : null}
         </View>

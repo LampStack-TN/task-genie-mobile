@@ -17,7 +17,7 @@ const ServiceDetails = ({ route, navigation }) => {
   const skill = Skills.slice(0, 5);
   const serviceId = route.params.serviceId;
   console.log(serviceId);
-  const [service, setService] = useState<Service>({});
+  const [service, setService] = useState<Service>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const fetchOne = async () => {
     try {

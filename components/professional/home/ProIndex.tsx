@@ -40,7 +40,10 @@ const ProMenu = () => {
       style={styles.container}
     >
       {menu.map((item) => (
-        <Pressable key={item.id} onPress={() => navigation.navigate(item.name)}>
+        <Pressable
+          key={item.id}
+          onPress={() => navigation.navigate(item.name as never)}
+        >
           {({ pressed }) => (
             <View
               style={[
@@ -50,7 +53,11 @@ const ProMenu = () => {
                 },
               ]}
             >
-              <MaterialIcons name={item.icon} size={32} color="#0C3178e0" />
+              <MaterialIcons
+                name={item.icon as never}
+                size={32}
+                color="#0C3178e0"
+              />
               <Text style={styles.buttonText}>{item.title}</Text>
             </View>
           )}

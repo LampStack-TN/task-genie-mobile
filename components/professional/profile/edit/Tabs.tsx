@@ -3,11 +3,13 @@ import PersonalDetails from "./PersonalDetails";
 import ProfessionalInfo from "./ProfessionalInfo";
 import Security from "./Security";
 import MyTab from "./MyTab";
+import { useSelector } from "react-redux";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function Tabs({ route }) {
-  const { user } = route.params;
+  const user = useSelector((state: any) => state.user);
+
   return (
     <Tab.Navigator
       initialRouteName="PersonalDetails"

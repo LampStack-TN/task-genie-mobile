@@ -7,7 +7,7 @@ import Tabs from "./Tabs";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function ProfileForm() {
+export default function ProfileForm({ navigation }) {
   const {
     control,
     handleSubmit,
@@ -30,7 +30,7 @@ export default function ProfileForm() {
     >
       <Tab.Screen
         name="PersonalDetails"
-        children={() => <Info {...{ control, errors }} />}
+        children={() => <Info {...{ control, errors, navigation }} />}
         options={{ tabBarLabel: "Personal Details" }}
       />
       {/* <Tab.Screen
@@ -41,7 +41,9 @@ export default function ProfileForm() {
     /> */}
       <Tab.Screen
         name="Documents"
-        children={() => <Documents {...{ control, errors, handleSubmit ,setValue}} />}
+        children={() => (
+          <Documents {...{ control, errors, handleSubmit, setValue }} />
+        )}
         options={{ tabBarLabel: "Documents" }}
       />
     </Tab.Navigator>

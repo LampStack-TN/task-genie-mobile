@@ -4,14 +4,11 @@ import { Controller } from "react-hook-form";
 import { setUser } from "../../../../redux/slices/userSlice";
 
 import Button from "../../../ui/Button";
-import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const Info = ({ control, errors }) => {
+const Info = ({ control, errors, navigation }) => {
   const dispatch = useDispatch();
-  // const user = useSelector((state: any) => state.user);
-  const navigation = useNavigation();
 
   return (
     <>

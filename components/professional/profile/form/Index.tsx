@@ -29,7 +29,9 @@ export default function ProfileForm() {
     >
       <Tab.Screen
         name="PersonalDetails"
-        children={() => <Info {...{ control, errors }} />}
+        children={({ navigation }) => (
+          <Info {...{ control, errors, navigation }} />
+        )}
         options={{ tabBarLabel: "Personal Details" }}
       />
       {/* <Tab.Screen

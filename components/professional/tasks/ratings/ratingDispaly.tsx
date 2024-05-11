@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Rating } from 'react-native-ratings';
-import { ApiClient } from '../../../../utils/api';
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet } from "react-native";
+import { Rating } from "react-native-ratings";
+import { ApiClient } from "../../../../utils/api";
 
 const RatingDisplay: React.FC = () => {
   const [averageRating, setAverageRating] = useState(0);
-  console.log(averageRating)
+  console.log(averageRating);
 
   useEffect(() => {
     fetchAverageRating();
@@ -13,10 +13,10 @@ const RatingDisplay: React.FC = () => {
 
   const fetchAverageRating = async () => {
     try {
-      const {data} = await ApiClient().get('/rating/getRate');
+      const { data } = await ApiClient().get("/rating/getRate");
       setAverageRating(data.clientAverageRating);
     } catch (error) {
-      console.error('average rating:', error);
+      console.error("average rating:", error);
     }
   };
 
@@ -37,8 +37,8 @@ const RatingDisplay: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 20,
   },
   label: {

@@ -3,17 +3,12 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Pressable,
   ScrollView,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { MultiSelect } from "react-native-element-dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { addService } from "../../../redux/slices/serviceSlice";
 import Button from "../../ui/Button";
-import skills from "../../../data/skills.json";
 import { ApiClient } from "../../../utils/api";
-import { Service } from "../../../types/Service";
 
 const Price = ({ navigation }) => {
   const service = useSelector((state: any) => state.service);

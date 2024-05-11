@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { ApiClient } from "../../utils/api";
 import { Entypo, FontAwesome, MaterialIcons } from "@expo/vector-icons";

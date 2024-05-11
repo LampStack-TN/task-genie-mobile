@@ -1,17 +1,8 @@
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  ScrollView,
-  ActivityIndicator,
-} from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
-import { appendData } from "../../../../redux/slices/registerSlice";
 
 import Button from "../../../ui/Button";
 import skills from "../../../../data/skills.json";

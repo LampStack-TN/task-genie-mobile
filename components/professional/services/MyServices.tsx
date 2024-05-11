@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Modal, View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Service } from "../../../types/Service";
 import { ApiClient } from "../../../utils/api";
@@ -21,7 +21,7 @@ const MyServices = ({ navigation }) => {
 
   return (
     <View>
-       <Text style={styles.title1}>My Services,</Text>
+      <Text style={styles.title1}>My Services,</Text>
       {services.map((service) => (
         <Pressable
           key={service.id}
@@ -86,5 +86,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "600",
     color: "#2e2e2e",
-  }
+  },
 });

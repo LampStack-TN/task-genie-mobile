@@ -5,9 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ScrollView,
   ImageBackground,
-  Pressable,
 } from "react-native";
 import Task from "../../../types/TaskInterface";
 import { ApiClient } from "../../../utils/api";

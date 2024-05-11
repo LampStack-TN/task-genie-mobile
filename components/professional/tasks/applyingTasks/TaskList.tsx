@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -12,13 +12,10 @@ import TaskCard from "./TaskCard";
 import { Task } from "../../../../types/Task";
 import { ApiClient } from "../../../../utils/api";
 import Search from "../search/search";
-import Slider from "@react-native-community/slider";
-import { getDistance } from "geolib";
 import { useFocusEffect } from "@react-navigation/native";
 
 const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [appliedTasks, setAppliedTasks] = useState<string[]>([]);
   const [applicationModal, setApplicationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);

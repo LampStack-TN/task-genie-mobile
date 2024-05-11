@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { ScrollView, View, Text, StyleSheet } from "react-native";
+import React, { useState, useCallback } from "react";
+import { ScrollView, Text, StyleSheet } from "react-native";
 import TaskCard from "../applyingTasks/TaskCard";
 import { ApiClient } from "../../../../utils/api";
 import { Task } from "../../../../types/Task";
@@ -32,7 +32,9 @@ const FavouriteTasksList = () => {
 
   const toggleLikeTask = async (taskId) => {
     try {
-      const response = await ApiClient().post("/favrourite-task/likeTask", { taskId });
+      const response = await ApiClient().post("/favrourite-task/likeTask", {
+        taskId,
+      });
       setTasks((currentTasks) =>
         currentTasks.map((task) => {
           if (task.id === taskId) {

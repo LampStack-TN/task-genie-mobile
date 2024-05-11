@@ -21,7 +21,7 @@ const BottomNavUser: React.FC = () => {
         {navItems.map(({ id, screen, icon, size }: any) => (
           <View key={id} style={styles.navItem}>
             <Pressable
-              onPress={() => navigation.navigate(screen)}
+              onPress={() => navigation.navigate(screen as never)}
               style={styles.navIcon}
             >
               {({ pressed }) => (

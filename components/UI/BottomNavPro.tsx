@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -29,7 +29,7 @@ const BottomNavPro: React.FC = () => {
           {navItems.map(({ id, screen, icon, size }: any) => (
             <View key={id} style={styles.navItem}>
               <Pressable
-                onPress={() => navigation.navigate(screen)}
+                onPress={() => navigation.navigate(screen as never)}
                 style={styles.navIcon}
               >
                 {({ pressed }) => (
@@ -56,7 +56,7 @@ const BottomNavPro: React.FC = () => {
                 }}
               />
             </Pressable>
-          <SideMenu {...{ slideOn, toggleSlide, navigation }} />
+            <SideMenu {...{ slideOn, toggleSlide, navigation }} />
           </View>
         </View>
       </>

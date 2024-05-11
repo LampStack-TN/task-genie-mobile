@@ -1,13 +1,12 @@
-
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { MultiSelect } from "react-native-element-dropdown";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addService } from "../../../redux/slices/serviceSlice";
 import Button from "../../ui/Button";
 import skills from "../../../data/skills.json";
 
-const Skills = ({navigation}) => {
+const Skills = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const { control, handleSubmit } = useForm({
@@ -23,53 +22,53 @@ const Skills = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-    <View style={styles.stepContainer}>
-      <Text style={styles.heading}>Step 2</Text>
-      <Text
-        style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
-      >
-        Skills & Expertise
-      </Text>
-    </View>
+      <View style={styles.stepContainer}>
+        <Text style={styles.heading}>Step 2</Text>
+        <Text
+          style={{ marginBottom: 10, alignSelf: "flex-start", paddingTop: 10 }}
+        >
+          Skills & Expertise
+        </Text>
+      </View>
 
-    <View style={styles.inputContainer}>
-      <Controller
-        control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <MultiSelect
-            style={styles.input}
-            placeholderStyle={styles.placeholderStyle}
-            data={skills}
-            labelField="name"
-            valueField="id"
-            placeholder="Skills"
-            searchPlaceholder="Search..."
-            value={value}
-            onChange={onChange}
-            selectedStyle={styles.skillPill}
-            selectedTextStyle={styles.skillText}
-          />
-        )}
-        name="skills"
-      />
+      <View style={styles.inputContainer}>
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <MultiSelect
+              style={styles.input}
+              placeholderStyle={styles.placeholderStyle}
+              data={skills}
+              labelField="name"
+              valueField="id"
+              placeholder="Skills"
+              searchPlaceholder="Search..."
+              value={value}
+              onChange={onChange}
+              selectedStyle={styles.skillPill}
+              selectedTextStyle={styles.skillText}
+            />
+          )}
+          name="skills"
+        />
+      </View>
+      <View style={styles.footer}>
+        <Button
+          label="Back"
+          style="bare"
+          callback={() => navigation.goBack()}
+        />
+        <Button
+          label="Next"
+          style="outline"
+          callback={handleSubmit(onSubmit)}
+        />
+      </View>
     </View>
-    <View style={styles.footer}>
-      <Button
-        label="Back"
-        style="bare"
-        callback={() => navigation.goBack()}
-      />
-      <Button
-        label="Next"
-        style="outline"
-        callback={handleSubmit(onSubmit)}
-      />
-    </View>
-  </View>
-);
-}
+  );
+};
 
-export default Skills
+export default Skills;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

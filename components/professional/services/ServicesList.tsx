@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
-  Text,
   Pressable,
-  View,
   ImageBackground,
 } from "react-native";
 import ServiceCard from "./ServicesCard";

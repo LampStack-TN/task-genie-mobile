@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
 import {
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -21,6 +20,7 @@ const TaskList = ({ navigation }) => {
   const [modalMessage, setModalMessage] = useState("");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
   const [distanceFilter, setDistanceFilter] = useState(10);
 
   // useEffect(() => {
@@ -70,6 +70,12 @@ const TaskList = ({ navigation }) => {
       fetchTasks();
     }, [])
   );
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await fetchTasks();
+    setRefreshing(false);
+  };
 
   // * Good
   const handleApplyToTask = (task: Task) => {
@@ -172,8 +178,8 @@ const TaskList = ({ navigation }) => {
         />  */}
 
       <FlatList
-        // onRefresh={() => alert(123)}
-        // refreshing={true}
+        onRefresh={handleRefresh}
+        refreshing={refreshing}
         style={styles.container}
         data={tasks}
         renderItem={({ item: task }) => (

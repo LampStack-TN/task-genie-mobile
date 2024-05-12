@@ -6,6 +6,7 @@ import {
   TextInput,
   Pressable,
   View,
+  FlatList,
 } from "react-native";
 import Modal from "react-native-modal";
 import TaskCard from "./TaskCard";
@@ -170,13 +171,16 @@ const TaskList = ({ navigation }) => {
          
         />  */}
 
-      <ScrollView style={styles.container}>
-        {tasks.map((task) => (
+      <FlatList
+        // onRefresh={() => alert(123)}
+        // refreshing={true}
+        style={styles.container}
+        data={tasks}
+        renderItem={({ item: task }) => (
           <Pressable
             onPress={() =>
               navigation.navigate("ProDetails", { taskId: task.id })
             }
-            key={task.id}
           >
             <TaskCard
               task={task}
@@ -185,8 +189,9 @@ const TaskList = ({ navigation }) => {
               onToggleLike={() => toggleLikeTask(task.id)}
             />
           </Pressable>
-        ))}
-      </ScrollView>
+        )}
+        keyExtractor={(item) => item.id}
+      />
 
       <Modal
         animationIn={"fadeIn"}

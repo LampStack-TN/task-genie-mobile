@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 import Button from "../../../ui/Button";
+import { AntDesign } from "@expo/vector-icons";
 
 const ApplicationList = ({
   applications,
@@ -16,6 +17,7 @@ const ApplicationList = ({
   handleApplicationRespond,
   navigation,
 }) => {
+  
   return (
     <Modal
       animationIn="fadeIn"
@@ -33,7 +35,16 @@ const ApplicationList = ({
         </View>
         <ScrollView style={styles.applicationsList}>
           {[...applications].map((application, index) => (
-            <View key={index} style={styles.applicationItem}>
+            <View
+              key={index}
+              style={[
+                styles.applicationItem,
+                application.status === "Rejected" && {
+                  opacity: 0.7,
+                  backgroundColor: "#A00C0C30",
+                },
+              ]}
+            >
               <Pressable
                 onPress={() => {
                   toggleModal();
@@ -64,25 +75,33 @@ const ApplicationList = ({
                 </View>
               </Pressable>
               <View style={styles.actions}>
-                <Button
-                  size="sm"
-                  style="fill"
-                  label="Accept"
-                  color="#31780c"
-                  callback={() => {
-                    toggleModal();
-                    handleApplicationRespond(application.id, "Accepted");
-                  }}
-                />
-                <Button
-                  size="sm"
-                  style="bare"
-                  label="Reject"
-                  color="#4e4e4e"
-                  callback={() => {
-                    handleApplicationRespond(application.id, "Rejected");
-                  }}
-                />
+                {application.status === "Rejected" ? (
+                  <View style={styles.checkCircle}>
+                    <AntDesign name="close" size={28} color="#A00C0C" />
+                  </View>
+                ) : (
+                  <>
+                    <Button
+                      size="sm"
+                      style="fill"
+                      label="Accept"
+                      color="#31780c"
+                      callback={() => {
+                        toggleModal();
+                        handleApplicationRespond(application.id, "Accepted");
+                      }}
+                    />
+                    <Button
+                      size="sm"
+                      style="bare"
+                      label="Reject"
+                      color="#4e4e4e"
+                      callback={() => {
+                        handleApplicationRespond(application.id, "Rejected");
+                      }}
+                    />
+                  </>
+                )}
               </View>
             </View>
           ))}
@@ -132,6 +151,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderBottomWidth: 0.5,
     borderColor: "#c5c5c5",
+    borderRadius: 8,
     gap: 10,
   },
   profile: {
@@ -172,5 +192,16 @@ const styles = StyleSheet.create({
   actions: {
     padding: 5,
     gap: 5,
+  },
+  checkCircle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 22,
+    borderWidth: 2,
+    borderColor: "#A00C0C",
+    backgroundColor: "#A00C0C10",
   },
 });

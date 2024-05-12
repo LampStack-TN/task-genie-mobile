@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
   },
   profileData: {
     alignSelf: "flex-start",
+    flex: 1,
   },
   profileName: {
     fontSize: 18,

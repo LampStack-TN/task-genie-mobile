@@ -3,12 +3,14 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   View,
 } from "react-native";
 import Modal from "react-native-modal";
 import Button from "../../../ui/Button";
 import { AntDesign } from "@expo/vector-icons";
+import { useState } from "react";
 
 const ApplicationList = ({
   applications,
@@ -17,7 +19,11 @@ const ApplicationList = ({
   handleApplicationRespond,
   navigation,
 }) => {
-  
+  const [showRejected, setShowRejected] = useState(false);
+
+  !showRejected &&
+    (applications = applications.filter((app) => app.status !== "Rejected"));
+
   return (
     <Modal
       animationIn="fadeIn"
@@ -33,8 +39,18 @@ const ApplicationList = ({
             <Text style={styles.modalClose}>✕</Text>
           </Pressable>
         </View>
-        <ScrollView style={styles.applicationsList}>
-          {[...applications].map((application, index) => (
+        <View style={styles.rejectedSwitch}>
+          <Switch
+            trackColor={{ false: "#767577", true: "#9dacc9" }}
+            thumbColor={showRejected ? "#546ea0" : "#c4c3c4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={() => setShowRejected((prev) => !prev)}
+            value={showRejected}
+          />
+          <Text style={styles.switchText}>Show Rejected Applications?</Text>
+        </View>
+        <ScrollView contentContainerStyle={styles.applicationsList}>
+          {applications.map((application, index) => (
             <View
               key={index}
               style={[
@@ -117,6 +133,7 @@ const styles = StyleSheet.create({
   modal: {
     backgroundColor: "white",
     borderRadius: 8,
+    paddingBottom: 10,
     maxHeight: "90%",
   },
   modalHeader: {
@@ -140,18 +157,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     color: "#6e6e6e",
   },
+  rejectedSwitch: {
+    flexDirection: "row",
+    paddingHorizontal: 22,
+    alignItems: "center",
+  },
+  switchText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#6e6e6e",
+  },
   applicationsList: {
-    padding: 16,
-    marginBottom: 16,
+    paddingHorizontal: 16,
+    gap: 4,
   },
   applicationItem: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 8,
-    borderBottomWidth: 0.5,
+    borderWidth: 0.5,
     borderColor: "#c5c5c5",
     borderRadius: 8,
+    backgroundColor: "#f0f0f0",
     gap: 10,
   },
   profile: {

@@ -1,45 +1,74 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import Confirmation from "../../../ui/Confirmation";
+import { useState } from "react";
 
-const ApplicationsCard = ({ task, toggleModal, navigation, setCompletion }) => {
+const ApplicationsCard = ({
+  task,
+  toggleModal,
+  navigation,
+  handleApplicationRespond,
+}) => {
   if (task.acceptedApplication) {
+    const [completion, setCompletion] = useState(false);
+
     return (
-      <View>
-        <View style={styles.acceptedApplicationCard}>
-          <Pressable
-            onPress={() =>
-              navigation.navigate("ProfileDetails", {
-                userId: task.acceptedApplication.applicant.id,
-              })
-            }
-            style={styles.profile}
-          >
-            <Image
-              source={{ uri: task.acceptedApplication.applicant.avatar }}
-              style={styles.profilePhoto}
-            />
-            <View style={styles.profileData}>
-              <Text style={styles.profileName}>
-                {task.acceptedApplication.applicant.fullName}
-              </Text>
-              <Text style={styles.userTitle}>
-                {task.acceptedApplication.applicant.profile?.jobTitle}
-              </Text>
-              {task.acceptedApplication.price && (
-                <Text style={styles.userPrice}>
-                  {task.acceptedApplication.price}
-                  <Text style={{ color: "#6e6e6e", fontSize: 12 }}> TND</Text>
+      <>
+        <View>
+          <View style={styles.acceptedApplicationCard}>
+            <Pressable
+              onPress={() =>
+                navigation.navigate("ProfileDetails", {
+                  userId: task.acceptedApplication.applicant.id,
+                })
+              }
+              style={styles.profile}
+            >
+              <Image
+                source={{ uri: task.acceptedApplication.applicant.avatar }}
+                style={styles.profilePhoto}
+              />
+              <View style={styles.profileData}>
+                <Text style={styles.profileName}>
+                  {task.acceptedApplication.applicant.fullName}
                 </Text>
-              )}
-            </View>
-          </Pressable>
-          <Pressable onPress={() => setCompletion(true)}>
-            <View style={styles.checkCircle}>
-              <AntDesign name="check" size={28} color="green" />
-            </View>
-          </Pressable>
+                <Text style={styles.userTitle}>
+                  {task.acceptedApplication.applicant.profile?.jobTitle}
+                </Text>
+                {task.acceptedApplication.price && (
+                  <Text style={styles.userPrice}>
+                    {task.acceptedApplication.price}
+                    <Text style={{ color: "#6e6e6e", fontSize: 12 }}> TND</Text>
+                  </Text>
+                )}
+              </View>
+            </Pressable>
+            {task.acceptedApplication.status === "Complete" ? (
+              <View style={styles.checkCircle}>
+                <AntDesign name="check" size={28} color="green" />
+              </View>
+            ) : (
+              <Pressable onPress={() => setCompletion(true)}>
+                <View
+                  style={[styles.checkCircle, { backgroundColor: "#0C7831" }]}
+                >
+                  <AntDesign name="check" size={28} color="white" />
+                </View>
+              </Pressable>
+            )}
+          </View>
         </View>
-      </View>
+
+        <Confirmation
+          message="Mark This Task As Complete?"
+          {...{
+            modalVisible: completion,
+            setModalVisible: setCompletion,
+            onConfirm: () =>
+              handleApplicationRespond(task.acceptedApplication.id, "Complete"),
+          }}
+        />
+      </>
     );
   }
   return (

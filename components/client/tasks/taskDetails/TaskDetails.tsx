@@ -20,7 +20,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const [applications, setApplications] = useState<Application[]>([]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [completion, setCompletion] = useState(false);
 
   const taskId = route.params.taskId;
 
@@ -65,8 +64,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       });
 
       // set acceptedApplication on acceptance action
-      status === "Accepted" &&
-        setTask((task) => ({ ...task, acceptedApplication: data }));
 
       if (status === "Rejected") {
         // Update applications state if application is rejected
@@ -81,6 +78,8 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
             app.id === applicationId ? { ...app, status: "Rejected" } : app
           )
         );
+      } else {
+        setTask((task) => ({ ...task, acceptedApplication: data }));
       }
     } catch (err) {
       console.error(err);
@@ -96,7 +95,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
     >
       <Details {...{ setModalVisible, task, navigation }}>
         <ApplicationsCard
-          {...{ task, toggleModal, navigation, setCompletion }}
+          {...{ task, toggleModal, navigation, handleApplicationRespond }}
         />
       </Details>
       <ApplicationList
@@ -113,16 +112,6 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         message="Are you sure?"
         confirmColor="#a02020"
         {...{ modalVisible, setModalVisible, onConfirm: handleDelete }}
-      />
-
-      <Confirmation
-        message="Mark This As Complete?"
-        // confirmColor="#a02020"
-        {...{
-          modalVisible: completion,
-          setModalVisible: setCompletion,
-          onConfirm: null,
-        }}
       />
     </ImageBackground>
   );

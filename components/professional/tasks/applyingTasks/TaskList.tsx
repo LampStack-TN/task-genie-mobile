@@ -114,10 +114,31 @@ const TaskList = ({ navigation }) => {
     setTasks(searchResults);
   };
 
+  const cancelApplication = async (id) => {
+    try {
+      const {
+        data: { taskId },
+      } = await ApiClient().del(`/task-application/cancel/${id}`);
+
+      setTasks((currentTasks) =>
+        currentTasks.map((task) => {
+          if (task.id === taskId) {
+            return { ...task, applied: false };
+          }
+          return task;
+        })
+      );
+    } catch (error) {
+      setModalMessage("Failed to cancel Application.");
+      setApplicationModal(true);
+    }
+  };
   // * Good
   const toggleLikeTask = async (taskId) => {
     try {
-      const response = await ApiClient().post("/favrourite-task/likeTask", { taskId });
+      const response = await ApiClient().post("/favrourite-task/likeTask", {
+        taskId,
+      });
       setTasks((currentTasks) =>
         currentTasks.map((task) => {
           if (task.id === taskId) {
@@ -160,6 +181,7 @@ const TaskList = ({ navigation }) => {
             <TaskCard
               task={task}
               onApply={() => handleApplyToTask(task)}
+              onCancel={cancelApplication}
               onToggleLike={() => toggleLikeTask(task.id)}
             />
           </Pressable>

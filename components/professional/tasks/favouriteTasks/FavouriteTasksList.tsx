@@ -77,6 +77,7 @@ const FavouriteTasksList = () => {
             task={task}
             onToggleLike={() => toggleLikeTask(task.id)}
             onApply={() => handleApplyToTask(task)}
+            onCancel={null}
           />
         ))
       ) : (

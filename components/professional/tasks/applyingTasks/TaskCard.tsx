@@ -10,7 +10,7 @@ const colors = {
   Complete: "#31780c",
 };
 
-const TaskCard = ({ task, onApply, onToggleLike }) => {
+const TaskCard = ({ task, onApply, onCancel, onToggleLike }) => {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -38,7 +38,7 @@ const TaskCard = ({ task, onApply, onToggleLike }) => {
             style={task.applied ? "light" : "fill"}
             size="sm"
             color={task.applied && colors[task.applications[0].status]}
-            callback={() => onApply(task)}
+            callback={task.applied ? () => onCancel(task.applications[0].id) : () => onApply(task)}
           />
           <TouchableOpacity onPress={() => onToggleLike()}>
             <MaterialIcons

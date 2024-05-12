@@ -5,8 +5,9 @@ import Button from "../../../ui/Button";
 
 const colors = {
   Pending: "#0C3178",
-  Accepted: "#0C780c",
+  Accepted: "#0c6778",
   Rejected: "#780c0c",
+  Complete: "#31780c",
 };
 
 const TaskCard = ({ task, onApply, onToggleLike }) => {

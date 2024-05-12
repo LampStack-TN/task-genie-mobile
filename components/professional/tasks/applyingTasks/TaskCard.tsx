@@ -4,8 +4,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Button from "../../../ui/Button";
 
 const colors = {
-  Pending: "#0C7878",
-  Accepted: "#0C780C",
+  Pending: "#0C3178",
+  Accepted: "#0C780c",
   Rejected: "#780c0c",
 };
 
@@ -34,7 +34,7 @@ const TaskCard = ({ task, onApply, onToggleLike }) => {
         <View style={styles.footer}>
           <Button
             label={task.applied ? task.applications[0].status + "..." : "Aplly"}
-            style="fill"
+            style={task.applied ? "light" : "fill"}
             size="sm"
             color={task.applied && colors[task.applications[0].status]}
             callback={() => onApply(task)}

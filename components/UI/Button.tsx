@@ -55,7 +55,7 @@ const Button = ({
       borderWidth: 2,
       color: color || "#2e2e2e",
       borderColor: color + "a0" || "#0C3178a0",
-      backgroundColor: color + "08" || "#0C317808",
+      backgroundColor: color + "20" || "#0C317820",
     },
     text: {
       color: colors[style],

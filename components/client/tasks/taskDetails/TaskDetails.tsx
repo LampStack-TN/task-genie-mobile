@@ -11,12 +11,7 @@ import Details from "./Details";
 import ApplicationsCard from "./ApplicationsCard";
 import Confirmation from "../../../ui/Confirmation";
 
-enum Status {
-  Pending,
-  Accepted,
-  Rejected,
-  Complete,
-}
+type Status = "Pending" | "Accepted" | "Rejected" | "Complete";
 
 const TaskDetails: React.FC = ({ route, navigation }: any) => {
   const api = ApiClient();
@@ -68,8 +63,25 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
         applicationId,
         status,
       });
-      // toggleModal();
-      setTask((task) => ({ ...task, acceptedApplication: data }));
+
+      // set acceptedApplication on acceptance action
+      status === "Accepted" &&
+        setTask((task) => ({ ...task, acceptedApplication: data }));
+
+      if (status === "Rejected") {
+        // Update applications state if application is rejected
+        setTask((prevTask) => ({
+          ...prevTask,
+          applications: prevTask.applications.map((app) =>
+            app.id === applicationId ? { ...app, status: "Rejected" } : app
+          ),
+        }));
+        setApplications((prevApplications) =>
+          prevApplications.map((app) =>
+            app.id === applicationId ? { ...app, status: "Rejected" } : app
+          )
+        );
+      }
     } catch (err) {
       console.error(err);
     }

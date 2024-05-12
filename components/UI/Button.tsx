@@ -6,7 +6,7 @@ interface Props {
   label: string | React.ReactNode;
   transparent?: boolean;
   color?: string;
-  style?: "outline" | "fill" | "bare";
+  style?: "outline" | "fill" | "bare" | "light";
   size?: "normal" | "sm";
   callback?: () => any;
 }
@@ -21,6 +21,7 @@ const Button = ({
 }: Props) => {
   const colors = {
     outline: color || "#0C3178",
+    light: color || "#0C3178",
     fill: "#fff",
     bare: color || "#2e2e2e",
   };
@@ -36,8 +37,8 @@ const Button = ({
       paddingVertical: size === "sm" ? 10 : 20,
     },
     outline: {
-      borderColor: color || "#0C3178",
       borderWidth: 1,
+      borderColor: color || "#0C3178",
       backgroundColor: transparent ? "#00000000" : "#fff",
       overflow: "hidden",
       color: color || "#0C3178",
@@ -49,7 +50,12 @@ const Button = ({
     },
     bare: {
       borderWidth: 0,
+    },
+    light: {
+      borderWidth: 2,
       color: color || "#2e2e2e",
+      borderColor: color + "a0" || "#0C3178a0",
+      backgroundColor: color + "08" || "#0C317808",
     },
     text: {
       color: colors[style],
@@ -63,9 +69,7 @@ const Button = ({
   return (
     <Pressable onPress={callback}>
       <View style={[styles.button, styles[style]]}>
-        <Text style={styles.text}>
-          {label}
-        </Text>
+        <Text style={styles.text}>{label}</Text>
       </View>
     </Pressable>
   );

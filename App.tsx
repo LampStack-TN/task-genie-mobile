@@ -16,16 +16,16 @@ import { useEffect, useState } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store/store";
 
-import RegisterIndex from "./screens/auth/register/Index";
+import RegisterIndex from "./screens/auth/Register";
 import Login from "./screens/auth/Login";
 import BottomNavUser from "./components/ui/BottomNavUser";
 import UserNavigator from "./navigations/Client";
 import Splash from "./components/ui/Splash";
 import checkAuthentication from "./utils/checkAuthentication";
-import RoleForm from "./screens/auth/register/RoleForm";
+import RoleForm from "./screens/auth/RoleForm";
 import ProNavigator from "./navigations/Pro";
 import BottomNavPro from "./components/ui/BottomNavPro";
-import ProfileForm from "./components/professional/profile/form/Index";
+import ProfileForm from "./screens/professional/AddProfile";
 
 const Stack = createNativeStackNavigator();
 

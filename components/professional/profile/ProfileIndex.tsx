@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState, useCallback } from "react";
 import { ApiClient } from "../../../utils/api";
-import Profile from "./Profile";
-import Skills from "./form/Skills";
-import Info from "./form/Info";
-import Documents from "./form/Documents";
+import Profile from "../../../screens/professional/Profile";
+import Skills from "./addProfile/Skills";
+import Info from "./addProfile/Info";
+import Documents from "./addProfile/Documents";
 import { useFocusEffect } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();

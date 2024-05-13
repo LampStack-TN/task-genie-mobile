@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser } from "../../redux/slices/userSlice";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import ProMenu from "../professional/home/ProIndex";
+import ProMenu from "../client/Menu";
 
 const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
   const dispatch = useDispatch();

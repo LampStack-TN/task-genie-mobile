@@ -1,17 +1,17 @@
 import { Text, View } from "react-native";
 import ProfileIndex from "../components/professional/profile/ProfileIndex";
-import TaskList from "../components/professional/tasks/tasksList/TaskList";
-import Tabs from "../components/professional/profile/edit/Tabs";
-import Home from "../components/professional/home/ProIndex";
-import FavouriteTasksList from "../components/professional/tasks/favouriteTasks/FavouriteTasksList";
-import proDetails from "../components/professional/tasks/proDetails";
-import MyServices from "../components/professional/services/MyServices";
-import ProIndex from "../components/professional/form/ProIndex";
-import ServiceDetails from "../components/professional/serviceDetails/ServiceDetails";
-import AppliedTasks from "../components/professional/tasks/applyingTasks/AppliedTasks";
+import TaskList from "../screens/professional/TaskList";
+import Tabs from "../screens/professional/EditProfile";
+import Home from "../components/client/Menu";
+import FavouriteTasksList from "../screens/professional/FavouriteTasksList";
+import proDetails from "../screens/professional/TaskDetails";
+import MyServices from "../screens/professional/MyServices";
+import ProIndex from "../screens/professional/AddService";
+import ServiceDetails from "../screens/professional/ServiceDetails";
+import AppliedTasks from "../screens/professional/AppliedTasks";
 import ConversationList from "../screens/chat/ConversationList";
 import Conversation from "../screens/chat/Conversation";
-import Profile from "../components/professional/profile/Profile";
+import Profile from "../screens/professional/Profile";
 const ProNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator

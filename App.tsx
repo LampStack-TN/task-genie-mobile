@@ -26,6 +26,7 @@ import RoleForm from "./screens/auth/RoleForm";
 import ProNavigator from "./navigations/Pro";
 import BottomNavPro from "./components/ui/BottomNavPro";
 import ProfileForm from "./screens/professional/AddProfile";
+import { navigationRef } from "./navigations/RootNavigation";
 
 const Stack = createNativeStackNavigator();
 
@@ -56,7 +57,7 @@ const Main = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         {user ? (
           <SafeAreaView
             style={{

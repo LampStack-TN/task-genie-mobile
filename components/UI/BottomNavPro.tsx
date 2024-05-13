@@ -6,12 +6,16 @@ import { useState } from "react";
 import useKeyboardOpen from "../../utils/useKeyboardOpen";
 import { useSelector } from "react-redux";
 import SideMenu from "./SideMenu";
+import { navigationRef } from "../../navigations/RootNavigation";
 
 const BottomNavPro: React.FC = () => {
   const user = useSelector((state: any) => state.user);
 
   const navigation = useNavigation();
   const [slideOn, setSlideOn] = useState(false);
+  const [currenScreen, setScreen] = useState(
+    navigationRef.getCurrentRoute().name
+  );
 
   const isKeyboardOpen = useKeyboardOpen();
 
@@ -29,15 +33,28 @@ const BottomNavPro: React.FC = () => {
           {navItems.map(({ id, screen, icon, size }: any) => (
             <View key={id} style={styles.navItem}>
               <Pressable
-                onPress={() => navigation.navigate(screen as never)}
-                style={styles.navIcon}
+                onPress={() => {
+                  setScreen(screen);
+                  navigation.navigate(screen as never);
+                }}
               >
                 {({ pressed }) => (
-                  <MaterialIcons
-                    name={icon}
-                    size={size}
-                    color={pressed ? "#fff" : "#fff"}
-                  />
+                  <View
+                    style={[
+                      styles.navIcon,
+                      currenScreen === screen && {
+                        backgroundColor: "#61c9f530",
+                      },
+                    ]}
+                  >
+                    <MaterialIcons
+                      name={icon}
+                      size={pressed ? size * 1.1 : size}
+                      color={
+                        pressed || currenScreen === screen ? "#61c9f5" : "#fff"
+                      }
+                    />
+                  </View>
                 )}
               </Pressable>
             </View>
@@ -81,8 +98,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   navIcon: {
-    flex: 1,
-    height: "100%",
+    height: 50,
+    borderRadius: 8,
     width: 60,
     justifyContent: "center",
     alignItems: "center",

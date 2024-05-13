@@ -13,9 +13,7 @@ const BottomNavPro: React.FC = () => {
 
   const navigation = useNavigation();
   const [slideOn, setSlideOn] = useState(false);
-  const [currenScreen, setScreen] = useState(
-    navigationRef.getCurrentRoute().name
-  );
+  const [currenScreen, setScreen] = useState('task-list');
 
   const isKeyboardOpen = useKeyboardOpen();
 

@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import SlideUp from "./SlideUp";
+import { navigationRef } from "../../navigations/RootNavigation";
 
 const BottomNavUser: React.FC = () => {
   const navigation = useNavigation();
   const [slideOn, setSlideOn] = useState(false);
+  const [currentScreen, setScreen] = useState("MyTasks");
+  console.log(currentScreen);
 
   const toggleSlide = () => setSlideOn(!slideOn);
 
@@ -21,15 +24,33 @@ const BottomNavUser: React.FC = () => {
         {navItems.map(({ id, screen, icon, size }: any) => (
           <View key={id} style={styles.navItem}>
             <Pressable
-              onPress={() => navigation.navigate(screen as never)}
+              onPress={() => {
+                setScreen(screen);
+                navigation.navigate(screen as never);
+              }}
               style={styles.navIcon}
             >
               {({ pressed }) => (
-                <MaterialIcons
-                  name={icon}
-                  size={size}
-                  color={pressed ? "#0C3178" : "#5275B7"}
-                />
+                <View
+                  style={[
+                    styles.navIcon,
+                    currentScreen === screen && {
+                      // backgroundColor: "#f58d6140",
+                      borderBottomWidth: 5,
+                      borderColor: "#f58d61",
+                    },
+                  ]}
+                >
+                  <MaterialIcons
+                    name={icon}
+                    size={pressed ? size * 1.1 : size}
+                    color={
+                      pressed || currentScreen === screen
+                        ? "#0C3178"
+                        : "#051532"
+                    }
+                  />
+                </View>
               )}
             </Pressable>
           </View>
@@ -40,7 +61,7 @@ const BottomNavUser: React.FC = () => {
               <MaterialIcons
                 name="menu"
                 size={32}
-                color={pressed ? "#0C3178" : "#5275B7"}
+                color={pressed ? "#0C3178" : "#051532"}
               />
             )}
           </Pressable>
@@ -66,7 +87,7 @@ export default BottomNavUser;
 const styles = StyleSheet.create({
   navContainer: {
     borderTopWidth: 1,
-    borderColor: "#c5c5c5",
+    borderColor: "#fac1a9",
     height: 60,
     justifyContent: "space-around",
     flexDirection: "row",
@@ -77,9 +98,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   navIcon: {
-    flex: 1,
-    height: "100%",
-    width: 60,
+    height: 50,
+    width: 70,
     justifyContent: "center",
     alignItems: "center",
   },

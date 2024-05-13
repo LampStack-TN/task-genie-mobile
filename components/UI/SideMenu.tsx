@@ -5,7 +5,7 @@ import { setUser } from "../../redux/slices/userSlice";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ProMenu from "../professional/home/ProIndex";
-import Menu from "../client/home/Index";
+import Menu from "../professional/Menu";
 
 const SideMenu = ({ slideOn, toggleSlide, navigation }) => {
   const dispatch = useDispatch();

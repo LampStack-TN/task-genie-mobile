@@ -16,14 +16,14 @@ import { useEffect, useState } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store/store";
 
-import RegisterIndex from "./components/auth/register/Index";
-import Login from "./components/auth/Login";
+import RegisterIndex from "./screens/auth/register/Index";
+import Login from "./screens/auth/Login";
 import BottomNavUser from "./components/ui/BottomNavUser";
-import UserNavigator from "./components/navigators/UserNavigator";
+import UserNavigator from "./navigations/Client";
 import Splash from "./components/ui/Splash";
 import checkAuthentication from "./utils/checkAuthentication";
-import RoleForm from "./components/auth/register/RoleForm";
-import ProNavigator from "./components/navigators/ProNavigator";
+import RoleForm from "./screens/auth/register/RoleForm";
+import ProNavigator from "./navigations/Pro";
 import BottomNavPro from "./components/ui/BottomNavPro";
 import ProfileForm from "./components/professional/profile/form/Index";
 

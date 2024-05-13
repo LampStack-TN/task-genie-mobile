@@ -2,12 +2,12 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import PersonalDetails from "./PersonalDetails";
 import ProfessionalInfo from "./ProfessionalInfo";
 import Security from "./Security";
-import MyTab from "./MyTab";
+import MyTab from "../../../ui/TopTabs";
 import { useSelector } from "react-redux";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function Tabs({ route }) {
+export default function Tabs() {
   const user = useSelector((state: any) => state.user);
 
   return (

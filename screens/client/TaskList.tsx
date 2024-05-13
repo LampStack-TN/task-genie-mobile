@@ -4,7 +4,7 @@ import { Tasks } from "../../types/TaskTypes";
 import UserTaskCard from "../../components/client/TaskCard";
 import { ApiClient } from "../../utils/api";
 
-import gradient from "../../../../assets/images/orange_gradient.png";
+import gradient from "../../assets/images/orange_gradient.png";
 
 const UserTaskList = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);

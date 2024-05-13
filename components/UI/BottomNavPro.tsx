@@ -69,9 +69,9 @@ export default BottomNavPro;
 const styles = StyleSheet.create({
   navContainer: {
     borderTopWidth: 1,
-    borderColor: "#c5c5c5",
+    borderColor: "#092760",
     height: 60,
-    backgroundColor: "#0C3178",
+    backgroundColor: "#071d48",
     justifyContent: "space-around",
     flexDirection: "row",
   },

@@ -55,12 +55,12 @@ const TaskCard = ({ task, onApply, onCancel, onToggleLike }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     borderRadius: 8,
     paddingVertical: 5,
     paddingHorizontal: 15,
-    borderWidth: 2,
-    borderColor: "#c5c5c5",
+    borderWidth: 1,
+    borderColor: "#7a4630",
     marginVertical: 6,
   },
   header: {

@@ -162,7 +162,7 @@ const TaskList = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Search onSearchResults={handleSearchResults} />
+      {/* <Search onSearchResults={handleSearchResults} /> */}
 
       {/* <Text>Distance Filter: {distanceFilter} KM</Text> */}
       {/* <Slider
@@ -180,7 +180,8 @@ const TaskList = ({ navigation }) => {
       <FlatList
         onRefresh={handleRefresh}
         refreshing={refreshing}
-        style={styles.container}
+        contentContainerStyle={styles.container}
+        
         data={tasks}
         renderItem={({ item: task }) => (
           <Pressable
@@ -253,8 +254,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 6,
     overflow: "hidden",
-    rowGap: 22,
-    backgroundColor: "#ECF2FD",
+    rowGap: 11,
+    backgroundColor: "#fff",
   },
   modalContent: {
     backgroundColor: "white",

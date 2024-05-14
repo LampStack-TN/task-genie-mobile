@@ -8,6 +8,7 @@ import ServicesList from "../screens/client/ServicesList";
 import React from "react";
 import ConversationList from "../screens/chat/ConversationList";
 import Conversation from "../screens/chat/Conversation";
+import Notifications from "../screens/Notifications";
 const UserNavigator = ({ Stack }) => {
   return (
     <Stack.Navigator
@@ -24,7 +25,8 @@ const UserNavigator = ({ Stack }) => {
       <Stack.Screen name="ServicesList" component={ServicesList} />
       <Stack.Screen name="ConversationList" component={ConversationList} />
       <Stack.Screen name="Conversation" component={Conversation} />
-      <Stack.Screen name="MyHiredServices" component={MyHiredServices}/> 
+      <Stack.Screen name="MyHiredServices" component={MyHiredServices} />
+      <Stack.Screen name="notifications" component={Notifications} />
     </Stack.Navigator>
   );
 };

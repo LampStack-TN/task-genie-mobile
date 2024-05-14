@@ -25,17 +25,23 @@ const Notifications: FC = () => {
         contentContainerStyle={styles.container}
         data={notifications}
         renderItem={({ item }) => (
-          <Pressable onPress={() => {}}>
+          <Pressable
+            onPress={() => {
+              alert("notilla");
+            }}
+          >
             <View style={styles.notification}>
               <View style={styles.profile}>
-                <Image
-                  source={{
-                    uri: item.notifier.avatar,
-                  }}
-                  style={styles.profilePhoto}
-                />
+                <Pressable onPress={() => alert("pro")}>
+                  <Image
+                    source={{
+                      uri: item.notifier.avatar,
+                    }}
+                    style={styles.profilePhoto}
+                  />
+                </Pressable>
                 <Text style={styles.userInfo}>
-                  <Text style={styles.profileName}>
+                  <Text style={styles.profileName} onPress={() => alert("pro")}>
                     {item.notifier.fullName}
                   </Text>{" "}
                   <Text style={styles.userTitle}>{item.message}</Text>{" "}
@@ -84,7 +90,7 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 20,
   },
   profileName: {
     color: "#4e4e4e",

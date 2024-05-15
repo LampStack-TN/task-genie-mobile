@@ -31,25 +31,21 @@ const Notifications: FC = () => {
             }}
           >
             <View style={styles.notification}>
-              <View style={styles.profile}>
-                <Pressable onPress={() => alert("pro")}>
-                  <Image
-                    source={{
-                      uri: item.notifier.avatar,
-                    }}
-                    style={styles.profilePhoto}
-                  />
-                </Pressable>
-                <Text style={styles.userInfo}>
-                  <Text style={styles.profileName} onPress={() => alert("pro")}>
-                    {item.notifier.fullName}
-                  </Text>{" "}
-                  <Text style={styles.userTitle}>{item.message}</Text>{" "}
-                  <Text style={styles.userCity}>
-                    application applicant city
-                  </Text>
-                </Text>
-              </View>
+              <Pressable onPress={() => alert("pro")}>
+                <Image
+                  source={{
+                    uri: item.notifier.avatar,
+                  }}
+                  style={styles.profilePhoto}
+                />
+              </Pressable>
+              <Text style={styles.userInfo}>
+                <Text style={styles.profileName} onPress={() => alert("pro")}>
+                  {item.notifier.fullName}
+                </Text>{" "}
+                <Text style={styles.userTitle}>{item.message}</Text>{" "}
+                <Text style={styles.userCity}>application applicant city</Text>
+              </Text>
             </View>
           </Pressable>
         )}
@@ -66,41 +62,43 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 6,
     overflow: "hidden",
-    rowGap: 11,
+    rowGap: 6,
     backgroundColor: "#fff",
+    marginTop: 32,
   },
   notification: {
-    backgroundColor: "#c5c5c5",
-  },
-  profile: {
-    alignItems: "center",
+    backgroundColor: "#e6eaf1",
+    // alignItems: "center",
     flexDirection: "row",
     gap: 12,
     flex: 1,
     padding: 5,
     paddingBottom: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#93543aa0",
   },
   profilePhoto: {
     backgroundColor: "#669",
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     borderWidth: 1,
     borderColor: "#F58D6180",
   },
   userInfo: {
     flex: 1,
     fontSize: 20,
+    fontWeight: "500",
   },
   profileName: {
-    color: "#4e4e4e",
+    color: "#4E4E4E",
   },
   userTitle: {
-    color: "#4e4e4e",
+    color: "#6e6e6e",
+    fontWeight: "400",
   },
   userCity: {
-    flex: 1,
-    fontWeight: "500",
     color: "#F58D61",
   },
 });

@@ -1,6 +1,5 @@
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
 import { useState } from "react";
 import useKeyboardOpen from "../../utils/useKeyboardOpen";
@@ -11,9 +10,8 @@ import { navigationRef } from "../../navigations/RootNavigation";
 const BottomNavPro: React.FC = () => {
   const user = useSelector((state: any) => state.user);
 
-  const navigation = useNavigation();
   const [slideOn, setSlideOn] = useState(false);
-  const [currenScreen, setScreen] = useState('task-list');
+  const [currenScreen, setScreen] = useState("task-list");
 
   const isKeyboardOpen = useKeyboardOpen();
 
@@ -33,7 +31,7 @@ const BottomNavPro: React.FC = () => {
               <Pressable
                 onPress={() => {
                   setScreen(screen);
-                  navigation.navigate(screen as never);
+                  navigationRef.navigate(screen as never);
                 }}
               >
                 {({ pressed }) => (
@@ -71,7 +69,9 @@ const BottomNavPro: React.FC = () => {
                 }}
               />
             </Pressable>
-            <SideMenu {...{ slideOn, toggleSlide, navigation }} />
+            <SideMenu
+              {...{ slideOn, toggleSlide, navigation: navigationRef }}
+            />
           </View>
         </View>
       </>
@@ -97,9 +97,9 @@ const styles = StyleSheet.create({
   },
   navIcon: {
     height: 50,
-    borderRadius: 8,
     width: 60,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 8,
   },
 });

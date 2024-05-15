@@ -15,7 +15,7 @@ const Notifications: FC<any> = ({ navigation }) => {
     _count: { notifications: count },
   } = useSelector((state: any) => state.user);
 
-  console.log(count, notifications);
+  console.log(count, notifications[0]);
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
@@ -54,8 +54,11 @@ const Notifications: FC<any> = ({ navigation }) => {
                 <Text style={styles.profileName} onPress={() => alert("pro")}>
                   {item.notifier.fullName}
                 </Text>{" "}
-                <Text style={styles.userTitle}>{item.message}</Text>{" "}
-                <Text style={styles.userCity}>application applicant city</Text>
+                <Text style={styles.userTitle}>{item.message}</Text>
+                {"\n"}
+                <Text style={styles.userCity}>
+                  {item.content.slice(0, 28)}...
+                </Text>
               </Text>
             </View>
           </Pressable>
@@ -99,17 +102,17 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "500",
   },
   profileName: {
-    color: "#4E4E4E",
+    color: "#3c5a93",
   },
   userTitle: {
-    color: "#6e6e6e",
+    color: "#4e4e4e",
     fontWeight: "400",
   },
   userCity: {
-    color: "#F58D61",
+    color: "#4e4e4e",
   },
 });

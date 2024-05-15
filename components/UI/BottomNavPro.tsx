@@ -20,6 +20,7 @@ const BottomNavPro: React.FC = () => {
   const navItems = [
     { id: 1, screen: "task-list", icon: "task", size: 32 },
     { id: 2, screen: "AddService", icon: "add-circle-outline", size: 45 },
+    { id: 3, screen: "_", icon: "notifications", size: 32 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
   return (

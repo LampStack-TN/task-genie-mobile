@@ -1,6 +1,9 @@
+const ip = "172.160.10.104";
+const baseUrl = `http://${ip}:3000`;
+
 const config = {
-  apiUrl: "http://192.168.15.54:3001/api",
-  baseUrl: "http://192.168.15.54:3001",
+  baseUrl,
+  apiUrl: `${baseUrl}/api`,
 };
 
 export default config;

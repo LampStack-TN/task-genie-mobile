@@ -13,6 +13,10 @@ import { Task } from "../../types/Task";
 import { ApiClient } from "../../utils/api";
 import Search from "../../components/professional/search";
 import { useFocusEffect } from "@react-navigation/native";
+import { getDistance } from "geolib";
+import Slider from "@react-native-community/slider";
+import { useSelector } from "react-redux";
+import { Ionicons } from '@expo/vector-icons';
 
 const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -21,7 +25,10 @@ const TaskList = ({ navigation }) => {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const [distanceFilter, setDistanceFilter] = useState(10);
+  const [distanceFilter, setDistance] = useState(9000);
+  const [SliderVisible, setSliderVisible] = useState(false);
+
+  const user = useSelector((state: any) => state.user);
 
   // useEffect(() => {
   //   const fetchTasks = async () => {
@@ -59,7 +66,25 @@ const TaskList = ({ navigation }) => {
   const fetchTasks = async () => {
     try {
       const { data } = await ApiClient().get("/task/getAll");
-      setTasks(data);
+      setTasks(
+        data.filter((task) => {
+          const userLocation = {
+            latitude: user.latitude,
+            longitude: user.longitude,
+          };
+          const taskLocation = {
+            latitude: task.latitude,
+            longitude: task.longitude,
+          };
+
+          const distance = getDistance(userLocation, taskLocation);
+          console.log(userLocation, "kiki");
+
+          const distanceKm = distance / 1000;
+          console.log(distanceKm, "hhh");
+          return distanceKm < distanceFilter;
+        })
+      );
     } catch (error) {
       console.error(error);
     }
@@ -162,26 +187,35 @@ const TaskList = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* <Search onSearchResults={handleSearchResults} /> */}
+      <Pressable
+        style={styles.buttomTop}
+        onPress={() => setSliderVisible(!SliderVisible)}
+      >
+        <Ionicons name="options" size={24} color="black" />
+      </Pressable>
 
-      {/* <Text>Distance Filter: {distanceFilter} KM</Text> */}
-      {/* <Slider
-          style={{ width: 200, height: 40 }}
-          minimumValue={1}
-          maximumValue={10}
-          step={1}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
-          value={distanceFilter}
-          onValueChange={(value) => setDistanceFilter(value)}
-         
-        />  */}
+      {SliderVisible && ( 
+        <>
+        <Search onSearchResults={handleSearchResults} />
+          <Text>Distance {distanceFilter} KM</Text>
+          <Slider
+            style={{ height: 50 }}
+            minimumValue={0}
+            maximumValue={6000}
+            step={1}
+            value={distanceFilter}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#000000"
+            onValueChange={setDistance}
+            onSlidingComplete={fetchTasks}
+          />
+        </>
+      )}
 
       <FlatList
         onRefresh={handleRefresh}
         refreshing={refreshing}
         contentContainerStyle={styles.container}
-        
         data={tasks}
         renderItem={({ item: task }) => (
           <Pressable
@@ -307,6 +341,12 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 14,
+  },
+  buttomTop: {
+    backgroundColor: "#ced5e4",
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e6eaf1",
   },
 });
 

@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { ApiClient } from "../../utils/api";
 import cities from "../../data/cities.json";
 import City from "../../types/city";
-import orange_gradient from "../../../../assets/images/orange_gradient.png";
+import orange_gradient from "../../assets/images/orange_gradient.png";
 import SearchProps from "../../types/searchFunc";
 
 const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
@@ -21,7 +21,7 @@ const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
 
   const onFindJobsPress = async () => {
     try {
-      const res = await ApiClient().get("/task/search", {
+      const res = await ApiClient().get("/searchList/search", {
         params: {
           searchTitle: searchQuery,
           searchLocation: selectedCity,

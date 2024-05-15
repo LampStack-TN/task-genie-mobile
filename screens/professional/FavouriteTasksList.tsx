@@ -89,7 +89,11 @@ const FavouriteTasksList = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    paddingHorizontal: 18,
+    paddingVertical: 15,
+    overflow: "hidden",
+    rowGap: 11,
+    backgroundColor: "#fff",
   },
 });
 

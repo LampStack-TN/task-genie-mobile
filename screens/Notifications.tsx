@@ -9,7 +9,7 @@ import {
 import { FC } from "react";
 import { useSelector } from "react-redux";
 
-const Notifications: FC = () => {
+const Notifications: FC<any> = ({ navigation }) => {
   const {
     notifications,
     _count: { notifications: count },
@@ -24,14 +24,25 @@ const Notifications: FC = () => {
         // refreshing={refreshing}
         contentContainerStyle={styles.container}
         data={notifications}
-        renderItem={({ item }) => (
+        renderItem={({ item, item: { isRead } }) => (
           <Pressable
             onPress={() => {
               alert("notilla");
             }}
           >
-            <View style={styles.notification}>
-              <Pressable onPress={() => alert("pro")}>
+            <View
+              style={[
+                styles.notification,
+                isRead && { backgroundColor: "#fff" },
+              ]}
+            >
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("ProfileDetails", {
+                    userId: item.notifier.id,
+                  })
+                }
+              >
                 <Image
                   source={{
                     uri: item.notifier.avatar,

@@ -28,7 +28,11 @@ const Notifications: FC<any> = ({ navigation }) => {
         renderItem={({ item, item: { isRead } }) => (
           <Pressable
             onPress={() => {
-              handleNotificationPressClient(item.type, item.targetEntityId);
+              handleNotificationPressClient(
+                item.id,
+                item.type,
+                item.targetEntityId
+              );
             }}
           >
             <View

@@ -16,7 +16,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import { getDistance } from "geolib";
 import Slider from "@react-native-community/slider";
 import { useSelector } from "react-redux";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import Button from "../../components/ui/Button";
 
 const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -194,9 +195,9 @@ const TaskList = ({ navigation }) => {
         <Ionicons name="options" size={24} color="black" />
       </Pressable>
 
-      {SliderVisible && ( 
+      {SliderVisible && (
         <>
-        <Search onSearchResults={handleSearchResults} />
+          <Search onSearchResults={handleSearchResults} />
           <Text>Distance {distanceFilter} KM</Text>
           <Slider
             style={{ height: 50 }}
@@ -347,6 +348,10 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#e6eaf1",
+  },
+  button: {
+    alignSelf: "flex-end",
+    marginTop: 10,
   },
 });
 

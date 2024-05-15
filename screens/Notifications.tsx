@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { FC } from "react";
 import { useSelector } from "react-redux";
+import { handleNotificationPressClient } from "../utils/handleNotificationPress";
 
 const Notifications: FC<any> = ({ navigation }) => {
   const {
@@ -27,7 +28,7 @@ const Notifications: FC<any> = ({ navigation }) => {
         renderItem={({ item, item: { isRead } }) => (
           <Pressable
             onPress={() => {
-              alert("notilla");
+              handleNotificationPressClient(item.type, item.targetEntityId);
             }}
           >
             <View
@@ -51,7 +52,14 @@ const Notifications: FC<any> = ({ navigation }) => {
                 />
               </Pressable>
               <Text style={styles.userInfo}>
-                <Text style={styles.profileName} onPress={() => alert("pro")}>
+                <Text
+                  style={styles.profileName}
+                  onPress={() =>
+                    navigation.navigate("ProfileDetails", {
+                      userId: item.notifier.id,
+                    })
+                  }
+                >
                   {item.notifier.fullName}
                 </Text>{" "}
                 <Text style={styles.userTitle}>{item.message}</Text>
@@ -81,7 +89,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   notification: {
-    backgroundColor: "#e6eaf1",
+    backgroundColor: "#ced5e4",
     // alignItems: "center",
     flexDirection: "row",
     gap: 12,

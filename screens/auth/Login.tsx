@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";
 import { ApiClient } from "../../utils/api";
+import { registerForPushNotificationsAsync } from "../../utils/registerForPushNotificationsAsync";
 
 const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,13 @@ const Login = ({ navigation }) => {
       password: "",
     },
   });
+
+  const setUpPushToken = async () => {
+    try {
+      const pushToken = await registerForPushNotificationsAsync();
+      await ApiClient().post("/notification/add-token", { pushToken });
+    } catch (error) {}
+  };
 
   const checkAuthentication = async () => {
     try {
@@ -51,6 +59,7 @@ const Login = ({ navigation }) => {
       setLoading(false);
       checkAuthentication();
       await AsyncStorage.setItem("token", acessToken);
+      setUpPushToken();
     } catch (error) {
       setLoading(false);
       alert("Server Error");

@@ -30,6 +30,16 @@ import { navigationRef } from "./navigations/RootNavigation";
 
 const Stack = createNativeStackNavigator();
 
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
 function App() {
   return (
     <Provider store={store}>

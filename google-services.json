@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "968995763730",
+    "project_id": "task-genie-1ab0a",
+    "storage_bucket": "task-genie-1ab0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968995763730:android:66d85679a008830ea20acb",
+        "android_client_info": {
+          "package_name": "com.ryodagg.taskGenie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnQpJol_2yQuIw86MTcQd8xRUrMYH2vMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

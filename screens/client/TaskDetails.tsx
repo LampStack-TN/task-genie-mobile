@@ -21,7 +21,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const taskId = route.params.taskId;
+  const taskId = route.params.taskId || route.params.id;
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);

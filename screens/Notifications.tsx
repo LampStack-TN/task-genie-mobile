@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { FC } from "react";
 import { useSelector } from "react-redux";
+import { handleNotificationPressClient } from "../utils/handleNotificationPress";
 
 const Notifications: FC<any> = ({ navigation }) => {
   const {
@@ -15,7 +16,7 @@ const Notifications: FC<any> = ({ navigation }) => {
     _count: { notifications: count },
   } = useSelector((state: any) => state.user);
 
-  console.log(count, notifications);
+  console.log(count, notifications[0]);
 
   return (
     <View style={{ backgroundColor: "#fff", flex: 1 }}>
@@ -27,7 +28,11 @@ const Notifications: FC<any> = ({ navigation }) => {
         renderItem={({ item, item: { isRead } }) => (
           <Pressable
             onPress={() => {
-              alert("notilla");
+              handleNotificationPressClient(
+                item.id,
+                item.type,
+                item.targetEntityId
+              );
             }}
           >
             <View
@@ -51,11 +56,21 @@ const Notifications: FC<any> = ({ navigation }) => {
                 />
               </Pressable>
               <Text style={styles.userInfo}>
-                <Text style={styles.profileName} onPress={() => alert("pro")}>
+                <Text
+                  style={styles.profileName}
+                  onPress={() =>
+                    navigation.navigate("ProfileDetails", {
+                      userId: item.notifier.id,
+                    })
+                  }
+                >
                   {item.notifier.fullName}
                 </Text>{" "}
-                <Text style={styles.userTitle}>{item.message}</Text>{" "}
-                <Text style={styles.userCity}>application applicant city</Text>
+                <Text style={styles.userTitle}>{item.message}</Text>
+                {"\n"}
+                <Text style={styles.userCity}>
+                  {item.content.slice(0, 28)}...
+                </Text>
               </Text>
             </View>
           </Pressable>
@@ -78,7 +93,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   notification: {
-    backgroundColor: "#e6eaf1",
+    backgroundColor: "#ced5e4",
     // alignItems: "center",
     flexDirection: "row",
     gap: 12,
@@ -99,17 +114,17 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "500",
   },
   profileName: {
-    color: "#4E4E4E",
+    color: "#3c5a93",
   },
   userTitle: {
-    color: "#6e6e6e",
+    color: "#4e4e4e",
     fontWeight: "400",
   },
   userCity: {
-    color: "#F58D61",
+    color: "#4e4e4e",
   },
 });

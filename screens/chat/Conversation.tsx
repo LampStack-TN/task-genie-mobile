@@ -87,6 +87,23 @@ const Conversation = ({ route, navigation }) => {
       }}
       style={styles.container}
     >
+      <Pressable>
+        {({ pressed }) => (
+          <View
+            style={[styles.profile, pressed && { backgroundColor: "#f0f0f0" }]}
+          >
+            <Image
+              source={{
+                uri: participant?.avatar,
+              }}
+              style={styles.profilePhoto}
+            />
+            <View>
+              <Text style={styles.profileName}>{participant?.fullName}</Text>
+            </View>
+          </View>
+        )}
+      </Pressable>
       <View style={styles.chatContainer}>
         {messages?.map((item, i) => (
           <View key={i} style={item.isMine ? styles.myMessage : styles.message}>
@@ -94,7 +111,7 @@ const Conversation = ({ route, navigation }) => {
               source={{
                 uri: participant?.avatar,
               }}
-              style={styles.profilePhoto}
+              style={styles.chatPhoto}
             />
             <View style={item.isMine ? styles.myChatBubble : styles.chatBubble}>
               <Text
@@ -130,13 +147,13 @@ export default Conversation;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
     overflow: "hidden",
     flex: 1,
     backgroundColor: "#fff",
   },
   chatContainer: {
-    padding: 8,
+    overflow: "hidden",
+    padding: 14,
     flex: 1,
     flexDirection: "column-reverse",
     gap: 12,
@@ -170,7 +187,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 2,
     backgroundColor: "#0C3178",
   },
-  profilePhoto: {
+  chatPhoto: {
     backgroundColor: "#669",
     width: 40,
     height: 40,
@@ -180,6 +197,7 @@ const styles = StyleSheet.create({
     borderColor: "#F58D6180",
   },
   inputView: {
+    margin: 14,
     backgroundColor: "#fff",
     minHeight: 60,
     paddingHorizontal: 22,
@@ -199,4 +217,27 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   inputIcon: {},
+  profile: {
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 12,
+    padding: 14,
+    paddingBottom: 12,
+    borderBottomWidth: 0.5,
+    borderColor: "#c5c5c5",
+  },
+  profilePhoto: {
+    backgroundColor: "#669",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "#F58D6180",
+  },
+  profileName: {
+    fontSize: 22,
+    fontWeight: "500",
+    color: "#0C3178",
+  },
 });

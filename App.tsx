@@ -31,6 +31,7 @@ import { navigationRef } from "./navigations/RootNavigation";
 const Stack = createNativeStackNavigator();
 
 import * as Notifications from "expo-notifications";
+import Pending from "./screens/professional/Pending";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -83,10 +84,14 @@ const Main = () => {
                   <BottomNavUser />
                 </View>
               ) : user.profile ? (
-                <View style={{ flex: 1, backgroundColor: "#fff" }}>
-                  <ProNavigator Stack={Stack} />
-                  <BottomNavPro />
-                </View>
+                user.profile.isVerified ? (
+                  <View style={{ flex: 1, backgroundColor: "#fff" }}>
+                    <ProNavigator Stack={Stack} />
+                    <BottomNavPro />
+                  </View>
+                ) : (
+                  <Pending />
+                )
               ) : (
                 <ProfileForm />
               )

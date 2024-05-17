@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
   },
   stepContainer: {
     alignSelf: "flex-start",
-    marginBottom: 20,
-    paddingTop: 1,
+    marginBottom:20,
+    paddingTop:1,
   },
   errorText: {
     color: "red",
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   heading: {
-    paddingTop: 60,
+    paddingTop: 20,
     fontSize: 30,
     fontWeight: "bold",
     color: "#0C3178",

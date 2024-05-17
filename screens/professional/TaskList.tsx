@@ -26,7 +26,7 @@ const TaskList = ({ navigation }) => {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const [distanceFilter, setDistance] = useState(9000);
+  // const [distanceFilter, setDistance] = useState(9000);
   const [SliderVisible, setSliderVisible] = useState(false);
 
   const user = useSelector((state: any) => state.user);
@@ -77,13 +77,14 @@ const TaskList = ({ navigation }) => {
             latitude: task.latitude,
             longitude: task.longitude,
           };
+console.log(taskLocation,"eee");
 
           const distance = getDistance(userLocation, taskLocation);
-          console.log(userLocation, "kiki");
+          // console.log(userLocation, "kiki");
 
           const distanceKm = distance / 1000;
-          console.log(distanceKm, "hhh");
-          return distanceKm < distanceFilter;
+          // console.log(distanceKm, "hhh");
+          return distanceKm < 1000;
         })
       );
     } catch (error) {
@@ -198,18 +199,18 @@ const TaskList = ({ navigation }) => {
       {SliderVisible && (
         <>
           <Search onSearchResults={handleSearchResults} />
-          <Text>Distance {distanceFilter} KM</Text>
-          <Slider
+          {/* <Text>Distance {distanceFilter} KM</Text> */}
+          {/* <Slider
             style={{ height: 50 }}
             minimumValue={0}
-            maximumValue={6000}
+            maximumValue={9000}
             step={1}
             value={distanceFilter}
             minimumTrackTintColor="#FFFFFF"
             maximumTrackTintColor="#000000"
             onValueChange={setDistance}
             onSlidingComplete={fetchTasks}
-          />
+          /> */}
         </>
       )}
 

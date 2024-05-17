@@ -15,8 +15,9 @@ const BottomNavUser: React.FC = () => {
 
   const navItems = [
     { id: 1, screen: "MyTasks", icon: "task-alt", size: 32 },
-    { id: 2, screen: "AddTask", icon: "add-circle", size: 45 },
-    { id: 3, screen: "notifications", icon: "notifications", size: 32 },
+    { id: 2, screen: "ConversationList", icon: "wechat", size: 32 },
+    { id:3, screen: "AddTask", icon: "add-circle", size: 45 },
+    { id: 4, screen: "notifications", icon: "notifications", size: 32 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
   return (

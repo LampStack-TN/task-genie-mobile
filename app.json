@@ -11,7 +11,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ryodagg.taskGenie"
@@ -30,6 +32,12 @@
       "eas": {
         "projectId": "42cd248b-c0f4-4a2f-b4e4-f094e73f1874"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/42cd248b-c0f4-4a2f-b4e4-f094e73f1874"
     }
   }
 }

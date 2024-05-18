@@ -1,11 +1,13 @@
 import React, { useState, useCallback } from "react";
-import { View, ScrollView, StyleSheet, Text, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { Tasks } from "../../types/TaskTypes";
 import UserTaskCard from "../../components/client/TaskCard";
 import { ApiClient } from "../../utils/api";
 import Header from "../../components/ui/Header";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
+import TaskCard from "../../components/ui/TaskCard";
+import TaskActions from "../../components/client/taskList/TaskActions";
 
 const UserTaskList = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);
@@ -43,12 +45,9 @@ const UserTaskList = ({ navigation }: any) => {
         data={tasks}
         contentContainerStyle={styles.scrollContainer}
         renderItem={({ item: task }) => (
-          <UserTaskCard
-            key={task.id}
-            task={task}
-            navigation={navigation}
-            handleDelete={handleDelete}
-          />
+          <TaskCard key={task.id} task={task} navigate={navigation.navigate}>
+            <TaskActions task={task} navigate={navigation.navigate} />
+          </TaskCard>
         )}
       />
     </View>

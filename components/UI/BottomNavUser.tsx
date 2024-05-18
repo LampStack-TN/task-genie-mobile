@@ -4,22 +4,28 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import SlideUp from "./SlideUp";
 import { navigationRef } from "../../navigations/RootNavigation";
+import useKeyboardOpen from "../../utils/useKeyboardOpen";
 
 const BottomNavUser: React.FC = () => {
   const navigation = useNavigation();
   const [slideOn, setSlideOn] = useState(false);
   const [currentScreen, setScreen] = useState("MyTasks");
-  console.log(currentScreen);
+
+  const isKeyboardOpen = useKeyboardOpen();
 
   const toggleSlide = () => setSlideOn(!slideOn);
 
   const navItems = [
     { id: 1, screen: "MyTasks", icon: "task-alt", size: 32 },
     { id: 2, screen: "ConversationList", icon: "wechat", size: 32 },
-    { id:3, screen: "AddTask", icon: "add-circle", size: 45 },
+    { id: 3, screen: "AddTask", icon: "add-circle", size: 45 },
     { id: 4, screen: "notifications", icon: "notifications", size: 32 },
     // { id: 3, screen: "ProfileIndex", icon: "user" },
   ];
+
+  if (isKeyboardOpen) {
+    return <></>;
+  }
   return (
     <>
       <View style={styles.navContainer}>

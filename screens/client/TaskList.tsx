@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { View, ScrollView, StyleSheet, Text } from "react-native";
+import { View, ScrollView, StyleSheet, Text, FlatList } from "react-native";
 import { Tasks } from "../../types/TaskTypes";
 import UserTaskCard from "../../components/client/TaskCard";
 import { ApiClient } from "../../utils/api";
@@ -13,6 +13,7 @@ const UserTaskList = ({ navigation }: any) => {
   const fetchTasks = async () => {
     try {
       const { data } = await ApiClient().get("/task/my-tasks");
+      setTasks(data);
     } catch (error) {
       console.error(error);
     }
@@ -38,16 +39,18 @@ const UserTaskList = ({ navigation }: any) => {
       <Header title="My Tasks List">
         <MaterialIcons name="task-alt" size={32} color="#93543a" />
       </Header>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {tasks.map((task, i) => (
+      <FlatList
+        data={tasks}
+        contentContainerStyle={styles.scrollContainer}
+        renderItem={({ item: task }) => (
           <UserTaskCard
-            key={task.id + i + ""}
+            key={task.id}
             task={task}
             navigation={navigation}
             handleDelete={handleDelete}
           />
-        ))}
-      </ScrollView>
+        )}
+      />
     </View>
   );
 };

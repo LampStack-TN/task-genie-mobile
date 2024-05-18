@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { View, ScrollView, StyleSheet, Text } from "react-native";
 import { Tasks } from "../../types/TaskTypes";
 import UserTaskCard from "../../components/client/TaskCard";
 import { ApiClient } from "../../utils/api";
 import Header from "../../components/ui/Header";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 const UserTaskList = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);
@@ -12,15 +13,16 @@ const UserTaskList = ({ navigation }: any) => {
   const fetchTasks = async () => {
     try {
       const { data } = await ApiClient().get("/task/my-tasks");
-      setTasks([...data, ...data, ...data, ...data]);
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchTasks();
+    }, [])
+  );
 
   const handleDelete = async (taskId) => {
     try {

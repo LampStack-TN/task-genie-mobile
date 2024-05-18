@@ -2,7 +2,7 @@
   "expo": {
     "name": "Task Genie",
     "slug": "taskGenie",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -11,9 +11,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ryodagg.taskGenie"
@@ -23,7 +21,8 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.ryodagg.taskGenie"
+      "package": "com.ryodagg.taskGenie",
+      "googleServicesFile": "google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

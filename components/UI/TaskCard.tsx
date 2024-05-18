@@ -20,7 +20,7 @@ const TaskCard = ({ task, children, navigate }) => {
   return (
     <Pressable onPress={() => navigate("TaskDetails", { taskId: task.id })}>
       {({ pressed }) => (
-        <View style={[styles.card, pressed && { backgroundColor: "#eff9fe" }]}>
+        <View style={[styles.card, pressed && { backgroundColor: "#f0f0f0" }]}>
           <View style={styles.header}>
             {task.client && (
               <Image

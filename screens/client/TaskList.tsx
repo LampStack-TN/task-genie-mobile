@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { ImageBackground, ScrollView, StyleSheet, Text } from "react-native";
+import { View, ScrollView, StyleSheet, Text } from "react-native";
 import { Tasks } from "../../types/TaskTypes";
 import UserTaskCard from "../../components/client/TaskCard";
 import { ApiClient } from "../../utils/api";
-
-import gradient from "../../assets/images/orange_gradient.png";
+import Header from "../../components/ui/Header";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const UserTaskList = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<Tasks[]>([]);
 
   const fetchTasks = async () => {
     try {
-      const response = await ApiClient().get("/task/my-tasks");
-      setTasks(response.data);
+      const { data } = await ApiClient().get("/task/my-tasks");
+      setTasks([...data, ...data, ...data, ...data]);
     } catch (error) {
       console.error(error);
     }
@@ -32,24 +32,21 @@ const UserTaskList = ({ navigation }: any) => {
   };
 
   return (
-    <ImageBackground
-      source={gradient}
-      imageStyle={{ opacity: 0.6 }}
-      resizeMode="cover"
-      style={styles.container}
-    >
-      <ScrollView style={{ flex: 1 }}>
-        <Text style={styles.title}>My Tasks,</Text>
-        {tasks.map((task) => (
+    <View style={styles.container}>
+      <Header title="My Tasks List">
+        <MaterialIcons name="task-alt" size={32} color="#93543a" />
+      </Header>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {tasks.map((task, i) => (
           <UserTaskCard
-            key={task.id}
+            key={task.id + i + ""}
             task={task}
             navigation={navigation}
             handleDelete={handleDelete}
           />
         ))}
       </ScrollView>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -57,15 +54,12 @@ export default UserTaskList;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    overflow: "hidden",
     flex: 1,
-    backgroundColor: "#fff",
-    paddingTop: 28,
   },
-  title: {
-    fontSize: 32,
-    fontWeight: "600",
-    color: "#2e2e2e",
+  scrollContainer: {
+    padding: 20,
+    // overflow: "hidden",
+    flexGrow: 1,
+    backgroundColor: "#fff",
   },
 });

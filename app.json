@@ -22,7 +22,8 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ryodagg.taskGenie",
-      "googleServicesFile": "google-services.json"
+      "googleServicesFile": "google-services.json",
+      "useNextNotificationsApi": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,6 +38,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/42cd248b-c0f4-4a2f-b4e4-f094e73f1874"
-    }
+    },
+    "plugins": ["expo-notifications"]
   }
 }

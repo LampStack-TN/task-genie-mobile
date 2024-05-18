@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { Tasks } from "../../types/TaskTypes";
-import UserTaskCard from "../../components/client/TaskCard";
 import { ApiClient } from "../../utils/api";
 import Header from "../../components/ui/Header";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -26,15 +25,6 @@ const UserTaskList = ({ navigation }: any) => {
       fetchTasks();
     }, [])
   );
-
-  const handleDelete = async (taskId) => {
-    try {
-      await ApiClient().del(`/task/delete/${taskId}`);
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <View style={styles.container}>

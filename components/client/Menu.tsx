@@ -56,7 +56,7 @@ const ProMenu = () => {
               <MaterialIcons
                 name={item.icon as never}
                 size={32}
-                color="#0C3178e0"
+                color="#a83e11"
               />
               <Text style={styles.buttonText}>{item.title}</Text>
             </View>
@@ -90,6 +90,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 24,
     fontWeight: "600",
-    color: "#2e2e2e",
+    color: "#030e24",
   },
 });

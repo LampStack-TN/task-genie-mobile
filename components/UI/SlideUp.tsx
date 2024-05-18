@@ -64,6 +64,7 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
             alignItems: "flex-start",
             paddingHorizontal: 22,
             paddingVertical: 8,
+            backgroundColor:"#fdeee8a0"
           }}
         >
           <Pressable
@@ -72,7 +73,7 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
               // position: "absolute",
               // bottom: 20,
               // left: 20,
-              backgroundColor: "#0C3178",
+              backgroundColor: "#051532",
               padding: 10,
               gap: 5,
               borderRadius: 22,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 85,
     alignItems: "center",
-    backgroundColor: "#0C3178",
+    backgroundColor: "#082254",
     paddingHorizontal: 18,
     overflow: "hidden",
     borderBottomWidth: 1,

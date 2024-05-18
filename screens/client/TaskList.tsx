@@ -26,6 +26,15 @@ const UserTaskList = ({ navigation }: any) => {
     }, [])
   );
 
+  const handleDelete = async (taskId) => {
+    try {
+      await ApiClient().del(`/task/delete/${taskId}`);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header title="My Tasks List">
@@ -36,7 +45,11 @@ const UserTaskList = ({ navigation }: any) => {
         contentContainerStyle={styles.scrollContainer}
         renderItem={({ item: task }) => (
           <TaskCard key={task.id} task={task} navigate={navigation.navigate}>
-            <TaskActions task={task} navigate={navigation.navigate} />
+            <TaskActions
+              task={task}
+              navigate={navigation.navigate}
+              handleDelete={handleDelete}
+            />
           </TaskCard>
         )}
       />

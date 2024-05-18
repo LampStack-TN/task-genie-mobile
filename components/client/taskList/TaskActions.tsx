@@ -1,12 +1,15 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import Confirmation from "../../ui/Confirmation";
 
-const TaskActions = ({ task, navigate }) => {
+const TaskActions = ({ task, navigate, handleDelete }) => {
+  const [deletionModal, setDeletionModal] = useState(false);
+  const toggleDeletionModal = () => setDeletionModal(!deletionModal);
   return (
     <>
       <View style={styles.applicantCount}>
         <Text style={styles.applicantText}>
-          {task._count
+          {task._count.applications
             ? task._count.applications + " People Applied"
             : "No one Applied Yet"}
         </Text>
@@ -18,7 +21,7 @@ const TaskActions = ({ task, navigate }) => {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => 1}>
+        <TouchableOpacity onPress={toggleDeletionModal}>
           <Text style={styles.deleteText}>Delete</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.editButton}>
@@ -32,6 +35,15 @@ const TaskActions = ({ task, navigate }) => {
           </Text>
         </TouchableOpacity>
       </View>
+      <Confirmation
+        {...{
+          modalVisible: deletionModal,
+          setModalVisible: setDeletionModal,
+          onConfirm: () => handleDelete(task.id),
+          message: "Are you sure?",
+          confirmColor: "#a02020",
+        }}
+      />
     </>
   );
 };

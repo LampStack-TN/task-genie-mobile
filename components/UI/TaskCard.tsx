@@ -1,20 +1,6 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
-} from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import Button from "../ui/Button";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 
-const colors = {
-  Pending: "#0C3178",
-  Accepted: "#0c6778",
-  Rejected: "#780c0c",
-  Complete: "#31780c",
-};
+import { MaterialIcons } from "@expo/vector-icons";
 
 const TaskCard = ({ task, children, navigate }) => {
   return (
@@ -45,7 +31,7 @@ const TaskCard = ({ task, children, navigate }) => {
                 <Text style={styles.propertyText}>{task.dueDate}</Text>
               </View>
             </View>
-            <View style={styles.footer}>{children}</View>
+            <View style={styles.actions}>{children}</View>
           </View>
         </View>
       )}
@@ -102,7 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
   },
-  footer: {
+  actions: {
     alignItems: "flex-end",
     justifyContent: "flex-end",
     gap: 4,

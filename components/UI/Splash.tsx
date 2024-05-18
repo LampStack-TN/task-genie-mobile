@@ -1,4 +1,4 @@
-import { ImageBackground, Text, View } from "react-native";
+import { ActivityIndicator, ImageBackground, Text, View } from "react-native";
 import React from "react";
 import splash from "../../assets/splash.png";
 
@@ -13,18 +13,19 @@ const Splash = () => {
         height: "100%", // Set the height to cover the entire container
       }}
     >
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <View
           style={{
-            color: "#fff",
-            fontSize: 50,
-            backgroundColor: "#00000090",
-            textAlign: "center",
-            fontWeight: "700",
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 0.5,
           }}
         >
-          Temporary Loading Message
-        </Text>
+          <ActivityIndicator
+            size={"large"}
+            color={"#f58d61"}
+          ></ActivityIndicator>
+        </View>
       </View>
     </ImageBackground>
   );

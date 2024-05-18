@@ -1,9 +1,15 @@
-import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  StatusBar,
+} from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addTask } from "../../../redux/slices/TaskSlice";
 import Button from "../../ui/Button";
-
 export default function JobDescription({ navigation }) {
   // Select task state from Redux store
   const dispatch = useDispatch();
@@ -31,8 +37,8 @@ export default function JobDescription({ navigation }) {
       contentContainerStyle={styles.container}
       keyboardShouldPersistTaps="handled"
     >
-      <View style={styles.stepContainer}>
-        <Text style={styles.heading}>Step 1</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Step 1</Text>
         <Text
           style={{
             marginBottom: 10,
@@ -44,19 +50,22 @@ export default function JobDescription({ navigation }) {
         </Text>
       </View>
 
-      <View style={styles.inputContainer}>
+      <View style={styles.section}>
         <Controller
           control={control}
           rules={{
             required: { value: true, message: "Title is required" },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="Title"
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Title</Text>
+              <TextInput
+                placeholder="Title"
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="title"
         />
@@ -70,12 +79,15 @@ export default function JobDescription({ navigation }) {
             required: { value: true, message: "Description is required" },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="Description"
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Description</Text>
+              <TextInput
+                placeholder="Description"
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="description"
         />
@@ -89,12 +101,15 @@ export default function JobDescription({ navigation }) {
             required: { value: true, message: "Location is required" },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="Location"
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Location</Text>
+              <TextInput
+                placeholder="Location"
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+            </View>
           )}
           name="location"
         />
@@ -121,77 +136,77 @@ export default function JobDescription({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 25,
     backgroundColor: "#fff",
+    display: "flex",
+    flexGrow: 1,
+    padding: 10,
   },
-  stepContainer: {
-    alignSelf: "flex-start",
-    marginBottom: 20,
-    paddingTop: 1,
-  },
-  heading: {
-    paddingTop: 60,
-    fontSize: 40,
-    fontWeight: "bold",
-    color: "#0C3178",
-  },
-  inputContainer: {
-    width: "100%",
-    alignItems: "center",
-    gap: 15,
+  header: {
+    alignItems: "flex-start",
+    paddingHorizontal: 10,
+    paddingVertical: 20,
     justifyContent: "center",
-    paddingHorizontal: 11,
-  },
-  input: {
-    backgroundColor: "#fff",
-    height: 60,
-    width: 350,
-    paddingHorizontal: 22,
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: "#e5e5e5",
-    marginBottom: 20,
-    fontSize: 14,
-    elevation: 3,
-  },
-  largeInput: {
-    height: 120,
-  },
-  text: {
-    color: "#0C3178",
-    paddingVertical: 4 * 2,
-    paddingHorizontal: 20,
-    fontSize: 20,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-  },
-  textt: {
-    paddingVertical: 4 * 2,
-    paddingHorizontal: 20,
-    fontSize: 20,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "#0C3178",
-  },
-  button1: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 50,
-    borderColor: "#0C3178",
-    borderWidth: 2,
-    elevation: 3,
-    backgroundColor: "#fff",
-    overflow: "hidden",
+    paddingLeft: 10,
   },
   footer: {
     flexDirection: "row",
-    backgroundColor: "#fff",
-    paddingHorizontal: 8,
-    paddingVertical: 22,
+    paddingHorizontal: 22,
+    paddingVertical: 8,
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  section: {
+    // backgroundColor: "#f0f0f0",
+    gap: 15,
+    flex: 1,
+    // borderWidth: 2,
+    marginTop: 30,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
+  },
+  back: {
+    position: "absolute",
+    top: 32,
+    left: 16,
+    fontSize: 18,
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "#0C3178",
+  },
+  subTitle: {
+    fontSize: 18,
+    fontWeight: "400",
+    color: "#6e6e6e",
+  },
+  inputView: {
+    backgroundColor: "#fff",
+    height: 60,
+    paddingHorizontal: 22,
+    borderRadius: 30,
+    borderColor: "#e5e5e5",
+    borderWidth: 1,
+    fontSize: 14,
+    justifyContent: "center",
+    elevation: 3,
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
+  },
+  input: {
+    fontSize: 14,
+  },
+  inputIcon: {
+    position: "absolute",
+    top: 9,
+    right: 12,
   },
 });

@@ -33,15 +33,15 @@ const TaskCard = ({ task, children, navigate }) => {
           <View style={styles.subHeader}>
             <View style={styles.properties}>
               <View style={styles.property}>
-                <MaterialIcons name="place" size={22} color="#4336F4" />
+                <MaterialIcons name="place" size={22} color="#1a1561" />
                 <Text style={styles.propertyText}>{task.location}</Text>
               </View>
               <View style={styles.property}>
-                <MaterialIcons name="timelapse" size={22} color="#f44336" />
+                <MaterialIcons name="timelapse" size={22} color="#611a15" />
                 <Text style={styles.propertyText}>Urgency: {task.urgency}</Text>
               </View>
               <View style={styles.property}>
-                <MaterialIcons name="access-time" size={22} color="#4CAF50" />
+                <MaterialIcons name="access-time" size={22} color="#1e4620" />
                 <Text style={styles.propertyText}>{task.dueDate}</Text>
               </View>
             </View>

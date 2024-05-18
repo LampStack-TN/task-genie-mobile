@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, Modal, Pressable, Image } from "react-native";
+import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUser } from "../../redux/slices/userSlice";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import ProMenu from "../client/Menu";
+import Modal from "react-native-modal";
 
 const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
   const dispatch = useDispatch();
@@ -12,77 +13,78 @@ const SlideUp = ({ slideOn, toggleSlide, navigation }) => {
 
   return (
     <Modal
-      animationType="slide"
-      transparent={true}
-      visible={slideOn}
-      onRequestClose={toggleSlide}
+      animationIn={"slideInUp"}
+      animationOut={"slideOutDown"}
+      animationInTiming={400}
+      animationOutTiming={400}
+      isVisible={slideOn}
+      onSwipeStart={console.log}
+      style={styles.modalOverlay}
     >
-      <Pressable onPress={toggleSlide} style={styles.modalOverlay}>
-        <Pressable
-          style={styles.modal}
-          onPress={(event) => event.stopPropagation()}
-        >
-          <View style={styles.modalHeader}>
-            <Pressable
-              onPress={() => {
-                navigation.navigate("ProfileIndex");
-                toggleSlide();
-              }}
-              style={{ flex: 1 }}
-            >
-              {({ pressed }) => (
-                <View
-                  style={[
-                    styles.profile,
-                    pressed && { backgroundColor: "#f0f0f0" },
-                  ]}
-                >
-                  <Image
-                    source={{
-                      uri: user.avatar,
-                    }}
-                    style={styles.profilePhoto}
-                  />
-                  <Text style={styles.profileName}>{user.fullName}</Text>
-                </View>
-              )}
-            </Pressable>
-            <Pressable onPress={toggleSlide}>
-              <View style={styles.modalClose}>
-                <Entypo name="chevron-down" size={24} color="#4e4e4e" />
+      <Pressable
+        style={styles.modal}
+        onPress={(event) => event.stopPropagation()}
+      >
+        <View style={styles.modalHeader}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("ProfileIndex");
+              toggleSlide();
+            }}
+            style={{ flex: 1 }}
+          >
+            {({ pressed }) => (
+              <View
+                style={[
+                  styles.profile,
+                  pressed && { backgroundColor: "#f0f0f0" },
+                ]}
+              >
+                <Image
+                  source={{
+                    uri: user.avatar,
+                  }}
+                  style={styles.profilePhoto}
+                />
+                <Text style={styles.profileName}>{user.fullName}</Text>
               </View>
-            </Pressable>
-          </View>
-          <View style={styles.slideMenu}>
-            <ProMenu />
-          </View>
-          <View
+            )}
+          </Pressable>
+          <Pressable onPress={toggleSlide}>
+            <View style={styles.modalClose}>
+              <Entypo name="chevron-down" size={24} color="#4e4e4e" />
+            </View>
+          </Pressable>
+        </View>
+        <View style={styles.slideMenu}>
+          <ProMenu />
+        </View>
+        <View
+          style={{
+            alignItems: "flex-start",
+            paddingHorizontal: 22,
+            paddingVertical: 8,
+          }}
+        >
+          <Pressable
             style={{
-              alignItems: "flex-start",
-              paddingHorizontal: 22,
-              paddingVertical: 8,
+              // flexDirection: "row",
+              // position: "absolute",
+              // bottom: 20,
+              // left: 20,
+              backgroundColor: "#0C3178",
+              padding: 10,
+              gap: 5,
+              borderRadius: 22,
+            }}
+            onPress={() => {
+              AsyncStorage.removeItem("token");
+              dispatch(setUser(null));
             }}
           >
-            <Pressable
-              style={{
-                // flexDirection: "row",
-                // position: "absolute",
-                // bottom: 20,
-                // left: 20,
-                backgroundColor: "#0C3178",
-                padding: 10,
-                gap: 5,
-                borderRadius: 22,
-              }}
-              onPress={() => {
-                AsyncStorage.removeItem("token");
-                dispatch(setUser(null));
-              }}
-            >
-              <MaterialIcons name="logout" size={22} color="white" />
-            </Pressable>
-          </View>
-        </Pressable>
+            <MaterialIcons name="logout" size={22} color="white" />
+          </Pressable>
+        </View>
       </Pressable>
     </Modal>
   );
@@ -93,12 +95,10 @@ export default SlideUp;
 const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
-    justifyContent: "center",
-    // backgroundColor: "rgba(0, 0, 0, 0.5)",
-    position: "relative",
     width: "100%",
     height: "100%",
     padding: 0,
+    margin: 0,
   },
   modal: {
     backgroundColor: "white",

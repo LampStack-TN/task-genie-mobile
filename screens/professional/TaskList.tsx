@@ -78,7 +78,7 @@ const TaskList = ({ navigation }) => {
             latitude: task.latitude,
             longitude: task.longitude,
           };
-          console.log(taskLocation, "eee");
+          // console.log(taskLocation, "eee");
 
           const distance = getDistance(userLocation, taskLocation);
           // console.log(userLocation, "kiki");

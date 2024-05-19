@@ -33,8 +33,8 @@ const Button = ({
       borderRadius: 50,
       // elevation: style == "bare" ? 0 : 1,
       overflow: "hidden",
-      paddingHorizontal: size === "sm" ? 20 : 30,
-      paddingVertical: size === "sm" ? 10 : 20,
+      paddingHorizontal: size === "sm" ? 18 : 28,
+      paddingVertical: size === "sm" ? 8 : 18,
     },
     outline: {
       borderWidth: 1,

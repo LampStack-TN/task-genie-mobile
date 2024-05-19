@@ -5,6 +5,8 @@ import {
   TextInput,
   ActivityIndicator,
   StatusBar,
+  Image,
+  ScrollView,
 } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/userSlice";
 import { ApiClient } from "../../utils/api";
 import { registerForPushNotificationsAsync } from "../../utils/registerForPushNotificationsAsync";
+import logoText from "../../assets/images/logo_text.png";
 
 const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -73,102 +76,115 @@ const Login = ({ navigation }) => {
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.section}>
-          <Text style={styles.title}>Sign In</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: { value: true, message: "Email is required" },
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
-                message: "Invalid Email",
-              },
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <View style={styles.inputView}>
-                <Text style={styles.inputLabel}>Email</Text>
-                <TextInput
-                  onChangeText={onChange}
-                  placeholder="Email"
-                  value={value}
-                  style={styles.input}
-                />
-              </View>
-            )}
-            name="email"
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={logoText}
+            resizeMode="contain"
+            style={{ height: 100, width: "auto" }}
           />
-          {errors.email && (
-            <Text style={{ color: "#f01010" }}>{errors.email.message}</Text>
-          )}
-
-          <Controller
-            control={control}
-            rules={{
-              minLength: {
-                value: 8,
-                message: "Must be at least 8 characters",
-              },
-              required: { value: true, message: "Password is required" },
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <View style={styles.inputView}>
-                <Text style={styles.inputLabel}>Password</Text>
-                <TextInput
-                  onChangeText={onChange}
-                  secureTextEntry={true}
-                  placeholder="Password"
-                  value={value}
-                  style={styles.input}
-                />
-              </View>
-            )}
-            name="password"
-          />
-          {errors.password && (
-            <Text style={{ color: "#f01010" }}>{errors.password.message}</Text>
-          )}
-
-          <View style={{ marginTop: 18 }}>
-            <Button
-              label="Sign In"
-              style="fill"
-              callback={handleSubmit(onSubmit)}
-            />
-          </View>
-          <Text
-            style={{
-              textAlign: "center",
-              color: "#1E5BD2",
-              fontSize: 18,
-              paddingBottom: 22,
-              marginHorizontal: 40,
-              textDecorationLine: "underline",
-              borderBottomWidth: 1,
-              borderBottomColor: "#c4c4c4",
-            }}
-          >
-            Forgot password?
-          </Text>
-          <Text
-            style={{
-              textAlign: "center",
-              color: "#4e4e4e",
-              fontSize: 18,
-            }}
-          >
-            Don’t have an account?
-          </Text>
-          <View style={{ paddingHorizontal: "20%" }}>
-            <Button
-              label="Register"
-              style="fill"
-              color="#2e2e2e"
-              callback={() => navigation.navigate("Register")}
-            />
-          </View>
         </View>
-      </View>
+        <View
+          style={{
+            marginHorizontal: 40,
+            borderBottomWidth: 1,
+            borderBottomColor: "#c4c4c4",
+          }}
+        >
+        </View>
+        <Text style={styles.title}>Sign In</Text>
+        <Controller
+          control={control}
+          rules={{
+            required: { value: true, message: "Email is required" },
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
+              message: "Invalid Email",
+            },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Email</Text>
+              <TextInput
+                onChangeText={onChange}
+                placeholder="Email"
+                value={value}
+                style={styles.input}
+              />
+            </View>
+          )}
+          name="email"
+        />
+        {errors.email && (
+          <Text style={{ color: "#f01010" }}>{errors.email.message}</Text>
+        )}
+
+        <Controller
+          control={control}
+          rules={{
+            minLength: {
+              value: 8,
+              message: "Must be at least 8 characters",
+            },
+            required: { value: true, message: "Password is required" },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputView}>
+              <Text style={styles.inputLabel}>Password</Text>
+              <TextInput
+                onChangeText={onChange}
+                secureTextEntry={true}
+                placeholder="Password"
+                value={value}
+                style={styles.input}
+              />
+            </View>
+          )}
+          name="password"
+        />
+        {errors.password && (
+          <Text style={{ color: "#f01010" }}>{errors.password.message}</Text>
+        )}
+
+        <View style={{ marginTop: 18 }}>
+          <Button
+            label="Sign In"
+            style="fill"
+            callback={handleSubmit(onSubmit)}
+          />
+        </View>
+        <Text
+          style={{
+            textAlign: "center",
+            color: "#1E5BD2",
+            fontSize: 18,
+            paddingBottom: 22,
+            marginHorizontal: 40,
+            textDecorationLine: "underline",
+            borderBottomWidth: 1,
+            borderBottomColor: "#c4c4c4",
+          }}
+        >
+          Forgot password?
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            color: "#4e4e4e",
+            fontSize: 18,
+          }}
+        >
+          Don’t have an account?
+        </Text>
+        <View style={{ paddingHorizontal: "20%" }}>
+          <Button
+            label="Register"
+            style="light"
+            color="#2e2e2e"
+            callback={() => navigation.navigate("Register")}
+          />
+        </View>
+      </ScrollView>
       {loading ? (
         <View style={styles.spinner}>
           <ActivityIndicator size="large" color="#0C3178" />
@@ -184,27 +200,15 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
-    display: "flex",
-    flex: 1,
-    margin: 10,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  header: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: 10,
-    paddingVertical: 25,
-  },
-  section: {
     justifyContent: "center",
     backgroundColor: "#fff",
-    flex: 3,
+    flexGrow: 1,
     gap: 15,
     height: 50,
-    marginTop: 30,
     paddingHorizontal: 11,
+    marginTop: StatusBar.currentHeight || 0,
   },
+
   title: {
     textAlign: "center",
     fontSize: 36,
@@ -243,5 +247,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
+  },
+  imageContainer: {
+    marginVertical: 11,
   },
 });

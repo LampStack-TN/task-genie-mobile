@@ -8,7 +8,6 @@ import {
   FlatList,
 } from "react-native";
 import Modal from "react-native-modal";
-import TaskCard from "../../components/professional/TaskCard";
 import { Task } from "../../types/Task";
 import { ApiClient } from "../../utils/api";
 import Search from "../../components/professional/search";
@@ -18,6 +17,8 @@ import Slider from "@react-native-community/slider";
 import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import Button from "../../components/ui/Button";
+import TaskCard from "../../components/ui/TaskCard";
+import TaskActions from "../../components/professional/taskList/TaskActions";
 
 const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -77,7 +78,7 @@ const TaskList = ({ navigation }) => {
             latitude: task.latitude,
             longitude: task.longitude,
           };
-console.log(taskLocation,"eee");
+          console.log(taskLocation, "eee");
 
           const distance = getDistance(userLocation, taskLocation);
           // console.log(userLocation, "kiki");
@@ -193,7 +194,7 @@ console.log(taskLocation,"eee");
         style={styles.buttomTop}
         onPress={() => setSliderVisible(!SliderVisible)}
       >
-        <Ionicons name="options" size={24} color="black" />
+        <Ionicons name="options" size={32} color="#438cab" />
       </Pressable>
 
       {SliderVisible && (
@@ -225,12 +226,14 @@ console.log(taskLocation,"eee");
               navigation.navigate("ProDetails", { taskId: task.id })
             }
           >
-            <TaskCard
-              task={task}
-              onApply={() => handleApplyToTask(task)}
-              onCancel={cancelApplication}
-              onToggleLike={() => toggleLikeTask(task.id)}
-            />
+            <TaskCard task={task} navigate={navigation.navigate}>
+              <TaskActions
+                task={task}
+                onApply={() => handleApplyToTask(task)}
+                onCancel={cancelApplication}
+                onToggleLike={() => toggleLikeTask(task.id)}
+              />
+            </TaskCard>
           </Pressable>
         )}
         keyExtractor={(item) => item.id}
@@ -291,7 +294,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     overflow: "hidden",
     rowGap: 11,
-    backgroundColor: "#fff",
+    backgroundColor: "#132831",
   },
   modalContent: {
     backgroundColor: "white",
@@ -345,10 +348,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   buttomTop: {
-    backgroundColor: "#ced5e4",
+    backgroundColor: "#051532",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#e6eaf1",
+    borderBottomColor: "#492a1d",
   },
   button: {
     alignSelf: "flex-end",

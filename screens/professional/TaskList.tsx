@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     overflow: "hidden",
     rowGap: 11,
-    backgroundColor: "#132831",
+    backgroundColor: "#f8f8f8",
   },
   modalContent: {
     backgroundColor: "white",
@@ -348,10 +348,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   buttomTop: {
-    backgroundColor: "#051532",
+    backgroundColor: "#e6eaf1",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#492a1d",
+    borderBottomColor: "#c5c5c5",
   },
   button: {
     alignSelf: "flex-end",

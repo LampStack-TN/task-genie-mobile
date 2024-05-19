@@ -9,7 +9,6 @@ import Button from "../../ui/Button";
 export default function SkillsForm({ navigation }) {
   const dispatch = useDispatch();
 
-  
   const { control, handleSubmit } = useForm({
     defaultValues: {
       skills: [],
@@ -44,10 +43,15 @@ export default function SkillsForm({ navigation }) {
               valueField="id"
               placeholder="Skills"
               searchPlaceholder="Search..."
+              search={true}
               value={value}
               onChange={onChange}
               selectedStyle={styles.skillPill}
               selectedTextStyle={styles.skillText}
+              containerStyle={{
+                paddingHorizontal: 14,
+                borderRadius: 30,
+              }}
             />
           )}
           name="skills"

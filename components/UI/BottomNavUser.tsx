@@ -1,10 +1,11 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import SlideUp from "./SlideUp";
 import { navigationRef } from "../../navigations/RootNavigation";
 import useKeyboardOpen from "../../utils/useKeyboardOpen";
+import logoDark from "../../assets/images/logo_dark.png";
 
 const BottomNavUser: React.FC = () => {
   const navigation = useNavigation();
@@ -65,13 +66,11 @@ const BottomNavUser: React.FC = () => {
         ))}
         <View style={styles.navItem}>
           <Pressable onPress={toggleSlide} style={styles.navIcon}>
-            {({ pressed }) => (
-              <MaterialIcons
-                name="menu"
-                size={32}
-                color={pressed ? "#0C3178" : "#051532"}
-              />
-            )}
+            <Image
+              source={logoDark}
+              style={{ height: 45, width: 45 }}
+              resizeMode="contain"
+            />
           </Pressable>
           <SlideUp {...{ slideOn, toggleSlide, navigation }} />
         </View>

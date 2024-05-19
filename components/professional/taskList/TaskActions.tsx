@@ -11,7 +11,7 @@ const colors = {
 
 const TaskActions = ({ task, onApply, onCancel, onToggleLike }) => {
   return (
-    <View style={{ flexDirection: "row", gap: 4 }}>
+    <View style={{ flexDirection: "row", gap: 4, alignItems: "flex-end" }}>
       <Button
         label={task.applied ? task.applications[0].status + "..." : "Aplly"}
         style={task.applied ? "light" : "fill"}

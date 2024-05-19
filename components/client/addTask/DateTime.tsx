@@ -27,9 +27,9 @@ export type Task = {
   clientId?: number;
 };
 const data = [
-  { label: "high", value: "high" },
-  { label: "low", value: "low" },
-  { label: "Soon", value: "Soon" },
+  { label: "High", value: "high" },
+  { label: "Low", value: "low" },
+  { label: "Medium", value: "medium" },
 ];
 export default function DateTime({ navigation }) {
   //
@@ -86,8 +86,8 @@ export default function DateTime({ navigation }) {
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.stepContainer}>
-          <Text style={styles.heading}>Step 3</Text>
+        <View style={styles.header}>
+          <Text style={styles.title}>Step 3</Text>
           <Text
             style={{
               marginBottom: 10,
@@ -98,47 +98,56 @@ export default function DateTime({ navigation }) {
             Time & Date
           </Text>
         </View>
-        <View style={styles.inputContainer}>
+        <View style={styles.section}>
           <Controller
             control={control}
             rules={{
               required: { value: true, message: " Date is required" },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <View>
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Due Date</Text>
                 <TextInput
                   editable={false}
-                  placeholder="Date & Time"
+                  placeholder="-- / -- / ----"
                   value={value}
                   style={[
                     styles.input,
                     { color: "#4e4e4e", fontWeight: "600" },
                   ]}
                 />
+                <View style={styles.inputIcon}>
+                  <Pressable onPress={() => setShowDatePicker(true)}>
+                    <Ionicons
+                      name="calendar-clear"
+                      size={24}
+                      color="#F58D6180"
+                    />
+                  </Pressable>
+                </View>
               </View>
             )}
             name="dueDate"
           />
-          <View style={[styles.inputIcon, { zIndex: 999 }]}>
-            <Pressable onPress={() => setShowDatePicker(true)}>
-              <Ionicons name="calendar-clear" size={24} color="#F58D6180" />
-            </Pressable>
-          </View>
           {errors.dueDate && (
             <Text style={{ color: "#f01010" }}>{errors.dueDate.message}</Text>
           )}
           <Controller
             control={control}
             rules={{
-              required: { value: true, message: "MinPrice is required" },
+              required: { value: true, message: "Minimum Price is required" },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                placeholder="minPrice"
-                onChangeText={onChange}
-                value={value}
-                style={styles.input}
-              />
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Minimum Price</Text>
+                <TextInput
+                inputMode="decimal"
+                  placeholder="-- TND"
+                  onChangeText={onChange}
+                  value={value}
+                  style={styles.input}
+                />
+              </View>
             )}
             name="minPrice"
           />
@@ -147,16 +156,22 @@ export default function DateTime({ navigation }) {
           )}
           <Controller
             control={control}
-            rules={{
-              required: { value: true, message: "maxPrice is required" },
-            }}
+            rules={
+              {
+                // required: { value: true, message: "maxPrice is required" },
+              }
+            }
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                placeholder="maxPrice"
-                onChangeText={onChange}
-                value={value}
-                style={styles.input}
-              />
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Maximum Price (Optional)</Text>
+                <TextInput
+                inputMode="decimal"
+                  placeholder="-- TND"
+                  onChangeText={onChange}
+                  value={value}
+                  style={styles.input}
+                />
+              </View>
             )}
             name="maxPrice"
           />
@@ -169,18 +184,21 @@ export default function DateTime({ navigation }) {
               required: { value: true, message: "Urgency is required" },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <Dropdown
-                placeholder="Urgency"
-                labelField="label"
-                valueField="value"
-                data={data}
-                onChange={(item) => {
-                  onChange(item.value);
-                }}
-                value={value}
-                style={[styles.input]}
-                containerStyle={{ borderRadius: 30 }}
-              />
+              <View style={styles.inputView}>
+                <Text style={styles.inputLabel}>Urgency</Text>
+                <Dropdown
+                  placeholder="Urgency"
+                  labelField="label"
+                  valueField="value"
+                  data={data}
+                  onChange={(item) => {
+                    onChange(item.value);
+                  }}
+                  value={value}
+                  style={[styles.input]}
+                  containerStyle={{ borderRadius: 30 }}
+                />
+              </View>
             )}
             name="urgency"
           />
@@ -222,50 +240,77 @@ export default function DateTime({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 20,
     backgroundColor: "#fff",
+    display: "flex",
+    flexGrow: 1,
+    padding: 10,
   },
-
-  stepContainer: {
-    alignSelf: "flex-start",
-    marginBottom: 25,
-  },
-  heading: {
-    paddingTop: 60,
-    fontSize: 40,
-    fontWeight: "bold",
-    color: "#0C3178",
-  },
-  inputContainer: {
-    width: "100%",
-    gap: 15,
-    paddingHorizontal: 11,
-  },
-  input: {
-    backgroundColor: "#fff",
-    height: 60,
-    width: 350,
-    paddingHorizontal: 22,
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: "#e5e5e5",
-    marginBottom: 30,
-    fontSize: 15,
-    elevation: 3,
+  header: {
+    alignItems: "flex-start",
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    justifyContent: "center",
+    paddingLeft: 10,
   },
   footer: {
     flexDirection: "row",
-    backgroundColor: "#fff",
     paddingHorizontal: 22,
     paddingVertical: 8,
+    alignItems: "center",
     justifyContent: "space-between",
   },
-  inputIcon: {
-    position: "absolute",
-    top: 17,
-    right: 35,
+  section: {
+    // backgroundColor: "#f0f0f0",
+    gap: 15,
+    flex: 1,
+    // borderWidth: 2,
+    marginTop: 30,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
   },
+  back: {
+    position: "absolute",
+    top: 32,
+    left: 16,
+    fontSize: 18,
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "#0C3178",
+  },
+  subTitle: {
+    fontSize: 18,
+    fontWeight: "400",
+    color: "#6e6e6e",
+  },
+  inputView: {
+    backgroundColor: "#fff",
+    height: 60,
+    paddingHorizontal: 22,
+    borderRadius: 30,
+    borderColor: "#e5e5e5",
+    borderWidth: 1,
+    fontSize: 14,
+    alignItems: "center",
+    elevation: 3,
+    flexDirection: "row",
+  },
+  inputLabel: {
+    fontSize: 14,
+    position: "absolute",
+    top: -10,
+    left: 22,
+    color: "#F58D61",
+    backgroundColor: "#fff",
+    paddingLeft: 5,
+    paddingRight: 8,
+  },
+  input: {
+    flex: 1,
+    fontSize: 14,
+  },
+  inputIcon: {},
   dateContainer: {
     backgroundColor: "#00000080",
     position: "absolute",

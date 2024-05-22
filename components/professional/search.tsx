@@ -7,8 +7,10 @@ import {
   ImageBackground,
   Pressable,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import { Ionicons } from "@expo/vector-icons";
+
+import { Dropdown } from "react-native-element-dropdown";
+
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { ApiClient } from "../../utils/api";
 import cities from "../../data/cities.json";
 import City from "../../types/city";
@@ -16,15 +18,15 @@ import orange_gradient from "../../assets/images/orange_gradient.png";
 import SearchProps from "../../types/searchFunc";
 
 const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [selectedCity, setSelectedCity] = useState<string>("");
+  const [qury, setQuery] = useState("");
+  const [city, setCity] = useState("");
 
   const onFindJobsPress = async () => {
     try {
       const res = await ApiClient().get("/searchList/search", {
         params: {
-          searchTitle: searchQuery,
-          searchLocation: selectedCity,
+          searchTitle: qury,
+          searchLocation: city,
         },
       });
       if (onSearchResults) {
@@ -45,33 +47,33 @@ const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
         <TextInput
           placeholder="Job, Title, Skill, Expertise..."
           style={styles.input}
-          value={searchQuery}
-          onChangeText={setSearchQuery}
+          value={qury}
+          onChangeText={setQuery}
         />
         <Ionicons name="search" size={24} color="#cb6e17" />
       </View>
       <View style={[styles.inputView]}>
-        <Picker
-          selectedValue={selectedCity}
-          style={styles.picker}
-          onValueChange={(itemValue, itemIndex) => setSelectedCity(itemValue)}
-          placeholder="Governorate..."
-        >
-          <Picker.Item
-            label="Governorate..."
-            value=""
-            style={{ color: "#c5c5c5" }}
-          />
-          {cities.map((city: City) => (
-            <Picker.Item key={city.id} label={city.name} value={city.name} />
-          ))}
-        </Picker>
-        <Ionicons
-          name="location-sharp"
-          size={24}
-          color="#cb6e17"
-          style={styles.icon}
+        <Dropdown
+          style={[styles.dropdown]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={[{ id: 0, name: null }, ...cities]}
+          search
+          maxHeight={300}
+          labelField="name"
+          valueField="name"
+          placeholder={'Gouvernorat'}
+          searchPlaceholder="Search..."
+          value={city}
+          // onFocus={() => setIsFocus(true)}
+          // onBlur={() => setIsFocus(false)}
+          onChange={(item) => {
+            setCity(item.name);
+          }}
         />
+        <Ionicons name="location-sharp" size={24} color="#cb6e17" />
       </View>
       <Pressable onPress={onFindJobsPress} style={styles.button}>
         <Text style={styles.buttonText}>Find Jobs</Text>
@@ -117,9 +119,27 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
-  picker: {
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+  dropdown: {
     flex: 1,
-    color: "#cb6e17",
+    height: 50,
+    borderColor: "gray",
+    // borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
   },
 });
 export default Search;

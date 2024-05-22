@@ -297,6 +297,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     rowGap: 11,
     backgroundColor: "#f8f8f8",
+    flexGrow: 1,
   },
   modalContent: {
     backgroundColor: "white",

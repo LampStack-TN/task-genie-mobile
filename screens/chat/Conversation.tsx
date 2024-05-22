@@ -109,7 +109,7 @@ const Conversation = ({ route, navigation }) => {
           <View key={i} style={item.isMine ? styles.myMessage : styles.message}>
             <Image
               source={{
-                uri: participant?.avatar,
+                uri: item.isMine ? user.avatar : participant?.avatar,
               }}
               style={styles.chatPhoto}
             />

@@ -65,7 +65,7 @@ const ProNavigator = ({ Stack }) => {
         options={{ title: "Favorite Tasks" }}
       />
       <Stack.Screen
-        name="ProDetails"
+        name="TaskDetails"
         component={proDetails}
         options={{ headerShown: false }}
       />

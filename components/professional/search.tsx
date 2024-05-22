@@ -14,7 +14,7 @@ import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { ApiClient } from "../../utils/api";
 import cities from "../../data/cities.json";
 import City from "../../types/city";
-import orange_gradient from "../../assets/images/orange_gradient.png";
+import blue_gradient from "../../assets/images/blue_gradient.png";
 import SearchProps from "../../types/searchFunc";
 
 const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
@@ -38,10 +38,10 @@ const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
   };
   return (
     <ImageBackground
-      source={orange_gradient}
+      source={blue_gradient}
       style={styles.container}
       imageStyle={{ backgroundColor: "#fff" }}
-      resizeMode="cover"
+      resizeMode="stretch"
     >
       <View style={styles.inputView}>
         <TextInput
@@ -64,7 +64,7 @@ const Search: React.FC<SearchProps> = ({ onSearchResults }: SearchProps) => {
           maxHeight={300}
           labelField="name"
           valueField="name"
-          placeholder={'Gouvernorat'}
+          placeholder={"Gouvernorat"}
           searchPlaceholder="Search..."
           value={city}
           // onFocus={() => setIsFocus(true)}
@@ -85,6 +85,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 15,
     gap: 12,
+    borderBottomWidth: 1,
+    borderColor: "#93543a80",
   },
   inputView: {
     backgroundColor: "#fff",

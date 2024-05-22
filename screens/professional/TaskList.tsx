@@ -190,12 +190,14 @@ const TaskList = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Pressable
-        style={styles.buttomTop}
-        onPress={() => setSliderVisible(!SliderVisible)}
-      >
-        <Ionicons name="options" size={32} color="#438cab" />
-      </Pressable>
+      <View style={styles.buttomTop}>
+        <Pressable
+          style={styles.filterButton}
+          onPress={() => setSliderVisible(!SliderVisible)}
+        >
+          <Ionicons name="options" size={32} color="#2e2e2e" />
+        </Pressable>
+      </View>
 
       {SliderVisible && (
         <>
@@ -348,14 +350,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   buttomTop: {
-    backgroundColor: "#e6eaf1",
-    padding: 20,
+    backgroundColor: "#071d48",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    alignItems: "flex-end",
     borderBottomWidth: 1,
-    borderBottomColor: "#c5c5c5",
+    borderBottomColor: "#091418",
   },
-  button: {
-    alignSelf: "flex-end",
-    marginTop: 10,
+  filterButton: {
+    backgroundColor: "#a0def9",
+    padding: 8,
+    borderRadius: 25,
+    elevation: 3,
   },
 });
 

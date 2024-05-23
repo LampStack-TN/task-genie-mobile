@@ -68,26 +68,7 @@ const TaskList = ({ navigation }) => {
   const fetchTasks = async () => {
     try {
       const { data } = await ApiClient().get("/task/getAll");
-      setTasks(
-        data.filter((task) => {
-          const userLocation = {
-            latitude: user.latitude,
-            longitude: user.longitude,
-          };
-          const taskLocation = {
-            latitude: task.latitude,
-            longitude: task.longitude,
-          };
-          // console.log(taskLocation, "eee");
-
-          const distance = getDistance(userLocation, taskLocation);
-          // console.log(userLocation, "kiki");
-
-          const distanceKm = distance / 1000;
-          // console.log(distanceKm, "hhh");
-          return distanceKm < 1000;
-        })
-      );
+      setTasks(data);
     } catch (error) {
       console.error(error);
     }

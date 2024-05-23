@@ -149,8 +149,7 @@ const TaskDetails: React.FC = ({ route, navigation }: any) => {
       <View style={styles.header}>
         <Image
           source={{
-            uri: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg",
-            // uri: task.client?.avatar,
+            uri: task.client?.avatar,
           }}
           style={styles.avatar}
         />
